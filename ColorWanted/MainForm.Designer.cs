@@ -31,52 +31,34 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pnProxy = new System.Windows.Forms.Panel();
-            this.btnExit = new System.Windows.Forms.Label();
             this.lbHex = new System.Windows.Forms.Label();
             this.lbRgb = new System.Windows.Forms.Label();
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.visibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnProxy.SuspendLayout();
-            this.trayMenu.SuspendLayout();
+            this.autoPinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnProxy
             // 
             this.pnProxy.BackColor = System.Drawing.Color.White;
-            this.pnProxy.Controls.Add(this.btnExit);
-            this.pnProxy.Controls.Add(this.lbHex);
-            this.pnProxy.Controls.Add(this.lbRgb);
-            this.pnProxy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnProxy.Location = new System.Drawing.Point(0, 0);
+            this.pnProxy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnProxy.Location = new System.Drawing.Point(68, 0);
             this.pnProxy.Name = "pnProxy";
-            this.pnProxy.Size = new System.Drawing.Size(283, 36);
+            this.pnProxy.Size = new System.Drawing.Size(20, 20);
             this.pnProxy.TabIndex = 0;
             this.pnProxy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(260, 7);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(20, 20);
-            this.btnExit.TabIndex = 1;
-            this.btnExit.Text = "×";
-            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
             // lbHex
             // 
-            this.lbHex.AutoSize = true;
             this.lbHex.BackColor = System.Drawing.Color.Black;
             this.lbHex.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbHex.ForeColor = System.Drawing.Color.Lime;
-            this.lbHex.Location = new System.Drawing.Point(12, 7);
+            this.lbHex.Location = new System.Drawing.Point(0, 0);
             this.lbHex.Name = "lbHex";
             this.lbHex.Padding = new System.Windows.Forms.Padding(2);
             this.lbHex.Size = new System.Drawing.Size(68, 20);
@@ -87,11 +69,11 @@
             // 
             // lbRgb
             // 
-            this.lbRgb.AutoSize = true;
+            this.lbRgb.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbRgb.BackColor = System.Drawing.Color.Black;
             this.lbRgb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRgb.ForeColor = System.Drawing.Color.Lime;
-            this.lbRgb.Location = new System.Drawing.Point(98, 7);
+            this.lbRgb.Location = new System.Drawing.Point(88, 0);
             this.lbRgb.Name = "lbRgb";
             this.lbRgb.Padding = new System.Windows.Forms.Padding(2);
             this.lbRgb.Size = new System.Drawing.Size(140, 20);
@@ -104,56 +86,69 @@
             // 
             this.tray.BalloonTipText = "屏幕取色器正在工作";
             this.tray.BalloonTipTitle = "赏色";
-            this.tray.ContextMenuStrip = this.trayMenu;
+            this.tray.ContextMenuStrip = this.contextMenu;
             this.tray.Icon = ((System.Drawing.Icon)(resources.GetObject("tray.Icon")));
             this.tray.Text = "赏色-取色器";
             this.tray.Visible = true;
             // 
-            // trayMenu
+            // contextMenu
             // 
-            this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.visibleToolStripMenuItem,
+            this.autoPinToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
-            this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(115, 76);
+            this.contextMenu.Name = "trayMenu";
+            this.contextMenu.Size = new System.Drawing.Size(164, 98);
             // 
             // visibleToolStripMenuItem
             // 
             this.visibleToolStripMenuItem.Checked = true;
             this.visibleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.visibleToolStripMenuItem.Name = "visibleToolStripMenuItem";
-            this.visibleToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.visibleToolStripMenuItem.Text = "Visible";
-            this.visibleToolStripMenuItem.CheckedChanged += new System.EventHandler(this.visibleToolStripMenuItem_CheckedChanged);
+            this.visibleToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.visibleToolStripMenuItem.Text = "窗口可见(&V)";
+            this.visibleToolStripMenuItem.Click += new System.EventHandler(this.toggleVisible);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.aboutToolStripMenuItem.Text = "关于(&A)";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(111, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.exitToolStripMenuItem.Text = "退出(&E)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // autoPinToolStripMenuItem
+            // 
+            this.autoPinToolStripMenuItem.Checked = true;
+            this.autoPinToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoPinToolStripMenuItem.Name = "autoPinToolStripMenuItem";
+            this.autoPinToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.autoPinToolStripMenuItem.Text = "边缘自动吸附(&P)";
+            this.autoPinToolStripMenuItem.Click += new System.EventHandler(this.autoPinToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(283, 36);
+            this.ClientSize = new System.Drawing.Size(228, 20);
+            this.ContextMenuStrip = this.contextMenu;
             this.ControlBox = false;
             this.Controls.Add(this.pnProxy);
+            this.Controls.Add(this.lbHex);
+            this.Controls.Add(this.lbRgb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -167,10 +162,9 @@
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            this.pnProxy.ResumeLayout(false);
-            this.pnProxy.PerformLayout();
-            this.trayMenu.ResumeLayout(false);
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -180,13 +174,13 @@
         private System.Windows.Forms.Panel pnProxy;
         private System.Windows.Forms.Label lbRgb;
         private System.Windows.Forms.Label lbHex;
-        private System.Windows.Forms.Label btnExit;
         private System.Windows.Forms.NotifyIcon tray;
-        private System.Windows.Forms.ContextMenuStrip trayMenu;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visibleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autoPinToolStripMenuItem;
     }
 }
 

@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.label2 = new System.Windows.Forms.Label();
-            this.btnExit = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.llScm = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,19 +57,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "赏色(ColorWanted)";
             this.label2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(452, 1);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(20, 20);
-            this.btnExit.TabIndex = 3;
-            this.btnExit.Text = "×";
-            this.btnExit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // label1
             // 
@@ -201,14 +188,29 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 13;
-            this.label10.Text = "v1.0.1.0";
+            this.label10.Text = "v1.0.2.0";
+            // 
+            // btnExit
+            // 
+            this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnExit.Location = new System.Drawing.Point(445, 3);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(24, 23);
+            this.btnExit.TabIndex = 14;
+            this.btnExit.Text = "×";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(472, 410);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label8);
@@ -222,7 +224,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.llScm);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label2);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -243,7 +244,6 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label btnExit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel llScm;
         private System.Windows.Forms.Label label3;
@@ -257,5 +257,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button btnExit;
     }
 }

@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System;
 using System.Windows.Forms;
+using System.Text;
 namespace ColorWanted
 {
     class NativeMethods
@@ -38,5 +39,12 @@ namespace ColorWanted
         public const int WM_SYSCOMMAND = 0x0112;
         public const int SC_MOVE = 0xF010;
         public const int HTCAPTION = 0x0002;
+
+        [DllImport("kernel32", EntryPoint = "WritePrivateProfileString")]
+        public static extern long WriteIni(string section, string key, string val, string filePath);
+
+        [DllImport("kernel32", EntryPoint = "GetPrivateProfileString")]
+        public static extern int ReadIni(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
+
     }
 }
