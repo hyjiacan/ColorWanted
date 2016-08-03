@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ColorWanted
 {
@@ -25,6 +26,16 @@ namespace ColorWanted
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void llScm_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(llScm.Text);
+        }
+
+        private void llCopy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Clipboard.SetText(llScm.Text);
         }
     }
 }
