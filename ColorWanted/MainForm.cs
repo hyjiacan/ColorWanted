@@ -8,10 +8,9 @@ namespace ColorWanted
     {
         Timer timer;
         const int keyId = 111;
-        private bool backgroundTipShown;
         private bool iniloaded;
         private Screen screen;
-        AboutForm aboutForm;
+        private AboutForm aboutForm;
 
         public MainForm()
         {
@@ -19,63 +18,68 @@ namespace ColorWanted
 
             screen = Screen.PrimaryScreen;
 
-            var size = screen.Bounds;
-
-            Left = (size.Width - Width) / 2;
-            Top = 0;
-
             NativeMethods.RegisterHotKey(Handle, keyId, KeyModifiers.Alt, Keys.C);
             NativeMethods.RegisterHotKey(Handle, keyId + 1, KeyModifiers.Alt, Keys.G);
             NativeMethods.RegisterHotKey(Handle, keyId + 2, KeyModifiers.Alt, Keys.H);
         }
 
 
-        static public byte GetRValue(uint color)
-        {
-            return (byte)color;
-        }
-        static public byte GetGValue(uint color)
-        {
-            return ((byte)(((short)(color)) >> 8));
-        }
-        static public byte GetBValue(uint color)
-        {
-            return ((byte)((color) >> 16));
-        }
-        static public byte GetAValue(uint color)
-        {
-            return ((byte)((color) >> 24));
-        }
-        public Color GetColor(Point screenPoint)
-        {
-            IntPtr displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
-            uint colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
-            NativeMethods.DeleteDC(displayDC);
-            byte Red = GetRValue(colorref);
-            byte Green = GetGValue(colorref);
-            byte Blue = GetBValue(colorref);
-            return Color.FromArgb(Red, Green, Blue);
-        }
         private void timer_Tick(object sender, EventArgs e)
         {
             if (!iniloaded)
             {
-                LoadSettings();
-            }
+                restoreLocationToolStripMenuItem.Enabled =
+                showRgbToolStripMenuItem.Enabled =
+                autoPinToolStripMenuItem.Enabled =
+                visibleToolStripMenuItem.Checked =
+                Visible = Settings.FormVisible;
 
+                iniloaded = true;
+            }
             Point pt = new Point(Control.MousePosition.X, Control.MousePosition.Y);
-            Color cl = GetColor(pt);
-            pnProxy.BackColor = cl;
+            Color cl = ColorUtil.GetColor(pt);
             lbHex.Text = string.Format("#{0}{1}{2}", cl.R.ToString("X2"), cl.G.ToString("X2"), cl.B.ToString("X2"));
+
             lbRgb.Text = string.Format("RGB({0},{1},{2})", cl.R, cl.G, cl.B);
+
+            if (showRgbToolStripMenuItem.Checked)
+            {
+
+                lbRgb.BackColor = cl;
+
+                if (ColorUtil.isDark(cl) || ColorUtil.isSingle(cl))
+                {
+                    lbRgb.ForeColor = Color.White;
+                    return;
+                }
+
+                if (ColorUtil.isLight(cl) || ColorUtil.isGray(cl))
+                {
+                    lbRgb.ForeColor = Color.Black;
+                    return;
+                }
+
+                var diffr = 255 - cl.R;
+                var diffg = 255 - cl.G;
+                var diffb = 255 - cl.B;
+
+                lbRgb.ForeColor = Color.FromArgb(diffr, diffg, diffb);
+            }
+        }
+
+        private void SetDefaultLocation()
+        {
+            var size = screen.Bounds;
+
+            Left = (size.Width - Width) / 2;
+            Top = 0;
         }
 
         private void LoadSettings()
         {
             // 加载配置
-            var v = Settings.Get("visible");
-            visibleToolStripMenuItem.Checked = Visible = string.IsNullOrWhiteSpace(v) || v == "1";
-            var loc = Settings.Get("location");
+
+            var loc = Settings.Location;
             if (!string.IsNullOrWhiteSpace(loc))
             {
                 var arr = loc.Split(',');
@@ -93,10 +97,10 @@ namespace ColorWanted
                 }
             }
 
-            var p = Settings.Get("autopin");
-            autoPinToolStripMenuItem.Checked = string.IsNullOrWhiteSpace(p) || p == "1";
+            autoPinToolStripMenuItem.Checked = Settings.AutoPin;
 
-            iniloaded = true;
+            showRgbToolStripMenuItem.Checked = Settings.ShowRgb;
+            toggleRgb();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -144,48 +148,16 @@ namespace ColorWanted
             }
         }
 
-        private void toggleVisible(object sender, EventArgs e)
-        {
-            visibleToolStripMenuItem.Checked = Visible = !Visible;
-            if (iniloaded)
-            {
-                Settings.Set("visible", Visible ? "1" : "0");
-            }
-            if (!backgroundTipShown && !Visible)
-            {
-                backgroundTipShown = true;
-                tray.ShowBalloonTip(1000, "赏色", "取色器切换到后台运行", ToolTipIcon.Info);
-            }
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (aboutForm == null)
-            {
-                aboutForm = new AboutForm();
-            }
-            aboutForm.Show();
-        }
-
-        private void autoPinToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            autoPinToolStripMenuItem.Checked = !autoPinToolStripMenuItem.Checked;
-            if (iniloaded)
-            {
-                Settings.Set("autopin", autoPinToolStripMenuItem.Checked ? "1" : "0");
-            }
-        }
-
         private void MainForm_Load(object sender, EventArgs e)
         {
             Height = 20;
+
+            LoadSettings();
 
             timer = new Timer();
             timer.Interval = 100;
             timer.Tick += timer_Tick;
             timer.Start();
-
-            tray.ShowBalloonTip(1000);
         }
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
@@ -212,8 +184,69 @@ namespace ColorWanted
             }
             if (iniloaded)
             {
-                Settings.Set("location", Left + "," + Top);
+                Settings.Location = Left + "," + Top;
             }
         }
+
+        #region 托盘菜单
+
+
+        private void toggleVisible(object sender, EventArgs e)
+        {
+            restoreLocationToolStripMenuItem.Enabled =
+            showRgbToolStripMenuItem.Enabled =
+            autoPinToolStripMenuItem.Enabled =
+            visibleToolStripMenuItem.Checked =
+            Visible = !Visible;
+
+            if (iniloaded)
+            {
+                Settings.FormVisible = Visible;
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (aboutForm == null)
+            {
+                aboutForm = new AboutForm();
+            }
+            aboutForm.Show();
+        }
+
+        private void showRgbToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            item.Checked = !item.Checked;
+            toggleRgb();
+            if (iniloaded)
+            {
+                Settings.ShowRgb = item.Checked;
+            }
+        }
+
+        private void autoPinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            item.Checked = !item.Checked;
+            toggleRgb();
+            if (iniloaded)
+            {
+                Settings.AutoPin = item.Checked;
+            }
+        }
+
+        private void restoreLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetDefaultLocation();
+        }
+
+        private void toggleRgb()
+        {
+            bool showrgb = showRgbToolStripMenuItem.Checked;
+            lbRgb.Visible = showrgb;
+            Width = showrgb ? 208 : 68;
+        }
+        #endregion
     }
 }

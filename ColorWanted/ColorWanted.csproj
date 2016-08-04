@@ -55,6 +55,7 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ColorUtil.cs" />
     <Compile Include="KeyModifiers.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

@@ -15,11 +15,7 @@ namespace ColorWanted
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            var win = new MainForm();
-
-
-            Application.Run(win);
+            Application.Run(new MainForm());
         }
     }
 }

@@ -148,9 +148,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(93, 318);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(119, 12);
+            this.label7.Size = new System.Drawing.Size(143, 12);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Alt+G 复制RGB颜色值";
+            this.label7.Text = "Alt+G 复制RGB通道颜色值";
             // 
             // label8
             // 
