@@ -42,7 +42,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbVersion = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -181,14 +181,14 @@
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
-            // label10
+            // lbVersion
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(141, 124);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(53, 12);
-            this.label10.TabIndex = 13;
-            this.label10.Text = "v1.0.2.0";
+            this.lbVersion.AutoSize = true;
+            this.lbVersion.Location = new System.Drawing.Point(141, 124);
+            this.lbVersion.Name = "lbVersion";
+            this.lbVersion.Size = new System.Drawing.Size(53, 12);
+            this.lbVersion.TabIndex = 13;
+            this.lbVersion.Text = "v1.0.3.0";
             // 
             // btnExit
             // 
@@ -211,7 +211,7 @@
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(472, 410);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -231,6 +231,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";
+            this.Opacity = 0.8D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "关于-赏色";
@@ -256,7 +257,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Button btnExit;
     }
 }

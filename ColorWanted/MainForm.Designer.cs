@@ -36,10 +36,11 @@
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.visibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoPinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoPinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             this.pnProxy.Name = "pnProxy";
             this.pnProxy.Size = new System.Drawing.Size(20, 20);
             this.pnProxy.TabIndex = 0;
+            this.tooltip.SetToolTip(this.pnProxy, "使用 Alt+H 快速隐藏/显示此窗口");
             this.pnProxy.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // lbHex
@@ -65,6 +67,7 @@
             this.lbHex.TabIndex = 0;
             this.lbHex.Text = "#FFFFFF";
             this.lbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tooltip.SetToolTip(this.lbHex, "十六进制颜色值，快速复制：Alt+C");
             this.lbHex.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // lbRgb
@@ -80,6 +83,7 @@
             this.lbRgb.TabIndex = 0;
             this.lbRgb.Text = "RGB(255,255,255)";
             this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.tooltip.SetToolTip(this.lbRgb, "十六进制颜色值，快速复制：Alt+G");
             this.lbRgb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // tray
@@ -111,6 +115,15 @@
             this.visibleToolStripMenuItem.Text = "窗口可见(&V)";
             this.visibleToolStripMenuItem.Click += new System.EventHandler(this.toggleVisible);
             // 
+            // autoPinToolStripMenuItem
+            // 
+            this.autoPinToolStripMenuItem.Checked = true;
+            this.autoPinToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoPinToolStripMenuItem.Name = "autoPinToolStripMenuItem";
+            this.autoPinToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.autoPinToolStripMenuItem.Text = "边缘自动吸附(&P)";
+            this.autoPinToolStripMenuItem.Click += new System.EventHandler(this.autoPinToolStripMenuItem_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
@@ -130,21 +143,11 @@
             this.exitToolStripMenuItem.Text = "退出(&E)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // autoPinToolStripMenuItem
-            // 
-            this.autoPinToolStripMenuItem.Checked = true;
-            this.autoPinToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoPinToolStripMenuItem.Name = "autoPinToolStripMenuItem";
-            this.autoPinToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.autoPinToolStripMenuItem.Text = "边缘自动吸附(&P)";
-            this.autoPinToolStripMenuItem.Click += new System.EventHandler(this.autoPinToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(228, 20);
-            this.ContextMenuStrip = this.contextMenu;
             this.ControlBox = false;
             this.Controls.Add(this.pnProxy);
             this.Controls.Add(this.lbHex);
@@ -181,6 +184,7 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visibleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoPinToolStripMenuItem;
+        private System.Windows.Forms.ToolTip tooltip;
     }
 }
 

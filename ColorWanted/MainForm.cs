@@ -137,8 +137,11 @@ namespace ColorWanted
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
         {
-            NativeMethods.ReleaseCapture();
-            NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                NativeMethods.ReleaseCapture();
+                NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
+            }
         }
 
         private void toggleVisible(object sender, EventArgs e)

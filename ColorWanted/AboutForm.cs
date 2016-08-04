@@ -15,17 +15,22 @@ namespace ColorWanted
         public AboutForm()
         {
             InitializeComponent();
+
+            lbVersion.Text = Application.ProductVersion;
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
         {
-            NativeMethods.ReleaseCapture();
-            NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                NativeMethods.ReleaseCapture();
+                NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Close();
+            Hide();
         }
 
         private void llScm_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
