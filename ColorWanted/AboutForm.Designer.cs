@@ -44,6 +44,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lbVersion = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,9 +158,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(93, 339);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(149, 12);
+            this.label8.Size = new System.Drawing.Size(143, 12);
             this.label8.TabIndex = 11;
-            this.label8.Text = "Alt+H 显示或隐藏取色窗口";
+            this.label8.Text = "Alt+H 显示/隐藏取色窗口";
             // 
             // label9
             // 
@@ -203,6 +204,15 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(93, 361);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(149, 12);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Alt+F1 开启/关闭跟随模式";
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -213,6 +223,7 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -259,5 +270,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Label label10;
     }
 }

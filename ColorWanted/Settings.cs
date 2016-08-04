@@ -73,6 +73,19 @@ namespace ColorWanted
             }
         }
 
+        public static bool FollowCaret
+        {
+            get
+            {
+                var v = Get("follow");
+                return v != "" && v == "1";
+            }
+            set
+            {
+                Set("follow", value ? "1" : "0");
+            }
+        }
+
 
         public static string Location
         {

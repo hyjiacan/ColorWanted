@@ -35,7 +35,9 @@
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.visibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.followCaretToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showRgbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.restoreLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoPinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +91,8 @@
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.visibleToolStripMenuItem,
+            this.followCaretToolStripMenuItem,
+            this.toolStripSeparator2,
             this.showRgbToolStripMenuItem,
             this.restoreLocationToolStripMenuItem,
             this.autoPinToolStripMenuItem,
@@ -96,28 +100,40 @@
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenu.Name = "trayMenu";
-            this.contextMenu.Size = new System.Drawing.Size(178, 142);
+            this.contextMenu.Size = new System.Drawing.Size(194, 170);
             // 
             // visibleToolStripMenuItem
             // 
             this.visibleToolStripMenuItem.Checked = true;
             this.visibleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.visibleToolStripMenuItem.Name = "visibleToolStripMenuItem";
-            this.visibleToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.visibleToolStripMenuItem.Text = "窗口可见(&V)";
+            this.visibleToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.visibleToolStripMenuItem.Text = "窗口可见(Alt+H)";
             this.visibleToolStripMenuItem.Click += new System.EventHandler(this.toggleVisible);
+            // 
+            // followCaretToolStripMenuItem
+            // 
+            this.followCaretToolStripMenuItem.Name = "followCaretToolStripMenuItem";
+            this.followCaretToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.followCaretToolStripMenuItem.Text = "启动跟随模式(Alt+F1)";
+            this.followCaretToolStripMenuItem.Click += new System.EventHandler(this.followCaretToolStripMenuItem_Click);
             // 
             // showRgbToolStripMenuItem
             // 
             this.showRgbToolStripMenuItem.Name = "showRgbToolStripMenuItem";
-            this.showRgbToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.showRgbToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.showRgbToolStripMenuItem.Text = "显示RGB通道值(&R)";
             this.showRgbToolStripMenuItem.Click += new System.EventHandler(this.showRgbToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
             // 
             // restoreLocationToolStripMenuItem
             // 
             this.restoreLocationToolStripMenuItem.Name = "restoreLocationToolStripMenuItem";
-            this.restoreLocationToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.restoreLocationToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.restoreLocationToolStripMenuItem.Text = "重置窗口位置(&L)";
             this.restoreLocationToolStripMenuItem.Click += new System.EventHandler(this.restoreLocationToolStripMenuItem_Click);
             // 
@@ -126,26 +142,26 @@
             this.autoPinToolStripMenuItem.Checked = true;
             this.autoPinToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autoPinToolStripMenuItem.Name = "autoPinToolStripMenuItem";
-            this.autoPinToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.autoPinToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.autoPinToolStripMenuItem.Text = "边缘自动吸附(&P)";
             this.autoPinToolStripMenuItem.Click += new System.EventHandler(this.autoPinToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.aboutToolStripMenuItem.Text = "关于(&A)";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.exitToolStripMenuItem.Text = "退出(&E)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -191,6 +207,8 @@
         private System.Windows.Forms.ToolTip tooltip;
         private System.Windows.Forms.ToolStripMenuItem showRgbToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreLocationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem followCaretToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

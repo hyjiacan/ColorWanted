@@ -21,6 +21,7 @@ namespace ColorWanted
             NativeMethods.RegisterHotKey(Handle, keyId, KeyModifiers.Alt, Keys.C);
             NativeMethods.RegisterHotKey(Handle, keyId + 1, KeyModifiers.Alt, Keys.G);
             NativeMethods.RegisterHotKey(Handle, keyId + 2, KeyModifiers.Alt, Keys.H);
+            NativeMethods.RegisterHotKey(Handle, keyId + 3, KeyModifiers.Alt, Keys.F1);
         }
 
 
@@ -31,12 +32,30 @@ namespace ColorWanted
                 restoreLocationToolStripMenuItem.Enabled =
                 showRgbToolStripMenuItem.Enabled =
                 autoPinToolStripMenuItem.Enabled =
+                followCaretToolStripMenuItem.Enabled =
                 visibleToolStripMenuItem.Checked =
                 Visible = Settings.FormVisible;
+
+                followCaretToolStripMenuItem.Checked = Settings.FollowCaret;
+                if (followCaretToolStripMenuItem.Checked)
+                {
+                    restoreLocationToolStripMenuItem.Enabled =
+                    autoPinToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+                    LoadLocation();
+                }
 
                 iniloaded = true;
             }
             Point pt = new Point(Control.MousePosition.X, Control.MousePosition.Y);
+
+            if (Visible && followCaretToolStripMenuItem.Checked)
+            {
+                FollowCaret(Control.MousePosition.X, Control.MousePosition.Y);
+            }
+
             Color cl = ColorUtil.GetColor(pt);
             lbHex.Text = string.Format("#{0}{1}{2}", cl.R.ToString("X2"), cl.G.ToString("X2"), cl.B.ToString("X2"));
 
@@ -67,6 +86,34 @@ namespace ColorWanted
             }
         }
 
+        private void FollowCaret(int x, int y)
+        {
+            var size = screen.Bounds;
+
+            if (x <= size.Width - Width)
+            {
+
+                Left = x + 10;
+            }
+            else
+            {
+                Left = x - Width - 10;
+            }
+            if (y <= Height)
+            {
+
+                Top = y + 10;
+            }
+            else if (y < size.Height - Height * 2)
+            {
+                Top = y + 10;
+            }
+            else
+            {
+                Top = y - 30;
+            }
+        }
+
         private void SetDefaultLocation()
         {
             var size = screen.Bounds;
@@ -75,10 +122,8 @@ namespace ColorWanted
             Top = 0;
         }
 
-        private void LoadSettings()
+        private void LoadLocation()
         {
-            // 加载配置
-
             var loc = Settings.Location;
             if (!string.IsNullOrWhiteSpace(loc))
             {
@@ -96,11 +141,6 @@ namespace ColorWanted
                     }
                 }
             }
-
-            autoPinToolStripMenuItem.Checked = Settings.AutoPin;
-
-            showRgbToolStripMenuItem.Checked = Settings.ShowRgb;
-            toggleRgb();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -115,6 +155,7 @@ namespace ColorWanted
             NativeMethods.UnregisterHotKey(Handle, keyId);
             NativeMethods.UnregisterHotKey(Handle, keyId + 1);
             NativeMethods.UnregisterHotKey(Handle, keyId + 2);
+            NativeMethods.UnregisterHotKey(Handle, keyId + 3);
         }
 
         protected override void WndProc(ref Message m)
@@ -132,6 +173,9 @@ namespace ColorWanted
                         break;
                     case keyId + 2:
                         toggleVisible(null, null);
+                        break;
+                    case keyId + 3:
+                        followCaretToolStripMenuItem_Click(null, null);
                         break;
                 }
             }
@@ -152,7 +196,11 @@ namespace ColorWanted
         {
             Height = 20;
 
-            LoadSettings();
+            // 加载配置
+            autoPinToolStripMenuItem.Checked = Settings.AutoPin;
+
+            showRgbToolStripMenuItem.Checked = Settings.ShowRgb;
+            toggleRgb();
 
             timer = new Timer();
             timer.Interval = 100;
@@ -162,6 +210,10 @@ namespace ColorWanted
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
         {
+            if (followCaretToolStripMenuItem.Checked)
+            {
+                return;
+            }
             if (autoPinToolStripMenuItem.Checked)
             {
                 var size = screen.Bounds;
@@ -193,12 +245,13 @@ namespace ColorWanted
 
         private void toggleVisible(object sender, EventArgs e)
         {
-            restoreLocationToolStripMenuItem.Enabled =
-            showRgbToolStripMenuItem.Enabled =
-            autoPinToolStripMenuItem.Enabled =
+
             visibleToolStripMenuItem.Checked =
             Visible = !Visible;
 
+            restoreLocationToolStripMenuItem.Enabled =
+           showRgbToolStripMenuItem.Enabled =
+           autoPinToolStripMenuItem.Enabled = followCaretToolStripMenuItem.Checked ? false : Visible;
             if (iniloaded)
             {
                 Settings.FormVisible = Visible;
@@ -240,7 +293,22 @@ namespace ColorWanted
         {
             SetDefaultLocation();
         }
-
+        private void followCaretToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = followCaretToolStripMenuItem;
+            restoreLocationToolStripMenuItem.Enabled =
+                autoPinToolStripMenuItem.Enabled =
+            visibleToolStripMenuItem.Enabled = item.Checked;
+            item.Checked = !item.Checked;
+            if (!item.Checked)
+            {
+                LoadLocation();
+            }
+            if (iniloaded)
+            {
+                Settings.FollowCaret = item.Checked;
+            }
+        }
         private void toggleRgb()
         {
             bool showrgb = showRgbToolStripMenuItem.Checked;
