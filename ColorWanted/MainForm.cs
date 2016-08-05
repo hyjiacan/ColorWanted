@@ -84,6 +84,10 @@ namespace ColorWanted
 
                 lbRgb.ForeColor = Color.FromArgb(diffr, diffg, diffb);
             }
+            else
+            {
+                BackColor = cl;
+            }
         }
 
         private void FollowCaret(int x, int y)
@@ -313,7 +317,7 @@ namespace ColorWanted
         {
             bool showrgb = showRgbToolStripMenuItem.Checked;
             lbRgb.Visible = showrgb;
-            Width = showrgb ? 208 : 68;
+            Width = showrgb ? 208 : 88;
         }
         #endregion
     }
