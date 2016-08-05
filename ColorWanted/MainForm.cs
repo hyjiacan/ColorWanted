@@ -104,13 +104,13 @@ namespace ColorWanted
 
                 Top = y + 10;
             }
-            else if (y < size.Height - Height * 2)
+            else if (y < screen.WorkingArea.Height - Height)
             {
                 Top = y + 10;
             }
             else
             {
-                Top = y - 30;
+                Top = screen.WorkingArea.Height - Height;
             }
         }
 
@@ -229,9 +229,9 @@ namespace ColorWanted
                 {
                     Left = size.Width - Width;
                 }
-                else if (size.Height - Top - Height <= 16)
+                else if (screen.WorkingArea.Height - Top - Height <= 16)
                 {
-                    Top = size.Height - Height;
+                    Top = screen.WorkingArea.Height - Height;
                 }
             }
             if (iniloaded)
