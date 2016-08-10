@@ -41,11 +41,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.picLOGO = new System.Windows.Forms.PictureBox();
             this.lbVersion = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -172,15 +172,15 @@
             this.label9.TabIndex = 6;
             this.label9.Text = "关于";
             // 
-            // pictureBox1
+            // picLOGO
             // 
-            this.pictureBox1.Image = global::ColorWanted.Properties.Resources.logo;
-            this.pictureBox1.Location = new System.Drawing.Point(322, 56);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
+            this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
+            this.picLOGO.Location = new System.Drawing.Point(322, 56);
+            this.picLOGO.Name = "picLOGO";
+            this.picLOGO.Size = new System.Drawing.Size(64, 64);
+            this.picLOGO.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLOGO.TabIndex = 12;
+            this.picLOGO.TabStop = false;
             // 
             // lbVersion
             // 
@@ -222,7 +222,7 @@
             this.ClientSize = new System.Drawing.Size(472, 410);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lbVersion);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picLOGO);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -247,7 +247,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "关于-赏色";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,7 +267,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picLOGO;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label10;
