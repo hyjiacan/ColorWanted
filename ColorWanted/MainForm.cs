@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace ColorWanted
 {
@@ -206,6 +207,26 @@ namespace ColorWanted
             showRgbToolStripMenuItem.Checked = Settings.ShowRgb;
             toggleRgb();
 
+            // 读取开机启动的注册表
+            try
+            {
+                using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
+                {
+                    if (reg != null)
+                    {
+                        var path = reg.GetValue(Application.ProductName);
+                        if (path != null)
+                        {
+                            if (string.Equals(path.ToString(), "\"" + Application.ExecutablePath + "\"", StringComparison.OrdinalIgnoreCase))
+                            {
+                                autoStartToolStripMenuItem.Checked = true;
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
             timer = new Timer();
             timer.Interval = 100;
             timer.Tick += timer_Tick;
@@ -297,6 +318,33 @@ namespace ColorWanted
         {
             SetDefaultLocation();
         }
+
+        private void autoStartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            item.Checked = !item.Checked;
+
+            // 写注册表
+            try
+            {
+                using (var reg = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
+                {
+                    if (item.Checked)
+                    {
+                        reg.SetValue(Application.ProductName, "\"" + Application.ExecutablePath + "\"");
+                    }
+                    else
+                    {
+                        reg.DeleteValue(Application.ProductName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                tray.ShowBalloonTip(5000, "赏色", "设置开机启动失败:" + ex.Message, ToolTipIcon.Warning);
+            }
+        }
+
         private void followCaretToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var item = followCaretToolStripMenuItem;

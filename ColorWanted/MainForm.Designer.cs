@@ -36,13 +36,14 @@
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.visibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.followCaretToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showRgbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.showRgbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoPinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autoStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -92,15 +93,16 @@
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.visibleToolStripMenuItem,
             this.followCaretToolStripMenuItem,
-            this.toolStripSeparator2,
             this.showRgbToolStripMenuItem,
+            this.toolStripSeparator2,
             this.restoreLocationToolStripMenuItem,
             this.autoPinToolStripMenuItem,
+            this.autoStartToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.contextMenu.Name = "trayMenu";
-            this.contextMenu.Size = new System.Drawing.Size(194, 170);
+            this.contextMenu.Size = new System.Drawing.Size(194, 192);
             // 
             // visibleToolStripMenuItem
             // 
@@ -118,17 +120,17 @@
             this.followCaretToolStripMenuItem.Text = "启动跟随模式(Alt+F1)";
             this.followCaretToolStripMenuItem.Click += new System.EventHandler(this.followCaretToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
+            // 
             // showRgbToolStripMenuItem
             // 
             this.showRgbToolStripMenuItem.Name = "showRgbToolStripMenuItem";
             this.showRgbToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.showRgbToolStripMenuItem.Text = "显示RGB通道值(&R)";
             this.showRgbToolStripMenuItem.Click += new System.EventHandler(this.showRgbToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
             // 
             // restoreLocationToolStripMenuItem
             // 
@@ -164,6 +166,13 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.exitToolStripMenuItem.Text = "退出(&E)";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
+            // 
+            // autoStartToolStripMenuItem
+            // 
+            this.autoStartToolStripMenuItem.Name = "autoStartToolStripMenuItem";
+            this.autoStartToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.autoStartToolStripMenuItem.Text = "开机启动(&B)";
+            this.autoStartToolStripMenuItem.Click += new System.EventHandler(this.autoStartToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -209,6 +218,7 @@
         private System.Windows.Forms.ToolStripMenuItem restoreLocationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem followCaretToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem autoStartToolStripMenuItem;
     }
 }
 
