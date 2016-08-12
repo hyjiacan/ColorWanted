@@ -36,7 +36,10 @@ namespace ColorWanted
                 followCaretToolStripMenuItem.Enabled =
                 visibleToolStripMenuItem.Checked =
                 Visible = Settings.FormVisible;
-
+                if (Visible)
+                {
+                    BringToFront();
+                }
                 followCaretToolStripMenuItem.Checked = Settings.FollowCaret;
                 if (followCaretToolStripMenuItem.Checked)
                 {
@@ -273,7 +276,10 @@ namespace ColorWanted
 
             visibleToolStripMenuItem.Checked =
             Visible = !Visible;
-
+            if (Visible)
+            {
+                BringToFront();
+            }
             restoreLocationToolStripMenuItem.Enabled =
            showRgbToolStripMenuItem.Enabled =
            autoPinToolStripMenuItem.Enabled = followCaretToolStripMenuItem.Checked ? false : Visible;
@@ -352,6 +358,10 @@ namespace ColorWanted
                 autoPinToolStripMenuItem.Enabled =
             visibleToolStripMenuItem.Enabled = item.Checked;
             item.Checked = !item.Checked;
+            if (Visible)
+            {
+                BringToFront();
+            }
             if (!item.Checked)
             {
                 LoadLocation();
@@ -363,6 +373,10 @@ namespace ColorWanted
         }
         private void toggleRgb()
         {
+            if (Visible)
+            {
+                BringToFront();
+            }
             bool showrgb = showRgbToolStripMenuItem.Checked;
             lbRgb.Visible = showrgb;
             Width = showrgb ? 208 : 88;
