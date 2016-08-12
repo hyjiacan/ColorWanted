@@ -30,6 +30,7 @@ namespace ColorWanted
         {
             if (!iniloaded)
             {
+                // 不晓得为啥，在启动时加载Visible会被覆盖，所在放到这里来了
                 restoreLocationToolStripMenuItem.Enabled =
                 showRgbToolStripMenuItem.Enabled =
                 autoPinToolStripMenuItem.Enabled =
@@ -45,10 +46,6 @@ namespace ColorWanted
                 {
                     restoreLocationToolStripMenuItem.Enabled =
                     autoPinToolStripMenuItem.Enabled = false;
-                }
-                else
-                {
-                    LoadLocation();
                 }
 
                 iniloaded = true;
@@ -147,8 +144,12 @@ namespace ColorWanted
                     {
                         Top = y;
                     }
+
+                    return;
                 }
             }
+
+            SetDefaultLocation();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -203,6 +204,12 @@ namespace ColorWanted
         private void MainForm_Load(object sender, EventArgs e)
         {
             Height = 20;
+
+
+            if (!followCaretToolStripMenuItem.Checked)
+            {
+                LoadLocation();
+            }
 
             // 加载配置
             autoPinToolStripMenuItem.Checked = Settings.AutoPin;
