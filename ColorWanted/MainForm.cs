@@ -13,9 +13,19 @@ namespace ColorWanted
         private Screen screen;
         private AboutForm aboutForm;
 
+        private IntPtr hTaskbar;
+        private IntPtr hBar;
+        private IntPtr hMin;
+
+        private NativeMethods.Rect rcMin, rcBar;
+
         public MainForm()
         {
             InitializeComponent();
+
+            hTaskbar = NativeMethods.FindWindow("Shell_TrayWnd", null);
+            hBar = NativeMethods.FindWindowEx(hTaskbar, IntPtr.Zero, "ReBarWindow32", null);
+            hMin = NativeMethods.FindWindowEx(hBar, IntPtr.Zero, "MSTaskSwWClass", null);
 
             screen = Screen.PrimaryScreen;
 
@@ -49,6 +59,8 @@ namespace ColorWanted
                 }
 
                 iniloaded = true;
+
+                Embed2Taskbar();
             }
             Point pt = new Point(Control.MousePosition.X, Control.MousePosition.Y);
 
@@ -87,7 +99,7 @@ namespace ColorWanted
             }
             else
             {
-                BackColor = cl;
+                pnColor.BackColor = cl;
             }
         }
 
@@ -161,10 +173,14 @@ namespace ColorWanted
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Hide();
+
             NativeMethods.UnregisterHotKey(Handle, keyId);
             NativeMethods.UnregisterHotKey(Handle, keyId + 1);
             NativeMethods.UnregisterHotKey(Handle, keyId + 2);
             NativeMethods.UnregisterHotKey(Handle, keyId + 3);
+
+            ReleaseFromTaskbar();
         }
 
         protected override void WndProc(ref Message m)
@@ -275,6 +291,40 @@ namespace ColorWanted
             }
         }
 
+        private void Embed2Taskbar()
+        {
+            NativeMethods.GetWindowRect(hBar, out rcBar); //获得二级容器的Handle  
+            NativeMethods.GetWindowRect(hMin, out rcMin);  //获得最小化窗口的Handle  
+
+            var minWidth = rcMin.Right - rcMin.Left;
+            var minHeight = rcMin.Bottom - rcMin.Top;
+
+            var barWidth = rcBar.Right - rcBar.Left;
+            var barHeight = rcBar.Bottom - rcBar.Top;
+
+            NativeMethods.MoveWindow(hMin, IntPtr.Zero, IntPtr.Zero, rcMin.Right - rcMin.Left - Width, rcMin.Bottom - rcMin.Top, 1);
+
+            NativeMethods.SetParent(pnContainer.Handle, hBar);  //把程序窗口设置成任务栏的子窗口
+
+            NativeMethods.MoveWindow(pnContainer.Handle, new IntPtr(rcMin.Right - rcMin.Left - Width + 2),
+                new IntPtr((rcBar.Bottom - rcBar.Top - Height) / 2), Width, Height, 1);
+        }
+
+        private void UpdateTaskbarPosition()
+        {
+
+        }
+
+        private void ReleaseFromTaskbar()
+        {
+            NativeMethods.MoveWindow(pnContainer.Handle, new IntPtr(Left),
+                new IntPtr(Top), Width, Height, 1);
+
+            NativeMethods.SetParent(pnContainer.Handle, Handle);
+
+            NativeMethods.MoveWindow(hMin, IntPtr.Zero, IntPtr.Zero, rcMin.Right - rcMin.Left, rcMin.Bottom - rcMin.Top, 1);
+        }
+
         #region 托盘菜单
 
 
@@ -372,6 +422,10 @@ namespace ColorWanted
             if (!item.Checked)
             {
                 LoadLocation();
+            }
+            else
+            {
+                ReleaseFromTaskbar();
             }
             if (iniloaded)
             {

@@ -46,5 +46,32 @@ namespace ColorWanted
         [DllImport("kernel32", EntryPoint = "GetPrivateProfileString")]
         public static extern int ReadIni(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
 
+        /// <summary>
+        /// 结构体，里面字段的顺序不要变，值是按顺序存放的
+        /// </summary>
+        public struct Rect
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindowEx(IntPtr hWnd1, IntPtr hWnd2, string lpsz1, string lpsz2);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SetParent(IntPtr hWnd, IntPtr hWndNewParent);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr MoveWindow(IntPtr hWnd, IntPtr x, IntPtr y, int nWidth, int nHeight, int bRepaint);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetWindowRect(IntPtr hWnd, out Rect lpRect);
+
+
     }
 }
