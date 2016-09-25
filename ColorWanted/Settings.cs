@@ -1,7 +1,8 @@
-﻿using System.IO;
-using System.Windows.Forms;
+﻿using Microsoft.Win32;
+using System;
+using System.IO;
 using System.Text;
-using System.Drawing;
+using System.Windows.Forms;
 
 namespace ColorWanted
 {
@@ -96,6 +97,54 @@ namespace ColorWanted
             set
             {
                 Set("location", value);
+            }
+        }
+
+        public static bool Autostart
+        {
+            get
+            {
+                try
+                {
+                    using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
+                    {
+                        if (reg != null)
+                        {
+                            var path = reg.GetValue(Application.ProductName);
+                            if (path != null)
+                            {
+                                if (string.Equals(path.ToString(), "\"" + Application.ExecutablePath + "\"", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch { }
+
+                return false;
+            }
+
+            set
+            {
+                try
+                {
+                    using (var reg = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
+                    {
+                        if (value)
+                        {
+                            reg.SetValue(Application.ProductName, "\"" + Application.ExecutablePath + "\"");
+                        }
+                        else
+                        {
+                            reg.DeleteValue(Application.ProductName);
+                        }
+                    }
+                }
+                catch
+                {
+                }
             }
         }
     }

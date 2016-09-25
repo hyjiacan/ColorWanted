@@ -39,7 +39,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.picLOGO = new System.Windows.Forms.PictureBox();
             this.lbVersion = new System.Windows.Forms.Label();
@@ -153,15 +152,6 @@
             this.label7.TabIndex = 11;
             this.label7.Text = "Alt+G 复制RGB通道颜色值";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(93, 339);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(143, 12);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Alt+H 显示/隐藏取色窗口";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -207,11 +197,11 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(93, 361);
+            this.label10.Location = new System.Drawing.Point(93, 342);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(149, 12);
+            this.label10.Size = new System.Drawing.Size(227, 12);
             this.label10.TabIndex = 11;
-            this.label10.Text = "Alt+F1 开启/关闭跟随模式";
+            this.label10.Text = "Alt+F1 切换显示模式 (隐藏/ 固定/跟随)";
             // 
             // AboutForm
             // 
@@ -224,7 +214,6 @@
             this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.picLOGO);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -265,7 +254,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox picLOGO;
         private System.Windows.Forms.Label lbVersion;

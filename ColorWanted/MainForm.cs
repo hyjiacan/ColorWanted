@@ -1,14 +1,14 @@
-﻿using System;
+﻿using ColorWanted.enums;
+using ColorWanted.ext;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace ColorWanted
 {
     public partial class MainForm : Form
     {
         Timer timer;
-        const int keyId = 111;
         private bool iniloaded;
         private Screen screen;
         private AboutForm aboutForm;
@@ -19,11 +19,11 @@ namespace ColorWanted
 
             screen = Screen.PrimaryScreen;
 
-            NativeMethods.RegisterHotKey(Handle, keyId, KeyModifiers.Alt, Keys.C);
-            NativeMethods.RegisterHotKey(Handle, keyId + 1, KeyModifiers.Alt, Keys.G);
-            NativeMethods.RegisterHotKey(Handle, keyId + 2, KeyModifiers.Alt, Keys.H);
-            NativeMethods.RegisterHotKey(Handle, keyId + 3, KeyModifiers.Alt, Keys.F1);
+            currentMode = DisplayMode.Fixed;
+
+            Util.BindHotkeys(Handle);
         }
+
 
 
         private void timer_Tick(object sender, EventArgs e)
@@ -50,11 +50,11 @@ namespace ColorWanted
 
                 iniloaded = true;
             }
-            Point pt = new Point(Control.MousePosition.X, Control.MousePosition.Y);
+            Point pt = new Point(MousePosition.X, MousePosition.Y);
 
-            if (Visible && followCaretToolStripMenuItem.Checked)
+            if (currentMode==DisplayMode.Follow)
             {
-                FollowCaret(Control.MousePosition.X, Control.MousePosition.Y);
+                FollowCaret();
             }
 
             Color cl = ColorUtil.GetColor(pt);
@@ -91,33 +91,6 @@ namespace ColorWanted
             }
         }
 
-        private void FollowCaret(int x, int y)
-        {
-            var size = screen.Bounds;
-
-            if (x <= size.Width - Width)
-            {
-
-                Left = x + 10;
-            }
-            else
-            {
-                Left = x - Width - 10;
-            }
-            if (y <= Height)
-            {
-
-                Top = y + 10;
-            }
-            else if (y < screen.WorkingArea.Height - Height)
-            {
-                Top = y + 10;
-            }
-            else
-            {
-                Top = screen.WorkingArea.Height - Height;
-            }
-        }
 
         private void SetDefaultLocation()
         {
@@ -127,30 +100,6 @@ namespace ColorWanted
             Top = 0;
         }
 
-        private void LoadLocation()
-        {
-            var loc = Settings.Location;
-            if (!string.IsNullOrWhiteSpace(loc))
-            {
-                var arr = loc.Split(',');
-                if (arr.Length == 2)
-                {
-                    int x, y;
-                    if (int.TryParse(arr[0], out x))
-                    {
-                        Left = x;
-                    }
-                    if (int.TryParse(arr[1], out y))
-                    {
-                        Top = y;
-                    }
-
-                    return;
-                }
-            }
-
-            SetDefaultLocation();
-        }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -161,40 +110,52 @@ namespace ColorWanted
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            NativeMethods.UnregisterHotKey(Handle, keyId);
-            NativeMethods.UnregisterHotKey(Handle, keyId + 1);
-            NativeMethods.UnregisterHotKey(Handle, keyId + 2);
-            NativeMethods.UnregisterHotKey(Handle, keyId + 3);
+            Util.UnbindHotkeys(Handle);
         }
 
+        /// <summary>
+        /// 接收消息，响应快捷键
+        /// </summary>
+        /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
-            // hotkey
-            if (m.Msg == 0x0312)
+            // 收到的不是快捷键消息，不作任何处理
+            if (m.Msg != 0x312)
             {
-                switch (m.WParam.ToInt32())
-                {
-                    case keyId:
-                        Clipboard.SetText(lbHex.Text);
-                        break;
-                    case keyId + 1:
-                        Clipboard.SetText(lbRgb.Text);
-                        break;
-                    case keyId + 2:
-                        toggleVisible(null, null);
-                        break;
-                    case keyId + 3:
-                        followCaretToolStripMenuItem_Click(null, null);
-                        break;
-                }
+                base.WndProc(ref m);
+                return;
+            }
+            // 收到的快捷键的值
+            var keyValue = m.WParam.ToInt32();
+
+            // 复制HEX颜色值
+            if (keyValue == HotKeyValue.CopyHexColor.AsInt())
+            {
+                Clipboard.SetText(lbHex.Text);
+                base.WndProc(ref m);
+                return;
             }
 
-            base.WndProc(ref m);
+            // 复制RGB颜色值
+            if (keyValue == HotKeyValue.CopyRgbColor.AsInt())
+            {
+                Clipboard.SetText(lbRgb.Text);
+                base.WndProc(ref m);
+                return;
+            }
+
+            // 切换显示模式
+            if (keyValue == HotKeyValue.SwitchMode.AsInt())
+            {
+                SwitchMode();
+                base.WndProc(ref m);
+                return;
+            }
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 NativeMethods.ReleaseCapture();
                 NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
@@ -208,7 +169,7 @@ namespace ColorWanted
 
             if (!followCaretToolStripMenuItem.Checked)
             {
-                LoadLocation();
+                FixedPosition();
             }
 
             // 加载配置
@@ -218,24 +179,7 @@ namespace ColorWanted
             toggleRgb();
 
             // 读取开机启动的注册表
-            try
-            {
-                using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
-                {
-                    if (reg != null)
-                    {
-                        var path = reg.GetValue(Application.ProductName);
-                        if (path != null)
-                        {
-                            if (string.Equals(path.ToString(), "\"" + Application.ExecutablePath + "\"", StringComparison.OrdinalIgnoreCase))
-                            {
-                                autoStartToolStripMenuItem.Checked = true;
-                            }
-                        }
-                    }
-                }
-            }
-            catch { }
+            autoStartToolStripMenuItem.Checked = Settings.Autostart;
 
             timer = new Timer();
             timer.Interval = 100;
@@ -338,24 +282,7 @@ namespace ColorWanted
             item.Checked = !item.Checked;
 
             // 写注册表
-            try
-            {
-                using (var reg = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
-                {
-                    if (item.Checked)
-                    {
-                        reg.SetValue(Application.ProductName, "\"" + Application.ExecutablePath + "\"");
-                    }
-                    else
-                    {
-                        reg.DeleteValue(Application.ProductName);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                tray.ShowBalloonTip(5000, "赏色", "设置开机启动失败:" + ex.Message, ToolTipIcon.Warning);
-            }
+            Settings.Autostart = item.Checked;
         }
 
         private void followCaretToolStripMenuItem_Click(object sender, EventArgs e)
@@ -371,7 +298,7 @@ namespace ColorWanted
             }
             if (!item.Checked)
             {
-                LoadLocation();
+                FixedPosition();
             }
             if (iniloaded)
             {
@@ -387,6 +314,105 @@ namespace ColorWanted
             bool showrgb = showRgbToolStripMenuItem.Checked;
             lbRgb.Visible = showrgb;
             Width = showrgb ? 208 : 88;
+        }
+        #endregion
+
+        #region 显示模式控制
+        /// <summary>
+        /// 当前的显示模式
+        /// </summary>
+        DisplayMode currentMode;
+        /// <summary>
+        /// 激活显示模式
+        /// </summary>
+        private void SwitchMode()
+        {
+            // 下一个要激活的模式
+            DisplayMode mode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), currentMode + 1);
+            // 看加了后这个模式有没有定义，如果没有定义，则跳转到隐藏模式
+            if (!Enum.IsDefined(typeof(DisplayMode), mode))
+            {
+                mode = DisplayMode.Hidden;
+            }
+            Show();
+            switch (mode)
+            {
+                case DisplayMode.Hidden:
+                    Hide();
+                    break;
+                case DisplayMode.Fixed:
+                    FixedPosition();
+                    break;
+                case DisplayMode.Follow:
+                    FollowCaret();
+                    break;
+                default:
+                    break;
+            }
+
+            currentMode = mode;
+        }
+
+        /// <summary>
+        /// 窗口跟随光标显示
+        /// </summary>
+        private void FollowCaret()
+        {
+            int x = MousePosition.X,
+                y = MousePosition.Y;
+
+            var size = screen.Bounds;
+
+            if (x <= size.Width - Width)
+            {
+
+                Left = x + 10;
+            }
+            else
+            {
+                Left = x - Width - 10;
+            }
+            if (y <= Height)
+            {
+
+                Top = y + 10;
+            }
+            else if (y < screen.WorkingArea.Height - Height)
+            {
+                Top = y + 10;
+            }
+            else
+            {
+                Top = screen.WorkingArea.Height - Height;
+            }
+        }
+
+        /// <summary>
+        /// 容器在固定位置显示
+        /// </summary>
+        private void FixedPosition()
+        {
+            var loc = Settings.Location;
+            if (!string.IsNullOrWhiteSpace(loc))
+            {
+                var arr = loc.Split(',');
+                if (arr.Length == 2)
+                {
+                    int x, y;
+                    if (int.TryParse(arr[0], out x))
+                    {
+                        Left = x;
+                    }
+                    if (int.TryParse(arr[1], out y))
+                    {
+                        Top = y;
+                    }
+
+                    return;
+                }
+            }
+            // 配置文件里面没有位置数据或数据无效，那么将窗口显示在默认的位置
+            SetDefaultLocation();
         }
         #endregion
     }
