@@ -1,8 +1,9 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.enums;
+using Microsoft.Win32;
 
 namespace ColorWanted
 {
@@ -35,19 +36,6 @@ namespace ColorWanted
             catch { return ""; }
         }
 
-        public static bool FormVisible
-        {
-            get
-            {
-                var v = Get("visible");
-                return v == "" || v == "1";
-            }
-            set
-            {
-                Set("visible", value ? "1" : "0");
-            }
-        }
-
         public static bool AutoPin
         {
             get
@@ -74,16 +62,21 @@ namespace ColorWanted
             }
         }
 
-        public static bool FollowCaret
+        public static DisplayMode Mode
         {
             get
             {
-                var v = Get("follow");
-                return v != "" && v == "1";
+                var v = Get("mode");
+                DisplayMode mode;
+                if (!Enum.TryParse<DisplayMode>(v, out mode))
+                {
+                    mode = DisplayMode.Fixed;
+                }
+                return mode;
             }
             set
             {
-                Set("follow", value ? "1" : "0");
+                Set("mode", value.ToString());
             }
         }
 

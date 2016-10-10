@@ -1,8 +1,8 @@
-﻿using ColorWanted.enums;
-using ColorWanted.ext;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ColorWanted.enums;
+using ColorWanted.ext;
 
 namespace ColorWanted
 {
@@ -31,28 +31,13 @@ namespace ColorWanted
             if (!iniloaded)
             {
                 // 不晓得为啥，在启动时加载Visible会被覆盖，所在放到这里来了
-                restoreLocationToolStripMenuItem.Enabled =
-                showRgbToolStripMenuItem.Enabled =
-                autoPinToolStripMenuItem.Enabled =
-                followCaretToolStripMenuItem.Enabled =
-                visibleToolStripMenuItem.Checked =
-                Visible = Settings.FormVisible;
-                if (Visible)
-                {
-                    BringToFront();
-                }
-                followCaretToolStripMenuItem.Checked = Settings.FollowCaret;
-                if (followCaretToolStripMenuItem.Checked)
-                {
-                    restoreLocationToolStripMenuItem.Enabled =
-                    autoPinToolStripMenuItem.Enabled = false;
-                }
+                SwitchMode(Settings.Mode);
 
                 iniloaded = true;
             }
             Point pt = new Point(MousePosition.X, MousePosition.Y);
 
-            if (currentMode==DisplayMode.Follow)
+            if (currentMode == DisplayMode.Follow)
             {
                 FollowCaret();
             }
@@ -62,7 +47,7 @@ namespace ColorWanted
 
             lbRgb.Text = string.Format("RGB({0},{1},{2})", cl.R, cl.G, cl.B);
 
-            if (showRgbToolStripMenuItem.Checked)
+            if (trayMenuShowRgb.Checked)
             {
 
                 lbRgb.BackColor = cl;
@@ -167,19 +152,19 @@ namespace ColorWanted
             Height = 20;
 
 
-            if (!followCaretToolStripMenuItem.Checked)
+            if (!trayMenuFollowCaret.Checked)
             {
                 FixedPosition();
             }
 
             // 加载配置
-            autoPinToolStripMenuItem.Checked = Settings.AutoPin;
+            trayMenuAutoPin.Checked = Settings.AutoPin;
 
-            showRgbToolStripMenuItem.Checked = Settings.ShowRgb;
+            trayMenuShowRgb.Checked = Settings.ShowRgb;
             toggleRgb();
 
             // 读取开机启动的注册表
-            autoStartToolStripMenuItem.Checked = Settings.Autostart;
+            trayMenuAutoStart.Checked = Settings.Autostart;
 
             timer = new Timer();
             timer.Interval = 100;
@@ -189,11 +174,11 @@ namespace ColorWanted
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
         {
-            if (followCaretToolStripMenuItem.Checked)
+            if (trayMenuFollowCaret.Checked)
             {
                 return;
             }
-            if (autoPinToolStripMenuItem.Checked)
+            if (trayMenuAutoPin.Checked)
             {
                 var size = screen.Bounds;
                 if (Top <= 16)
@@ -222,25 +207,22 @@ namespace ColorWanted
         #region 托盘菜单
 
 
-        private void toggleVisible(object sender, EventArgs e)
+        private void trayMenuHideWindow_Click(object sender, EventArgs e)
         {
-
-            visibleToolStripMenuItem.Checked =
-            Visible = !Visible;
-            if (Visible)
-            {
-                BringToFront();
-            }
-            restoreLocationToolStripMenuItem.Enabled =
-           showRgbToolStripMenuItem.Enabled =
-           autoPinToolStripMenuItem.Enabled = followCaretToolStripMenuItem.Checked ? false : Visible;
-            if (iniloaded)
-            {
-                Settings.FormVisible = Visible;
-            }
+            SwitchMode(DisplayMode.Hidden);
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void trayMenuFixed_Click(object sender, EventArgs e)
+        {
+            SwitchMode(DisplayMode.Fixed);
+        }
+
+        private void trayMenuFollowCaret_Click(object sender, EventArgs e)
+        {
+            SwitchMode(DisplayMode.Follow);
+        }
+
+        private void trayMenuShowAbout_Click(object sender, EventArgs e)
         {
             if (aboutForm == null)
             {
@@ -249,7 +231,7 @@ namespace ColorWanted
             aboutForm.Show();
         }
 
-        private void showRgbToolStripMenuItem_Click(object sender, EventArgs e)
+        private void trayMenuShowRgb_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
             item.Checked = !item.Checked;
@@ -260,7 +242,7 @@ namespace ColorWanted
             }
         }
 
-        private void autoPinToolStripMenuItem_Click(object sender, EventArgs e)
+        private void trayMenuAutoPin_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
             item.Checked = !item.Checked;
@@ -271,12 +253,12 @@ namespace ColorWanted
             }
         }
 
-        private void restoreLocationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void trayMenuRestoreLocation_Click(object sender, EventArgs e)
         {
             SetDefaultLocation();
         }
 
-        private void autoStartToolStripMenuItem_Click(object sender, EventArgs e)
+        private void trayMenuAutoStart_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
             item.Checked = !item.Checked;
@@ -285,33 +267,13 @@ namespace ColorWanted
             Settings.Autostart = item.Checked;
         }
 
-        private void followCaretToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var item = followCaretToolStripMenuItem;
-            restoreLocationToolStripMenuItem.Enabled =
-                autoPinToolStripMenuItem.Enabled =
-            visibleToolStripMenuItem.Enabled = item.Checked;
-            item.Checked = !item.Checked;
-            if (Visible)
-            {
-                BringToFront();
-            }
-            if (!item.Checked)
-            {
-                FixedPosition();
-            }
-            if (iniloaded)
-            {
-                Settings.FollowCaret = item.Checked;
-            }
-        }
         private void toggleRgb()
         {
             if (Visible)
             {
                 BringToFront();
             }
-            bool showrgb = showRgbToolStripMenuItem.Checked;
+            bool showrgb = trayMenuShowRgb.Checked;
             lbRgb.Visible = showrgb;
             Width = showrgb ? 208 : 88;
         }
@@ -334,22 +296,56 @@ namespace ColorWanted
             {
                 mode = DisplayMode.Hidden;
             }
-            Show();
-            switch (mode)
-            {
-                case DisplayMode.Hidden:
-                    Hide();
-                    break;
-                case DisplayMode.Fixed:
-                    FixedPosition();
-                    break;
-                case DisplayMode.Follow:
-                    FollowCaret();
-                    break;
-                default:
-                    break;
-            }
+            SwitchMode(mode);
+        }
 
+        private void SwitchMode(DisplayMode mode)
+        {
+            if (mode == DisplayMode.Hidden)
+            {
+                trayMenuHideWindow.Checked = true;
+                trayMenuFollowCaret.Checked = false;
+                trayMenuFixed.Checked = false;
+
+                trayMenuShowRgb.Enabled = false;
+                trayMenuRestoreLocation.Enabled = false;
+                trayMenuAutoPin.Enabled = false;
+
+                Hide();
+            }
+            else
+            {
+
+                trayMenuHideWindow.Checked = false;
+                trayMenuFollowCaret.Checked = false;
+                trayMenuFixed.Checked = false;
+
+                trayMenuShowRgb.Enabled = true;
+
+                Show();
+                BringToFront();
+                FixedPosition();
+
+                switch (mode)
+                {
+                    case DisplayMode.Fixed:
+                        trayMenuFixed.Checked = true;
+                        trayMenuRestoreLocation.Enabled = true;
+                        trayMenuAutoPin.Enabled = true;
+                        break;
+                    case DisplayMode.Follow:
+                        trayMenuFollowCaret.Checked = true;
+                        trayMenuRestoreLocation.Enabled = false;
+                        trayMenuAutoPin.Enabled = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (iniloaded)
+            {
+                Settings.Mode = mode;
+            }
             currentMode = mode;
         }
 
@@ -415,5 +411,6 @@ namespace ColorWanted
             SetDefaultLocation();
         }
         #endregion
+
     }
 }

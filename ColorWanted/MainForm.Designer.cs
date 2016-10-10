@@ -33,28 +33,20 @@
             this.lbHex = new System.Windows.Forms.Label();
             this.lbRgb = new System.Windows.Forms.Label();
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.visibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.followCaretToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showRgbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.trayMenuHideWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuFollowCaret = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuFixed = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.restoreLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoPinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuShowRgb = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuRestoreLocation = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuAutoPin = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuAutoStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.pnColor = new System.Windows.Forms.Panel();
-            this.pnContainer = new System.Windows.Forms.Panel();
-            this.显示模式MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.隐藏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.固定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.跟随ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.嵌入任务栏ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenu.SuspendLayout();
-            this.pnColor.SuspendLayout();
-            this.pnContainer.SuspendLayout();
+            this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbHex
@@ -78,7 +70,7 @@
             this.lbRgb.BackColor = System.Drawing.Color.Black;
             this.lbRgb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRgb.ForeColor = System.Drawing.Color.Lime;
-            this.lbRgb.Location = new System.Drawing.Point(389, 0);
+            this.lbRgb.Location = new System.Drawing.Point(68, 0);
             this.lbRgb.Name = "lbRgb";
             this.lbRgb.Padding = new System.Windows.Forms.Padding(2);
             this.lbRgb.Size = new System.Drawing.Size(140, 20);
@@ -92,159 +84,113 @@
             // 
             this.tray.BalloonTipText = "屏幕取色器正在工作";
             this.tray.BalloonTipTitle = "赏色";
-            this.tray.ContextMenuStrip = this.contextMenu;
+            this.tray.ContextMenuStrip = this.trayMenu;
             this.tray.Icon = ((System.Drawing.Icon)(resources.GetObject("tray.Icon")));
             this.tray.Text = "赏色-取色器";
             this.tray.Visible = true;
             // 
-            // contextMenu
+            // trayMenu
             // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.visibleToolStripMenuItem,
-            this.followCaretToolStripMenuItem,
-            this.显示模式MToolStripMenuItem,
-            this.showRgbToolStripMenuItem,
+            this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayMenuHideWindow,
+            this.trayMenuFollowCaret,
+            this.trayMenuFixed,
             this.toolStripSeparator2,
-            this.restoreLocationToolStripMenuItem,
-            this.autoPinToolStripMenuItem,
-            this.autoStartToolStripMenuItem,
-            this.aboutToolStripMenuItem,
+            this.trayMenuShowRgb,
+            this.trayMenuRestoreLocation,
+            this.trayMenuAutoPin,
+            this.trayMenuAutoStart,
+            this.trayMenuShowAbout,
             this.toolStripSeparator1,
-            this.exitToolStripMenuItem});
-            this.contextMenu.Name = "trayMenu";
-            this.contextMenu.Size = new System.Drawing.Size(194, 236);
+            this.trayMenuExit});
+            this.trayMenu.Name = "trayMenu";
+            this.trayMenu.Size = new System.Drawing.Size(164, 236);
             // 
-            // visibleToolStripMenuItem
+            // trayMenuHideWindow
             // 
-            this.visibleToolStripMenuItem.Checked = true;
-            this.visibleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.visibleToolStripMenuItem.Name = "visibleToolStripMenuItem";
-            this.visibleToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.visibleToolStripMenuItem.Text = "窗口可见(Alt+H)";
-            this.visibleToolStripMenuItem.Click += new System.EventHandler(this.toggleVisible);
+            this.trayMenuHideWindow.Checked = true;
+            this.trayMenuHideWindow.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.trayMenuHideWindow.Name = "trayMenuHideWindow";
+            this.trayMenuHideWindow.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuHideWindow.Text = "隐藏窗口";
+            this.trayMenuHideWindow.Click += new System.EventHandler(this.trayMenuHideWindow_Click);
             // 
-            // followCaretToolStripMenuItem
+            // trayMenuFollowCaret
             // 
-            this.followCaretToolStripMenuItem.Name = "followCaretToolStripMenuItem";
-            this.followCaretToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.followCaretToolStripMenuItem.Text = "启动跟随模式(Alt+F1)";
-            this.followCaretToolStripMenuItem.Click += new System.EventHandler(this.followCaretToolStripMenuItem_Click);
+            this.trayMenuFollowCaret.Name = "trayMenuFollowCaret";
+            this.trayMenuFollowCaret.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuFollowCaret.Text = "跟随模式";
+            this.trayMenuFollowCaret.Click += new System.EventHandler(this.trayMenuFollowCaret_Click);
             // 
-            // showRgbToolStripMenuItem
+            // trayMenuFixed
             // 
-            this.showRgbToolStripMenuItem.Name = "showRgbToolStripMenuItem";
-            this.showRgbToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.showRgbToolStripMenuItem.Text = "显示RGB通道值(&R)";
-            this.showRgbToolStripMenuItem.Click += new System.EventHandler(this.showRgbToolStripMenuItem_Click);
+            this.trayMenuFixed.Name = "trayMenuFixed";
+            this.trayMenuFixed.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuFixed.Text = "固定模式";
+            this.trayMenuFixed.Click += new System.EventHandler(this.trayMenuFixed_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(190, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(160, 6);
             // 
-            // restoreLocationToolStripMenuItem
+            // trayMenuShowRgb
             // 
-            this.restoreLocationToolStripMenuItem.Name = "restoreLocationToolStripMenuItem";
-            this.restoreLocationToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.restoreLocationToolStripMenuItem.Text = "重置窗口位置(&L)";
-            this.restoreLocationToolStripMenuItem.Click += new System.EventHandler(this.restoreLocationToolStripMenuItem_Click);
+            this.trayMenuShowRgb.Name = "trayMenuShowRgb";
+            this.trayMenuShowRgb.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuShowRgb.Text = "显示RGB通道值";
+            this.trayMenuShowRgb.Click += new System.EventHandler(this.trayMenuShowRgb_Click);
             // 
-            // autoPinToolStripMenuItem
+            // trayMenuRestoreLocation
             // 
-            this.autoPinToolStripMenuItem.Checked = true;
-            this.autoPinToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autoPinToolStripMenuItem.Name = "autoPinToolStripMenuItem";
-            this.autoPinToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.autoPinToolStripMenuItem.Text = "边缘自动吸附(&P)";
-            this.autoPinToolStripMenuItem.Click += new System.EventHandler(this.autoPinToolStripMenuItem_Click);
+            this.trayMenuRestoreLocation.Name = "trayMenuRestoreLocation";
+            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuRestoreLocation.Text = "重置窗口位置";
+            this.trayMenuRestoreLocation.Click += new System.EventHandler(this.trayMenuRestoreLocation_Click);
             // 
-            // autoStartToolStripMenuItem
+            // trayMenuAutoPin
             // 
-            this.autoStartToolStripMenuItem.Name = "autoStartToolStripMenuItem";
-            this.autoStartToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.autoStartToolStripMenuItem.Text = "开机启动(&B)";
-            this.autoStartToolStripMenuItem.Click += new System.EventHandler(this.autoStartToolStripMenuItem_Click);
+            this.trayMenuAutoPin.Checked = true;
+            this.trayMenuAutoPin.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.trayMenuAutoPin.Name = "trayMenuAutoPin";
+            this.trayMenuAutoPin.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuAutoPin.Text = "边缘自动吸附";
+            this.trayMenuAutoPin.Click += new System.EventHandler(this.trayMenuAutoPin_Click);
             // 
-            // aboutToolStripMenuItem
+            // trayMenuAutoStart
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.aboutToolStripMenuItem.Text = "关于(&A)";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.trayMenuAutoStart.Name = "trayMenuAutoStart";
+            this.trayMenuAutoStart.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuAutoStart.Text = "开机启动";
+            this.trayMenuAutoStart.Click += new System.EventHandler(this.trayMenuAutoStart_Click);
+            // 
+            // trayMenuShowAbout
+            // 
+            this.trayMenuShowAbout.Name = "trayMenuShowAbout";
+            this.trayMenuShowAbout.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuShowAbout.Text = "关于";
+            this.trayMenuShowAbout.Click += new System.EventHandler(this.trayMenuShowAbout_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
             // 
-            // exitToolStripMenuItem
+            // trayMenuExit
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.exitToolStripMenuItem.Text = "退出(&E)";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // pnColor
-            // 
-            this.pnColor.BackColor = System.Drawing.Color.White;
-            this.pnColor.Controls.Add(this.lbHex);
-            this.pnColor.Location = new System.Drawing.Point(0, 0);
-            this.pnColor.Name = "pnColor";
-            this.pnColor.Size = new System.Drawing.Size(88, 20);
-            this.pnColor.TabIndex = 1;
-            // 
-            // pnContainer
-            // 
-            this.pnContainer.Controls.Add(this.lbRgb);
-            this.pnContainer.Controls.Add(this.pnColor);
-            this.pnContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnContainer.Location = new System.Drawing.Point(0, 0);
-            this.pnContainer.Name = "pnContainer";
-            this.pnContainer.Size = new System.Drawing.Size(529, 289);
-            this.pnContainer.TabIndex = 2;
-            // 
-            // 显示模式MToolStripMenuItem
-            // 
-            this.显示模式MToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.隐藏ToolStripMenuItem,
-            this.固定ToolStripMenuItem,
-            this.跟随ToolStripMenuItem,
-            this.嵌入任务栏ToolStripMenuItem});
-            this.显示模式MToolStripMenuItem.Name = "显示模式MToolStripMenuItem";
-            this.显示模式MToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
-            this.显示模式MToolStripMenuItem.Text = "窗口可见(Alt+H)";
-            // 
-            // 隐藏ToolStripMenuItem
-            // 
-            this.隐藏ToolStripMenuItem.Name = "隐藏ToolStripMenuItem";
-            this.隐藏ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.隐藏ToolStripMenuItem.Text = "隐藏窗口";
-            // 
-            // 固定ToolStripMenuItem
-            // 
-            this.固定ToolStripMenuItem.Name = "固定ToolStripMenuItem";
-            this.固定ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.固定ToolStripMenuItem.Text = "屏幕固定位置";
-            // 
-            // 跟随ToolStripMenuItem
-            // 
-            this.跟随ToolStripMenuItem.Name = "跟随ToolStripMenuItem";
-            this.跟随ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.跟随ToolStripMenuItem.Text = "跟随光标";
-            // 
-            // 嵌入任务栏ToolStripMenuItem
-            // 
-            this.嵌入任务栏ToolStripMenuItem.Name = "嵌入任务栏ToolStripMenuItem";
-            this.嵌入任务栏ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.嵌入任务栏ToolStripMenuItem.Text = "嵌入任务栏";
+            this.trayMenuExit.Name = "trayMenuExit";
+            this.trayMenuExit.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuExit.Text = "退出";
+            this.trayMenuExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 289);
+            this.ClientSize = new System.Drawing.Size(208, 19);
             this.ControlBox = false;
-            this.Controls.Add(this.pnContainer);
+            this.Controls.Add(this.lbHex);
+            this.Controls.Add(this.lbRgb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -260,9 +206,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            this.contextMenu.ResumeLayout(false);
-            this.pnColor.ResumeLayout(false);
-            this.pnContainer.ResumeLayout(false);
+            this.trayMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -272,25 +216,19 @@
         private System.Windows.Forms.Label lbRgb;
         private System.Windows.Forms.Label lbHex;
         private System.Windows.Forms.NotifyIcon tray;
-        private System.Windows.Forms.ContextMenuStrip contextMenu;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip trayMenu;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuShowAbout;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem visibleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem autoPinToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuExit;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuHideWindow;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuAutoPin;
         private System.Windows.Forms.ToolTip tooltip;
-        private System.Windows.Forms.ToolStripMenuItem showRgbToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem restoreLocationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem followCaretToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuShowRgb;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuRestoreLocation;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuFollowCaret;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem autoStartToolStripMenuItem;
-        private System.Windows.Forms.Panel pnColor;
-        private System.Windows.Forms.Panel pnContainer;
-        private System.Windows.Forms.ToolStripMenuItem 显示模式MToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 隐藏ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 固定ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 跟随ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 嵌入任务栏ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuAutoStart;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuFixed;
     }
 }
 
