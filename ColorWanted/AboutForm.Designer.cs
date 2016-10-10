@@ -139,18 +139,18 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(93, 293);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(149, 12);
+            this.label6.Size = new System.Drawing.Size(329, 12);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Alt+C 复制十六进制颜色值";
+            this.label6.Text = "Alt+C 复制十六进制颜色值，1秒内连续按两次复制RGB颜色值";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(93, 318);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(143, 12);
+            this.label7.Size = new System.Drawing.Size(173, 12);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Alt+G 复制RGB通道颜色值";
+            this.label7.Text = "Alt+R 显示/隐藏RGB通道颜色板";
             // 
             // label9
             // 
@@ -199,9 +199,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(93, 342);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(227, 12);
+            this.label10.Size = new System.Drawing.Size(221, 12);
             this.label10.TabIndex = 11;
-            this.label10.Text = "Alt+F1 切换显示模式 (隐藏/ 固定/跟随)";
+            this.label10.Text = "Alt+F1 切换显示模式 (隐藏/固定/跟随)";
             // 
             // AboutForm
             // 

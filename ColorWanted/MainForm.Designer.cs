@@ -104,47 +104,47 @@
             this.toolStripSeparator1,
             this.trayMenuExit});
             this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(164, 236);
+            this.trayMenu.Size = new System.Drawing.Size(162, 214);
             // 
             // trayMenuHideWindow
             // 
             this.trayMenuHideWindow.Checked = true;
             this.trayMenuHideWindow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuHideWindow.Name = "trayMenuHideWindow";
-            this.trayMenuHideWindow.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuHideWindow.Size = new System.Drawing.Size(161, 22);
             this.trayMenuHideWindow.Text = "隐藏窗口";
             this.trayMenuHideWindow.Click += new System.EventHandler(this.trayMenuHideWindow_Click);
             // 
             // trayMenuFollowCaret
             // 
             this.trayMenuFollowCaret.Name = "trayMenuFollowCaret";
-            this.trayMenuFollowCaret.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuFollowCaret.Size = new System.Drawing.Size(161, 22);
             this.trayMenuFollowCaret.Text = "跟随模式";
             this.trayMenuFollowCaret.Click += new System.EventHandler(this.trayMenuFollowCaret_Click);
             // 
             // trayMenuFixed
             // 
             this.trayMenuFixed.Name = "trayMenuFixed";
-            this.trayMenuFixed.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuFixed.Size = new System.Drawing.Size(161, 22);
             this.trayMenuFixed.Text = "固定模式";
             this.trayMenuFixed.Click += new System.EventHandler(this.trayMenuFixed_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(158, 6);
             // 
             // trayMenuShowRgb
             // 
             this.trayMenuShowRgb.Name = "trayMenuShowRgb";
-            this.trayMenuShowRgb.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuShowRgb.Size = new System.Drawing.Size(161, 22);
             this.trayMenuShowRgb.Text = "显示RGB通道值";
             this.trayMenuShowRgb.Click += new System.EventHandler(this.trayMenuShowRgb_Click);
             // 
             // trayMenuRestoreLocation
             // 
             this.trayMenuRestoreLocation.Name = "trayMenuRestoreLocation";
-            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(161, 22);
             this.trayMenuRestoreLocation.Text = "重置窗口位置";
             this.trayMenuRestoreLocation.Click += new System.EventHandler(this.trayMenuRestoreLocation_Click);
             // 
@@ -153,33 +153,33 @@
             this.trayMenuAutoPin.Checked = true;
             this.trayMenuAutoPin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuAutoPin.Name = "trayMenuAutoPin";
-            this.trayMenuAutoPin.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuAutoPin.Size = new System.Drawing.Size(161, 22);
             this.trayMenuAutoPin.Text = "边缘自动吸附";
             this.trayMenuAutoPin.Click += new System.EventHandler(this.trayMenuAutoPin_Click);
             // 
             // trayMenuAutoStart
             // 
             this.trayMenuAutoStart.Name = "trayMenuAutoStart";
-            this.trayMenuAutoStart.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuAutoStart.Size = new System.Drawing.Size(161, 22);
             this.trayMenuAutoStart.Text = "开机启动";
             this.trayMenuAutoStart.Click += new System.EventHandler(this.trayMenuAutoStart_Click);
             // 
             // trayMenuShowAbout
             // 
             this.trayMenuShowAbout.Name = "trayMenuShowAbout";
-            this.trayMenuShowAbout.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuShowAbout.Size = new System.Drawing.Size(161, 22);
             this.trayMenuShowAbout.Text = "关于";
             this.trayMenuShowAbout.Click += new System.EventHandler(this.trayMenuShowAbout_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(160, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
             // 
             // trayMenuExit
             // 
             this.trayMenuExit.Name = "trayMenuExit";
-            this.trayMenuExit.Size = new System.Drawing.Size(163, 22);
+            this.trayMenuExit.Size = new System.Drawing.Size(161, 22);
             this.trayMenuExit.Text = "退出";
             this.trayMenuExit.Click += new System.EventHandler(this.btnExit_Click);
             // 

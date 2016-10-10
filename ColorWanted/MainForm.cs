@@ -12,7 +12,8 @@ namespace ColorWanted
         private bool iniloaded;
         private Screen screen;
         private AboutForm aboutForm;
-
+        // 上次复制的时间
+        DateTime lastCopyTime;
         public MainForm()
         {
             InitializeComponent();
@@ -43,6 +44,7 @@ namespace ColorWanted
             }
 
             Color cl = ColorUtil.GetColor(pt);
+
             lbHex.Text = string.Format("#{0}{1}{2}", cl.R.ToString("X2"), cl.G.ToString("X2"), cl.B.ToString("X2"));
 
             lbRgb.Text = string.Format("RGB({0},{1},{2})", cl.R, cl.G, cl.B);
@@ -113,18 +115,28 @@ namespace ColorWanted
             // 收到的快捷键的值
             var keyValue = m.WParam.ToInt32();
 
-            // 复制HEX颜色值
+            // 复制颜色值  如果连续两次（间隔小于1秒），则复制RGB颜色值，否则复制HEX颜色值
             if (keyValue == HotKeyValue.CopyHexColor.AsInt())
             {
-                Clipboard.SetText(lbHex.Text);
+                // 复制HEX
+                if ((DateTime.Now - lastCopyTime).TotalSeconds >= 1)
+                {
+                    Clipboard.SetText(lbHex.Text);
+                }
+                // 复制RGB
+                else
+                {
+                    Clipboard.SetText(lbRgb.Text);
+                }
+                lastCopyTime = DateTime.Now;
                 base.WndProc(ref m);
                 return;
             }
 
-            // 复制RGB颜色值
+            // 显示/隐藏RGB颜色值
             if (keyValue == HotKeyValue.CopyRgbColor.AsInt())
             {
-                Clipboard.SetText(lbRgb.Text);
+                toggleRgb();
                 base.WndProc(ref m);
                 return;
             }
@@ -234,7 +246,6 @@ namespace ColorWanted
         private void trayMenuShowRgb_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
-            item.Checked = !item.Checked;
             toggleRgb();
             if (iniloaded)
             {
@@ -246,7 +257,6 @@ namespace ColorWanted
         {
             var item = sender as ToolStripMenuItem;
             item.Checked = !item.Checked;
-            toggleRgb();
             if (iniloaded)
             {
                 Settings.AutoPin = item.Checked;
@@ -269,11 +279,12 @@ namespace ColorWanted
 
         private void toggleRgb()
         {
-            if (Visible)
+            if (!Visible)
             {
-                BringToFront();
+                return;
             }
-            bool showrgb = trayMenuShowRgb.Checked;
+            BringToFront();
+            bool showrgb = trayMenuShowRgb.Checked = !trayMenuShowRgb.Checked;
             lbRgb.Visible = showrgb;
             Width = showrgb ? 208 : 88;
         }
