@@ -4,7 +4,8 @@
 
 >开发工具>=VS2010，运行环境需要>=.net4.0
 
-
+#下载二进制文件
+[ColorWanted-latest.exe](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
 
 ## 快捷键
 - **Alt+C** 复制十六进制颜色值，1秒内连续按两次复制RGB颜色值
