@@ -19,4 +19,3 @@
 - [取色功能](http://www.haolizi.net/example/view_102.html)
 - [窗口拖动功能](http://blog.csdn.net/skysky01/article/details/9902247)
 - [全局热键](http://www.cnblogs.com/Randy0528/archive/2013/02/04/2892062.html)
-- [窗口嵌入任务栏](http://www.cnblogs.com/luoshupeng/archive/2011/08/23/2151081.html)
