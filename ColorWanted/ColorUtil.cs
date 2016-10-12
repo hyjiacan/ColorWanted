@@ -72,5 +72,46 @@ namespace ColorWanted
             byte Blue = GetBValue(colorref);
             return Color.FromArgb(Red, Green, Blue);
         }
+
+        /// <summary>
+        /// 获取指定颜色的对比色
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="light">使用浅色</param>
+        /// <returns></returns>
+        public static Color GetContrastColor(Color color, bool light = false)
+        {
+            if (ColorUtil.isDark(color) || ColorUtil.isSingle(color))
+            {
+                return light ? Color.FromArgb(220, 220, 220) : Color.White;
+            }
+
+            if (ColorUtil.isLight(color) || ColorUtil.isGray(color))
+            {
+                return light ? Color.FromArgb(150, 150, 150) : Color.Black;
+            }
+
+            var diffr = 255 - color.R;
+            var diffg = 255 - color.G;
+            var diffb = 255 - color.B;
+
+            if (light)
+            {
+                if (diffr < 100)
+                {
+                    diffr += 50;
+                }
+                if (diffg < 100)
+                {
+                    diffg += 50;
+                }
+                if (diffb < 100)
+                {
+                    diffb += 50;
+                }
+            }
+
+            return Color.FromArgb(diffr, diffg, diffb);
+        }
     }
 }

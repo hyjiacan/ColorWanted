@@ -72,6 +72,24 @@ namespace ColorWanted
         [DllImport("user32.dll")]
         public static extern IntPtr GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorInfo(out CURSORINFO pci);
 
+        private const Int32 CURSOR_SHOWING = 0x00000001;
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public Int32 x;
+            public Int32 y;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct CURSORINFO
+        {
+            public Int32 cbSize;
+            public Int32 flags;
+            public IntPtr hCursor;
+            public POINT ptScreenPos;
+        }
     }
 }

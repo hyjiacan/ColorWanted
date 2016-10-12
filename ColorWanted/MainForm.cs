@@ -12,6 +12,7 @@ namespace ColorWanted
         private bool iniloaded;
         private Screen screen;
         private AboutForm aboutForm;
+        private PreviewForm previewForm;
         // 上次复制的时间
         DateTime lastCopyTime;
         public MainForm()
@@ -29,6 +30,10 @@ namespace ColorWanted
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            if (previewForm.MouseOnMe)
+            {
+                return;
+            }
             if (!iniloaded)
             {
                 // 不晓得为啥，在启动时加载Visible会被覆盖，所在放到这里来了
@@ -43,6 +48,9 @@ namespace ColorWanted
                 FollowCaret();
             }
 
+            //todo 是否绘制预览图
+            DrawZoom(pt);
+
             Color cl = ColorUtil.GetColor(pt);
 
             lbHex.Text = string.Format("#{0}{1}{2}", cl.R.ToString("X2"), cl.G.ToString("X2"), cl.B.ToString("X2"));
@@ -54,23 +62,7 @@ namespace ColorWanted
 
                 lbRgb.BackColor = cl;
 
-                if (ColorUtil.isDark(cl) || ColorUtil.isSingle(cl))
-                {
-                    lbRgb.ForeColor = Color.White;
-                    return;
-                }
-
-                if (ColorUtil.isLight(cl) || ColorUtil.isGray(cl))
-                {
-                    lbRgb.ForeColor = Color.Black;
-                    return;
-                }
-
-                var diffr = 255 - cl.R;
-                var diffg = 255 - cl.G;
-                var diffb = 255 - cl.B;
-
-                lbRgb.ForeColor = Color.FromArgb(diffr, diffg, diffb);
+                lbRgb.ForeColor = ColorUtil.GetContrastColor(cl);
             }
             else
             {
@@ -78,6 +70,25 @@ namespace ColorWanted
             }
         }
 
+        static Bitmap pic = new Bitmap(11, 11);
+        static int extend = 5;
+        static Graphics graphics;
+        /// <summary>
+        /// 画放大图，每个方向各取5个像素
+        /// </summary>
+        /// <param name="pt"></param>
+        private void DrawZoom(Point pt)
+        {
+            if (graphics == null)
+            {
+                graphics = Graphics.FromImage(pic);
+            }
+            graphics.Clear(Color.White);
+            graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
+            graphics.Save();
+
+            previewForm.UpdateImage(Util.ScaleBitmap(pic, previewForm.GetImageSize()));
+        }
 
         private void SetDefaultLocation()
         {
@@ -148,6 +159,14 @@ namespace ColorWanted
                 base.WndProc(ref m);
                 return;
             }
+
+            // 切换显示模式
+            if (keyValue == HotKeyValue.ShowPreview.AsInt())
+            {
+                TogglePreview();
+                base.WndProc(ref m);
+                return;
+            }
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -163,6 +182,9 @@ namespace ColorWanted
         {
             Height = 20;
 
+            previewForm = new PreviewForm();
+            previewForm.Show();
+            previewForm.Location = new Point(0, 0);
 
             if (!trayMenuFollowCaret.Checked)
             {
@@ -212,7 +234,16 @@ namespace ColorWanted
             }
             if (iniloaded)
             {
-                Settings.Location = Left + "," + Top;
+                Settings.Location = Location;
+            }
+        }
+
+        private void TogglePreview()
+        {
+            previewForm.Visible = !previewForm.Visible;
+            if (previewForm.Visible)
+            {
+                previewForm.BringToFront();
             }
         }
 
@@ -400,23 +431,10 @@ namespace ColorWanted
         private void FixedPosition()
         {
             var loc = Settings.Location;
-            if (!string.IsNullOrWhiteSpace(loc))
+            if (!loc.IsEmpty)
             {
-                var arr = loc.Split(',');
-                if (arr.Length == 2)
-                {
-                    int x, y;
-                    if (int.TryParse(arr[0], out x))
-                    {
-                        Left = x;
-                    }
-                    if (int.TryParse(arr[1], out y))
-                    {
-                        Top = y;
-                    }
-
-                    return;
-                }
+                Left = loc.X;
+                Top = loc.Y;
             }
             // 配置文件里面没有位置数据或数据无效，那么将窗口显示在默认的位置
             SetDefaultLocation();

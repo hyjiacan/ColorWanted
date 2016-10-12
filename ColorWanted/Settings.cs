@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using ColorWanted.enums;
 using Microsoft.Win32;
+using System.Drawing;
 
 namespace ColorWanted
 {
@@ -81,15 +82,15 @@ namespace ColorWanted
         }
 
 
-        public static string Location
+        public static Point Location
         {
             get
             {
-                return Get("location");
+                return ParsePoint(Get("location"));
             }
             set
             {
-                Set("location", value);
+                Set("location", value.ToString());
             }
         }
 
@@ -139,6 +140,43 @@ namespace ColorWanted
                 {
                 }
             }
+        }
+
+        public static Point PreviewLocation
+        {
+            get
+            {
+                return ParsePoint(Get("previewLocation"));
+            }
+            set
+            {
+                Set("previewLocation", value.ToString());
+            }
+        }
+
+        private static Point ParsePoint(string loc)
+        {
+            Point point = Point.Empty;
+            if (string.IsNullOrWhiteSpace(loc))
+            {
+                return point;
+            }
+            var arr = loc.Split(',');
+            if (arr.Length != 2)
+            {
+                return point;
+            }
+            int x, y;
+            if (int.TryParse(arr[0], out x))
+            {
+                point.X = x;
+            }
+            if (int.TryParse(arr[1], out y))
+            {
+                point.Y = y;
+            }
+
+            return point;
         }
     }
 }
