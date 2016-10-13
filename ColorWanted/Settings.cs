@@ -12,6 +12,7 @@ namespace ColorWanted
     {
         private static string filename;
         private const string section = "colorwanted";
+
         static Settings()
         {
             filename = Path.Combine(Path.GetTempPath(), Application.ProductName);
@@ -47,6 +48,19 @@ namespace ColorWanted
             set
             {
                 Set("autopin", value ? "1" : "0");
+            }
+        }
+
+        public static bool PreviewVisible
+        {
+            get
+            {
+                var v = Get("previewvisible");
+                return v == "" || v == "1";
+            }
+            set
+            {
+                Set("previewvisible", value ? "1" : "0");
             }
         }
 

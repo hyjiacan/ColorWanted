@@ -147,7 +147,7 @@ namespace ColorWanted
             // 显示/隐藏RGB颜色值
             if (keyValue == HotKeyValue.CopyRgbColor.AsInt())
             {
-                toggleRgb();
+                ToggleRgb();
                 base.WndProc(ref m);
                 return;
             }
@@ -183,7 +183,10 @@ namespace ColorWanted
             Height = 20;
 
             previewForm = new PreviewForm();
-            previewForm.Show();
+            if (Settings.PreviewVisible)
+            {
+                TogglePreview();
+            }
 
             if (!trayMenuFollowCaret.Checked)
             {
@@ -194,7 +197,7 @@ namespace ColorWanted
             trayMenuAutoPin.Checked = Settings.AutoPin;
 
             trayMenuShowRgb.Checked = Settings.ShowRgb;
-            toggleRgb();
+            ToggleRgb();
 
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
@@ -237,14 +240,6 @@ namespace ColorWanted
             }
         }
 
-        private void TogglePreview()
-        {
-            previewForm.Visible = !previewForm.Visible;
-            if (previewForm.Visible)
-            {
-                previewForm.BringToFront();
-            }
-        }
 
         #region 托盘菜单
 
@@ -276,10 +271,20 @@ namespace ColorWanted
         private void trayMenuShowRgb_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
-            toggleRgb();
+            ToggleRgb();
             if (iniloaded)
             {
                 Settings.ShowRgb = item.Checked;
+            }
+        }
+
+        private void trayMenuShowPreview_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            TogglePreview();
+            if (iniloaded)
+            {
+                Settings.PreviewVisible = item.Checked;
             }
         }
 
@@ -296,6 +301,8 @@ namespace ColorWanted
         private void trayMenuRestoreLocation_Click(object sender, EventArgs e)
         {
             SetDefaultLocation();
+
+            previewForm.Location = new Point(0, 0);
         }
 
         private void trayMenuAutoStart_Click(object sender, EventArgs e)
@@ -307,7 +314,7 @@ namespace ColorWanted
             Settings.Autostart = item.Checked;
         }
 
-        private void toggleRgb()
+        private void ToggleRgb()
         {
             if (!Visible)
             {
@@ -317,6 +324,15 @@ namespace ColorWanted
             bool showrgb = trayMenuShowRgb.Checked = !trayMenuShowRgb.Checked;
             lbRgb.Visible = showrgb;
             Width = showrgb ? 208 : 88;
+        }
+
+        private void TogglePreview()
+        {
+            Settings.PreviewVisible = trayMenuShowPreview.Checked = previewForm.Visible = !previewForm.Visible;
+            if (previewForm.Visible)
+            {
+                previewForm.BringToFront();
+            }
         }
         #endregion
 
@@ -348,6 +364,7 @@ namespace ColorWanted
                 trayMenuFollowCaret.Checked = false;
                 trayMenuFixed.Checked = false;
 
+                trayMenuShowPreview.Enabled = false;
                 trayMenuShowRgb.Enabled = false;
                 trayMenuRestoreLocation.Enabled = false;
                 trayMenuAutoPin.Enabled = false;
@@ -362,6 +379,7 @@ namespace ColorWanted
                 trayMenuFixed.Checked = false;
 
                 trayMenuShowRgb.Enabled = true;
+                trayMenuShowPreview.Enabled = true;
 
                 Show();
                 BringToFront();

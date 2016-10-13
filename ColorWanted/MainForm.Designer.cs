@@ -39,6 +39,7 @@
             this.trayMenuFixed = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuShowRgb = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuShowPreview = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuRestoreLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuAutoPin = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuAutoStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +47,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.trayMenuDisplayMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,19 +95,15 @@
             // trayMenu
             // 
             this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.trayMenuHideWindow,
-            this.trayMenuFollowCaret,
-            this.trayMenuFixed,
+            this.trayMenuDisplayMode,
+            this.trayMenuOption,
             this.toolStripSeparator2,
-            this.trayMenuShowRgb,
             this.trayMenuRestoreLocation,
-            this.trayMenuAutoPin,
-            this.trayMenuAutoStart,
             this.trayMenuShowAbout,
             this.toolStripSeparator1,
             this.trayMenuExit});
             this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(162, 214);
+            this.trayMenu.Size = new System.Drawing.Size(162, 258);
             // 
             // trayMenuHideWindow
             // 
@@ -140,6 +139,13 @@
             this.trayMenuShowRgb.Size = new System.Drawing.Size(161, 22);
             this.trayMenuShowRgb.Text = "显示RGB通道值";
             this.trayMenuShowRgb.Click += new System.EventHandler(this.trayMenuShowRgb_Click);
+            // 
+            // trayMenuShowPreview
+            // 
+            this.trayMenuShowPreview.Name = "trayMenuShowPreview";
+            this.trayMenuShowPreview.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuShowPreview.Text = "显示预览窗口";
+            this.trayMenuShowPreview.Click += new System.EventHandler(this.trayMenuShowPreview_Click);
             // 
             // trayMenuRestoreLocation
             // 
@@ -183,11 +189,35 @@
             this.trayMenuExit.Text = "退出";
             this.trayMenuExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // trayMenuDisplayMode
+            // 
+            this.trayMenuDisplayMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.trayMenuHideWindow, 
+                this.trayMenuFollowCaret,
+                this.trayMenuFixed
+            });
+            this.trayMenuDisplayMode.Name = "trayMenuDisplayMode";
+            this.trayMenuDisplayMode.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuDisplayMode.Text = "显示模式";
+
+            // 
+            // trayMenuOption
+            // 
+            this.trayMenuOption.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.trayMenuShowRgb,
+                this.trayMenuShowPreview,                
+                this.trayMenuAutoPin, 
+                this.trayMenuAutoStart,
+            });
+            this.trayMenuOption.Name = "trayMenuOption";
+            this.trayMenuOption.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuOption.Text = "选项";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(208, 18);
+            this.ClientSize = new System.Drawing.Size(208, 236);
             this.ControlBox = false;
             this.Controls.Add(this.lbHex);
             this.Controls.Add(this.lbRgb);
@@ -224,11 +254,14 @@
         private System.Windows.Forms.ToolStripMenuItem trayMenuAutoPin;
         private System.Windows.Forms.ToolTip tooltip;
         private System.Windows.Forms.ToolStripMenuItem trayMenuShowRgb;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuShowPreview;
         private System.Windows.Forms.ToolStripMenuItem trayMenuRestoreLocation;
         private System.Windows.Forms.ToolStripMenuItem trayMenuFollowCaret;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem trayMenuAutoStart;
         private System.Windows.Forms.ToolStripMenuItem trayMenuFixed;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuDisplayMode;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuOption;
     }
 }
 
