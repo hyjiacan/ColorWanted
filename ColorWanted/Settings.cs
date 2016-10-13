@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using ColorWanted.enums;
 using Microsoft.Win32;
-using System.Drawing;
 
 namespace ColorWanted
 {
@@ -90,7 +90,7 @@ namespace ColorWanted
             }
             set
             {
-                Set("location", value.ToString());
+                Set("location", string.Format("{0},{1}", value.X, value.Y));
             }
         }
 
@@ -150,17 +150,19 @@ namespace ColorWanted
             }
             set
             {
-                Set("previewLocation", value.ToString());
+                Set("previewLocation", string.Format("{0},{1}", value.X, value.Y));
             }
         }
 
         private static Point ParsePoint(string loc)
         {
             Point point = Point.Empty;
+
             if (string.IsNullOrWhiteSpace(loc))
             {
                 return point;
             }
+
             var arr = loc.Split(',');
             if (arr.Length != 2)
             {

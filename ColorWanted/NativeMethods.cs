@@ -1,8 +1,8 @@
 ﻿
-using System.Runtime.InteropServices;
 using System;
-using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 namespace ColorWanted
 {
     class NativeMethods

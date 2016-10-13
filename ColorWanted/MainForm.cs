@@ -184,7 +184,6 @@ namespace ColorWanted
 
             previewForm = new PreviewForm();
             previewForm.Show();
-            previewForm.Location = new Point(0, 0);
 
             if (!trayMenuFollowCaret.Checked)
             {
