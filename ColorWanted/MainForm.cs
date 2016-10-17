@@ -13,6 +13,11 @@ namespace ColorWanted
         private Screen screen;
         private AboutForm aboutForm;
         private PreviewForm previewForm;
+        /// <summary>
+        /// 自动吸附的距离，当距离小于等于这个值时吸附
+        /// </summary>
+        private const int pinSize = 15;
+
         // 上次复制的时间
         DateTime lastCopyTime;
         public MainForm()
@@ -171,11 +176,14 @@ namespace ColorWanted
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button != MouseButtons.Left)
             {
-                NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
+                return;
             }
+
+            NativeMethods.ReleaseCapture();
+            NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -183,6 +191,7 @@ namespace ColorWanted
             Height = 20;
 
             previewForm = new PreviewForm();
+            previewForm.LocationChanged += new EventHandler(previewForm_LocationChanged);
             if (Settings.PreviewVisible)
             {
                 TogglePreview();
@@ -208,6 +217,53 @@ namespace ColorWanted
             timer.Start();
         }
 
+        void previewForm_LocationChanged(object sender, EventArgs e)
+        {
+            if (!trayMenuAutoPin.Checked)
+            {
+                return;
+            }
+
+            #region 针对屏幕边缘
+            var size = screen.Bounds;
+            if (previewForm.Top <= pinSize)
+            {
+                previewForm.Top = 0;
+            }
+            else if (previewForm.Left <= pinSize)
+            {
+                previewForm.Left = 0;
+            }
+            else if (size.Width - previewForm.Left - previewForm.Width <= pinSize)
+            {
+                previewForm.Left = size.Width - previewForm.Width;
+            }
+            else if (screen.WorkingArea.Height - previewForm.Top - previewForm.Height <= pinSize)
+            {
+                previewForm.Top = screen.WorkingArea.Height - previewForm.Height;
+            }
+            #endregion
+
+            #region 针对主窗口边缘(仅下方和右侧)
+
+            // 右侧
+            if (Math.Abs(previewForm.Left - (Left + Width)) <= pinSize
+                && previewForm.Top <= Top + Height // 没有在主窗口下方
+                && (previewForm.Top + previewForm.Height >= previewForm.Top))// 没有在主窗口上方
+            {
+                previewForm.Left = Left + Width;
+            }
+
+            // 下方
+            if (Math.Abs(previewForm.Top - (Top + Height)) <= pinSize
+                && previewForm.Left <= Left + Width // 没有在主窗口右侧
+                && (previewForm.Left + previewForm.Width >= previewForm.Left))// 没有在主窗口左侧
+            {
+                previewForm.Top = Top + Height;
+            }
+            #endregion
+        }
+
         private void MainForm_LocationChanged(object sender, EventArgs e)
         {
             if (trayMenuFollowCaret.Checked)
@@ -217,23 +273,24 @@ namespace ColorWanted
             if (trayMenuAutoPin.Checked)
             {
                 var size = screen.Bounds;
-                if (Top <= 16)
+                if (Top <= pinSize)
                 {
                     Top = 0;
                 }
-                else if (Left <= 16)
+                else if (Left <= pinSize)
                 {
                     Left = 0;
                 }
-                else if (size.Width - Left - Width <= 16)
+                else if (size.Width - Left - Width <= pinSize)
                 {
                     Left = size.Width - Width;
                 }
-                else if (screen.WorkingArea.Height - Top - Height <= 16)
+                else if (screen.WorkingArea.Height - Top - Height <= pinSize)
                 {
                     Top = screen.WorkingArea.Height - Height;
                 }
             }
+
             if (iniloaded)
             {
                 Settings.Location = Location;
