@@ -34,21 +34,21 @@
             this.lbRgb = new System.Windows.Forms.Label();
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.trayMenuDisplayMode = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHideWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFollowCaret = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFixed = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.trayMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowRgb = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowPreview = new System.Windows.Forms.ToolStripMenuItem();
-            this.trayMenuRestoreLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuAutoPin = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuAutoStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.trayMenuRestoreLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.trayMenuDisplayMode = new System.Windows.Forms.ToolStripMenuItem();
-            this.trayMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,7 +80,8 @@
             this.lbRgb.TabIndex = 0;
             this.lbRgb.Text = "RGB(255,255,255)";
             this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltip.SetToolTip(this.lbRgb, "RGB通道颜色值，快速复制：Alt+G");
+            this.tooltip.SetToolTip(this.lbRgb, "RGB通道颜色值，快速复制：1秒内快速按 Alt+C 两次");
+            this.lbRgb.Visible = false;
             this.lbRgb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // tray
@@ -103,35 +104,51 @@
             this.toolStripSeparator1,
             this.trayMenuExit});
             this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(162, 258);
+            this.trayMenu.Size = new System.Drawing.Size(149, 126);
+            // 
+            // trayMenuDisplayMode
+            // 
+            this.trayMenuDisplayMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayMenuHideWindow,
+            this.trayMenuFollowCaret,
+            this.trayMenuFixed});
+            this.trayMenuDisplayMode.Name = "trayMenuDisplayMode";
+            this.trayMenuDisplayMode.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuDisplayMode.Text = "显示模式";
             // 
             // trayMenuHideWindow
             // 
             this.trayMenuHideWindow.Checked = true;
             this.trayMenuHideWindow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuHideWindow.Name = "trayMenuHideWindow";
-            this.trayMenuHideWindow.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuHideWindow.Size = new System.Drawing.Size(124, 22);
             this.trayMenuHideWindow.Text = "隐藏窗口";
             this.trayMenuHideWindow.Click += new System.EventHandler(this.trayMenuHideWindow_Click);
             // 
             // trayMenuFollowCaret
             // 
             this.trayMenuFollowCaret.Name = "trayMenuFollowCaret";
-            this.trayMenuFollowCaret.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuFollowCaret.Size = new System.Drawing.Size(124, 22);
             this.trayMenuFollowCaret.Text = "跟随模式";
             this.trayMenuFollowCaret.Click += new System.EventHandler(this.trayMenuFollowCaret_Click);
             // 
             // trayMenuFixed
             // 
             this.trayMenuFixed.Name = "trayMenuFixed";
-            this.trayMenuFixed.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuFixed.Size = new System.Drawing.Size(124, 22);
             this.trayMenuFixed.Text = "固定模式";
             this.trayMenuFixed.Click += new System.EventHandler(this.trayMenuFixed_Click);
             // 
-            // toolStripSeparator2
+            // trayMenuOption
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(158, 6);
+            this.trayMenuOption.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayMenuShowRgb,
+            this.trayMenuShowPreview,
+            this.trayMenuAutoPin,
+            this.trayMenuAutoStart});
+            this.trayMenuOption.Name = "trayMenuOption";
+            this.trayMenuOption.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuOption.Text = "选项";
             // 
             // trayMenuShowRgb
             // 
@@ -146,13 +163,6 @@
             this.trayMenuShowPreview.Size = new System.Drawing.Size(161, 22);
             this.trayMenuShowPreview.Text = "显示预览窗口";
             this.trayMenuShowPreview.Click += new System.EventHandler(this.trayMenuShowPreview_Click);
-            // 
-            // trayMenuRestoreLocation
-            // 
-            this.trayMenuRestoreLocation.Name = "trayMenuRestoreLocation";
-            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(161, 22);
-            this.trayMenuRestoreLocation.Text = "重置窗口位置";
-            this.trayMenuRestoreLocation.Click += new System.EventHandler(this.trayMenuRestoreLocation_Click);
             // 
             // trayMenuAutoPin
             // 
@@ -170,48 +180,36 @@
             this.trayMenuAutoStart.Text = "开机启动";
             this.trayMenuAutoStart.Click += new System.EventHandler(this.trayMenuAutoStart_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
+            // 
+            // trayMenuRestoreLocation
+            // 
+            this.trayMenuRestoreLocation.Name = "trayMenuRestoreLocation";
+            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuRestoreLocation.Text = "重置窗口位置";
+            this.trayMenuRestoreLocation.Click += new System.EventHandler(this.trayMenuRestoreLocation_Click);
+            // 
             // trayMenuShowAbout
             // 
             this.trayMenuShowAbout.Name = "trayMenuShowAbout";
-            this.trayMenuShowAbout.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuShowAbout.Size = new System.Drawing.Size(148, 22);
             this.trayMenuShowAbout.Text = "关于";
             this.trayMenuShowAbout.Click += new System.EventHandler(this.trayMenuShowAbout_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // trayMenuExit
             // 
             this.trayMenuExit.Name = "trayMenuExit";
-            this.trayMenuExit.Size = new System.Drawing.Size(161, 22);
+            this.trayMenuExit.Size = new System.Drawing.Size(148, 22);
             this.trayMenuExit.Text = "退出";
             this.trayMenuExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // trayMenuDisplayMode
-            // 
-            this.trayMenuDisplayMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.trayMenuHideWindow, 
-                this.trayMenuFollowCaret,
-                this.trayMenuFixed
-            });
-            this.trayMenuDisplayMode.Name = "trayMenuDisplayMode";
-            this.trayMenuDisplayMode.Size = new System.Drawing.Size(161, 22);
-            this.trayMenuDisplayMode.Text = "显示模式";
-
-            // 
-            // trayMenuOption
-            // 
-            this.trayMenuOption.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                this.trayMenuShowRgb,
-                this.trayMenuShowPreview,                
-                this.trayMenuAutoPin, 
-                this.trayMenuAutoStart,
-            });
-            this.trayMenuOption.Name = "trayMenuOption";
-            this.trayMenuOption.Size = new System.Drawing.Size(161, 22);
-            this.trayMenuOption.Text = "选项";
             // 
             // MainForm
             // 

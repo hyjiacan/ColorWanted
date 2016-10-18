@@ -189,12 +189,17 @@ namespace ColorWanted
         private void MainForm_Load(object sender, EventArgs e)
         {
             Height = 20;
+            Width = 88;
 
             previewForm = new PreviewForm();
             previewForm.LocationChanged += new EventHandler(previewForm_LocationChanged);
             if (Settings.PreviewVisible)
             {
                 TogglePreview();
+            }
+            if (Settings.ShowRgb)
+            {
+                ToggleRgb();
             }
 
             if (!trayMenuFollowCaret.Checked)
@@ -206,7 +211,6 @@ namespace ColorWanted
             trayMenuAutoPin.Checked = Settings.AutoPin;
 
             trayMenuShowRgb.Checked = Settings.ShowRgb;
-            ToggleRgb();
 
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
@@ -329,20 +333,12 @@ namespace ColorWanted
         {
             var item = sender as ToolStripMenuItem;
             ToggleRgb();
-            if (iniloaded)
-            {
-                Settings.ShowRgb = item.Checked;
-            }
         }
 
         private void trayMenuShowPreview_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
             TogglePreview();
-            if (iniloaded)
-            {
-                Settings.PreviewVisible = item.Checked;
-            }
         }
 
         private void trayMenuAutoPin_Click(object sender, EventArgs e)
@@ -381,6 +377,11 @@ namespace ColorWanted
             bool showrgb = trayMenuShowRgb.Checked = !trayMenuShowRgb.Checked;
             lbRgb.Visible = showrgb;
             Width = showrgb ? 208 : 88;
+
+            if (iniloaded)
+            {
+                Settings.ShowRgb = showrgb;
+            }
         }
 
         private void TogglePreview()

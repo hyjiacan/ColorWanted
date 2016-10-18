@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreviewForm));
             this.picPreview = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.SuspendLayout();
@@ -58,14 +59,14 @@
             this.Controls.Add(this.picPreview);
             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(440, 440);
             this.MinimumSize = new System.Drawing.Size(77, 77);
             this.Name = "PreviewForm";
             this.Opacity = 0.8D;
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "PreviewForm";
+            this.Text = "赏色-预览";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.PreviewForm_Load);
             this.LocationChanged += new System.EventHandler(this.PreviewForm_LocationChanged);
