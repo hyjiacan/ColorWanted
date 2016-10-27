@@ -9,7 +9,7 @@ namespace ColorWanted
     {
         [DllImport("gdi32.dll")]
         static public extern uint GetPixel(IntPtr hDC, int XPos, int YPos);
-        [DllImport("gdi32.dll")]
+        [DllImport("gdi32.dll", CharSet = CharSet.Unicode)]
         static public extern IntPtr CreateDC(string driverName, string deviceName, string output, IntPtr lpinitData);
         [DllImport("gdi32.dll")]
         static public extern bool DeleteDC(IntPtr DC);
@@ -34,17 +34,17 @@ namespace ColorWanted
         public static extern bool ReleaseCapture();
 
         [DllImport("user32.dll")]
-        public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+        public static extern IntPtr SendMessage(IntPtr hwnd, uint wMsg, IntPtr wParam, IntPtr lParam);
 
-        public const int WM_SYSCOMMAND = 0x0112;
-        public const int SC_MOVE = 0xF010;
-        public const int HTCAPTION = 0x0002;
+        public const uint WM_SYSCOMMAND = 0x0112;
+        public const uint SC_MOVE = 0xF010;
+        public const uint HTCAPTION = 0x0002;
 
-        [DllImport("kernel32", EntryPoint = "WritePrivateProfileString")]
-        public static extern long WriteIni(string section, string key, string val, string filePath);
+        [DllImport("kernel32", EntryPoint = "WritePrivateProfileString", CharSet = CharSet.Unicode)]
+        public static extern bool WriteIni(string section, string key, string val, string filePath);
 
-        [DllImport("kernel32", EntryPoint = "GetPrivateProfileString")]
-        public static extern int ReadIni(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
+        [DllImport("kernel32", EntryPoint = "GetPrivateProfileString", CharSet = CharSet.Unicode)]
+        public static extern bool ReadIni(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
 
         /// <summary>
         /// 结构体，里面字段的顺序不要变，值是按顺序存放的
@@ -57,10 +57,10 @@ namespace ColorWanted
             public int Bottom;
         }
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindowEx(IntPtr hWnd1, IntPtr hWnd2, string lpsz1, string lpsz2);
 
         [DllImport("user32.dll")]
@@ -70,7 +70,7 @@ namespace ColorWanted
         public static extern IntPtr MoveWindow(IntPtr hWnd, IntPtr x, IntPtr y, int nWidth, int nHeight, int bRepaint);
 
         [DllImport("user32.dll")]
-        public static extern IntPtr GetWindowRect(IntPtr hWnd, out Rect lpRect);
+        public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
 
         [DllImport("user32.dll")]
         public static extern bool GetCursorInfo(out CURSORINFO pci);

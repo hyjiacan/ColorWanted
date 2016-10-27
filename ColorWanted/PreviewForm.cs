@@ -46,7 +46,8 @@ namespace ColorWanted
             if (e.Button == MouseButtons.Left)
             {
                 NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND, NativeMethods.SC_MOVE + NativeMethods.HTCAPTION, 0);
+                NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND,
+                   new IntPtr(NativeMethods.SC_MOVE + NativeMethods.HTCAPTION), IntPtr.Zero);
             }
         }
 
