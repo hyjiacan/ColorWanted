@@ -1,8 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using ColorWanted.enums;
+﻿using ColorWanted.enums;
 using ColorWanted.ext;
+using System;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
 
 namespace ColorWanted
 {
@@ -13,6 +14,17 @@ namespace ColorWanted
         private Screen screen;
         private AboutForm aboutForm;
         private PreviewForm previewForm;
+
+        /// <summary>
+        /// 上次光标所在位置
+        /// </summary>
+        private Point lastPosition = Point.Empty;
+
+        /// <summary>
+        /// 上次取到的颜色
+        /// </summary>
+        private Color lastColor = Color.Empty;
+
         /// <summary>
         /// 自动吸附的距离，当距离小于等于这个值时吸附
         /// </summary>
@@ -20,6 +32,12 @@ namespace ColorWanted
 
         // 上次复制的时间
         DateTime lastCopyTime;
+
+
+        private StringBuilder hexBuffer;
+
+        private StringBuilder rgbBuffer;
+
         public MainForm()
         {
             InitializeComponent();
@@ -27,6 +45,9 @@ namespace ColorWanted
             screen = Screen.PrimaryScreen;
 
             currentMode = DisplayMode.Fixed;
+
+            hexBuffer = new StringBuilder(8, 8);
+            rgbBuffer = new StringBuilder(10, 16);
 
             Util.BindHotkeys(Handle);
         }
@@ -48,19 +69,38 @@ namespace ColorWanted
             }
             Point pt = new Point(MousePosition.X, MousePosition.Y);
 
+            Color cl = ColorUtil.GetColor(pt);
+
+            // 如果光标位置不变，颜色也不变，就不绘制了
+            if (pt.Equals(lastPosition) && cl.Equals(lastColor))
+            {
+                return;
+            }
+
+            lastPosition = pt;
+            lastColor = cl;
+
             if (currentMode == DisplayMode.Follow)
             {
                 FollowCaret();
             }
 
-            //todo 是否绘制预览图
-            DrawZoom(pt);
 
-            Color cl = ColorUtil.GetColor(pt);
+            hexBuffer.Clear();
+            lbHex.Text =
+            hexBuffer.AppendFormat("#{0}{1}{2}",
+                cl.R.ToString("X2"),
+                cl.G.ToString("X2"),
+                cl.B.ToString("X2")).ToString();
 
-            lbHex.Text = string.Format("#{0}{1}{2}", cl.R.ToString("X2"), cl.G.ToString("X2"), cl.B.ToString("X2"));
+            rgbBuffer.Clear();
+            lbRgb.Text =
+            rgbBuffer.AppendFormat("RGB({0},{1},{2})", cl.R, cl.G, cl.B).ToString();
 
-            lbRgb.Text = string.Format("RGB({0},{1},{2})", cl.R, cl.G, cl.B);
+            if (trayMenuShowPreview.Checked)
+            {
+                DrawPreview(pt);
+            }
 
             if (trayMenuShowRgb.Checked)
             {
@@ -82,7 +122,7 @@ namespace ColorWanted
         /// 画放大图，每个方向各取5个像素
         /// </summary>
         /// <param name="pt"></param>
-        private void DrawZoom(Point pt)
+        private void DrawPreview(Point pt)
         {
             if (graphics == null)
             {
@@ -217,7 +257,7 @@ namespace ColorWanted
             trayMenuAutoStart.Checked = Settings.Autostart;
 
             timer = new Timer();
-            timer.Interval = 100;
+            timer.Interval = 300;
             timer.Tick += timer_Tick;
             timer.Start();
         }

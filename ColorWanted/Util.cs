@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ColorWanted.enums;
+using ColorWanted.ext;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using ColorWanted.enums;
-using ColorWanted.ext;
 
 namespace ColorWanted
 {
@@ -37,6 +37,18 @@ namespace ColorWanted
 
         private static Point startPoint = new Point(0, 0);
         private static Pen linePen = new Pen(new SolidBrush(Color.FromArgb(100, 30, 30, 30)));
+
+        // 新图像的对象
+        private static Bitmap newPic = null;
+        // 画面对象
+        private static Graphics graphics = null;
+
+        private static Rectangle originRect = new Rectangle(0, 0, 0, 0);
+
+        private static Rectangle newRect = new Rectangle(0, 0, 0, 0);
+
+        private static SolidBrush brush = new SolidBrush(Color.Black);
+
         public static Bitmap ScaleBitmap(Bitmap originPic, Size newSize)
         {
             // 边长
@@ -46,52 +58,34 @@ namespace ColorWanted
             var paddingY = (newSize.Height - width) / 2;
             var m = width / originPic.Width;
 
-            var newPic = new Bitmap(newSize.Width, newSize.Height);
+            if (!originRect.Size.Equals(originPic.Size))
+            {
+                originRect.Size = originPic.Size;
+            }
 
-            var g = Graphics.FromImage(newPic);
+            if (newPic == null || !newSize.Equals(newRect.Size))
+            {
+                newRect.Size = newSize;
+                newPic = new Bitmap(newSize.Width, newSize.Height);
+                graphics = Graphics.FromImage(newPic);
+            }
 
             for (var row = 0; row < originPic.Width; row++)
             {
+                var w = paddingX + row * m;
                 for (var col = 0; col < originPic.Height; col++)
                 {
-                    var color = originPic.GetPixel(row, col);
-                    g.FillRectangle(new SolidBrush(color), paddingX + row * m, paddingY + col * m, m, m);
+                    brush.Color = originPic.GetPixel(row, col);
+                    graphics.FillRectangle(brush, w, paddingY + col * m, m, m);
                 }
             }
+            //graphics.DrawImage(originPic, newRect, originRect, GraphicsUnit.Pixel);
 
             linePen.Color = ColorUtil.GetContrastColor(originPic.GetPixel(originPic.Width / 2 + 1, originPic.Height / 2 + 1), true);
-            g.DrawLine(linePen, 0, newSize.Height / 2, newSize.Width, newSize.Height / 2);
-            g.DrawLine(linePen, newSize.Width / 2, newSize.Height, newSize.Width / 2, 0);
+            graphics.DrawLine(linePen, 0, newSize.Height / 2, newSize.Width, newSize.Height / 2);
+            graphics.DrawLine(linePen, newSize.Width / 2, newSize.Height, newSize.Width / 2, 0);
 
-            g.Save();
-
-
-            //// m即光标所在处点的边长
-            //// 计算放大后图片边缘到这些图中心的位置
-            //// 以确定透明度
-            //var center = width / 2 + 1;
-            //// 绘图区域半径
-            //var maxradius = (int)Math.Ceiling(Math.Sqrt(2 * width * width));
-            //// 不透明部分的半径
-            //var minradius = (int)Math.Ceiling(Math.Sqrt(2 * m * m));
-
-            //for (var row = 0; row < newPic.Width; row++)
-            //{
-            //    for (var col = 0; col < newPic.Height; col++)
-            //    {
-            //        var color = newPic.GetPixel(row, col);
-            //        var distance = (int)Math.Ceiling(Math.Sqrt(Math.Pow(Math.Abs(row - center), 2) + Math.Pow(Math.Abs(col - center), 2)));
-
-            //        if (distance <= minradius)
-            //        {
-            //            continue;
-            //        }
-
-            //        var alpha = (int)(Math.Abs(1 - distance * 1.0 / maxradius) * 100);
-
-            //        newPic.SetPixel(row, col, Color.FromArgb(alpha, color));
-            //    }
-            //}
+            graphics.Save();
 
             return newPic;
         }

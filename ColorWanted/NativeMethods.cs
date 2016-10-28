@@ -51,10 +51,10 @@ namespace ColorWanted
         /// </summary>
         public struct Rect
         {
-            public int Left;
-            public int Top;
-            public int Right;
-            public int Bottom;
+            public int Left{get;set;}
+            public int Top { get; set; }
+            public int Right { get; set; }
+            public int Bottom { get; set; }
         }
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
