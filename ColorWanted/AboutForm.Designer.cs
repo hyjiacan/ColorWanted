@@ -44,7 +44,6 @@
             this.lbVersion = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -204,15 +203,6 @@
             this.label10.TabIndex = 11;
             this.label10.Text = "Alt+F1 切换显示模式 (隐藏/固定/跟随)";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(93, 368);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(149, 12);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Alt+F2 显示/隐藏预览面板";
-            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -224,7 +214,6 @@
             this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.picLOGO);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -270,6 +259,5 @@
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label8;
     }
 }

@@ -40,7 +40,6 @@
             this.trayMenuFixed = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowRgb = new System.Windows.Forms.ToolStripMenuItem();
-            this.trayMenuShowPreview = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuAutoPin = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuAutoStart = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -143,7 +142,6 @@
             // 
             this.trayMenuOption.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuShowRgb,
-            this.trayMenuShowPreview,
             this.trayMenuAutoPin,
             this.trayMenuAutoStart});
             this.trayMenuOption.Name = "trayMenuOption";
@@ -156,13 +154,6 @@
             this.trayMenuShowRgb.Size = new System.Drawing.Size(161, 22);
             this.trayMenuShowRgb.Text = "显示RGB通道值";
             this.trayMenuShowRgb.Click += new System.EventHandler(this.trayMenuShowRgb_Click);
-            // 
-            // trayMenuShowPreview
-            // 
-            this.trayMenuShowPreview.Name = "trayMenuShowPreview";
-            this.trayMenuShowPreview.Size = new System.Drawing.Size(161, 22);
-            this.trayMenuShowPreview.Text = "显示预览窗口";
-            this.trayMenuShowPreview.Click += new System.EventHandler(this.trayMenuShowPreview_Click);
             // 
             // trayMenuAutoPin
             // 
@@ -252,7 +243,6 @@
         private System.Windows.Forms.ToolStripMenuItem trayMenuAutoPin;
         private System.Windows.Forms.ToolTip tooltip;
         private System.Windows.Forms.ToolStripMenuItem trayMenuShowRgb;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuShowPreview;
         private System.Windows.Forms.ToolStripMenuItem trayMenuRestoreLocation;
         private System.Windows.Forms.ToolStripMenuItem trayMenuFollowCaret;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

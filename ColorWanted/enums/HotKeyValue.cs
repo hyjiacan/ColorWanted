@@ -16,10 +16,6 @@
         /// <summary>
         /// 复制十六进制颜色值
         /// </summary>
-        CopyHexColor,
-        /// <summary>
-        /// 显示预览窗口，隐藏鼠标
-        /// </summary>
-        ShowPreview
+        CopyHexColor
     }
 }

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ColorWanted.enums;
+using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using ColorWanted.enums;
-using Microsoft.Win32;
 
 namespace ColorWanted
 {
@@ -48,19 +48,6 @@ namespace ColorWanted
             set
             {
                 Set("autopin", value ? "1" : "0");
-            }
-        }
-
-        public static bool PreviewVisible
-        {
-            get
-            {
-                var v = Get("previewvisible");
-                return v == "" || v == "1";
-            }
-            set
-            {
-                Set("previewvisible", value ? "1" : "0");
             }
         }
 
