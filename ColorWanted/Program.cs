@@ -13,7 +13,7 @@ namespace ColorWanted
         static void Main()
         {
             bool createdNew;
-            var mutex = new Mutex(true, Application.ProductName, out createdNew);
+            new Mutex(true, Application.ProductName, out createdNew);
             if (!createdNew)
             {
                 return;
