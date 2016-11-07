@@ -281,7 +281,6 @@ namespace ColorWanted
 
         private void trayMenuShowRgb_Click(object sender, EventArgs e)
         {
-            var item = sender as ToolStripMenuItem;
             ToggleRgb();
         }
 

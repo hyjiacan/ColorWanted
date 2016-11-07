@@ -18,13 +18,17 @@ namespace ColorWanted
             filename = Path.Combine(Path.GetTempPath(), Application.ProductName);
         }
 
-        private static void Set(string key, string value)
+        private static bool Set(string key, string value)
         {
             try
             {
                 NativeMethods.WriteIni(section, key, value, filename);
+				return true;
             }
-            catch { }
+            catch 
+			{ 
+				return false;
+			}
         }
 
         private static string Get(string key)
@@ -115,10 +119,12 @@ namespace ColorWanted
                             }
                         }
                     }
+					
+					return false;
                 }
-                catch { }
-
-                return false;
+                catch {
+					return false;
+				}
             }
 
             set
