@@ -91,7 +91,7 @@ namespace ColorWanted
             rgbBuffer.Clear();
             lbRgb.Text =
             rgbBuffer.AppendFormat("RGB({0},{1},{2})", cl.R, cl.G, cl.B).ToString();
-            
+
             if (trayMenuShowRgb.Checked)
             {
 
@@ -436,13 +436,16 @@ namespace ColorWanted
         private void FixedPosition()
         {
             var loc = Settings.Location;
-            if (!loc.IsEmpty)
+            if (loc.IsEmpty)
+            {
+                // 配置文件里面没有位置数据或数据无效，那么将窗口显示在默认的位置
+                SetDefaultLocation();
+            }
+            else
             {
                 Left = loc.X;
                 Top = loc.Y;
             }
-            // 配置文件里面没有位置数据或数据无效，那么将窗口显示在默认的位置
-            SetDefaultLocation();
         }
         #endregion
 
