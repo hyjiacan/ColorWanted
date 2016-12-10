@@ -25,3 +25,4 @@
 - [取色功能](http://www.haolizi.net/example/view_102.html)
 - [窗口拖动功能](http://blog.csdn.net/skysky01/article/details/9902247)
 - [全局热键](http://www.cnblogs.com/Randy0528/archive/2013/02/04/2892062.html)
+- [在Alt+Tab列表中隐藏窗口](http://bbs.csdn.net/topics/380256152#post-390885609)

@@ -15,6 +15,19 @@ namespace ColorWanted
             MouseWheel += new MouseEventHandler(picPreview_MouseWheel);
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                const int WS_EX_APPWINDOW = 0x40000;
+                const int WS_EX_TOOLWINDOW = 0x80;
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle &= (~WS_EX_APPWINDOW);    // 不显示在TaskBar
+                cp.ExStyle |= WS_EX_TOOLWINDOW;      // 不显示在Alt-Tab
+                return cp;
+            }
+        }
+
         //滚轮控制窗口大小
         void picPreview_MouseWheel(object sender, MouseEventArgs e)
         {
