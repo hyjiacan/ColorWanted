@@ -20,6 +20,10 @@
         /// <summary>
         /// 显示预览窗口，隐藏鼠标
         /// </summary>
-        ShowPreview
+        ShowPreview,
+        /// <summary>
+        /// 显示调色板
+        /// </summary>
+        ShowColorPicker
     }
 }

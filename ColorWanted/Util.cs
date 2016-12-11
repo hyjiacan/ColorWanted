@@ -21,6 +21,7 @@ namespace ColorWanted
             NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyRgbColor.AsInt(), KeyModifiers.Alt, Keys.R);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.SwitchMode.AsInt(), KeyModifiers.Alt, Keys.F1);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowPreview.AsInt(), KeyModifiers.Alt, Keys.F2);
+            NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowColorPicker.AsInt(), KeyModifiers.Alt, Keys.F3);
         }
 
         /// <summary>
@@ -33,6 +34,7 @@ namespace ColorWanted
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyRgbColor.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.SwitchMode.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowPreview.AsInt());
+            NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowColorPicker.AsInt());
         }
 
         private static Point startPoint = new Point(0, 0);

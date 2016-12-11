@@ -14,6 +14,7 @@ namespace ColorWanted
         private Screen screen;
         private AboutForm aboutForm;
         private PreviewForm previewForm;
+        private ColorDialog colorPicker;
 
         /// <summary>
         /// 上次光标所在位置
@@ -220,6 +221,14 @@ namespace ColorWanted
             if (keyValue == HotKeyValue.ShowPreview.AsInt())
             {
                 TogglePreview();
+                base.WndProc(ref m);
+                return;
+            }
+
+            // 显示/隐藏调用板
+            if (keyValue == HotKeyValue.ShowColorPicker.AsInt())
+            {
+                ShowColorPicker();
                 base.WndProc(ref m);
                 return;
             }
@@ -442,6 +451,26 @@ namespace ColorWanted
             if (previewForm.Visible)
             {
                 previewForm.BringToFront();
+            }
+        }
+
+        private void ShowColorPicker()
+        {
+            if (colorPicker == null)
+            {
+                colorPicker = new ColorDialog()
+                {
+                    FullOpen = true
+                };
+            }
+
+            if(DialogResult.OK == colorPicker.ShowDialog(this))
+            {
+                var cl = colorPicker.Color;
+                Clipboard.SetText(string.Format("#{0}{1}{2}",
+                cl.R.ToString("X2"),
+                cl.G.ToString("X2"),
+                cl.B.ToString("X2")));
             }
         }
         #endregion

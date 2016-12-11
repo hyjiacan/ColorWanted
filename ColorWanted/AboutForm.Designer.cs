@@ -45,6 +45,7 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,7 +86,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(93, 262);
+            this.label3.Location = new System.Drawing.Point(93, 241);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 16);
             this.label3.TabIndex = 6;
@@ -138,7 +139,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(93, 293);
+            this.label6.Location = new System.Drawing.Point(93, 272);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(329, 12);
             this.label6.TabIndex = 11;
@@ -147,7 +148,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(93, 318);
+            this.label7.Location = new System.Drawing.Point(93, 297);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(173, 12);
             this.label7.TabIndex = 11;
@@ -198,7 +199,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(93, 343);
+            this.label10.Location = new System.Drawing.Point(93, 322);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(221, 12);
             this.label10.TabIndex = 11;
@@ -207,11 +208,20 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(93, 368);
+            this.label8.Location = new System.Drawing.Point(93, 347);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(149, 12);
             this.label8.TabIndex = 11;
             this.label8.Text = "Alt+F2 显示/隐藏预览面板";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(94, 374);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(107, 12);
+            this.label11.TabIndex = 15;
+            this.label11.Text = "Alt+F3 显示调色板";
             // 
             // AboutForm
             // 
@@ -220,6 +230,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(472, 410);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lbVersion);
             this.Controls.Add(this.picLOGO);
@@ -271,5 +282,6 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label11;
     }
 }
