@@ -5,13 +5,15 @@
 >开发工具>=VS2010，运行环境需要>=.net4.0
 
 #下载二进制文件
-[ColorWanted-latest.exe](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
+[赏色-latest.exe](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
+[赏色-latest.exe(带预览窗口版)](http://git.oschina.net/hyjiacan/ColorWanted/raw/preview/ColorWanted/bin/Release/ColorWanted.exe)
 
 ## 快捷键
 - **Alt+C** 复制十六进制颜色值，1秒内连续按两次复制RGB颜色值
 - **Alt+R** 显示/隐藏RGB通道颜色板
 - **Alt+F1** 切换显示模式(隐藏/固定/跟随)
 - **Alt+F2** 显示/隐藏预览面板
+- **Alt+F3** 显示调色板
 
 ## 帮助
 - 预览面板
