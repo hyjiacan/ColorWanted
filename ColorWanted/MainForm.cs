@@ -13,6 +13,8 @@ namespace ColorWanted
         private bool iniloaded;
         private Screen screen;
         private AboutForm aboutForm;
+        private PreviewForm previewForm;
+        private ColorDialog colorPicker;
 
         /// <summary>
         /// 上次光标所在位置
@@ -66,6 +68,10 @@ namespace ColorWanted
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            if (previewForm.MouseOnMe)
+            {
+                return;
+            }
             if (!iniloaded)
             {
                 // 不晓得为啥，在启动时加载Visible会被覆盖，所在放到这里来了
@@ -103,6 +109,11 @@ namespace ColorWanted
             lbRgb.Text =
             rgbBuffer.AppendFormat("RGB({0},{1},{2})", cl.R, cl.G, cl.B).ToString();
 
+            if (trayMenuShowPreview.Checked)
+            {
+                DrawPreview(pt);
+            }
+
             if (trayMenuShowRgb.Checked)
             {
 
@@ -114,6 +125,26 @@ namespace ColorWanted
             {
                 BackColor = cl;
             }
+        }
+
+        static Bitmap pic = new Bitmap(11, 11);
+        static int extend = 5;
+        static Graphics graphics;
+        /// <summary>
+        /// 画放大图，每个方向各取5个像素
+        /// </summary>
+        /// <param name="pt"></param>
+        private void DrawPreview(Point pt)
+        {
+            if (graphics == null)
+            {
+                graphics = Graphics.FromImage(pic);
+            }
+            graphics.Clear(Color.White);
+            graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
+            graphics.Save();
+
+            previewForm.UpdateImage(Util.ScaleBitmap(pic, previewForm.GetImageSize()));
         }
 
         private void SetDefaultLocation()
@@ -185,6 +216,22 @@ namespace ColorWanted
                 base.WndProc(ref m);
                 return;
             }
+
+            // 切换显示模式
+            if (keyValue == HotKeyValue.ShowPreview.AsInt())
+            {
+                TogglePreview();
+                base.WndProc(ref m);
+                return;
+            }
+
+            // 显示/隐藏调用板
+            if (keyValue == HotKeyValue.ShowColorPicker.AsInt())
+            {
+                ShowColorPicker();
+                base.WndProc(ref m);
+                return;
+            }
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -205,6 +252,12 @@ namespace ColorWanted
             Height = 20;
             Width = 88;
 
+            previewForm = new PreviewForm();
+            previewForm.LocationChanged += new EventHandler(previewForm_LocationChanged);
+            if (Settings.PreviewVisible)
+            {
+                TogglePreview();
+            }
             if (Settings.ShowRgb)
             {
                 ToggleRgb();
@@ -227,6 +280,53 @@ namespace ColorWanted
             timer.Interval = 300;
             timer.Tick += timer_Tick;
             timer.Start();
+        }
+
+        void previewForm_LocationChanged(object sender, EventArgs e)
+        {
+            if (!trayMenuAutoPin.Checked)
+            {
+                return;
+            }
+
+            #region 针对屏幕边缘
+            var size = screen.Bounds;
+            if (previewForm.Top <= pinSize)
+            {
+                previewForm.Top = 0;
+            }
+            else if (previewForm.Left <= pinSize)
+            {
+                previewForm.Left = 0;
+            }
+            else if (size.Width - previewForm.Left - previewForm.Width <= pinSize)
+            {
+                previewForm.Left = size.Width - previewForm.Width;
+            }
+            else if (screen.WorkingArea.Height - previewForm.Top - previewForm.Height <= pinSize)
+            {
+                previewForm.Top = screen.WorkingArea.Height - previewForm.Height;
+            }
+            #endregion
+
+            #region 针对主窗口边缘(仅下方和右侧)
+
+            // 右侧
+            if (Math.Abs(previewForm.Left - (Left + Width)) <= pinSize
+                && previewForm.Top <= Top + Height // 没有在主窗口下方
+                && (previewForm.Top + previewForm.Height >= previewForm.Top))// 没有在主窗口上方
+            {
+                previewForm.Left = Left + Width;
+            }
+
+            // 下方
+            if (Math.Abs(previewForm.Top - (Top + Height)) <= pinSize
+                && previewForm.Left <= Left + Width // 没有在主窗口右侧
+                && (previewForm.Left + previewForm.Width >= previewForm.Left))// 没有在主窗口左侧
+            {
+                previewForm.Top = Top + Height;
+            }
+            #endregion
         }
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
@@ -292,7 +392,14 @@ namespace ColorWanted
 
         private void trayMenuShowRgb_Click(object sender, EventArgs e)
         {
+            var item = sender as ToolStripMenuItem;
             ToggleRgb();
+        }
+
+        private void trayMenuShowPreview_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            TogglePreview();
         }
 
         private void trayMenuAutoPin_Click(object sender, EventArgs e)
@@ -308,6 +415,8 @@ namespace ColorWanted
         private void trayMenuRestoreLocation_Click(object sender, EventArgs e)
         {
             SetDefaultLocation();
+
+            previewForm.Location = new Point(0, 0);
         }
 
         private void trayMenuAutoStart_Click(object sender, EventArgs e)
@@ -333,6 +442,35 @@ namespace ColorWanted
             if (iniloaded)
             {
                 Settings.ShowRgb = showrgb;
+            }
+        }
+
+        private void TogglePreview()
+        {
+            Settings.PreviewVisible = trayMenuShowPreview.Checked = previewForm.Visible = !previewForm.Visible;
+            if (previewForm.Visible)
+            {
+                previewForm.BringToFront();
+            }
+        }
+
+        private void ShowColorPicker()
+        {
+            if (colorPicker == null)
+            {
+                colorPicker = new ColorDialog()
+                {
+                    FullOpen = true
+                };
+            }
+
+            if(DialogResult.OK == colorPicker.ShowDialog(this))
+            {
+                var cl = colorPicker.Color;
+                Clipboard.SetText(string.Format("#{0}{1}{2}",
+                cl.R.ToString("X2"),
+                cl.G.ToString("X2"),
+                cl.B.ToString("X2")));
             }
         }
         #endregion
@@ -365,6 +503,7 @@ namespace ColorWanted
                 trayMenuFollowCaret.Checked = false;
                 trayMenuFixed.Checked = false;
 
+                trayMenuShowPreview.Enabled = false;
                 trayMenuShowRgb.Enabled = false;
                 trayMenuRestoreLocation.Enabled = false;
                 trayMenuAutoPin.Enabled = false;
@@ -379,6 +518,7 @@ namespace ColorWanted
                 trayMenuFixed.Checked = false;
 
                 trayMenuShowRgb.Enabled = true;
+                trayMenuShowPreview.Enabled = true;
 
                 Show();
                 BringToFront();
