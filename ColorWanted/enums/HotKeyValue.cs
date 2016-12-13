@@ -24,6 +24,10 @@
         /// <summary>
         /// 显示调色板
         /// </summary>
-        ShowColorPicker
+        ShowColorPicker,
+        /// <summary>
+        /// 绘制预览窗口
+        /// </summary>
+        DrawPreview
     }
 }

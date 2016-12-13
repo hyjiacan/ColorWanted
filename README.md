@@ -6,7 +6,6 @@
 
 #下载二进制文件
 [赏色-latest.exe](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
-[赏色-latest.exe(带预览窗口版)](http://git.oschina.net/hyjiacan/ColorWanted/raw/preview/ColorWanted/bin/Release/ColorWanted.exe)
 
 ## 快捷键
 - **Alt+C** 复制十六进制颜色值，1秒内连续按两次复制RGB颜色值
@@ -14,6 +13,7 @@
 - **Alt+F1** 切换显示模式(隐藏/固定/跟随)
 - **Alt+F2** 显示/隐藏预览面板
 - **Alt+F3** 显示调色板
+- **Alt+`** 暂停/开始绘制预览窗口，一般用于需要精确取点时使用 (**`** 在美标键盘左上角，**ESC** 下面)
 
 ## 帮助
 - 预览面板

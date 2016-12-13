@@ -44,7 +44,9 @@
             this.lbVersion = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +54,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(91, 56);
+            this.label2.Location = new System.Drawing.Point(65, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(212, 22);
             this.label2.TabIndex = 1;
@@ -62,7 +64,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(93, 152);
+            this.label1.Location = new System.Drawing.Point(67, 132);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(173, 12);
             this.label1.TabIndex = 4;
@@ -72,7 +74,7 @@
             // 
             this.llScm.AutoSize = true;
             this.llScm.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.llScm.Location = new System.Drawing.Point(93, 176);
+            this.llScm.Location = new System.Drawing.Point(67, 156);
             this.llScm.Name = "llScm";
             this.llScm.Size = new System.Drawing.Size(293, 12);
             this.llScm.TabIndex = 5;
@@ -85,7 +87,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(93, 241);
+            this.label3.Location = new System.Drawing.Point(67, 221);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 16);
             this.label3.TabIndex = 6;
@@ -96,7 +98,7 @@
             this.llCopy.AutoSize = true;
             this.llCopy.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.llCopy.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.llCopy.Location = new System.Drawing.Point(310, 152);
+            this.llCopy.Location = new System.Drawing.Point(284, 132);
             this.llCopy.Name = "llCopy";
             this.llCopy.Size = new System.Drawing.Size(77, 12);
             this.llCopy.TabIndex = 7;
@@ -108,7 +110,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(93, 203);
+            this.label4.Location = new System.Drawing.Point(67, 183);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 8;
@@ -118,7 +120,7 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkColor = System.Drawing.Color.Lime;
-            this.linkLabel1.Location = new System.Drawing.Point(156, 203);
+            this.linkLabel1.Location = new System.Drawing.Point(130, 183);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(47, 12);
             this.linkLabel1.TabIndex = 9;
@@ -129,7 +131,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(205, 203);
+            this.label5.Location = new System.Drawing.Point(179, 183);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(137, 12);
             this.label5.TabIndex = 10;
@@ -138,7 +140,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(93, 272);
+            this.label6.Location = new System.Drawing.Point(67, 252);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(329, 12);
             this.label6.TabIndex = 11;
@@ -147,7 +149,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(93, 297);
+            this.label7.Location = new System.Drawing.Point(67, 277);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(173, 12);
             this.label7.TabIndex = 11;
@@ -157,7 +159,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(93, 120);
+            this.label9.Location = new System.Drawing.Point(67, 100);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(42, 16);
             this.label9.TabIndex = 6;
@@ -165,8 +167,9 @@
             // 
             // picLOGO
             // 
+            this.picLOGO.BackColor = System.Drawing.Color.White;
             this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
-            this.picLOGO.Location = new System.Drawing.Point(322, 56);
+            this.picLOGO.Location = new System.Drawing.Point(296, 36);
             this.picLOGO.Name = "picLOGO";
             this.picLOGO.Size = new System.Drawing.Size(64, 64);
             this.picLOGO.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -176,11 +179,11 @@
             // lbVersion
             // 
             this.lbVersion.AutoSize = true;
-            this.lbVersion.Location = new System.Drawing.Point(141, 124);
+            this.lbVersion.Location = new System.Drawing.Point(115, 104);
             this.lbVersion.Name = "lbVersion";
-            this.lbVersion.Size = new System.Drawing.Size(53, 12);
+            this.lbVersion.Size = new System.Drawing.Size(47, 12);
             this.lbVersion.TabIndex = 13;
-            this.lbVersion.Text = "v1.0.3.0";
+            this.lbVersion.Text = "v 1.0.0";
             // 
             // btnExit
             // 
@@ -198,20 +201,38 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(93, 322);
+            this.label10.Location = new System.Drawing.Point(67, 302);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(221, 12);
             this.label10.TabIndex = 11;
             this.label10.Text = "Alt+F1 切换显示模式 (隐藏/固定/跟随)";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(67, 327);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(149, 12);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Alt+F2 显示/隐藏预览面板";
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(94, 374);
+            this.label11.Location = new System.Drawing.Point(68, 354);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 12);
             this.label11.TabIndex = 15;
             this.label11.Text = "Alt+F3 显示调色板";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(68, 381);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(323, 12);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Alt+` 暂停/开始绘制预览窗(`在美标键盘左上角，ESC下面)";
             // 
             // AboutForm
             // 
@@ -219,7 +240,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(472, 410);
+            this.ClientSize = new System.Drawing.Size(472, 429);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lbVersion);
@@ -271,6 +293,8 @@
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }

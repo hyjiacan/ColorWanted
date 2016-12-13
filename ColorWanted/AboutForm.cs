@@ -10,7 +10,7 @@ namespace ColorWanted
         {
             InitializeComponent();
 
-            lbVersion.Text = Application.ProductVersion;
+            lbVersion.Text = "v " + Application.ProductVersion;
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)

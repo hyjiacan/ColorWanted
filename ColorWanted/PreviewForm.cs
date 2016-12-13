@@ -54,6 +54,18 @@ namespace ColorWanted
             return picPreview.Size;
         }
 
+        /// <summary>
+        /// 切换光标样式
+        /// </summary>
+        /// <param name="showDefault"></param>
+        public void ToggleCursor(bool showDefault)
+        {
+            picPreview.Cursor = showDefault ?
+                       System.Windows.Forms.Cursors.Default :
+                       System.Windows.Forms.Cursors.SizeAll;
+
+        }
+
         private void picPreview_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

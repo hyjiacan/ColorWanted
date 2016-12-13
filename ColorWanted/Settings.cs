@@ -1,10 +1,10 @@
-﻿using ColorWanted.enums;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.enums;
+using Microsoft.Win32;
 
 namespace ColorWanted
 {
@@ -18,17 +18,13 @@ namespace ColorWanted
             filename = Path.Combine(Path.GetTempPath(), Application.ProductName);
         }
 
-        private static bool Set(string key, string value)
+        private static void Set(string key, string value)
         {
             try
             {
                 NativeMethods.WriteIni(section, key, value, filename);
-				return true;
             }
-            catch 
-			{ 
-				return false;
-			}
+            catch { }
         }
 
         private static string Get(string key)
@@ -52,6 +48,19 @@ namespace ColorWanted
             set
             {
                 Set("autopin", value ? "1" : "0");
+            }
+        }
+
+        public static bool PreviewVisible
+        {
+            get
+            {
+                var v = Get("previewvisible");
+                return v == "" || v == "1";
+            }
+            set
+            {
+                Set("previewvisible", value ? "1" : "0");
             }
         }
 
@@ -119,12 +128,10 @@ namespace ColorWanted
                             }
                         }
                     }
-					
-					return false;
                 }
-                catch {
-					return false;
-				}
+                catch { }
+
+                return false;
             }
 
             set

@@ -9,12 +9,33 @@ namespace ColorWanted
 {
     public partial class MainForm : Form
     {
-        Timer timer;
+        /// <summary>
+        /// 取色的定时器
+        /// </summary>
+        private Timer colorTimer;
+        /// <summary>
+        /// 取色窗口移动位置定时器
+        /// </summary>
+        private Timer caretTimer;
+        /// <summary>
+        /// 取色周期
+        /// </summary>
+        private const int colorInterval = 200;
+        /// <summary>
+        /// 取色窗口移动周期
+        /// </summary>
+        private const int caretInterval = 50;
+
         private bool iniloaded;
         private Screen screen;
         private AboutForm aboutForm;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
+
+        /// <summary>
+        /// 控制是否停止绘制预览窗口，为true时就停止绘制预览窗口
+        /// </summary>
+        private bool stopDrawPreview;
 
         /// <summary>
         /// 上次光标所在位置
@@ -66,9 +87,26 @@ namespace ColorWanted
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void carettimer_Tick(object sender, EventArgs e)
         {
-            if (previewForm.MouseOnMe)
+            if (currentMode != DisplayMode.Follow)
+            {
+                return;
+            }
+            Point pt = new Point(MousePosition.X, MousePosition.Y);
+
+            // 如果光标位置不变，颜色也不变，就不绘制了
+            if (pt.Equals(lastPosition))
+            {
+                return;
+            }
+
+            FollowCaret();
+        }
+
+        private void colortimer_Tick(object sender, EventArgs e)
+        {
+            if (!stopDrawPreview && previewForm.MouseOnMe)
             {
                 return;
             }
@@ -92,12 +130,6 @@ namespace ColorWanted
             lastPosition = pt;
             lastColor = cl;
 
-            if (currentMode == DisplayMode.Follow)
-            {
-                FollowCaret();
-            }
-
-
             hexBuffer.Clear();
             lbHex.Text =
             hexBuffer.AppendFormat("#{0}{1}{2}",
@@ -109,16 +141,14 @@ namespace ColorWanted
             lbRgb.Text =
             rgbBuffer.AppendFormat("RGB({0},{1},{2})", cl.R, cl.G, cl.B).ToString();
 
-            if (trayMenuShowPreview.Checked)
+            if (trayMenuShowPreview.Checked && !stopDrawPreview)
             {
                 DrawPreview(pt);
             }
 
             if (trayMenuShowRgb.Checked)
             {
-
                 lbRgb.BackColor = cl;
-
                 lbRgb.ForeColor = ColorUtil.GetContrastColor(cl);
             }
             else
@@ -133,7 +163,6 @@ namespace ColorWanted
         /// <summary>
         /// 画放大图，每个方向各取5个像素
         /// </summary>
-        /// <param name="pt"></param>
         private void DrawPreview(Point pt)
         {
             if (graphics == null)
@@ -158,7 +187,7 @@ namespace ColorWanted
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            timer.Stop();
+            colorTimer.Stop();
 
             Application.Exit();
         }
@@ -225,13 +254,25 @@ namespace ColorWanted
                 return;
             }
 
-            // 显示/隐藏调用板
+            // 显示/隐藏调色板
             if (keyValue == HotKeyValue.ShowColorPicker.AsInt())
             {
                 ShowColorPicker();
                 base.WndProc(ref m);
                 return;
             }
+
+            // 绘制预览窗口
+            if (keyValue == HotKeyValue.DrawPreview.AsInt())
+            {
+                stopDrawPreview = !stopDrawPreview;
+                previewForm.ToggleCursor(stopDrawPreview);
+                base.WndProc(ref m);
+                return;
+            }
+
+            base.WndProc(ref m);
+            return;
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -276,10 +317,15 @@ namespace ColorWanted
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
 
-            timer = new Timer();
-            timer.Interval = 300;
-            timer.Tick += timer_Tick;
-            timer.Start();
+            caretTimer = new Timer();
+            caretTimer.Interval = caretInterval;
+            caretTimer.Tick += carettimer_Tick;
+            caretTimer.Start();
+
+            colorTimer = new Timer();
+            colorTimer.Interval = colorInterval;
+            colorTimer.Tick += colortimer_Tick;
+            colorTimer.Start();
         }
 
         void previewForm_LocationChanged(object sender, EventArgs e)
@@ -411,7 +457,10 @@ namespace ColorWanted
                 Settings.AutoPin = item.Checked;
             }
         }
-
+        private void trayMenuShowColorPicker_Click(object sender, EventArgs e)
+        {
+            ShowColorPicker();
+        }
         private void trayMenuRestoreLocation_Click(object sender, EventArgs e)
         {
             SetDefaultLocation();
@@ -456,6 +505,11 @@ namespace ColorWanted
 
         private void ShowColorPicker()
         {
+            if (trayMenuShowColorPicker.Checked)
+            {
+                return;
+            }
+
             if (colorPicker == null)
             {
                 colorPicker = new ColorDialog()
@@ -463,8 +517,8 @@ namespace ColorWanted
                     FullOpen = true
                 };
             }
-
-            if(DialogResult.OK == colorPicker.ShowDialog(this))
+            trayMenuShowColorPicker.Checked = true;
+            if (DialogResult.OK == colorPicker.ShowDialog(this))
             {
                 var cl = colorPicker.Color;
                 Clipboard.SetText(string.Format("#{0}{1}{2}",
@@ -472,6 +526,7 @@ namespace ColorWanted
                 cl.G.ToString("X2"),
                 cl.B.ToString("X2")));
             }
+            trayMenuShowColorPicker.Checked = false;
         }
         #endregion
 
@@ -497,6 +552,9 @@ namespace ColorWanted
 
         private void SwitchMode(DisplayMode mode)
         {
+            // 切换模式时，先停止取色窗口位置定时器
+            caretTimer.Stop();
+
             if (mode == DisplayMode.Hidden)
             {
                 trayMenuHideWindow.Checked = true;
@@ -535,6 +593,8 @@ namespace ColorWanted
                         trayMenuFollowCaret.Checked = true;
                         trayMenuRestoreLocation.Enabled = false;
                         trayMenuAutoPin.Enabled = false;
+                        // 跟随模式时启动取色窗口定时器
+                        caretTimer.Start();
                         break;
                     default:
                         break;
