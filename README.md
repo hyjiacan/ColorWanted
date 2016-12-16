@@ -1,8 +1,8 @@
 # ColorWanted 赏色
 这是一个**Windows**平台使用的屏幕取色器工具。有十六进制和RGB两种颜色值的显示。
 
-
->开发工具>=VS2010，运行环境需要>=.net4.0
+- 开发工具 VS2013
+- 运行环境 .net 4.0 client profile
 
 #下载二进制文件
 [赏色-latest.exe](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
