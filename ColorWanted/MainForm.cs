@@ -154,13 +154,13 @@ namespace ColorWanted
             }
         }
 
-        static readonly Bitmap pic = new Bitmap(11, 11);
-        static readonly int extend = 5;
-        static Graphics graphics;
+        private static readonly Bitmap pic = new Bitmap(11, 11);
+        private const int extend = 5;
+        private static Graphics graphics;
         /// <summary>
         /// 画放大图，每个方向各取5个像素
         /// </summary>
-        private void DrawPreview(Point pt)
+        private static void DrawPreview(Point pt)
         {
             if (graphics == null)
             {
@@ -170,7 +170,7 @@ namespace ColorWanted
             graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
             graphics.Save();
 
-            previewForm.UpdateImage(Util.ScaleBitmap(pic, previewForm.GetImageSize()));
+           // previewForm.UpdateImage(Util.ScaleBitmap(pic, previewForm.GetImageSize()));
         }
 
         private void SetDefaultLocation()
@@ -315,7 +315,7 @@ namespace ColorWanted
             colorTimer.Start();
         }
 
-        void previewForm_LocationChanged(object sender, EventArgs e)
+        private void previewForm_LocationChanged(object sender, EventArgs e)
         {
             if (!trayMenuAutoPin.Checked)
             {
@@ -518,7 +518,7 @@ namespace ColorWanted
         /// <summary>
         /// 当前的显示模式
         /// </summary>
-        DisplayMode currentMode;
+        private DisplayMode currentMode;
         /// <summary>
         /// 激活显示模式
         /// </summary>
