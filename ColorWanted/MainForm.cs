@@ -1,9 +1,9 @@
-﻿using ColorWanted.enums;
-using ColorWanted.ext;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.enums;
+using ColorWanted.ext;
 
 namespace ColorWanted
 {
@@ -27,7 +27,7 @@ namespace ColorWanted
         private const int caretInterval = 50;
 
         private bool iniloaded;
-        private Screen screen;
+        private readonly Screen screen;
         private AboutForm aboutForm;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
@@ -53,12 +53,12 @@ namespace ColorWanted
         private const int pinSize = 15;
 
         // 上次复制的时间
-        DateTime lastCopyTime;
+        private DateTime lastCopyTime;
 
 
-        private StringBuilder hexBuffer;
+        private readonly StringBuilder hexBuffer;
 
-        private StringBuilder rgbBuffer;
+        private readonly StringBuilder rgbBuffer;
 
         public MainForm()
         {
@@ -132,10 +132,7 @@ namespace ColorWanted
 
             hexBuffer.Clear();
             lbHex.Text =
-            hexBuffer.AppendFormat("#{0}{1}{2}",
-                cl.R.ToString("X2"),
-                cl.G.ToString("X2"),
-                cl.B.ToString("X2")).ToString();
+            hexBuffer.AppendFormat("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B).ToString();
 
             rgbBuffer.Clear();
             lbRgb.Text =
@@ -157,8 +154,8 @@ namespace ColorWanted
             }
         }
 
-        static Bitmap pic = new Bitmap(11, 11);
-        static int extend = 5;
+        static readonly Bitmap pic = new Bitmap(11, 11);
+        static readonly int extend = 5;
         static Graphics graphics;
         /// <summary>
         /// 画放大图，每个方向各取5个像素
@@ -216,15 +213,8 @@ namespace ColorWanted
             if (keyValue == HotKeyValue.CopyHexColor.AsInt())
             {
                 // 复制HEX
-                if ((DateTime.Now - lastCopyTime).TotalSeconds >= 1)
-                {
-                    Clipboard.SetText(lbHex.Text);
-                }
-                // 复制RGB
-                else
-                {
-                    Clipboard.SetText(lbRgb.Text);
-                }
+                Clipboard.SetText((DateTime.Now - lastCopyTime).TotalSeconds >= 1 
+                    ? lbHex.Text : lbRgb.Text);
                 lastCopyTime = DateTime.Now;
                 base.WndProc(ref m);
                 return;
@@ -272,7 +262,6 @@ namespace ColorWanted
             }
 
             base.WndProc(ref m);
-            return;
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -283,7 +272,7 @@ namespace ColorWanted
             }
 
             NativeMethods.ReleaseCapture();
-            NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND,
+            NativeMethods.SendMessage(Handle, NativeMethods.WM_SYSCOMMAND,
                 new IntPtr(NativeMethods.SC_MOVE + NativeMethods.HTCAPTION), IntPtr.Zero);
 
         }
@@ -294,7 +283,7 @@ namespace ColorWanted
             Width = 88;
 
             previewForm = new PreviewForm();
-            previewForm.LocationChanged += new EventHandler(previewForm_LocationChanged);
+            previewForm.LocationChanged += previewForm_LocationChanged;
             if (Settings.PreviewVisible)
             {
                 TogglePreview();
@@ -317,13 +306,11 @@ namespace ColorWanted
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
 
-            caretTimer = new Timer();
-            caretTimer.Interval = caretInterval;
+            caretTimer = new Timer {Interval = caretInterval};
             caretTimer.Tick += carettimer_Tick;
             caretTimer.Start();
 
-            colorTimer = new Timer();
-            colorTimer.Interval = colorInterval;
+            colorTimer = new Timer {Interval = colorInterval};
             colorTimer.Tick += colortimer_Tick;
             colorTimer.Start();
         }
@@ -438,19 +425,18 @@ namespace ColorWanted
 
         private void trayMenuShowRgb_Click(object sender, EventArgs e)
         {
-            var item = sender as ToolStripMenuItem;
             ToggleRgb();
         }
 
         private void trayMenuShowPreview_Click(object sender, EventArgs e)
         {
-            var item = sender as ToolStripMenuItem;
             TogglePreview();
         }
 
         private void trayMenuAutoPin_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
+            // ReSharper disable once PossibleNullReferenceException
             item.Checked = !item.Checked;
             if (iniloaded)
             {
@@ -471,6 +457,7 @@ namespace ColorWanted
         private void trayMenuAutoStart_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
+            // ReSharper disable once PossibleNullReferenceException
             item.Checked = !item.Checked;
 
             // 写注册表
@@ -512,7 +499,7 @@ namespace ColorWanted
 
             if (colorPicker == null)
             {
-                colorPicker = new ColorDialog()
+                colorPicker = new ColorDialog
                 {
                     FullOpen = true
                 };
@@ -521,10 +508,7 @@ namespace ColorWanted
             if (DialogResult.OK == colorPicker.ShowDialog(this))
             {
                 var cl = colorPicker.Color;
-                Clipboard.SetText(string.Format("#{0}{1}{2}",
-                cl.R.ToString("X2"),
-                cl.G.ToString("X2"),
-                cl.B.ToString("X2")));
+                Clipboard.SetText(string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B));
             }
             trayMenuShowColorPicker.Checked = false;
         }
@@ -595,8 +579,6 @@ namespace ColorWanted
                         trayMenuAutoPin.Enabled = false;
                         // 跟随模式时启动取色窗口定时器
                         caretTimer.Start();
-                        break;
-                    default:
                         break;
                 }
             }

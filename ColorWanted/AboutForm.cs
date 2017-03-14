@@ -10,15 +10,15 @@ namespace ColorWanted
         {
             InitializeComponent();
 
-            lbVersion.Text = "v " + Application.ProductVersion;
+            lbVersion.Text = @"v " + Application.ProductVersion;
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND,
+                NativeMethods.SendMessage(Handle, NativeMethods.WM_SYSCOMMAND,
                     new IntPtr(NativeMethods.SC_MOVE + NativeMethods.HTCAPTION), IntPtr.Zero);
             }
         }

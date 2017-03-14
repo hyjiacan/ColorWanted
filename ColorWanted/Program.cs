@@ -13,6 +13,7 @@ namespace ColorWanted
         static void Main()
         {
             bool createdNew;
+            // ReSharper disable once ObjectCreationAsStatement
             new Mutex(true, Application.ProductName, out createdNew);
             if (!createdNew)
             {

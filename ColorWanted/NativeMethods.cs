@@ -8,11 +8,11 @@ namespace ColorWanted
     class NativeMethods
     {
         [DllImport("gdi32.dll")]
-        static public extern uint GetPixel(IntPtr hDC, int XPos, int YPos);
+        public static extern uint GetPixel(IntPtr hDC, int XPos, int YPos);
         [DllImport("gdi32.dll", CharSet = CharSet.Unicode)]
-        static public extern IntPtr CreateDC(string driverName, string deviceName, string output, IntPtr lpinitData);
+        public static extern IntPtr CreateDC(string driverName, string deviceName, string output, IntPtr lpinitData);
         [DllImport("gdi32.dll")]
-        static public extern bool DeleteDC(IntPtr DC);
+        public static extern bool DeleteDC(IntPtr DC);
 
         //如果函数执行成功，返回值不为0。
         //如果函数执行失败，返回值为0。要得到扩展错误信息，调用GetLastError。
@@ -75,7 +75,7 @@ namespace ColorWanted
         [DllImport("user32.dll")]
         public static extern bool GetCursorInfo(out CURSORINFO pci);
 
-        private const Int32 CURSOR_SHOWING = 0x00000001;
+        //private const Int32 CURSOR_SHOWING = 0x00000001;
         [StructLayout(LayoutKind.Sequential)]
         public struct POINT
         {

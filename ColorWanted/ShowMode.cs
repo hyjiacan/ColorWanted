@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ColorWanted
+﻿namespace ColorWanted
 {
     /// <summary>
     /// 窗口显示模式

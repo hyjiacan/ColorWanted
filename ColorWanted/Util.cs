@@ -1,8 +1,8 @@
-﻿using ColorWanted.enums;
-using ColorWanted.ext;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ColorWanted.enums;
+using ColorWanted.ext;
 
 namespace ColorWanted
 {
@@ -40,19 +40,18 @@ namespace ColorWanted
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.DrawPreview.AsInt());
         }
 
-        private static Point startPoint = new Point(0, 0);
-        private static Pen linePen = new Pen(new SolidBrush(Color.FromArgb(100, 30, 30, 30)));
+        private static readonly Pen linePen = new Pen(new SolidBrush(Color.FromArgb(100, 30, 30, 30)));
 
         // 新图像的对象
-        private static Bitmap newPic = null;
+        private static Bitmap newPic;
         // 画面对象
-        private static Graphics graphics = null;
+        private static Graphics graphics;
 
         private static Rectangle originRect = new Rectangle(0, 0, 0, 0);
 
         private static Rectangle newRect = new Rectangle(0, 0, 0, 0);
 
-        private static SolidBrush brush = new SolidBrush(Color.Black);
+        private static readonly SolidBrush brush = new SolidBrush(Color.Black);
 
         public static Bitmap ScaleBitmap(Bitmap originPic, Size newSize)
         {

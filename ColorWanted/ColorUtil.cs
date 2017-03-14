@@ -81,12 +81,12 @@ namespace ColorWanted
         /// <returns></returns>
         public static Color GetContrastColor(Color color, bool light = false)
         {
-            if (ColorUtil.isDark(color) || ColorUtil.isSingle(color))
+            if (isDark(color) || isSingle(color))
             {
                 return light ? Color.FromArgb(220, 220, 220) : Color.White;
             }
 
-            if (ColorUtil.isLight(color) || ColorUtil.isGray(color))
+            if (isLight(color) || isGray(color))
             {
                 return light ? Color.FromArgb(150, 150, 150) : Color.Black;
             }

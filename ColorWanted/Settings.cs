@@ -5,12 +5,13 @@ using System.Text;
 using System.Windows.Forms;
 using ColorWanted.enums;
 using Microsoft.Win32;
+// ReSharper disable EmptyGeneralCatchClause
 
 namespace ColorWanted
 {
     class Settings
     {
-        private static string filename;
+        private static readonly string filename;
         private const string section = "colorwanted";
 
         static Settings()
@@ -83,7 +84,7 @@ namespace ColorWanted
             {
                 var v = Get("mode");
                 DisplayMode mode;
-                if (!Enum.TryParse<DisplayMode>(v, out mode))
+                if (!Enum.TryParse(v, out mode))
                 {
                     mode = DisplayMode.Fixed;
                 }
@@ -140,6 +141,7 @@ namespace ColorWanted
                 {
                     using (var reg = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
                     {
+                        if (reg == null) return;
                         if (value)
                         {
                             reg.SetValue(Application.ProductName, "\"" + Application.ExecutablePath + "\"");

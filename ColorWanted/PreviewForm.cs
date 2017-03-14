@@ -12,7 +12,7 @@ namespace ColorWanted
         {
             InitializeComponent();
 
-            MouseWheel += new MouseEventHandler(picPreview_MouseWheel);
+            MouseWheel += picPreview_MouseWheel;
         }
 
         protected override CreateParams CreateParams
@@ -61,8 +61,8 @@ namespace ColorWanted
         public void ToggleCursor(bool showDefault)
         {
             picPreview.Cursor = showDefault ?
-                       System.Windows.Forms.Cursors.Default :
-                       System.Windows.Forms.Cursors.SizeAll;
+                       Cursors.Default :
+                       Cursors.SizeAll;
 
         }
 
@@ -71,7 +71,7 @@ namespace ColorWanted
             if (e.Button == MouseButtons.Left)
             {
                 NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(this.Handle, NativeMethods.WM_SYSCOMMAND,
+                NativeMethods.SendMessage(Handle, NativeMethods.WM_SYSCOMMAND,
                    new IntPtr(NativeMethods.SC_MOVE + NativeMethods.HTCAPTION), IntPtr.Zero);
             }
         }
@@ -79,7 +79,7 @@ namespace ColorWanted
         private void PreviewForm_MouseEnter(object sender, EventArgs e)
         {
             MouseOnMe = true;
-            this.Cursor = Cursors.SizeAll;
+            Cursor = Cursors.SizeAll;
         }
 
         private void PreviewForm_MouseLeave(object sender, EventArgs e)
