@@ -1,8 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using ColorWanted.enums;
+﻿using ColorWanted.enums;
 using ColorWanted.ext;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace ColorWanted
 {
@@ -42,56 +45,99 @@ namespace ColorWanted
 
         private static readonly Pen linePen = new Pen(new SolidBrush(Color.FromArgb(100, 30, 30, 30)));
 
-        // 新图像的对象
-        private static Bitmap newPic;
-        // 画面对象
-        private static Graphics graphics;
 
-        private static Rectangle originRect = new Rectangle(0, 0, 0, 0);
+        private static Rectangle srcRect = new Rectangle(0, 0, 0, 0);
 
-        private static Rectangle newRect = new Rectangle(0, 0, 0, 0);
+        private static Rectangle destRect = new Rectangle(0, 0, 0, 0);
 
-        private static readonly SolidBrush brush = new SolidBrush(Color.Black);
-
-        public static Bitmap ScaleBitmap(Bitmap originPic, Size newSize)
+        public static void ScaleBitmap(Bitmap srcImage, Bitmap destImage)
         {
+            // 大小不变，所以取一次就够了
+            if (srcRect.IsEmpty)
+            {
+                srcRect.Size = srcImage.Size;
+            }
+
+            // 大小可能会变，当改变时取新值
+            if (!destImage.Size.Equals(destRect.Size))
+            {
+                destRect.Size = destImage.Size;
+            }
+
             // 边长
-            var width = Math.Min(newSize.Width, newSize.Height);
+            var width = Math.Min(destRect.Width, destRect.Height);
             // 边距
-            var paddingX = (newSize.Width - width) / 2;
-            var paddingY = (newSize.Height - width) / 2;
-            var m = width / originPic.Width;
+            //var paddingX = (destRect.Width - width) / 2;
+            //var paddingY = (destRect.Height - width) / 2;
+            var scale = width / srcImage.Width;
 
-            if (!originRect.Size.Equals(originPic.Size))
+            unsafe
             {
-                originRect.Size = originPic.Size;
-            }
+                // 锁定数据
+                var srcData = srcImage.LockBits(srcRect,
+                    ImageLockMode.ReadOnly,
+                    srcImage.PixelFormat);
+                var destData = destImage.LockBits(destRect,
+                    ImageLockMode.WriteOnly,
+                    destImage.PixelFormat);
 
-            if (newPic == null || !newSize.Equals(newRect.Size))
-            {
-                newRect.Size = newSize;
-                newPic = new Bitmap(newSize.Width, newSize.Height);
-                graphics = Graphics.FromImage(newPic);
-            }
+                // 获取数据指针
+                var srcPointer = (byte*)srcData.Scan0.ToPointer();
+                var destPointer = (byte*)destData.Scan0.ToPointer();
 
-            for (var row = 0; row < originPic.Width; row++)
-            {
-                var w = paddingX + row * m;
-                for (var col = 0; col < originPic.Height; col++)
+                // 放大后行数据的缓存
+                var rowbuffer = new byte[destData.Stride];
+
+                for (int i = 0; i < srcRect.Height; i++)
                 {
-                    brush.Color = originPic.GetPixel(row, col);
-                    graphics.FillRectangle(brush, w, paddingY + col * m, m, m);
-                }
-            }
-            //graphics.DrawImage(originPic, newRect, originRect, GraphicsUnit.Pixel);
+                    // 写第i行数据
 
-            linePen.Color = ColorUtil.GetContrastColor(originPic.GetPixel(originPic.Width / 2 + 1, originPic.Height / 2 + 1), true);
-            graphics.DrawLine(linePen, 0, newSize.Height / 2, newSize.Width, newSize.Height / 2);
-            graphics.DrawLine(linePen, newSize.Width / 2, newSize.Height, newSize.Width / 2, 0);
+                    for (int j = 0; j < srcData.Stride; j += 4)
+                    {
+                        // 写第j列数据 这个循环完成后  就写完一行了
+                        // 当前位置的色值
+                        var c1 = *srcPointer;
+                        srcPointer++;
+                        var c2 = *srcPointer;
+                        srcPointer++;
+                        var c3 = *srcPointer;
+                        srcPointer++;
+                        var c4 = *srcPointer;
+                        srcPointer++;
+
+                        // 这里是放大行的像素
+                        for (var k = j * scale; k < destData.Stride; k += 4)
+                        {
+                            rowbuffer[k] = c1;
+                            rowbuffer[k + 1] = c2;
+                            rowbuffer[k + 2] = c3;
+                            rowbuffer[k + 3] = c4;
+                        }
+                    }
+
+                    // 这里是放大列的像素
+                    for (var j = 0; j < scale; j++)
+                    {
+                        foreach (var t in rowbuffer)
+                        {
+                            *destPointer = t;
+                            destPointer++;
+                        }
+                    }
+                }
+
+                // 解锁数据
+                srcImage.UnlockBits(srcData);
+                destImage.UnlockBits(destData);
+            }
+
+            var graphics = Graphics.FromImage(destImage);
+
+            linePen.Color = ColorUtil.GetContrastColor(srcImage.GetPixel(srcImage.Width / 2 + 1, srcImage.Height / 2 + 1), true);
+            graphics.DrawLine(linePen, 0, destRect.Height / 2, destRect.Width, destRect.Height / 2);
+            graphics.DrawLine(linePen, destRect.Width / 2, destRect.Height, destRect.Width / 2, 0);
 
             graphics.Save();
-
-            return newPic;
         }
     }
 }

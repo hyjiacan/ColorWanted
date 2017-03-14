@@ -34,6 +34,7 @@ namespace ColorWanted
 
         /// <summary>
         /// 控制是否停止绘制预览窗口，为true时就停止绘制预览窗口
+        /// 为true时可以在预览窗口上取色
         /// </summary>
         private bool stopDrawPreview;
 
@@ -108,6 +109,8 @@ namespace ColorWanted
         {
             if (!stopDrawPreview && previewForm.MouseOnMe)
             {
+                // 如果没有停止预览，并且鼠标在预览窗口上
+                // 就不取色，这是为了防止因循环取色导致过高的资源占用
                 return;
             }
             if (!iniloaded)
@@ -160,7 +163,7 @@ namespace ColorWanted
         /// <summary>
         /// 画放大图，每个方向各取5个像素
         /// </summary>
-        private static void DrawPreview(Point pt)
+        private void DrawPreview(Point pt)
         {
             if (graphics == null)
             {
@@ -170,7 +173,7 @@ namespace ColorWanted
             graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
             graphics.Save();
 
-           // previewForm.UpdateImage(Util.ScaleBitmap(pic, previewForm.GetImageSize()));
+            Util.ScaleBitmap(pic, previewForm.Image);
         }
 
         private void SetDefaultLocation()
@@ -213,7 +216,7 @@ namespace ColorWanted
             if (keyValue == HotKeyValue.CopyHexColor.AsInt())
             {
                 // 复制HEX
-                Clipboard.SetText((DateTime.Now - lastCopyTime).TotalSeconds >= 1 
+                Clipboard.SetText((DateTime.Now - lastCopyTime).TotalSeconds >= 1
                     ? lbHex.Text : lbRgb.Text);
                 lastCopyTime = DateTime.Now;
                 base.WndProc(ref m);
@@ -306,11 +309,11 @@ namespace ColorWanted
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
 
-            caretTimer = new Timer {Interval = caretInterval};
+            caretTimer = new Timer { Interval = caretInterval };
             caretTimer.Tick += carettimer_Tick;
             caretTimer.Start();
 
-            colorTimer = new Timer {Interval = colorInterval};
+            colorTimer = new Timer { Interval = colorInterval };
             colorTimer.Tick += colortimer_Tick;
             colorTimer.Start();
         }

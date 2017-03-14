@@ -8,6 +8,22 @@ namespace ColorWanted
     {
         public bool MouseOnMe { get; private set; }
 
+        private Bitmap image;
+
+        public Bitmap Image
+        {
+            get
+            {
+                if (image != null && !image.Size.Equals(picPreview.Size))
+                    return image;
+
+                image = new Bitmap(picPreview.Size.Width, picPreview.Height);
+                picPreview.Image = image;
+
+                return image;
+            }
+        }
+
         public PreviewForm()
         {
             InitializeComponent();
@@ -29,7 +45,7 @@ namespace ColorWanted
         }
 
         //滚轮控制窗口大小
-        void picPreview_MouseWheel(object sender, MouseEventArgs e)
+        private void picPreview_MouseWheel(object sender, MouseEventArgs e)
         {
             if (!MouseOnMe)
             {
@@ -42,16 +58,6 @@ namespace ColorWanted
             }
             Width = Width + 11 * delta;
             Height = Height + 11 * delta;
-        }
-
-        public void UpdateImage(Bitmap image)
-        {
-            picPreview.Image = image;
-        }
-
-        public Size GetImageSize()
-        {
-            return picPreview.Size;
         }
 
         /// <summary>
