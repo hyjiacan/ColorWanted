@@ -5,8 +5,8 @@
 - 运行环境 .net 4.0 client profile
 
 #下载
-[稳定版](http://git.oschina.net/hyjiacan/ColorWanted/releases)
-[开发版](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
+[稳定版](//git.oschina.net/hyjiacan/ColorWanted/releases)
+[开发版](//git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
 
 # 使用说明
 
@@ -31,11 +31,11 @@
 - **Alt+`** 暂停/开始绘制预览窗口，一般用于需要精确取某个像素点的颜色时使用 (**`** 在美标键盘左上角，**ESC** 下面)
 
 ## 截图
-![取色](http://git.oschina.net/uploads/images/2016/1213/170123_0305affd_124670.png)
+![取色](//git.oschina.net/uploads/images/2016/1213/170123_0305affd_124670.png)
 > 获取屏幕上光标所在处像素的颜色，取色窗口显示了十六进制和RGB格式的颜色值。在预览窗口上，有将每个像素放大5倍的预览。
 
 
-![放大像素点](http://git.oschina.net/uploads/images/2016/1213/170138_9dde9949_124670.png)
+![放大像素点](//git.oschina.net/uploads/images/2016/1213/170138_9dde9949_124670.png)
 如果相邻几个像素点颜色有差异，想要精确获取某个像素点的颜色，那么可以在此时按下快捷键 **Alt+`**，以使预览面板会停止绘制，此时将鼠标放到预览面板上，就可以方便地获某个像素的颜色了。
 
 ## 开源协议
