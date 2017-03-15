@@ -1,7 +1,9 @@
 ﻿using ColorWanted.enums;
 using ColorWanted.ext;
 using System;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -465,6 +467,23 @@ namespace ColorWanted
 
             // 写注册表
             Settings.Autostart = item.Checked;
+        }
+
+        private void trayMenuOpenConfigFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!File.Exists(Settings.FileName))
+                {
+                    File.Create(Settings.FileName).Close();
+                }
+
+                Process.Start(Settings.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message);
+            }
         }
 
         private void ToggleRgb()

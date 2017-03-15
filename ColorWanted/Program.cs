@@ -10,7 +10,7 @@ namespace ColorWanted
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             bool createdNew;
             // ReSharper disable once ObjectCreationAsStatement

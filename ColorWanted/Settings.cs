@@ -5,25 +5,44 @@ using System.Text;
 using System.Windows.Forms;
 using ColorWanted.enums;
 using Microsoft.Win32;
+
 // ReSharper disable EmptyGeneralCatchClause
+// 防止权限问题导致的失败
+// 即使失败，也不应该影响功能
+// 所有文件操作都加个  ttry catch
 
 namespace ColorWanted
 {
     class Settings
     {
-        private static readonly string filename;
+        /// <summary>
+        /// 配置文件名
+        /// </summary>
+        public static readonly string FileName;
         private const string section = "colorwanted";
 
         static Settings()
         {
-            filename = Path.Combine(Path.GetTempPath(), Application.ProductName);
+            var path = Path.Combine(Environment
+                    .GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                Application.ProductName);
+            FileName = Path.Combine(path, "option.ini");
+            if (Directory.Exists(path)) return;
+
+            try
+            {
+                Directory.CreateDirectory(path);
+            }
+            catch
+            {
+            }
         }
 
         private static void Set(string key, string value)
         {
             try
             {
-                NativeMethods.WriteIni(section, key, value, filename);
+                NativeMethods.WriteIni(section, key, value, FileName);
             }
             catch { }
         }
@@ -33,7 +52,7 @@ namespace ColorWanted
             try
             {
                 var buf = new StringBuilder(512);
-                NativeMethods.ReadIni(section, key, "", buf, 512, filename);
+                NativeMethods.ReadIni(section, key, "", buf, 512, FileName);
                 return buf.ToString();
             }
             catch { return ""; }
