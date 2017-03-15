@@ -175,7 +175,7 @@ namespace ColorWanted
             graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
             graphics.Save();
 
-            previewForm.Image = pic;
+            previewForm.UpdateImage(pic);
         }
 
         private void SetDefaultLocation()

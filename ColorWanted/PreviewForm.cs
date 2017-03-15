@@ -11,22 +11,23 @@ namespace ColorWanted
 
         private Bitmap image;
 
-        public Bitmap Image
+        /// <summary>
+        /// 更新预览图
+        /// </summary>
+        /// <param name="img"></param>
+        public void UpdateImage(Bitmap img)
         {
-            set
+            if (image == null || !image.Size.Equals(picPreview.Size))
             {
-                if (image == null || !image.Size.Equals(picPreview.Size))
+                if (image != null)
                 {
-                    if (image != null)
-                    {
-                        image.Dispose();
-                    }
-                    image = new Bitmap(picPreview.Size.Width, picPreview.Height);
+                    image.Dispose();
                 }
-
-                picPreview.Image = ScaleBitmap(value, image);
-                GC.Collect();
+                image = new Bitmap(picPreview.Size.Width, picPreview.Height);
             }
+
+            picPreview.Image = ScaleBitmap(img, image);
+            GC.Collect();
         }
 
         public PreviewForm()
