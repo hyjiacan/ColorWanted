@@ -46,12 +46,12 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuShowColorPicker = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuRestoreLocation = new System.Windows.Forms.ToolStripMenuItem();
-            this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.trayMenuOpenConfigFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.trayMenuOpenConfigFile = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,9 +104,9 @@
             this.toolStripSeparator2,
             this.trayMenuShowColorPicker,
             this.trayMenuRestoreLocation,
-            this.trayMenuShowAbout,
             this.toolStripSeparator1,
             this.trayMenuOpenConfigFile,
+            this.trayMenuShowHelp,
             this.toolStripSeparator3,
             this.trayMenuExit});
             this.trayMenu.Name = "trayMenu";
@@ -205,29 +205,17 @@
             this.trayMenuRestoreLocation.Text = "重置窗口位置";
             this.trayMenuRestoreLocation.Click += new System.EventHandler(this.trayMenuRestoreLocation_Click);
             // 
-            // trayMenuShowAbout
+            // trayMenuShowHelp
             // 
-            this.trayMenuShowAbout.Name = "trayMenuShowAbout";
-            this.trayMenuShowAbout.Size = new System.Drawing.Size(152, 22);
-            this.trayMenuShowAbout.Text = "关于";
-            this.trayMenuShowAbout.Click += new System.EventHandler(this.trayMenuShowAbout_Click);
+            this.trayMenuShowHelp.Name = "trayMenuShowHelp";
+            this.trayMenuShowHelp.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuShowHelp.Text = "帮助";
+            this.trayMenuShowHelp.Click += new System.EventHandler(this.trayMenuShowHelp_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // trayMenuExit
-            // 
-            this.trayMenuExit.Name = "trayMenuExit";
-            this.trayMenuExit.Size = new System.Drawing.Size(152, 22);
-            this.trayMenuExit.Text = "退出";
-            this.trayMenuExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // trayMenuOpenConfigFile
             // 
@@ -235,6 +223,18 @@
             this.trayMenuOpenConfigFile.Size = new System.Drawing.Size(152, 22);
             this.trayMenuOpenConfigFile.Text = "打开配置文件";
             this.trayMenuOpenConfigFile.Click += new System.EventHandler(this.trayMenuOpenConfigFile_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            // 
+            // trayMenuExit
+            // 
+            this.trayMenuExit.Name = "trayMenuExit";
+            this.trayMenuExit.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuExit.Text = "退出";
+            this.trayMenuExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // MainForm
             // 
@@ -269,7 +269,7 @@
         private System.Windows.Forms.Label lbHex;
         private System.Windows.Forms.NotifyIcon tray;
         private System.Windows.Forms.ContextMenuStrip trayMenu;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuShowAbout;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuShowHelp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem trayMenuExit;
         private System.Windows.Forms.ToolStripMenuItem trayMenuHideWindow;

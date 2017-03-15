@@ -30,7 +30,7 @@ namespace ColorWanted
 
         private bool iniloaded;
         private readonly Screen screen;
-        private AboutForm aboutForm;
+        private HelpForm helpForm;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
 
@@ -217,10 +217,24 @@ namespace ColorWanted
             // 复制颜色值  如果连续两次（间隔小于1秒），则复制RGB颜色值，否则复制HEX颜色值
             if (keyValue == HotKeyValue.CopyHexColor.AsInt())
             {
-                // 复制HEX
-                Clipboard.SetText((DateTime.Now - lastCopyTime).TotalSeconds >= 1
-                    ? lbHex.Text : lbRgb.Text);
-                lastCopyTime = DateTime.Now;
+                var result = Util.SetClipboard(Handle,
+                    (DateTime.Now - lastCopyTime).TotalSeconds >= 1
+                    ? lbHex.Text
+                    : lbRgb.Text);
+
+                // 复制失败
+                if (result != null)
+                {
+                    tray.ShowBalloonTip(5000,
+                        "复制失败",
+                        result,
+                        ToolTipIcon.Error);
+                }
+                else
+                {
+                    lastCopyTime = DateTime.Now;
+                }
+
                 base.WndProc(ref m);
                 return;
             }
@@ -318,6 +332,15 @@ namespace ColorWanted
             colorTimer = new Timer { Interval = colorInterval };
             colorTimer.Tick += colortimer_Tick;
             colorTimer.Start();
+
+            // 检查是否是首次运行
+            if (Settings.IsFirstRun)
+            {
+                Settings.IsFirstRun = false;
+
+                // 首次运行时，打开帮助窗口
+                trayMenuShowHelp_Click(null, null);
+            }
         }
 
         private void previewForm_LocationChanged(object sender, EventArgs e)
@@ -419,13 +442,13 @@ namespace ColorWanted
             SwitchMode(DisplayMode.Follow);
         }
 
-        private void trayMenuShowAbout_Click(object sender, EventArgs e)
+        private void trayMenuShowHelp_Click(object sender, EventArgs e)
         {
-            if (aboutForm == null)
+            if (helpForm == null)
             {
-                aboutForm = new AboutForm();
+                helpForm = new HelpForm();
             }
-            aboutForm.Show();
+            helpForm.Show();
         }
 
         private void trayMenuShowRgb_Click(object sender, EventArgs e)

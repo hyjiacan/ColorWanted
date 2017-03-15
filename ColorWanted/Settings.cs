@@ -27,6 +27,7 @@ namespace ColorWanted
                     .GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Application.ProductName);
             FileName = Path.Combine(path, "option.ini");
+
             if (Directory.Exists(path)) return;
 
             try
@@ -214,6 +215,15 @@ namespace ColorWanted
             }
 
             return point;
+        }
+
+        public static bool IsFirstRun
+        {
+            get { return Get("firstrun") != "0"; }
+            set
+            {
+                Set("firstrun", value ? "1" : "0");
+            }
         }
     }
 }

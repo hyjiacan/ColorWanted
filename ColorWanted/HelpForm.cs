@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace ColorWanted
 {
-    public partial class AboutForm : Form
+    public partial class HelpForm : Form
     {
-        public AboutForm()
+        public HelpForm()
         {
             InitializeComponent();
 

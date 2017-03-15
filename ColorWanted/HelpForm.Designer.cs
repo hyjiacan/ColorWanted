@@ -1,6 +1,6 @@
 ﻿namespace ColorWanted
 {
-    partial class AboutForm
+    partial class HelpForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HelpForm));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.llScm = new System.Windows.Forms.LinkLabel();
@@ -39,7 +39,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.picLOGO = new System.Windows.Forms.PictureBox();
             this.lbVersion = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
@@ -155,16 +154,6 @@
             this.label7.TabIndex = 11;
             this.label7.Text = "Alt+R 显示/隐藏RGB通道颜色板";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(67, 100);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(42, 16);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "关于";
-            // 
             // picLOGO
             // 
             this.picLOGO.BackColor = System.Drawing.Color.White;
@@ -179,7 +168,7 @@
             // lbVersion
             // 
             this.lbVersion.AutoSize = true;
-            this.lbVersion.Location = new System.Drawing.Point(115, 104);
+            this.lbVersion.Location = new System.Drawing.Point(70, 78);
             this.lbVersion.Name = "lbVersion";
             this.lbVersion.Size = new System.Drawing.Size(47, 12);
             this.lbVersion.TabIndex = 13;
@@ -234,7 +223,7 @@
             this.label12.TabIndex = 16;
             this.label12.Text = "Alt+` 暂停/开始绘制预览窗(`在美标键盘左上角，ESC下面)";
             // 
-            // AboutForm
+            // HelpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -254,7 +243,6 @@
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.llCopy);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.llScm);
             this.Controls.Add(this.label1);
@@ -264,7 +252,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AboutForm";
+            this.Name = "HelpForm";
             this.Opacity = 0.8D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -288,7 +276,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.PictureBox picLOGO;
         private System.Windows.Forms.Label lbVersion;
         private System.Windows.Forms.Button btnExit;

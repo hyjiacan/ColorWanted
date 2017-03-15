@@ -7,12 +7,18 @@ namespace ColorWanted
 {
     class NativeMethods
     {
+        #region 屏幕取色
+
         [DllImport("gdi32.dll")]
         public static extern uint GetPixel(IntPtr hDC, int XPos, int YPos);
         [DllImport("gdi32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr CreateDC(string driverName, string deviceName, string output, IntPtr lpinitData);
         [DllImport("gdi32.dll")]
         public static extern bool DeleteDC(IntPtr DC);
+
+        #endregion
+
+        #region 全局快捷键
 
         //如果函数执行成功，返回值不为0。
         //如果函数执行失败，返回值为0。要得到扩展错误信息，调用GetLastError。
@@ -29,66 +35,49 @@ namespace ColorWanted
             IntPtr hWnd,                //要取消热键的窗口的句柄
             int id                      //要取消热键的ID
             );
+        #endregion
+
+        #region 在窗体任意位置拖动窗体
+
+        public const uint WM_SYSCOMMAND = 0x0112;
+        public const uint SC_MOVE = 0xF010;
+        public const uint HTCAPTION = 0x0002;
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
         [DllImport("user32.dll")]
         public static extern IntPtr SendMessage(IntPtr hwnd, uint wMsg, IntPtr wParam, IntPtr lParam);
+        #endregion
 
-        public const uint WM_SYSCOMMAND = 0x0112;
-        public const uint SC_MOVE = 0xF010;
-        public const uint HTCAPTION = 0x0002;
 
+        #region INI 文件读写
         [DllImport("kernel32", EntryPoint = "WritePrivateProfileString", CharSet = CharSet.Unicode)]
         public static extern bool WriteIni(string section, string key, string val, string filePath);
 
         [DllImport("kernel32", EntryPoint = "GetPrivateProfileString", CharSet = CharSet.Unicode)]
         public static extern bool ReadIni(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
 
-        /// <summary>
-        /// 结构体，里面字段的顺序不要变，值是按顺序存放的
-        /// </summary>
-        public struct Rect
-        {
-            public int Left{get;set;}
-            public int Top { get; set; }
-            public int Right { get; set; }
-            public int Bottom { get; set; }
-        }
+        #endregion
 
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindowEx(IntPtr hWnd1, IntPtr hWnd2, string lpsz1, string lpsz2);
+        #region 剪贴板操作
 
         [DllImport("user32.dll")]
-        public static extern IntPtr SetParent(IntPtr hWnd, IntPtr hWndNewParent);
-
+        public static extern bool OpenClipboard(IntPtr hWndNewOwner);
         [DllImport("user32.dll")]
-        public static extern IntPtr MoveWindow(IntPtr hWnd, IntPtr x, IntPtr y, int nWidth, int nHeight, int bRepaint);
-
+        public static extern bool EmptyClipboard();
         [DllImport("user32.dll")]
-        public static extern bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
-
+        public static extern IntPtr SetClipboardData(uint uFormat, IntPtr hMem);
         [DllImport("user32.dll")]
-        public static extern bool GetCursorInfo(out CURSORINFO pci);
+        public static extern bool CloseClipboard();
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct POINT
-        {
-            public Int32 x;
-            public Int32 y;
-        }
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GlobalAlloc(uint uFlags, int dwBytes);
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr GlobalLock(IntPtr hMem);
+        [DllImport("kernel32.dll")]
+        public static extern bool GlobalUnlock(IntPtr hMem);
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct CURSORINFO
-        {
-            public Int32 cbSize;
-            public Int32 flags;
-            public IntPtr hCursor;
-            public POINT ptScreenPos;
-        }
+        #endregion
     }
 }
