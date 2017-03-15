@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace ColorWanted
@@ -12,15 +13,15 @@ namespace ColorWanted
 
         public Bitmap Image
         {
-            get
+            set
             {
-                if (image != null && !image.Size.Equals(picPreview.Size))
-                    return image;
+                if (image == null || !image.Size.Equals(picPreview.Size))
+                {
+                    image = new Bitmap(picPreview.Size.Width, picPreview.Height);
+                }
 
-                image = new Bitmap(picPreview.Size.Width, picPreview.Height);
-                picPreview.Image = image;
-
-                return image;
+                picPreview.Image = ScaleBitmap(value, image);
+                GC.Collect();
             }
         }
 
@@ -101,6 +102,103 @@ namespace ColorWanted
         private void PreviewForm_Load(object sender, EventArgs e)
         {
             Location = Settings.PreviewLocation;
+        }
+
+
+        private static readonly Pen linePen = new Pen(new SolidBrush(Color.FromArgb(100, 30, 30, 30)));
+
+
+        private static Rectangle srcRect = new Rectangle(0, 0, 0, 0);
+
+        private static Rectangle destRect = new Rectangle(0, 0, 0, 0);
+
+        public static Bitmap ScaleBitmap(Bitmap srcImage, Bitmap destImage)
+        {
+            // 大小不变，所以取一次就够了
+            if (srcRect.IsEmpty)
+            {
+                srcRect.Size = srcImage.Size;
+            }
+
+            // 大小可能会变，当改变时取新值
+            if (!destImage.Size.Equals(destRect.Size))
+            {
+                destRect.Size = destImage.Size;
+            }
+
+            var scale = destRect.Width / srcImage.Width;
+
+            unsafe
+            {
+                // 锁定数据
+                var srcData = srcImage.LockBits(srcRect,
+                    ImageLockMode.ReadOnly,
+                    srcImage.PixelFormat);
+                var destData = destImage.LockBits(destRect,
+                    ImageLockMode.WriteOnly,
+                    destImage.PixelFormat);
+
+                // 获取数据指针
+                var srcPointer = (byte*)srcData.Scan0.ToPointer();
+                var destPointer = (byte*)destData.Scan0.ToPointer();
+
+                // 放大后行数据的缓存
+                var rowbuffer = new byte[destData.Stride];
+
+                for (int i = 0; i < srcRect.Height; i++)
+                {
+                    // 写第i行数据
+
+                    for (int j = 0; j < srcData.Stride; j += 4)
+                    {
+                        // 写第j列数据 这个循环完成后  就写完一行了
+                        // 当前位置的色值
+                        var c1 = *srcPointer;
+                        srcPointer++;
+                        var c2 = *srcPointer;
+                        srcPointer++;
+                        var c3 = *srcPointer;
+                        srcPointer++;
+                        var c4 = *srcPointer;
+                        srcPointer++;
+
+                        // 这里是放大行的像素
+                        for (var k = j * scale; k < destData.Stride; k += 4)
+                        {
+                            rowbuffer[k] = c1;
+                            rowbuffer[k + 1] = c2;
+                            rowbuffer[k + 2] = c3;
+                            rowbuffer[k + 3] = c4;
+                        }
+                    }
+
+                    // 这里是放大列的像素
+                    // 即 将放大的行复制scale次
+                    for (var j = 0; j < scale; j++)
+                    {
+                        foreach (var t in rowbuffer)
+                        {
+                            *destPointer = t;
+                            destPointer++;
+                        }
+                    }
+                }
+
+                // 解锁数据
+                srcImage.UnlockBits(srcData);
+                destImage.UnlockBits(destData);
+            }
+
+            var graphics = Graphics.FromImage(destImage);
+
+            linePen.Color = ColorUtil.GetContrastColor(srcImage.GetPixel(srcImage.Width / 2 + 1, srcImage.Height / 2 + 1), true);
+            graphics.DrawLine(linePen, 0, destRect.Height / 2, destRect.Width, destRect.Height / 2);
+            graphics.DrawLine(linePen, destRect.Width / 2, destRect.Height, destRect.Width / 2, 0);
+
+            graphics.Save();
+            graphics.Dispose();
+
+            return destImage;
         }
     }
 }

@@ -75,7 +75,6 @@ namespace ColorWanted
         [DllImport("user32.dll")]
         public static extern bool GetCursorInfo(out CURSORINFO pci);
 
-        //private const Int32 CURSOR_SHOWING = 0x00000001;
         [StructLayout(LayoutKind.Sequential)]
         public struct POINT
         {

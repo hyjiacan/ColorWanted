@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ColorWanted.enums;
+using ColorWanted.ext;
+using System;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using ColorWanted.enums;
-using ColorWanted.ext;
 
 namespace ColorWanted
 {
@@ -173,7 +173,7 @@ namespace ColorWanted
             graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
             graphics.Save();
 
-            Util.ScaleBitmap(pic, previewForm.Image);
+            previewForm.Image = pic;
         }
 
         private void SetDefaultLocation()
