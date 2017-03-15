@@ -17,6 +17,10 @@ namespace ColorWanted
             {
                 if (image == null || !image.Size.Equals(picPreview.Size))
                 {
+                    if (image != null)
+                    {
+                        image.Dispose();
+                    }
                     image = new Bitmap(picPreview.Size.Width, picPreview.Height);
                 }
 
@@ -189,6 +193,7 @@ namespace ColorWanted
                 destImage.UnlockBits(destData);
             }
 
+            // 这是是为了在预览图上画一个 十 符号，符号的中心点就是当前的像素点
             var graphics = Graphics.FromImage(destImage);
 
             linePen.Color = ColorUtil.GetContrastColor(srcImage.GetPixel(srcImage.Width / 2 + 1, srcImage.Height / 2 + 1), true);
