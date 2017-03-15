@@ -33,9 +33,19 @@ namespace ColorWanted
             Process.Start(llScm.Text);
         }
 
-        private void llCopy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void lkCopySourceUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Clipboard.SetText(llScm.Text);
+            Util.SetClipboard(Handle, llScm.Text);
+        }
+
+        private void lkVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(lkVersion.Text);
+        }
+
+        private void lkCopyReleaseUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Util.SetClipboard(Handle, lkVersion.Text);
         }
     }
 }

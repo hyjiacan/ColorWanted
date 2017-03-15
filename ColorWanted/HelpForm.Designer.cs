@@ -33,10 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.llScm = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
-            this.llCopy = new System.Windows.Forms.LinkLabel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lkCopySourceUrl = new System.Windows.Forms.LinkLabel();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.picLOGO = new System.Windows.Forms.PictureBox();
@@ -46,6 +44,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.lkVersion = new System.Windows.Forms.LinkLabel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lkCopyReleaseUrl = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,32 +54,35 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(65, 36);
+            this.label2.Location = new System.Drawing.Point(68, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(212, 22);
+            this.label2.Size = new System.Drawing.Size(56, 22);
             this.label2.TabIndex = 1;
-            this.label2.Text = "赏色(ColorWanted)";
+            this.label2.Text = "赏色";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 132);
+            this.label1.Location = new System.Drawing.Point(68, 88);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(173, 12);
             this.label1.TabIndex = 4;
             this.label1.Text = "这是一个屏幕取色器，源码放在";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // llScm
             // 
             this.llScm.AutoSize = true;
             this.llScm.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.llScm.Location = new System.Drawing.Point(67, 156);
+            this.llScm.Location = new System.Drawing.Point(68, 117);
             this.llScm.Name = "llScm";
-            this.llScm.Size = new System.Drawing.Size(293, 12);
+            this.llScm.Size = new System.Drawing.Size(269, 12);
             this.llScm.TabIndex = 5;
             this.llScm.TabStop = true;
-            this.llScm.Text = "https://git.oschina.net/hyjiacan/ColorWanted.git";
+            this.llScm.Text = "https://git.oschina.net/hyjiacan/ColorWanted";
+            this.llScm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.llScm.VisitedLinkColor = System.Drawing.Color.Lime;
             this.llScm.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llScm_LinkClicked);
             // 
@@ -86,79 +90,66 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(67, 221);
+            this.label3.Location = new System.Drawing.Point(68, 224);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "快捷键说明";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // llCopy
+            // lkCopySourceUrl
             // 
-            this.llCopy.AutoSize = true;
-            this.llCopy.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.llCopy.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.llCopy.Location = new System.Drawing.Point(284, 132);
-            this.llCopy.Name = "llCopy";
-            this.llCopy.Size = new System.Drawing.Size(77, 12);
-            this.llCopy.TabIndex = 7;
-            this.llCopy.TabStop = true;
-            this.llCopy.Text = "复制这个地址";
-            this.llCopy.VisitedLinkColor = System.Drawing.Color.Lime;
-            this.llCopy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llCopy_LinkClicked);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(67, 183);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "本软件使用";
+            this.lkCopySourceUrl.AutoSize = true;
+            this.lkCopySourceUrl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkCopySourceUrl.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lkCopySourceUrl.Location = new System.Drawing.Point(249, 88);
+            this.lkCopySourceUrl.Name = "lkCopySourceUrl";
+            this.lkCopySourceUrl.Size = new System.Drawing.Size(29, 12);
+            this.lkCopySourceUrl.TabIndex = 7;
+            this.lkCopySourceUrl.TabStop = true;
+            this.lkCopySourceUrl.Text = "复制";
+            this.lkCopySourceUrl.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.lkCopySourceUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkCopySourceUrl_LinkClicked);
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel1.LinkColor = System.Drawing.Color.Lime;
-            this.linkLabel1.Location = new System.Drawing.Point(130, 183);
+            this.linkLabel1.Location = new System.Drawing.Point(130, 42);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(47, 12);
+            this.linkLabel1.Size = new System.Drawing.Size(31, 15);
             this.linkLabel1.TabIndex = 9;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "MIT协议";
+            this.linkLabel1.Text = "MIT";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Lime;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(179, 183);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(137, 12);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "，意味着可以随便改着玩";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(67, 252);
+            this.label6.Location = new System.Drawing.Point(68, 255);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(329, 12);
             this.label6.TabIndex = 11;
             this.label6.Text = "Alt+C 复制十六进制颜色值，1秒内连续按两次复制RGB颜色值";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(67, 277);
+            this.label7.Location = new System.Drawing.Point(68, 280);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(173, 12);
             this.label7.TabIndex = 11;
             this.label7.Text = "Alt+R 显示/隐藏RGB通道颜色板";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // picLOGO
             // 
             this.picLOGO.BackColor = System.Drawing.Color.White;
             this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
-            this.picLOGO.Location = new System.Drawing.Point(296, 36);
+            this.picLOGO.Location = new System.Drawing.Point(332, 36);
             this.picLOGO.Name = "picLOGO";
             this.picLOGO.Size = new System.Drawing.Size(64, 64);
             this.picLOGO.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -168,9 +159,10 @@
             // lbVersion
             // 
             this.lbVersion.AutoSize = true;
-            this.lbVersion.Location = new System.Drawing.Point(70, 78);
+            this.lbVersion.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbVersion.Location = new System.Drawing.Point(178, 43);
             this.lbVersion.Name = "lbVersion";
-            this.lbVersion.Size = new System.Drawing.Size(47, 12);
+            this.lbVersion.Size = new System.Drawing.Size(63, 15);
             this.lbVersion.TabIndex = 13;
             this.lbVersion.Text = "v 1.0.0";
             // 
@@ -190,38 +182,81 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(67, 302);
+            this.label10.Location = new System.Drawing.Point(68, 305);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(221, 12);
             this.label10.TabIndex = 11;
             this.label10.Text = "Alt+F1 切换显示模式 (隐藏/固定/跟随)";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(67, 327);
+            this.label8.Location = new System.Drawing.Point(68, 330);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(149, 12);
             this.label8.TabIndex = 11;
             this.label8.Text = "Alt+F2 显示/隐藏预览面板";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(68, 354);
+            this.label11.Location = new System.Drawing.Point(68, 357);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 12);
             this.label11.TabIndex = 15;
             this.label11.Text = "Alt+F3 显示调色板";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(68, 381);
+            this.label12.Location = new System.Drawing.Point(68, 384);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(323, 12);
             this.label12.TabIndex = 16;
             this.label12.Text = "Alt+` 暂停/开始绘制预览窗(`在美标键盘左上角，ESC下面)";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lkVersion
+            // 
+            this.lkVersion.AutoSize = true;
+            this.lkVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lkVersion.Location = new System.Drawing.Point(68, 173);
+            this.lkVersion.Name = "lkVersion";
+            this.lkVersion.Size = new System.Drawing.Size(323, 12);
+            this.lkVersion.TabIndex = 7;
+            this.lkVersion.TabStop = true;
+            this.lkVersion.Text = "https://git.oschina.net/hyjiacan/ColorWanted/releases";
+            this.lkVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lkVersion.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.lkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(68, 148);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 12);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "新版本发布在";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lkCopyReleaseUrl
+            // 
+            this.lkCopyReleaseUrl.AutoSize = true;
+            this.lkCopyReleaseUrl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkCopyReleaseUrl.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lkCopyReleaseUrl.Location = new System.Drawing.Point(151, 148);
+            this.lkCopyReleaseUrl.Name = "lkCopyReleaseUrl";
+            this.lkCopyReleaseUrl.Size = new System.Drawing.Size(29, 12);
+            this.lkCopyReleaseUrl.TabIndex = 7;
+            this.lkCopyReleaseUrl.TabStop = true;
+            this.lkCopyReleaseUrl.Text = "复制";
+            this.lkCopyReleaseUrl.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.lkCopyReleaseUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkCopyReleaseUrl_LinkClicked);
             // 
             // HelpForm
             // 
@@ -239,12 +274,13 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.llCopy);
+            this.Controls.Add(this.lkVersion);
+            this.Controls.Add(this.lkCopyReleaseUrl);
+            this.Controls.Add(this.lkCopySourceUrl);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.llScm);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -270,10 +306,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel llScm;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.LinkLabel llCopy;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel lkCopySourceUrl;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox picLOGO;
@@ -283,5 +317,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.LinkLabel lkVersion;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.LinkLabel lkCopyReleaseUrl;
     }
 }
