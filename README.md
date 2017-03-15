@@ -4,8 +4,9 @@
 - 开发工具 VS2013
 - 运行环境 .net 4.0 client profile
 
-#下载二进制文件
-[赏色-latest.exe](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
+#下载
+[稳定版](http://git.oschina.net/hyjiacan/ColorWanted/releases)
+[开发版](http://git.oschina.net/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
 
 # 使用说明
 
