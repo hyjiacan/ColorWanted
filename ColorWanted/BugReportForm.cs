@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
@@ -11,13 +12,12 @@ namespace ColorWanted
         /// <summary>
         /// 数据模板
         /// </summary>
-        private const string template = 
+        private const string template =
 @"操作系统: {0}
 .NET版本: {1}
-程序: {2}
-程序版本: {3}
-错误消息: {4}
-错误源: {5}
+程序版本: {2}
+错误消息: {3}
+错误源: {4}
 ";
 
         public BugReportForm()
@@ -31,7 +31,6 @@ namespace ColorWanted
             tbMsg.AppendText(string.Format(template,
             Environment.OSVersion,
             Environment.Version,
-            Application.ProductName,
             Application.ProductVersion,
             exception.Message,
             exception.StackTrace));
@@ -39,16 +38,18 @@ namespace ColorWanted
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            var data = Convert.ToBase64String(
-                Encoding.UTF8.GetBytes(
-                    tbMsg.Text + "\r" + tbExtra.Text));
-
             try
             {
-                new WebClient().UploadString(
+                var client = new WebClient();
+                client.UploadValues(
                         "http://www.hyjiacan.com/git/bug.php?token=bugreport",
                         "post",
-                        data);
+                        new NameValueCollection
+                        {
+                            {"project", Convert.ToBase64String(Encoding.UTF8.GetBytes(Application.ProductName))},
+                            {"summary", Convert.ToBase64String(Encoding.UTF8.GetBytes(tbMsg.Text))},
+                            {"extra", Convert.ToBase64String(Encoding.UTF8.GetBytes(tbExtra.Text))}
+                        });
             }
             catch
             {

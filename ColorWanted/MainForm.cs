@@ -174,8 +174,14 @@ namespace ColorWanted
             graphics.Clear(Color.White);
             graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
             graphics.Save();
-
-            previewForm.UpdateImage(pic);
+            try
+            {
+                previewForm.UpdateImage(pic);
+            }
+            catch (Exception e)
+            {
+                Util.ShowBugReportForm(e);
+            }
         }
 
         private void SetDefaultLocation()
@@ -190,10 +196,7 @@ namespace ColorWanted
         private void trayMenuExit_Click(object sender, EventArgs e)
         {
             colorTimer.Stop();
-            if (Util.ShowBugReportForm(new Exception("xxxxxxx")) == DialogResult.OK)
-            {
-                Application.Exit();
-            }
+            Application.Exit();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -219,22 +222,29 @@ namespace ColorWanted
             // 复制颜色值  如果连续两次（间隔小于1秒），则复制RGB颜色值，否则复制HEX颜色值
             if (keyValue == HotKeyValue.CopyHexColor.AsInt())
             {
-                var result = Util.SetClipboard(Handle,
-                    (DateTime.Now - lastCopyTime).TotalSeconds >= 1
-                    ? lbHex.Text
-                    : lbRgb.Text);
+                try
+                {
+                    var result = Util.SetClipboard(Handle,
+                        (DateTime.Now - lastCopyTime).TotalSeconds >= 1
+                        ? lbHex.Text
+                        : lbRgb.Text);
 
-                // 复制失败
-                if (result != null)
-                {
-                    tray.ShowBalloonTip(5000,
-                        "复制失败",
-                        result,
-                        ToolTipIcon.Error);
+                    // 复制失败
+                    if (result != null)
+                    {
+                        tray.ShowBalloonTip(5000,
+                            "复制失败",
+                            result,
+                            ToolTipIcon.Error);
+                    }
+                    else
+                    {
+                        lastCopyTime = DateTime.Now;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    lastCopyTime = DateTime.Now;
+                    Util.ShowBugReportForm(e);
                 }
 
                 base.WndProc(ref m);

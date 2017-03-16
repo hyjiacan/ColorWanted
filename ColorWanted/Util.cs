@@ -106,7 +106,7 @@ namespace ColorWanted
             return null;
         }
 
-        public static DialogResult ShowBugReportForm(Exception ex)
+        public static void ShowBugReportForm(Exception ex)
         {
             // 发生未处理的异常时，打开BUG报告窗口
             if (reportform == null)
@@ -114,7 +114,8 @@ namespace ColorWanted
                 reportform = new BugReportForm();
             }
             reportform.SetException(ex);
-            return reportform.ShowDialog();
+            reportform.ShowDialog();
+            Application.Exit();
         }
 
         private static BugReportForm reportform;
