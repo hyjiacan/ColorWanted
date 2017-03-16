@@ -34,6 +34,13 @@ namespace ColorWanted
         {
             InitializeComponent();
 
+            // 加载保存的窗口大小
+            var w = Settings.PreviewSize;
+            if (w != 0)
+            {
+                Width = Height = w;
+            }
+
             MouseWheel += picPreview_MouseWheel;
         }
 
@@ -62,8 +69,10 @@ namespace ColorWanted
             {
                 return;
             }
-            Width = Width + 11 * delta;
-            Height = Height + 11 * delta;
+            Width = Height = Width + 11 * delta;
+
+            // 记住大小
+            Settings.PreviewSize = Width;
         }
 
         /// <summary>

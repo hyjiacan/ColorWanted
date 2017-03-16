@@ -235,13 +235,30 @@ namespace ColorWanted
             get
             {
                 var temp = Get("customcolors");
-                return string.IsNullOrWhiteSpace(temp) 
-                    ? null 
+                return string.IsNullOrWhiteSpace(temp)
+                    ? null
                     : temp.Split(',').Select(int.Parse).ToArray();
             }
             set
             {
                 Set("customcolors", string.Join(",", value));
+            }
+        }
+
+        /// <summary>
+        /// 预览窗口的大小
+        /// </summary>
+        public static int PreviewSize
+        {
+            get
+            {
+                int temp;
+                int.TryParse(Get("previewsize"), out temp);
+                return temp;
+            }
+            set
+            {
+                Set("previewsize", value.ToString());
             }
         }
     }

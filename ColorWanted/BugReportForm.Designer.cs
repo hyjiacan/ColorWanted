@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BugReportForm));
             this.label1 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.tbMsg = new System.Windows.Forms.TextBox();
@@ -179,12 +180,12 @@
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BugReportForm";
             this.Opacity = 0.9D;
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BUG报告";
+            this.Text = "BUG报告-赏色";
             this.ResumeLayout(false);
             this.PerformLayout();
 
