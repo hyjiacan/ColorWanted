@@ -68,7 +68,7 @@ namespace ColorWanted
             // 多整一个字节，用来放结果符
             var datalength = data.Length + 1;
 
-            // 分配内存 使用 2: GMEM_MOVEABLE 标记
+            // 分配内存 使用 0: GMEM_FIXED 标记
             // 在 winbase.h 中可以找到定义
 
             var mem = NativeMethods.GlobalAlloc(2, datalength);
@@ -105,5 +105,18 @@ namespace ColorWanted
 
             return null;
         }
+
+        public static DialogResult ShowBugReportForm(Exception ex)
+        {
+            // 发生未处理的异常时，打开BUG报告窗口
+            if (reportform == null)
+            {
+                reportform = new BugReportForm();
+            }
+            reportform.SetException(ex);
+            return reportform.ShowDialog();
+        }
+
+        private static BugReportForm reportform;
     }
 }

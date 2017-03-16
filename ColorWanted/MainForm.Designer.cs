@@ -234,7 +234,7 @@
             this.trayMenuExit.Name = "trayMenuExit";
             this.trayMenuExit.Size = new System.Drawing.Size(152, 22);
             this.trayMenuExit.Text = "退出";
-            this.trayMenuExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.trayMenuExit.Click += new System.EventHandler(this.trayMenuExit_Click);
             // 
             // MainForm
             // 

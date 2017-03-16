@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ColorWanted.enums;
@@ -223,6 +224,24 @@ namespace ColorWanted
             set
             {
                 Set("firstrun", value ? "1" : "0");
+            }
+        }
+
+        /// <summary>
+        /// 调色板的自定义颜色
+        /// </summary>
+        public static int[] CustomColors
+        {
+            get
+            {
+                var temp = Get("customcolors");
+                return string.IsNullOrWhiteSpace(temp) 
+                    ? null 
+                    : temp.Split(',').Select(int.Parse).ToArray();
+            }
+            set
+            {
+                Set("customcolors", string.Join(",", value));
             }
         }
     }

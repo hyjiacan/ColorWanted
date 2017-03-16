@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -33,6 +34,7 @@ namespace ColorWanted
         private HelpForm helpForm;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
+
 
         /// <summary>
         /// 控制是否停止绘制预览窗口，为true时就停止绘制预览窗口
@@ -96,10 +98,9 @@ namespace ColorWanted
             {
                 return;
             }
-            Point pt = new Point(MousePosition.X, MousePosition.Y);
 
             // 如果光标位置不变，颜色也不变，就不绘制了
-            if (pt.Equals(lastPosition))
+            if (MousePosition.Equals(lastPosition))
             {
                 return;
             }
@@ -122,17 +123,16 @@ namespace ColorWanted
 
                 iniloaded = true;
             }
-            Point pt = new Point(MousePosition.X, MousePosition.Y);
 
-            Color cl = ColorUtil.GetColor(pt);
+            Color cl = ColorUtil.GetColor(MousePosition);
 
             // 如果光标位置不变，颜色也不变，就不绘制了
-            if (pt.Equals(lastPosition) && cl.Equals(lastColor))
+            if (MousePosition.Equals(lastPosition) && cl.Equals(lastColor))
             {
                 return;
             }
 
-            lastPosition = pt;
+            lastPosition = MousePosition;
             lastColor = cl;
 
             hexBuffer.Clear();
@@ -145,7 +145,7 @@ namespace ColorWanted
 
             if (trayMenuShowPreview.Checked && !stopDrawPreview)
             {
-                DrawPreview(pt);
+                DrawPreview(MousePosition);
             }
 
             if (trayMenuShowRgb.Checked)
@@ -187,11 +187,13 @@ namespace ColorWanted
         }
 
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void trayMenuExit_Click(object sender, EventArgs e)
         {
             colorTimer.Stop();
-
-            Application.Exit();
+            if (Util.ShowBugReportForm(new Exception("xxxxxxx")) == DialogResult.OK)
+            {
+                Application.Exit();
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -255,7 +257,7 @@ namespace ColorWanted
                 return;
             }
 
-            // 切换显示模式
+            // 打开预览窗口
             if (keyValue == HotKeyValue.ShowPreview.AsInt())
             {
                 TogglePreview();
@@ -505,7 +507,7 @@ namespace ColorWanted
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.Message);
+                tray.ShowBalloonTip(5000, "无法打开配置文件", ex.Message, ToolTipIcon.Warning);
             }
         }
 
@@ -549,12 +551,57 @@ namespace ColorWanted
                     FullOpen = true
                 };
             }
+            try
+            {
+                // 显示时，尝试从剪贴板中加载已经复制的颜色
+                if (Clipboard.ContainsText(TextDataFormat.Text))
+                {
+                    var color = Color.Empty;
+                    var c = Clipboard.GetText().Trim();
+                    if (c.Length == 7 && c[0] == '#')
+                    {
+                        // hex
+                        var r = Convert.ToInt16(c.Substring(1, 2), 16);
+                        var g = Convert.ToInt16(c.Substring(3, 2), 16);
+                        var b = Convert.ToInt16(c.Substring(5, 2), 16);
+
+                        color = Color.FromArgb(r, g, b);
+                    }
+                    else if (c.StartsWith("rgb", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // rgb
+                        var temp = c.Substring(3).Trim('(', ')').Split(',');
+                        if (temp.Length == 3)
+                        {
+                            var colors = temp.Select(int.Parse).ToArray();
+                            color = Color.FromArgb(colors[0], colors[1], colors[2]);
+                        }
+                    }
+
+                    if (!color.IsEmpty)
+                    {
+                        colorPicker.Color = color;
+                    }
+                }
+            }
+            catch
+            {
+                // ignore
+            }
+
+            // 加载保存的自定义颜色
+            colorPicker.CustomColors = Settings.CustomColors;
+
             trayMenuShowColorPicker.Checked = true;
             if (DialogResult.OK == colorPicker.ShowDialog(this))
             {
                 var cl = colorPicker.Color;
-                Clipboard.SetText(string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B));
+                Util.SetClipboard(Handle, string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B));
+
+                // 保存自定义颜色
+                Settings.CustomColors = colorPicker.CustomColors;
             }
+
             trayMenuShowColorPicker.Checked = false;
         }
         #endregion
@@ -686,6 +733,5 @@ namespace ColorWanted
             }
         }
         #endregion
-
     }
 }
