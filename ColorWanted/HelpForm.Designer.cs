@@ -47,6 +47,7 @@
             this.lkVersion = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.lkCopyReleaseUrl = new System.Windows.Forms.LinkLabel();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -130,26 +131,27 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(68, 255);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(329, 12);
+            this.label6.Size = new System.Drawing.Size(233, 12);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Alt+C 复制十六进制颜色值，1秒内连续按两次复制RGB颜色值";
+            this.label6.Text = "Alt+C 复制十六进制格式,双击复制RGB格式";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label7.Location = new System.Drawing.Point(68, 280);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(173, 12);
+            this.label7.Size = new System.Drawing.Size(293, 12);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Alt+R 显示/隐藏RGB通道颜色板";
+            this.label7.Text = "Alt+E 显示/隐藏RGB格式道,双击显示/隐藏CMY(K)格式\r\n";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // picLOGO
             // 
             this.picLOGO.BackColor = System.Drawing.Color.White;
             this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
-            this.picLOGO.Location = new System.Drawing.Point(332, 36);
+            this.picLOGO.Location = new System.Drawing.Point(327, 36);
             this.picLOGO.Name = "picLOGO";
             this.picLOGO.Size = new System.Drawing.Size(64, 64);
             this.picLOGO.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -168,10 +170,11 @@
             // 
             // btnExit
             // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnExit.Location = new System.Drawing.Point(445, 3);
+            this.btnExit.Location = new System.Drawing.Point(433, 3);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(24, 23);
             this.btnExit.TabIndex = 14;
@@ -182,6 +185,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label10.Location = new System.Drawing.Point(68, 305);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(221, 12);
@@ -192,6 +196,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label8.Location = new System.Drawing.Point(68, 330);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(149, 12);
@@ -202,6 +207,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label11.Location = new System.Drawing.Point(68, 357);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 12);
@@ -212,11 +218,12 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label12.Location = new System.Drawing.Point(68, 384);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(323, 12);
+            this.label12.Size = new System.Drawing.Size(299, 12);
             this.label12.TabIndex = 16;
-            this.label12.Text = "Alt+` 暂停/开始绘制预览窗(`在美标键盘左上角，ESC下面)";
+            this.label12.Text = "Alt+` 暂停/开始绘制预览窗,双击暂停/开始颜色值变化";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lkVersion
@@ -258,13 +265,24 @@
             this.lkCopyReleaseUrl.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkCopyReleaseUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkCopyReleaseUrl_LinkClicked);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
+            this.label5.Location = new System.Drawing.Point(68, 429);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(179, 12);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "双击：1秒内连续按下两次快捷键";
+            // 
             // HelpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(472, 429);
+            this.ClientSize = new System.Drawing.Size(460, 474);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.btnExit);
@@ -320,5 +338,6 @@
         private System.Windows.Forms.LinkLabel lkVersion;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel lkCopyReleaseUrl;
+        private System.Windows.Forms.Label label5;
     }
 }

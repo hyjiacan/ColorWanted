@@ -1,6 +1,7 @@
 ﻿using ColorWanted.enums;
 using ColorWanted.ext;
 using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -18,13 +19,13 @@ namespace ColorWanted
         /// <param name="handle"></param>
         public static void BindHotkeys(IntPtr handle)
         {
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyHexColor.AsInt(), KeyModifiers.Alt, Keys.C);
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyRgbColor.AsInt(), KeyModifiers.Alt, Keys.R);
+            NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyColor.AsInt(), KeyModifiers.Alt, Keys.C);
+            NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowMoreFormat.AsInt(), KeyModifiers.Alt, Keys.E);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.SwitchMode.AsInt(), KeyModifiers.Alt, Keys.F1);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowPreview.AsInt(), KeyModifiers.Alt, Keys.F2);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowColorPicker.AsInt(), KeyModifiers.Alt, Keys.F3);
             // Alt + ` 键
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.DrawPreview.AsInt(), KeyModifiers.Alt, Keys.Oemtilde);
+            NativeMethods.RegisterHotKey(handle, HotKeyValue.DrawControl.AsInt(), KeyModifiers.Alt, Keys.Oemtilde);
         }
 
         /// <summary>
@@ -33,12 +34,12 @@ namespace ColorWanted
         /// <param name="handle"></param>
         public static void UnbindHotkeys(IntPtr handle)
         {
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyHexColor.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyRgbColor.AsInt());
+            NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyColor.AsInt());
+            NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowMoreFormat.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.SwitchMode.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowPreview.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowColorPicker.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.DrawPreview.AsInt());
+            NativeMethods.UnregisterHotKey(handle, HotKeyValue.DrawControl.AsInt());
         }
 
         /// <summary>
@@ -119,5 +120,10 @@ namespace ColorWanted
         }
 
         private static BugReportForm reportform;
+
+        public static Color CMY2RGB()
+        {
+            
+        }
     }
 }

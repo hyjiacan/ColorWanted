@@ -10,13 +10,13 @@
         /// </summary>
         SwitchMode = 0xF00001,
         /// <summary>
-        /// 复制RGB颜色值
+        /// 显示更多的颜色格式
         /// </summary>
-        CopyRgbColor,
+        ShowMoreFormat,
         /// <summary>
-        /// 复制十六进制颜色值
+        /// 复制颜色值
         /// </summary>
-        CopyHexColor,
+        CopyColor,
         /// <summary>
         /// 显示预览窗口，隐藏鼠标
         /// </summary>
@@ -26,8 +26,8 @@
         /// </summary>
         ShowColorPicker,
         /// <summary>
-        /// 绘制预览窗口
+        /// 控制是否绘制
         /// </summary>
-        DrawPreview
+        DrawControl
     }
 }

@@ -1,6 +1,6 @@
 ﻿using ColorWanted.enums;
-using ColorWanted.ext;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -57,9 +57,10 @@ namespace ColorWanted
         /// </summary>
         private const int pinSize = 15;
 
-        // 上次复制的时间
-        private DateTime lastCopyTime;
-
+        /// <summary>
+        /// 上次按下快捷键的时间记录
+        /// </summary>
+        private readonly Dictionary<HotKeyValue, DateTime> lastPressTime;
 
         private readonly StringBuilder hexBuffer;
 
@@ -75,6 +76,18 @@ namespace ColorWanted
 
             hexBuffer = new StringBuilder(8, 8);
             rgbBuffer = new StringBuilder(10, 16);
+
+            var now = DateTime.Now;
+
+            lastPressTime = new Dictionary<HotKeyValue, DateTime>
+            {
+                {HotKeyValue.CopyColor, now},
+                {HotKeyValue.DrawControl, now},
+                {HotKeyValue.ShowColorPicker, now},
+                {HotKeyValue.ShowMoreFormat, now},
+                {HotKeyValue.ShowPreview, now},
+                {HotKeyValue.SwitchMode, now}
+            };
 
             Util.BindHotkeys(Handle);
         }
@@ -219,78 +232,44 @@ namespace ColorWanted
             // 收到的快捷键的值
             var keyValue = m.WParam.ToInt32();
 
-            // 复制颜色值  如果连续两次（间隔小于1秒），则复制RGB颜色值，否则复制HEX颜色值
-            if (keyValue == HotKeyValue.CopyHexColor.AsInt())
+            var key = (HotKeyValue) keyValue;
+
+            var lasttime = lastPressTime[key];
+            var now = DateTime.Now;
+
+            var doubleClick = (now - lasttime).TotalSeconds <= 1;
+
+            switch (key)
             {
-                try
-                {
-                    var result = Util.SetClipboard(Handle,
-                        (DateTime.Now - lastCopyTime).TotalSeconds >= 1
-                        ? lbHex.Text
-                        : lbRgb.Text);
-
-                    // 复制失败
-                    if (result != null)
-                    {
-                        tray.ShowBalloonTip(5000,
-                            "复制失败",
-                            result,
-                            ToolTipIcon.Error);
-                    }
-                    else
-                    {
-                        lastCopyTime = DateTime.Now;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Util.ShowBugReportForm(e);
-                }
-
-                base.WndProc(ref m);
-                return;
+                // 切换显示模式
+                case HotKeyValue.SwitchMode:
+                    SwitchMode();
+                    break;
+                // 显示/隐藏更多的颜色格式
+                case HotKeyValue.ShowMoreFormat:
+                    ShowMoreFormat(doubleClick);
+                    break;
+                // 复制颜色值
+                case HotKeyValue.CopyColor:
+                    CopyColor(doubleClick);
+                    break;
+                // 打开预览窗口
+                case HotKeyValue.ShowPreview:
+                    TogglePreview();
+                    break;
+                // 显示/隐藏调色板
+                case HotKeyValue.ShowColorPicker:
+                    ShowColorPicker();
+                    break;
+                // 绘制预览窗口
+                case HotKeyValue.DrawControl:
+                    DrawControl(doubleClick);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            // 显示/隐藏RGB颜色值
-            if (keyValue == HotKeyValue.CopyRgbColor.AsInt())
-            {
-                ToggleRgb();
-                base.WndProc(ref m);
-                return;
-            }
-
-            // 切换显示模式
-            if (keyValue == HotKeyValue.SwitchMode.AsInt())
-            {
-                SwitchMode();
-                base.WndProc(ref m);
-                return;
-            }
-
-            // 打开预览窗口
-            if (keyValue == HotKeyValue.ShowPreview.AsInt())
-            {
-                TogglePreview();
-                base.WndProc(ref m);
-                return;
-            }
-
-            // 显示/隐藏调色板
-            if (keyValue == HotKeyValue.ShowColorPicker.AsInt())
-            {
-                ShowColorPicker();
-                base.WndProc(ref m);
-                return;
-            }
-
-            // 绘制预览窗口
-            if (keyValue == HotKeyValue.DrawPreview.AsInt())
-            {
-                stopDrawPreview = !stopDrawPreview;
-                previewForm.ToggleCursor(stopDrawPreview);
-                base.WndProc(ref m);
-                return;
-            }
+            lastPressTime[key] = now;
 
             base.WndProc(ref m);
         }
@@ -741,6 +720,66 @@ namespace ColorWanted
                 Left = loc.X;
                 Top = loc.Y;
             }
+        }
+        #endregion
+
+        #region 响应快捷键
+        /// <summary> 
+        /// 复制HEX颜色值  双击复制RGB颜色值
+        /// </summary>
+        private void CopyColor(bool doubleClick)
+        {
+            try
+            {
+                var result = Util.SetClipboard(Handle,
+                    doubleClick ? lbHex.Text : lbRgb.Text);
+
+                // 复制失败
+                if (result != null)
+                {
+                    tray.ShowBalloonTip(5000,
+                        "复制失败",
+                        result,
+                        ToolTipIcon.Error);
+                }
+            }
+            catch (Exception e)
+            {
+                Util.ShowBugReportForm(e);
+            }
+        }
+
+        /// <summary>
+        /// 显示/隐藏RGB面板 双击控制 CMY(K)面板
+        /// </summary>
+        private void ShowMoreFormat(bool doubleClick)
+        {
+            if (doubleClick)
+            {
+                // 切换 CMYK 面板
+
+                return;
+            }
+
+            // 切换 RGB 面板
+            ToggleRgb();
+        }
+
+        /// <summary>
+        /// 控制绘制预览面板以及更新颜色格式的值
+        /// </summary>
+        private void ShowMoreFormat(bool doubleClick)
+        {
+            if (doubleClick)
+            {
+                // 切换 CMYK 面板
+
+                return;
+            }
+
+
+            stopDrawPreview = !stopDrawPreview;
+            previewForm.ToggleCursor(stopDrawPreview);
         }
         #endregion
     }
