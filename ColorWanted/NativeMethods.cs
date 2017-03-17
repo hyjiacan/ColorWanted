@@ -3,8 +3,20 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+
+/**
+* winapi与头文件参考：
+* 
+* user32.dll   WinUser.h
+* gdi32.dll    WinGDI.h
+* kernel32.dll WinBase.h
+*/
+
 namespace ColorWanted
 {
+    /// <summary>
+    /// Win API 接口
+    /// </summary>
     class NativeMethods
     {
         #region 屏幕取色
@@ -39,6 +51,7 @@ namespace ColorWanted
 
         #region 在窗体任意位置拖动窗体
 
+        // 这几个常量定义在 winuser.h 中
         public const uint WM_SYSCOMMAND = 0x0112;
         public const uint SC_MOVE = 0xF010;
         public const uint HTCAPTION = 0x0002;
@@ -50,12 +63,11 @@ namespace ColorWanted
         public static extern IntPtr SendMessage(IntPtr hwnd, uint wMsg, IntPtr wParam, IntPtr lParam);
         #endregion
 
-
         #region INI 文件读写
-        [DllImport("kernel32", EntryPoint = "WritePrivateProfileString", CharSet = CharSet.Unicode)]
+        [DllImport("kernel32.dll", EntryPoint = "WritePrivateProfileString", CharSet = CharSet.Unicode)]
         public static extern bool WriteIni(string section, string key, string val, string filePath);
 
-        [DllImport("kernel32", EntryPoint = "GetPrivateProfileString", CharSet = CharSet.Unicode)]
+        [DllImport("kernel32.dll", EntryPoint = "GetPrivateProfileString", CharSet = CharSet.Unicode)]
         public static extern bool ReadIni(string lpAppName, string lpKeyName, string lpDefault, StringBuilder lpReturnedString, int nSize, string lpFileName);
 
         #endregion

@@ -11,15 +11,15 @@ namespace ColorWanted
         }
         public static byte GetGValue(uint color)
         {
-            return ((byte)(((short)(color)) >> 8));
+            return (byte)((short)color >> 8);
         }
         public static byte GetBValue(uint color)
         {
-            return ((byte)((color) >> 16));
+            return (byte)(color >> 16);
         }
         public static byte GetAValue(uint color)
         {
-            return ((byte)((color) >> 24));
+            return (byte)(color >> 24);
         }
 
 
@@ -30,7 +30,7 @@ namespace ColorWanted
 
         public static int bt(byte val)
         {
-            return (val >= 100 && val <= 200) ? 1 : 0;
+            return val >= 100 && val <= 200 ? 1 : 0;
         }
 
         public static bool isLight(Color color)
