@@ -29,7 +29,7 @@ namespace ColorWanted
         /// </summary>
         private const int caretInterval = 50;
 
-        private bool iniloaded;
+        private bool settingLoaded;
         private readonly Screen screen;
         private HelpForm helpForm;
         private PreviewForm previewForm;
@@ -62,9 +62,10 @@ namespace ColorWanted
         /// </summary>
         private readonly Dictionary<HotKeyValue, DateTime> lastPressTime;
 
-        private readonly StringBuilder hexBuffer;
-
-        private readonly StringBuilder rgbBuffer;
+        /// <summary>
+        /// 颜色值字符串的缓存
+        /// </summary>
+        private readonly StringBuilder colorBuffer;
 
         public MainForm()
         {
@@ -72,10 +73,9 @@ namespace ColorWanted
 
             screen = Screen.PrimaryScreen;
 
-            currentMode = DisplayMode.Fixed;
+            currentDisplayMode = DisplayMode.Fixed;
 
-            hexBuffer = new StringBuilder(8, 8);
-            rgbBuffer = new StringBuilder(10, 16);
+            colorBuffer = new StringBuilder(8, 64);
 
             var now = DateTime.Now;
 
@@ -105,9 +105,14 @@ namespace ColorWanted
             }
         }
 
+        /// <summary>
+        /// 跟随模式时，更新当前窗口的位置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void carettimer_Tick(object sender, EventArgs e)
         {
-            if (currentMode != DisplayMode.Follow)
+            if (currentDisplayMode != DisplayMode.Follow)
             {
                 return;
             }
@@ -121,6 +126,11 @@ namespace ColorWanted
             FollowCaret();
         }
 
+        /// <summary>
+        /// 更新当前获取的颜色
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void colortimer_Tick(object sender, EventArgs e)
         {
             if (!stopDrawPreview && previewForm.MouseOnMe)
@@ -129,12 +139,12 @@ namespace ColorWanted
                 // 就不取色，这是为了防止因循环取色导致过高的资源占用
                 return;
             }
-            if (!iniloaded)
+            if (!settingLoaded)
             {
                 // 不晓得为啥，在启动时加载Visible会被覆盖，所在放到这里来了
-                SwitchMode(Settings.Mode);
+                SwitchDisplayMode(Settings.DisplayMode);
 
-                iniloaded = true;
+                settingLoaded = true;
             }
 
             Color cl = ColorUtil.GetColor(MousePosition);
@@ -148,20 +158,33 @@ namespace ColorWanted
             lastPosition = MousePosition;
             lastColor = cl;
 
-            hexBuffer.Clear();
+            colorBuffer.Clear();
             lbHex.Text =
-            hexBuffer.AppendFormat("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B).ToString();
+            colorBuffer.AppendFormat("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B).ToString();
 
-            rgbBuffer.Clear();
+            colorBuffer.Clear();
             lbRgb.Text =
-            rgbBuffer.AppendFormat("RGB({0},{1},{2})", cl.R, cl.G, cl.B).ToString();
+            colorBuffer.AppendFormat("RGB({0},{1},{2})", cl.R, cl.G, cl.B).ToString();
+
+            // CMYK
+            // 需要算法
+            colorBuffer.Clear();
+            var cmyk = Util.RGB2CMYK(cl);
+            lbCMYK.Text =
+            colorBuffer.AppendFormat("CMYK({0}%,{1}%,{2}%,{3}%)", cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Black).ToString();
+
+            // HSB
+            // 与PS取色不一致
+            colorBuffer.Clear();
+            lbHSB.Text =
+                colorBuffer.AppendFormat("HSB({0:0}度,{1:0%},{2:0%})", cl.GetHue(), cl.GetSaturation(), cl.GetBrightness()).ToString();
 
             if (trayMenuShowPreview.Checked && !stopDrawPreview)
             {
                 DrawPreview(MousePosition);
             }
 
-            if (trayMenuShowRgb.Checked)
+            if (FormatMode.Mini != currentFormatMode)
             {
                 lbRgb.BackColor = cl;
                 lbRgb.ForeColor = ColorUtil.GetContrastColor(cl);
@@ -232,7 +255,7 @@ namespace ColorWanted
             // 收到的快捷键的值
             var keyValue = m.WParam.ToInt32();
 
-            var key = (HotKeyValue) keyValue;
+            var key = (HotKeyValue)keyValue;
 
             var lasttime = lastPressTime[key];
             var now = DateTime.Now;
@@ -243,11 +266,11 @@ namespace ColorWanted
             {
                 // 切换显示模式
                 case HotKeyValue.SwitchMode:
-                    SwitchMode();
+                    SwitchDisplayMode();
                     break;
                 // 显示/隐藏更多的颜色格式
                 case HotKeyValue.ShowMoreFormat:
-                    ShowMoreFormat(doubleClick);
+                    SwitchFormatMode();
                     break;
                 // 复制颜色值
                 case HotKeyValue.CopyColor:
@@ -298,10 +321,6 @@ namespace ColorWanted
             {
                 TogglePreview();
             }
-            if (Settings.ShowRgb)
-            {
-                ToggleRgb();
-            }
 
             if (!trayMenuFollowCaret.Checked)
             {
@@ -311,7 +330,7 @@ namespace ColorWanted
             // 加载配置
             trayMenuAutoPin.Checked = Settings.AutoPin;
 
-            trayMenuShowRgb.Checked = Settings.ShowRgb;
+            SwitchFormatMode(Settings.FormatMode);
 
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
@@ -408,7 +427,7 @@ namespace ColorWanted
                 }
             }
 
-            if (iniloaded)
+            if (settingLoaded)
             {
                 Settings.Location = Location;
             }
@@ -420,17 +439,34 @@ namespace ColorWanted
 
         private void trayMenuHideWindow_Click(object sender, EventArgs e)
         {
-            SwitchMode(DisplayMode.Hidden);
+            SwitchDisplayMode(DisplayMode.Hidden);
         }
 
         private void trayMenuFixed_Click(object sender, EventArgs e)
         {
-            SwitchMode(DisplayMode.Fixed);
+            SwitchDisplayMode(DisplayMode.Fixed);
         }
 
         private void trayMenuFollowCaret_Click(object sender, EventArgs e)
         {
-            SwitchMode(DisplayMode.Follow);
+            SwitchDisplayMode(DisplayMode.Follow);
+        }
+
+
+
+        private void trayMenuFormatMini_Click(object sender, EventArgs e)
+        {
+            SwitchFormatMode(FormatMode.Mini);
+        }
+
+        private void trayMenuFormatCommon_Click(object sender, EventArgs e)
+        {
+            SwitchFormatMode(FormatMode.Common);
+        }
+
+        private void trayMenuFormatAll_Click(object sender, EventArgs e)
+        {
+            SwitchFormatMode(FormatMode.All);
         }
 
         private void trayMenuShowHelp_Click(object sender, EventArgs e)
@@ -442,10 +478,6 @@ namespace ColorWanted
             helpForm.Show();
         }
 
-        private void trayMenuShowRgb_Click(object sender, EventArgs e)
-        {
-            ToggleRgb();
-        }
 
         private void trayMenuShowPreview_Click(object sender, EventArgs e)
         {
@@ -457,7 +489,7 @@ namespace ColorWanted
             var item = sender as ToolStripMenuItem;
             // ReSharper disable once PossibleNullReferenceException
             item.Checked = !item.Checked;
-            if (iniloaded)
+            if (settingLoaded)
             {
                 Settings.AutoPin = item.Checked;
             }
@@ -497,23 +529,6 @@ namespace ColorWanted
             catch (Exception ex)
             {
                 tray.ShowBalloonTip(5000, "无法打开配置文件", ex.Message, ToolTipIcon.Warning);
-            }
-        }
-
-        private void ToggleRgb()
-        {
-            if (!Visible)
-            {
-                return;
-            }
-            BringToFront();
-            bool showrgb = trayMenuShowRgb.Checked = !trayMenuShowRgb.Checked;
-            lbRgb.Visible = showrgb;
-            Width = showrgb ? 208 : 88;
-
-            if (iniloaded)
-            {
-                Settings.ShowRgb = showrgb;
             }
         }
 
@@ -597,25 +612,31 @@ namespace ColorWanted
 
         #region 显示模式控制
         /// <summary>
-        /// 当前的显示模式
+        /// 当前的颜色窗口显示模式
         /// </summary>
-        private DisplayMode currentMode;
+        private DisplayMode currentDisplayMode;
+
         /// <summary>
-        /// 激活显示模式
+        /// 当前显示的颜色格式
         /// </summary>
-        private void SwitchMode()
+        private FormatMode currentFormatMode;
+
+        /// <summary>
+        /// 切换窗口显示模式
+        /// </summary>
+        private void SwitchDisplayMode()
         {
             // 下一个要激活的模式
-            DisplayMode mode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), currentMode + 1);
+            DisplayMode mode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), currentDisplayMode + 1);
             // 看加了后这个模式有没有定义，如果没有定义，则跳转到隐藏模式
             if (!Enum.IsDefined(typeof(DisplayMode), mode))
             {
                 mode = DisplayMode.Hidden;
             }
-            SwitchMode(mode);
+            SwitchDisplayMode(mode);
         }
 
-        private void SwitchMode(DisplayMode mode)
+        private void SwitchDisplayMode(DisplayMode mode)
         {
             // 切换模式时，先停止取色窗口位置定时器
             caretTimer.Stop();
@@ -627,9 +648,13 @@ namespace ColorWanted
                 trayMenuFixed.Checked = false;
 
                 trayMenuShowPreview.Enabled = false;
-                trayMenuShowRgb.Enabled = false;
+
                 trayMenuRestoreLocation.Enabled = false;
                 trayMenuAutoPin.Enabled = false;
+
+                trayMenuFormatMini.Enabled = false;
+                trayMenuFormatCommon.Enabled = false;
+                trayMenuFormatAll.Enabled = false;
 
                 Hide();
             }
@@ -639,9 +664,11 @@ namespace ColorWanted
                 trayMenuHideWindow.Checked = false;
                 trayMenuFollowCaret.Checked = false;
                 trayMenuFixed.Checked = false;
-
-                trayMenuShowRgb.Enabled = true;
                 trayMenuShowPreview.Enabled = true;
+
+                trayMenuFormatMini.Enabled = true;
+                trayMenuFormatCommon.Enabled = true;
+                trayMenuFormatAll.Enabled = true;
 
                 Show();
                 BringToFront();
@@ -663,11 +690,70 @@ namespace ColorWanted
                         break;
                 }
             }
-            if (iniloaded)
+            currentDisplayMode = mode;
+            if (settingLoaded)
             {
-                Settings.Mode = mode;
+                Settings.DisplayMode = mode;
             }
-            currentMode = mode;
+        }
+
+        /// <summary>
+        /// 自动切换到下一个颜色格式显示模式
+        /// </summary>
+        private void SwitchFormatMode()
+        {
+            var nextmode = (int)currentFormatMode + 1;
+            SwitchFormatMode(
+                Enum.IsDefined(typeof(FormatMode), nextmode)
+                ? (FormatMode)nextmode : FormatMode.Mini);
+        }
+
+        private void SwitchFormatMode(FormatMode mode)
+        {
+            switch (mode)
+            {
+                case FormatMode.Mini:
+                    trayMenuFormatMini.Checked = true;
+                    trayMenuFormatCommon.Checked = false;
+                    trayMenuFormatAll.Checked = false;
+
+                    lbRgb.Visible = false;
+                    lbCMYK.Visible = false;
+                    lbHSB.Visible = false;
+
+                    Width = 88;
+                    Height = 20;
+                    break;
+                case FormatMode.Common:
+                    trayMenuFormatMini.Checked = false;
+                    trayMenuFormatCommon.Checked = true;
+                    trayMenuFormatAll.Checked = false;
+
+                    lbRgb.Visible = true;
+                    lbCMYK.Visible = false;
+                    lbHSB.Visible = false;
+
+                    Width = 208;
+                    Height = 20;
+                    break;
+                case FormatMode.All:
+                    trayMenuFormatMini.Checked = false;
+                    trayMenuFormatCommon.Checked = false;
+                    trayMenuFormatAll.Checked = true;
+
+                    lbRgb.Visible = true;
+                    lbCMYK.Visible = true;
+                    lbHSB.Visible = true;
+                    Width = 208;
+                    Height = 60;
+                    break;
+            }
+            currentFormatMode = mode;
+
+            if (settingLoaded)
+            {
+                Settings.FormatMode = mode;
+            }
         }
 
         /// <summary>
@@ -750,25 +836,9 @@ namespace ColorWanted
         }
 
         /// <summary>
-        /// 显示/隐藏RGB面板 双击控制 CMY(K)面板
-        /// </summary>
-        private void ShowMoreFormat(bool doubleClick)
-        {
-            if (doubleClick)
-            {
-                // 切换 CMYK 面板
-
-                return;
-            }
-
-            // 切换 RGB 面板
-            ToggleRgb();
-        }
-
-        /// <summary>
         /// 控制绘制预览面板以及更新颜色格式的值
         /// </summary>
-        private void ShowMoreFormat(bool doubleClick)
+        private void DrawControl(bool doubleClick)
         {
             if (doubleClick)
             {

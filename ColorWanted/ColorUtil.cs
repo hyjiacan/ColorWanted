@@ -67,10 +67,7 @@ namespace ColorWanted
             IntPtr displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
             uint colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
             NativeMethods.DeleteDC(displayDC);
-            byte Red = GetRValue(colorref);
-            byte Green = GetGValue(colorref);
-            byte Blue = GetBValue(colorref);
-            return Color.FromArgb(Red, Green, Blue);
+            return Color.FromArgb(GetAValue(colorref), GetRValue(colorref), GetGValue(colorref), GetBValue(colorref));
         }
 
         /// <summary>

@@ -142,9 +142,9 @@
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label7.Location = new System.Drawing.Point(68, 280);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(293, 12);
+            this.label7.Size = new System.Drawing.Size(269, 12);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Alt+E 显示/隐藏RGB格式道,双击显示/隐藏CMY(K)格式\r\n";
+            this.label7.Text = "Alt+E 切换显示/隐藏RGB格式面板和CMYK格式面板\r\n";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // picLOGO

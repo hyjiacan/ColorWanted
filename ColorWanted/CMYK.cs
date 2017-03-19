@@ -5,8 +5,15 @@ using System.Text;
 
 namespace ColorWanted
 {
-    class CMYK:CMY
+    /// <summary>
+    /// CMYK 颜色结构
+    /// </summary>
+    struct CMYK
     {
-
+        public byte Cyan { get; set; }
+        public byte Magenta { get; set; }
+        public byte Yellow { get; set; }
+        public byte Black { get; set; }
     }
 }
+    

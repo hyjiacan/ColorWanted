@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ColorWanted.enums;
+using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ColorWanted.enums;
-using Microsoft.Win32;
 
 // ReSharper disable EmptyGeneralCatchClause
 // 防止权限问题导致的失败
@@ -86,20 +86,25 @@ namespace ColorWanted
             }
         }
 
-        public static bool ShowRgb
+        public static FormatMode FormatMode
         {
             get
             {
-                var v = Get("showrgb");
-                return v != "" && v == "1";
+                var mode = Get("formatmode");
+                FormatMode temp;
+                if (!Enum.TryParse(mode, out temp))
+                {
+                    temp = FormatMode.Mini;
+                }
+                return temp;
             }
             set
             {
-                Set("showrgb", value ? "1" : "0");
+                Set("formatmode", ((int)value).ToString());
             }
         }
 
-        public static DisplayMode Mode
+        public static DisplayMode DisplayMode
         {
             get
             {
