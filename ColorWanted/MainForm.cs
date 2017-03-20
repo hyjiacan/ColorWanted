@@ -43,6 +43,11 @@ namespace ColorWanted
         private bool stopDrawPreview;
 
         /// <summary>
+        /// 是否停止取色
+        /// </summary>
+        private bool stopPickColor;
+
+        /// <summary>
         /// 上次光标所在位置
         /// </summary>
         private Point lastPosition = Point.Empty;
@@ -147,52 +152,37 @@ namespace ColorWanted
                 settingLoaded = true;
             }
 
-            Color cl = ColorUtil.GetColor(MousePosition);
+            Color color = ColorUtil.GetColor(MousePosition);
 
             // 如果光标位置不变，颜色也不变，就不绘制了
-            if (MousePosition.Equals(lastPosition) && cl.Equals(lastColor))
+            if (MousePosition.Equals(lastPosition) && color.Equals(lastColor))
             {
                 return;
             }
 
             lastPosition = MousePosition;
-            lastColor = cl;
+            lastColor = color;
 
             colorBuffer.Clear();
             lbHex.Text =
-            colorBuffer.AppendFormat("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B).ToString();
+            colorBuffer.AppendFormat("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B).ToString();
 
             colorBuffer.Clear();
             lbRgb.Text =
-            colorBuffer.AppendFormat("RGB({0},{1},{2})", cl.R, cl.G, cl.B).ToString();
-
-            // CMYK
-            // 需要算法
-            colorBuffer.Clear();
-            var cmyk = ColorUtil.RGB2CMYK(cl);
-            lbCMYK.Text =
-            colorBuffer.AppendFormat("CMYK({0}%,{1}%,{2}%,{3}%)", cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Black).ToString();
-
-            // HSB
-            // 与PS取色不一致
-            colorBuffer.Clear();
-            lbHSB.Text =
-                colorBuffer.AppendFormat("HSB({0:0}度,{1:0%},{2:0%})", cl.GetHue(), cl.GetSaturation(), cl.GetBrightness()).ToString();
+            colorBuffer.AppendFormat("RGB({0},{1},{2})", color.R, color.G, color.B).ToString();
 
             if (trayMenuShowPreview.Checked && !stopDrawPreview)
             {
                 DrawPreview(MousePosition);
             }
 
-            if (FormatMode.Mini != currentFormatMode)
+            if (FormatMode.Mini == currentFormatMode)
             {
-                lbRgb.BackColor = cl;
-                lbRgb.ForeColor = ColorUtil.GetContrastColor(cl);
+                BackColor = color;
+                return;
             }
-            else
-            {
-                BackColor = cl;
-            }
+            lbRgb.BackColor = color;
+            lbRgb.ForeColor = ColorUtil.GetContrastColor(color);
         }
 
         private static readonly Bitmap pic = new Bitmap(11, 11);
@@ -452,21 +442,14 @@ namespace ColorWanted
             SwitchDisplayMode(DisplayMode.Follow);
         }
 
-
-
         private void trayMenuFormatMini_Click(object sender, EventArgs e)
         {
             SwitchFormatMode(FormatMode.Mini);
         }
 
-        private void trayMenuFormatCommon_Click(object sender, EventArgs e)
+        private void trayMenuFormatExtention_Click(object sender, EventArgs e)
         {
-            SwitchFormatMode(FormatMode.Common);
-        }
-
-        private void trayMenuFormatAll_Click(object sender, EventArgs e)
-        {
-            SwitchFormatMode(FormatMode.All);
+            SwitchFormatMode(FormatMode.Extention);
         }
 
         private void trayMenuShowHelp_Click(object sender, EventArgs e)
@@ -653,8 +636,7 @@ namespace ColorWanted
                 trayMenuAutoPin.Enabled = false;
 
                 trayMenuFormatMini.Enabled = false;
-                trayMenuFormatCommon.Enabled = false;
-                trayMenuFormatAll.Enabled = false;
+                trayMenuFormatExtention.Enabled = false;
 
                 Hide();
             }
@@ -667,8 +649,7 @@ namespace ColorWanted
                 trayMenuShowPreview.Enabled = true;
 
                 trayMenuFormatMini.Enabled = true;
-                trayMenuFormatCommon.Enabled = true;
-                trayMenuFormatAll.Enabled = true;
+                trayMenuFormatExtention.Enabled = true;
 
                 Show();
                 BringToFront();
@@ -714,38 +695,19 @@ namespace ColorWanted
             {
                 case FormatMode.Mini:
                     trayMenuFormatMini.Checked = true;
-                    trayMenuFormatCommon.Checked = false;
-                    trayMenuFormatAll.Checked = false;
+                    trayMenuFormatExtention.Checked = false;
 
                     lbRgb.Visible = false;
-                    lbCMYK.Visible = false;
-                    lbHSB.Visible = false;
 
                     Width = 88;
-                    Height = 20;
                     break;
-                case FormatMode.Common:
+                case FormatMode.Extention:
                     trayMenuFormatMini.Checked = false;
-                    trayMenuFormatCommon.Checked = true;
-                    trayMenuFormatAll.Checked = false;
+                    trayMenuFormatExtention.Checked = true;
 
                     lbRgb.Visible = true;
-                    lbCMYK.Visible = false;
-                    lbHSB.Visible = false;
 
                     Width = 208;
-                    Height = 20;
-                    break;
-                case FormatMode.All:
-                    trayMenuFormatMini.Checked = false;
-                    trayMenuFormatCommon.Checked = false;
-                    trayMenuFormatAll.Checked = true;
-
-                    lbRgb.Visible = true;
-                    lbCMYK.Visible = true;
-                    lbHSB.Visible = true;
-                    Width = 208;
-                    Height = 60;
                     break;
             }
             currentFormatMode = mode;
@@ -842,14 +804,33 @@ namespace ColorWanted
         {
             if (doubleClick)
             {
-                // 切换 CMYK 面板
+                stopPickColor = !stopPickColor;
+                // 停止取色
+                if (stopPickColor)
+                {
+                    colorTimer.Start();
+                }
+                else
+                {
+                    colorTimer.Stop();
+                    tray.ShowBalloonTip(3000,
+                        "已暂停取色",
+                        "双击 Ctrl+` 开始取色",
+                        ToolTipIcon.Info);
+                }
 
                 return;
             }
 
-
             stopDrawPreview = !stopDrawPreview;
             previewForm.ToggleCursor(stopDrawPreview);
+            if (stopDrawPreview)
+            {
+                tray.ShowBalloonTip(3000,
+                    "已暂停预览",
+                    "按下 Ctrl+` 开始预览",
+                    ToolTipIcon.Info);
+            }
         }
         #endregion
     }

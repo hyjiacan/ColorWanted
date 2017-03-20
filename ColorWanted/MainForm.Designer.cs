@@ -40,8 +40,7 @@
             this.trayMenuFixed = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFormatModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFormatMini = new System.Windows.Forms.ToolStripMenuItem();
-            this.trayMenuFormatCommon = new System.Windows.Forms.ToolStripMenuItem();
-            this.trayMenuFormatAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuFormatExtention = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuShowPreview = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowColorPicker = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,8 +53,6 @@
             this.trayMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.lbCMYK = new System.Windows.Forms.Label();
-            this.lbHSB = new System.Windows.Forms.Label();
             this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,7 +83,7 @@
             this.lbRgb.TabIndex = 0;
             this.lbRgb.Text = "RGB(255,255,255)";
             this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltip.SetToolTip(this.lbRgb, "RGB通道颜色值，快速复制：1秒内快速按 Alt+C 两次");
+            this.tooltip.SetToolTip(this.lbRgb, "RGB通道颜色值，快速复制：双击 Alt+C 两次");
             this.lbRgb.Visible = false;
             this.lbRgb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
@@ -155,8 +152,7 @@
             // 
             this.trayMenuFormatModeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuFormatMini,
-            this.trayMenuFormatCommon,
-            this.trayMenuFormatAll});
+            this.trayMenuFormatExtention});
             this.trayMenuFormatModeToolStripMenuItem.Name = "trayMenuFormatModeToolStripMenuItem";
             this.trayMenuFormatModeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.trayMenuFormatModeToolStripMenuItem.Text = "显示格式";
@@ -166,26 +162,18 @@
             this.trayMenuFormatMini.Checked = true;
             this.trayMenuFormatMini.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuFormatMini.Name = "trayMenuFormatMini";
-            this.trayMenuFormatMini.Size = new System.Drawing.Size(94, 22);
-            this.trayMenuFormatMini.Text = "迷你";
+            this.trayMenuFormatMini.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuFormatMini.Text = "迷你模式";
             this.trayMenuFormatMini.ToolTipText = "只显示HEX格式";
             this.trayMenuFormatMini.Click += new System.EventHandler(this.trayMenuFormatMini_Click);
             // 
-            // trayMenuFormatCommon
+            // trayMenuFormatExtention
             // 
-            this.trayMenuFormatCommon.Name = "trayMenuFormatCommon";
-            this.trayMenuFormatCommon.Size = new System.Drawing.Size(94, 22);
-            this.trayMenuFormatCommon.Text = "常用";
-            this.trayMenuFormatCommon.ToolTipText = "显示HEX格式和GRB格式";
-            this.trayMenuFormatCommon.Click += new System.EventHandler(this.trayMenuFormatCommon_Click);
-            // 
-            // trayMenuFormatAll
-            // 
-            this.trayMenuFormatAll.Name = "trayMenuFormatAll";
-            this.trayMenuFormatAll.Size = new System.Drawing.Size(94, 22);
-            this.trayMenuFormatAll.Text = "全部";
-            this.trayMenuFormatAll.ToolTipText = "显示所有格式";
-            this.trayMenuFormatAll.Click += new System.EventHandler(this.trayMenuFormatAll_Click);
+            this.trayMenuFormatExtention.Name = "trayMenuFormatExtention";
+            this.trayMenuFormatExtention.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuFormatExtention.Text = "扩展模式";
+            this.trayMenuFormatExtention.ToolTipText = "显示HEX格式和GRB格式";
+            this.trayMenuFormatExtention.Click += new System.EventHandler(this.trayMenuFormatExtention_Click);
             // 
             // toolStripSeparator3
             // 
@@ -260,46 +248,12 @@
             this.trayMenuExit.Text = "退出";
             this.trayMenuExit.Click += new System.EventHandler(this.trayMenuExit_Click);
             // 
-            // lbCMYK
-            // 
-            this.lbCMYK.BackColor = System.Drawing.Color.Black;
-            this.lbCMYK.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbCMYK.ForeColor = System.Drawing.Color.Lime;
-            this.lbCMYK.Location = new System.Drawing.Point(0, 20);
-            this.lbCMYK.Name = "lbCMYK";
-            this.lbCMYK.Padding = new System.Windows.Forms.Padding(2);
-            this.lbCMYK.Size = new System.Drawing.Size(208, 20);
-            this.lbCMYK.TabIndex = 3;
-            this.lbCMYK.Text = "CMYK(93%,88%,89%,80%)";
-            this.lbCMYK.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tooltip.SetToolTip(this.lbCMYK, "CMYK");
-            this.lbCMYK.Visible = false;
-            this.lbCMYK.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            // 
-            // lbHSB
-            // 
-            this.lbHSB.BackColor = System.Drawing.Color.Black;
-            this.lbHSB.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbHSB.ForeColor = System.Drawing.Color.Lime;
-            this.lbHSB.Location = new System.Drawing.Point(0, 40);
-            this.lbHSB.Name = "lbHSB";
-            this.lbHSB.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHSB.Size = new System.Drawing.Size(208, 20);
-            this.lbHSB.TabIndex = 4;
-            this.lbHSB.Text = "HSB(0度, 100%,0%)";
-            this.lbHSB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tooltip.SetToolTip(this.lbHSB, "CMYK");
-            this.lbHSB.Visible = false;
-            this.lbHSB.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(415, 236);
+            this.ClientSize = new System.Drawing.Size(208, 236);
             this.ControlBox = false;
-            this.Controls.Add(this.lbHSB);
-            this.Controls.Add(this.lbCMYK);
             this.Controls.Add(this.lbHex);
             this.Controls.Add(this.lbRgb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -342,13 +296,10 @@
         private System.Windows.Forms.ToolStripMenuItem trayMenuDisplayMode;
         private System.Windows.Forms.ToolStripMenuItem trayMenuShowColorPicker;
         private System.Windows.Forms.ToolStripMenuItem trayMenuOpenConfigFile;
-        private System.Windows.Forms.Label lbCMYK;
         private System.Windows.Forms.ToolStripMenuItem trayMenuFormatModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trayMenuFormatMini;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFormatCommon;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFormatAll;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuFormatExtention;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.Label lbHSB;
     }
 }
 

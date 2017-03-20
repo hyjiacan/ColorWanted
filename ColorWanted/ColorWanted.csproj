@@ -56,7 +56,6 @@
     <Compile Include="BugReportForm.Designer.cs">
       <DependentUpon>BugReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="CMYK.cs" />
     <Compile Include="enums\FormatMode.cs" />
     <Compile Include="HelpForm.cs">
       <SubType>Form</SubType>

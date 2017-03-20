@@ -142,9 +142,9 @@
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label7.Location = new System.Drawing.Point(68, 280);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(269, 12);
+            this.label7.Size = new System.Drawing.Size(185, 12);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Alt+E 切换显示/隐藏RGB格式面板和CMYK格式面板\r\n";
+            this.label7.Text = "Alt+E 切换显示/隐藏RGB格式面板\r\n";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // picLOGO
@@ -221,9 +221,9 @@
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label12.Location = new System.Drawing.Point(68, 384);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(299, 12);
+            this.label12.Size = new System.Drawing.Size(263, 12);
             this.label12.TabIndex = 16;
-            this.label12.Text = "Alt+` 暂停/开始绘制预览窗,双击暂停/开始颜色值变化";
+            this.label12.Text = "Alt+` 暂停/开始绘制预览窗,双击暂停/开始取色";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lkVersion

@@ -10,12 +10,8 @@
         /// </summary>
         Mini = 1,
         /// <summary>
-        /// 常用模式，显示HEX和RGB格式
+        /// 扩展模式，显示HEX和RGB格式
         /// </summary>
-        Common,
-        /// <summary>
-        /// 所部模式，显示HEX RGB CMYK格式
-        /// </summary>
-        All
+        Extention
     }
 }
