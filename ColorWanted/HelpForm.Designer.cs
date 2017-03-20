@@ -212,7 +212,7 @@
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 12);
             this.label11.TabIndex = 15;
-            this.label11.Text = "Alt+F3 显示调色板";
+            this.label11.Text = "Alt+F3 打开调色板";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label12
