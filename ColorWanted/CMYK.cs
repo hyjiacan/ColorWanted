@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace ColorWanted
 {
     /// <summary>
     /// CMYK 颜色结构
     /// </summary>
-    struct CMYK
+    internal struct CMYK
     {
-        public byte Cyan { get; set; }
-        public byte Magenta { get; set; }
-        public byte Yellow { get; set; }
-        public byte Black { get; set; }
+        public int Cyan { get; set; }
+        public int Magenta { get; set; }
+        public int Yellow { get; set; }
+        public int Black { get; set; }
     }
 }
     

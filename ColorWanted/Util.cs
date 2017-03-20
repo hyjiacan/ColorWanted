@@ -1,7 +1,6 @@
 ﻿using ColorWanted.enums;
 using ColorWanted.ext;
 using System;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -120,32 +119,5 @@ namespace ColorWanted
         }
 
         private static BugReportForm reportform;
-        private static CMYK cmyk;
-
-        /// <summary>
-        /// RGB 颜色值搞成 CMYK格式
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        internal static CMYK RGB2CMYK(Color color)
-        {
-            cmyk.Cyan = (byte)(255 - color.R);
-            cmyk.Magenta = (byte)(255 - color.G);
-            cmyk.Yellow= (byte)(255 - color.B);
-
-           // fixCMYK();
-
-            return cmyk;
-        }
-
-        private static void fixCMYK()
-        {
-            var min = Math.Min(cmyk.Cyan, Math.Min(cmyk.Magenta, cmyk.Yellow));
-
-            if (min == 0)
-            {
-                //cmyk.Cyan = cmyk.Cyan / 255 * 100 
-            }
-        }
     }
 }

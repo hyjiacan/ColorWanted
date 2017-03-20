@@ -14,7 +14,10 @@ using System.Windows.Forms;
 
 namespace ColorWanted
 {
-    class Settings
+    /// <summary>
+    /// 配置文件操作
+    /// </summary>
+    internal static class Settings
     {
         /// <summary>
         /// 配置文件名
@@ -264,6 +267,28 @@ namespace ColorWanted
             set
             {
                 Set("previewsize", value.ToString());
+            }
+        }
+
+        /// <summary>
+        /// CMYK 修正值
+        /// 默认为 20
+        /// </summary>
+        public static int CmykFixValue
+        {
+            get
+            {
+                int temp;
+                if (!int.TryParse(Get("cmykfixvalue"), out temp))
+                {
+                    temp = 20;
+                }
+
+                return temp;
+            }
+            set
+            {
+                Set("cmykfixvalue", value.ToString());
             }
         }
     }

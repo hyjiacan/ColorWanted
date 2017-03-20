@@ -169,7 +169,7 @@ namespace ColorWanted
             // CMYK
             // 需要算法
             colorBuffer.Clear();
-            var cmyk = Util.RGB2CMYK(cl);
+            var cmyk = ColorUtil.RGB2CMYK(cl);
             lbCMYK.Text =
             colorBuffer.AppendFormat("CMYK({0}%,{1}%,{2}%,{3}%)", cmyk.Cyan, cmyk.Magenta, cmyk.Yellow, cmyk.Black).ToString();
 

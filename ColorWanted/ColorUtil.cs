@@ -17,10 +17,6 @@ namespace ColorWanted
         {
             return (byte)(color >> 16);
         }
-        public static byte GetAValue(uint color)
-        {
-            return (byte)(color >> 24);
-        }
 
 
         public static bool isGray(Color color)
@@ -67,7 +63,7 @@ namespace ColorWanted
             IntPtr displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
             uint colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
             NativeMethods.DeleteDC(displayDC);
-            return Color.FromArgb(GetAValue(colorref), GetRValue(colorref), GetGValue(colorref), GetBValue(colorref));
+            return Color.FromArgb(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref));
         }
 
         /// <summary>
@@ -109,6 +105,41 @@ namespace ColorWanted
             }
 
             return Color.FromArgb(diffr, diffg, diffb);
+        }
+
+        private static CMYK cmyk;
+
+        /// <summary>
+        /// RGB 颜色值搞成 CMYK格式
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        internal static CMYK RGB2CMYK(Color color)
+        {
+            cmyk.Cyan = (byte)(255 - color.R);
+            cmyk.Magenta = (byte)(255 - color.G);
+            cmyk.Yellow = (byte)(255 - color.B);
+            cmyk.Black = 0;
+
+            var min = Math.Min(cmyk.Cyan, Math.Min(cmyk.Magenta, cmyk.Yellow));
+
+            if (min != 0)
+            {
+                var fix = (byte)Math.Round(Settings.CmykFixValue * min / 100.0);
+
+                cmyk.Cyan -= fix;
+                cmyk.Magenta -= fix;
+                cmyk.Yellow -= fix;
+                cmyk.Black = (byte)Math.Round(fix / 2.55);
+            }
+
+
+            cmyk.Cyan = (byte)Math.Round(cmyk.Cyan / 2.55);
+            cmyk.Magenta = (byte)Math.Round(cmyk.Magenta / 2.55);
+            cmyk.Yellow = (byte)Math.Round(cmyk.Yellow / 2.55);
+
+
+            return cmyk;
         }
     }
 }
