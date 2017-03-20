@@ -2,7 +2,7 @@
 这是一个**Windows**平台使用的屏幕取色器工具。有十六进制和RGB两种颜色值的显示。
 > 运行环境 .net 4.0 client profile
 
-[menu]
+[MENU]
 
 #下载
 [稳定版](//git.oschina.net/hyjiacan/ColorWanted/releases)
