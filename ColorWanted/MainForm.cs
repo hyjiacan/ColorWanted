@@ -780,7 +780,7 @@ namespace ColorWanted
             try
             {
                 var result = Util.SetClipboard(Handle,
-                    doubleClick ? lbHex.Text : lbRgb.Text);
+                    doubleClick ? lbRgb.Text : lbHex.Text);
 
                 // 复制失败
                 if (result != null)
