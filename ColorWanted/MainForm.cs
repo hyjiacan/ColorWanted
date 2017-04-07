@@ -198,7 +198,15 @@ namespace ColorWanted
                 graphics = Graphics.FromImage(pic);
             }
             graphics.Clear(Color.White);
-            graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
+            try
+            {
+                graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                // ignore the exception
+                // System.ComponentModel.Win32Exception (0x80004005): 句柄无效。
+            }
             graphics.Save();
             try
             {
