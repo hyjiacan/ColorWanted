@@ -185,19 +185,35 @@ namespace ColorWanted
             lbRgb.ForeColor = ColorUtil.GetContrastColor(color);
         }
 
-        private static readonly Bitmap pic = new Bitmap(11, 11);
-        private const int extend = 5;
-        private static Graphics graphics;
         /// <summary>
         /// 画放大图，每个方向各取5个像素
         /// </summary>
         private void DrawPreview(Point pt)
         {
-            if (graphics == null)
-            {
-                graphics = Graphics.FromImage(pic);
-            }
-            graphics.Clear(Color.White);
+            var size = previewForm.Height / 11;
+            // 目标：预览窗口越大，放大倍数越大
+            // preview 预览窗口大小/11得到的数字
+            // size 取色宽度
+            // 做法：从屏幕上取到的大小不按线性变化，预览窗口放大两次，取色宽度才放大一次
+            // 例： 
+            // 预览窗口大小    相对放大倍数                        取色宽度                实际放大倍数
+            // preview=121 => 11 => size = 11 - (11 - 11) / 2 = 11 => scale = 121/11 = 11
+            // preview=132 => 12 => size = 12 - (12 - 11) / 2 = 11 => scale = 132/11 = 12
+            // preview=143 => 13 => size = 13 - (13 - 11) / 2 = 12 => scale = 143/12 = 11.92
+            // preview=154 => 14 => size = 14 - (14 - 11) / 2 = 13 => scale = 154/13 = 11.85
+            // preview=165 => 15 => size = 15 - (15 - 11) / 2 = 13 => scale = 165/13 = 12.69
+            // preview=176 => 16 => size = 16 - (16 - 11) / 2 = 14 => scale = 176/14 = 12.57
+            // preview=187 => 17 => size = 17 - (17 - 11) / 2 = 14 => scale = 187/14 = 13.36
+            // preview=198 => 18 => size = 18 - (18 - 11) / 2 = 15 => scale = 198/15 = 13.2
+            // preview=209 => 19 => size = 19 - (19 - 11) / 2 = 15 => scale = 209/15 = 13.93
+            // preview=220 => 20 => size = 20 - (20 - 11) / 2 = 16 => scale = 220/16 = 13.75
+            // preview=231 => 21 => size = 21 - (21 - 11) / 2 = 16 => scale = 231/16 = 14.44
+
+            size -= (size - 11)/2;
+            var pic = new Bitmap(size, size);
+            // 从中心点到左侧和顶部的距离
+            var extend = size / 2;
+            var graphics = Graphics.FromImage(pic);
             try
             {
                 graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);

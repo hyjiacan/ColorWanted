@@ -113,9 +113,12 @@ namespace ColorWanted
             {
                 reportform = new BugReportForm();
             }
+            if (reportform.Visible)
+            {
+                return;
+            }
             reportform.SetException(ex);
             reportform.ShowDialog();
-            Application.Exit();
         }
 
         private static BugReportForm reportform;

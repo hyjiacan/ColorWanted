@@ -23,7 +23,7 @@ namespace ColorWanted
                 {
                     image.Dispose();
                 }
-                image = new Bitmap(picPreview.Size.Width, picPreview.Height);
+                image = new Bitmap(picPreview.Width, picPreview.Height);
             }
 
             picPreview.Image = ScaleBitmap(img, image);
@@ -128,14 +128,14 @@ namespace ColorWanted
 
         public static Bitmap ScaleBitmap(Bitmap srcImage, Bitmap destImage)
         {
-            // 大小不变，所以取一次就够了
-            if (srcRect.IsEmpty)
+            // 大小可能会变，当改变时取新值
+            if (srcRect.Size != srcImage.Size)
             {
                 srcRect.Size = srcImage.Size;
             }
 
             // 大小可能会变，当改变时取新值
-            if (!destImage.Size.Equals(destRect.Size))
+            if (destImage.Size != destRect.Size)
             {
                 destRect.Size = destImage.Size;
             }
