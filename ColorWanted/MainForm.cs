@@ -87,6 +87,7 @@ namespace ColorWanted
             lastPressTime = new Dictionary<HotKeyValue, DateTime>
             {
                 {HotKeyValue.CopyColor, now},
+                {HotKeyValue.CopyPolicy, now},
                 {HotKeyValue.DrawControl, now},
                 {HotKeyValue.ShowColorPicker, now},
                 {HotKeyValue.ShowMoreFormat, now},
@@ -164,12 +165,19 @@ namespace ColorWanted
             lastColor = color;
 
             colorBuffer.Clear();
-            lbHex.Text =
-            colorBuffer.AppendFormat("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B).ToString();
-
+            var val = colorBuffer.AppendFormat("{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B).ToString();
+            lbHex.Tag = val;
             colorBuffer.Clear();
-            lbRgb.Text =
-            colorBuffer.AppendFormat("RGB({0},{1},{2})", color.R, color.G, color.B).ToString();
+
+            lbHex.Text = colorBuffer.AppendFormat("#{0}", lbHex.Tag).ToString();
+            colorBuffer.Clear();
+
+            val = colorBuffer.AppendFormat("{0},{1},{2}", color.R, color.G, color.B).ToString();
+            lbRgb.Tag = val;
+            colorBuffer.Clear();
+
+            lbRgb.Text = colorBuffer.AppendFormat("RGB({0})", lbRgb.Tag).ToString();
+            colorBuffer.Clear();
 
             if (trayMenuShowPreview.Checked && !stopDrawPreview)
             {
@@ -209,7 +217,7 @@ namespace ColorWanted
             // preview=220 => 20 => size = 20 - (20 - 11) / 2 = 16 => scale = 220/16 = 13.75
             // preview=231 => 21 => size = 21 - (21 - 11) / 2 = 16 => scale = 231/16 = 14.44
 
-            size -= (size - 11)/2;
+            size -= (size - 11) / 2;
             var pic = new Bitmap(size, size);
             // 从中心点到左侧和顶部的距离
             var extend = size / 2;
@@ -290,6 +298,10 @@ namespace ColorWanted
                 case HotKeyValue.CopyColor:
                     CopyColor(doubleClick);
                     break;
+                // 切换复制策略
+                case HotKeyValue.CopyPolicy:
+                    ToggleCopyPolicy();
+                    break;
                 // 打开预览窗口
                 case HotKeyValue.ShowPreview:
                     TogglePreview();
@@ -345,6 +357,9 @@ namespace ColorWanted
             trayMenuAutoPin.Checked = Settings.AutoPin;
 
             SwitchFormatMode(Settings.FormatMode);
+
+            trayMenuCopyPolicyHexValueOnly.Checked = Settings.HexValueOnly;
+            trayMenuCopyPolicyRgbValueOnly.Checked = Settings.RgbValueOnly;
 
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
@@ -476,6 +491,24 @@ namespace ColorWanted
             SwitchFormatMode(FormatMode.Extention);
         }
 
+        private void trayMenuCopyPolicyHexValueOnly_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            // ReSharper disable once PossibleNullReferenceException
+            item.Checked = !item.Checked;
+
+            Settings.HexValueOnly = item.Checked;
+        }
+
+        private void trayMenuCopyPolicyRgbValueOnly_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            // ReSharper disable once PossibleNullReferenceException
+            item.Checked = !item.Checked;
+
+            Settings.RgbValueOnly = item.Checked;
+        }
+
         private void trayMenuShowHelp_Click(object sender, EventArgs e)
         {
             if (helpForm == null)
@@ -537,6 +570,15 @@ namespace ColorWanted
             {
                 tray.ShowBalloonTip(5000, "无法打开配置文件", ex.Message, ToolTipIcon.Warning);
             }
+        }
+
+        private void ToggleCopyPolicy()
+        {
+            trayMenuCopyPolicyHexValueOnly.Checked =
+                trayMenuCopyPolicyRgbValueOnly.Checked =
+                    Settings.HexValueOnly =
+                        Settings.RgbValueOnly =
+                            !Settings.HexValueOnly;
         }
 
         private void TogglePreview()
@@ -803,8 +845,9 @@ namespace ColorWanted
         {
             try
             {
-                var result = Util.SetClipboard(Handle,
-                    doubleClick ? lbRgb.Text : lbHex.Text);
+                var result = Util.SetClipboard(Handle, doubleClick ?
+                    (trayMenuCopyPolicyRgbValueOnly.Checked ? lbRgb.Tag.ToString() : lbRgb.Text) :
+                    (trayMenuCopyPolicyHexValueOnly.Checked ? lbHex.Tag.ToString() : lbHex.Text));
 
                 // 复制失败
                 if (result != null)

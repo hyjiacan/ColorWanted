@@ -19,6 +19,7 @@ namespace ColorWanted
         public static void BindHotkeys(IntPtr handle)
         {
             NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyColor.AsInt(), KeyModifiers.Alt, Keys.C);
+            NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyPolicy.AsInt(), KeyModifiers.Alt, Keys.V);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowMoreFormat.AsInt(), KeyModifiers.Alt, Keys.E);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.SwitchMode.AsInt(), KeyModifiers.Alt, Keys.F1);
             NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowPreview.AsInt(), KeyModifiers.Alt, Keys.F2);
@@ -34,6 +35,7 @@ namespace ColorWanted
         public static void UnbindHotkeys(IntPtr handle)
         {
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyColor.AsInt());
+            NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyPolicy.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowMoreFormat.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.SwitchMode.AsInt());
             NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowPreview.AsInt());

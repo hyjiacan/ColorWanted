@@ -18,6 +18,10 @@
         /// </summary>
         CopyColor,
         /// <summary>
+        /// 复制策略，控制是否仅复制值（同时对hex和rgb生效）
+        /// </summary>
+        CopyPolicy,
+        /// <summary>
         /// 显示预览窗口，隐藏鼠标
         /// </summary>
         ShowPreview,

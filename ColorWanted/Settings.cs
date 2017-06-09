@@ -291,5 +291,29 @@ namespace ColorWanted
                 Set("cmykfixvalue", value.ToString());
             }
         }
+
+        /// <summary>
+        /// 是否只复制十六进制的值，为true时复制不会包含#字符，默认为 false
+        /// </summary>
+        public static bool HexValueOnly
+        {
+            get { return Get("hexvalueonly") == "1"; }
+            set
+            {
+                Set("hexvalueonly", value ? "1" : "0");
+            }
+        }
+
+        /// <summary>
+        /// 是否只复制RGB的值，为true时复制不会包含rgb()字符只有值  "255,255,255"，默认为 false
+        /// </summary>
+        public static bool RgbValueOnly
+        {
+            get { return Get("rgbvalueonly") == "1"; }
+            set
+            {
+                Set("rgbvalueonly", value ? "1" : "0");
+            }
+        }
     }
 }

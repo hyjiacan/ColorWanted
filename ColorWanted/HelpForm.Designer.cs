@@ -48,6 +48,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lkCopyReleaseUrl = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,7 +141,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
-            this.label7.Location = new System.Drawing.Point(68, 280);
+            this.label7.Location = new System.Drawing.Point(68, 299);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(185, 12);
             this.label7.TabIndex = 11;
@@ -186,7 +187,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
-            this.label10.Location = new System.Drawing.Point(68, 305);
+            this.label10.Location = new System.Drawing.Point(68, 324);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(221, 12);
             this.label10.TabIndex = 11;
@@ -197,7 +198,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
-            this.label8.Location = new System.Drawing.Point(68, 330);
+            this.label8.Location = new System.Drawing.Point(68, 349);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(149, 12);
             this.label8.TabIndex = 11;
@@ -208,7 +209,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
-            this.label11.Location = new System.Drawing.Point(68, 357);
+            this.label11.Location = new System.Drawing.Point(68, 376);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(107, 12);
             this.label11.TabIndex = 15;
@@ -219,7 +220,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
-            this.label12.Location = new System.Drawing.Point(68, 384);
+            this.label12.Location = new System.Drawing.Point(68, 403);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(263, 12);
             this.label12.TabIndex = 16;
@@ -269,11 +270,21 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(68, 429);
+            this.label5.Location = new System.Drawing.Point(167, 228);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(179, 12);
             this.label5.TabIndex = 17;
             this.label5.Text = "双击：1秒内连续按下两次快捷键";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(68, 277);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(269, 12);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Alt+V 切换颜色复制策略，控制是否仅复制颜色值";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // HelpForm
             // 
@@ -291,6 +302,7 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.lkVersion);
@@ -339,5 +351,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel lkCopyReleaseUrl;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label9;
     }
 }
