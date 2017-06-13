@@ -60,7 +60,7 @@
             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(440, 440);
+            this.MaximumSize = new System.Drawing.Size(429, 429);
             this.MinimumSize = new System.Drawing.Size(77, 77);
             this.Name = "PreviewForm";
             this.ShowInTaskbar = false;

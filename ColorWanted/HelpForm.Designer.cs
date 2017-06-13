@@ -120,12 +120,13 @@
             this.linkLabel1.LinkColor = System.Drawing.Color.Lime;
             this.linkLabel1.Location = new System.Drawing.Point(130, 42);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(31, 15);
+            this.linkLabel1.Size = new System.Drawing.Size(55, 15);
             this.linkLabel1.TabIndex = 9;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "MIT";
+            this.linkLabel1.Text = "GPL V3";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label6
             // 
@@ -163,7 +164,7 @@
             // 
             this.lbVersion.AutoSize = true;
             this.lbVersion.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbVersion.Location = new System.Drawing.Point(178, 43);
+            this.lbVersion.Location = new System.Drawing.Point(190, 43);
             this.lbVersion.Name = "lbVersion";
             this.lbVersion.Size = new System.Drawing.Size(63, 15);
             this.lbVersion.TabIndex = 13;

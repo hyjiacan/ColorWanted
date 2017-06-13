@@ -218,6 +218,10 @@ namespace ColorWanted
             // preview=231 => 21 => size = 21 - (21 - 11) / 2 = 16 => scale = 231/16 = 14.44
 
             size -= (size - 11) / 2;
+            if (size % 2 == 0)
+            {
+                size += 1;
+            }
             var pic = new Bitmap(size, size);
             // 从中心点到左侧和顶部的距离
             var extend = size / 2;

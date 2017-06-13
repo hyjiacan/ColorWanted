@@ -17,13 +17,18 @@ namespace ColorWanted
         /// <param name="img"></param>
         public void UpdateImage(Bitmap img)
         {
-            if (image == null || !image.Size.Equals(picPreview.Size))
+            // 根据源图大小来设置预览图的大小，预览图的大小需要为源图大小的倍数
+            // 如果不是倍数，那以就设置padding
+            var padding = picPreview.Size.Width % img.Width;
+
+            var size = padding == 0 ? picPreview.Size : picPreview.Size - new Size(padding, padding);
+            if (image == null || !image.Size.Equals(size))
             {
                 if (image != null)
                 {
                     image.Dispose();
                 }
-                image = new Bitmap(picPreview.Width, picPreview.Height);
+                image = new Bitmap(size.Width, size.Height);
             }
 
             picPreview.Image = ScaleBitmap(img, image);

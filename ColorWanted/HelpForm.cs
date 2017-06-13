@@ -47,5 +47,10 @@ namespace ColorWanted
         {
             Util.SetClipboard(Handle, lkVersion.Text);
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(@"http://www.gnu.org/licenses/gpl-3.0.html");
+        }
     }
 }
