@@ -55,7 +55,8 @@
 如果相邻几个像素点颜色有差异，想要精确获取某个像素点的颜色，那么可以在此时按下快捷键 **Alt+`**，以使预览面板会停止绘制，此时将鼠标放到预览面板上，就可以方便地获某个像素的颜色了。
 
 ## 开源协议
-这个东西遵守[MIT协议](www.mit-license.org)。
+
+这个东西遵守[GPL V3](http://www.gnu.org/licenses/gpl-3.0.html)，版权受法律保护，请自爱自律。
 
 ## 感谢
 - [取色功能](http://www.haolizi.net/example/view_102.html)
