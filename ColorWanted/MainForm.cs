@@ -387,8 +387,8 @@ namespace ColorWanted
                 trayMenuShowHelp_Click(null, null);
             }
 
-            // 检查更新
-            CheckUpdate();
+            // 启动时检查更新
+            //CheckUpdate();
         }
 
         public static void CheckUpdate(bool showDetail = false)
@@ -399,7 +399,7 @@ namespace ColorWanted
             }
 
             updateForm.ShowDetail = showDetail;
-            updateForm.Action(); 
+            updateForm.Action();
         }
 
         private void previewForm_LocationChanged(object sender, EventArgs e)

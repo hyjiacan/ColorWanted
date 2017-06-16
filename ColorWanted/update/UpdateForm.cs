@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -49,19 +48,59 @@ namespace ColorWanted.update
 
         public void Action()
         {
-            linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
-            lbCurrent.Text = @"当前版本 " + Application.ProductVersion;
-
-            if (ShowDetail)
+            if (InvokeRequired)
             {
-                ShowWindow();
+                Invoke(new MethodInvoker(() =>
+                {
+                    linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
+                    lbCurrent.Text = @"当前版本 " + Application.ProductVersion;
+
+                    if (ShowDetail)
+                    {
+                        ShowWindow();
+                    }
+                    lbMsg.Text = @"正在检查更新版本...";
+                }));
             }
-            lbMsg.Text = @"正在检查更新版本...";
+            else
+            {
+                linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
+                lbCurrent.Text = @"当前版本 " + Application.ProductVersion;
+
+                if (ShowDetail)
+                {
+                    ShowWindow();
+                }
+                lbMsg.Text = @"正在检查更新版本...";
+            }
             var worker = new BackgroundWorker();
             worker.DoWork += (sender, e) =>
             {
                 update = OnlineUpdate.Check();
-                Invoke(new MethodInvoker(() =>
+                if (InvokeRequired)
+                {
+                    Invoke(new MethodInvoker(() =>
+                    {
+                        if (update == null)
+                        {
+                            lbMsg.Text = @"没有更新版本";
+                            return;
+                        }
+
+                        if (!update.Status)
+                        {
+                            lbMsg.Text = @"查检更新失败";
+                            return;
+                        }
+
+                        linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
+
+                        lbMsg.Text = @"有新版本 " + update.Version;
+
+                        ShowWindow();
+                    }));
+                }
+                else
                 {
                     if (update == null)
                     {
@@ -80,15 +119,32 @@ namespace ColorWanted.update
                     lbMsg.Text = @"有新版本 " + update.Version;
 
                     ShowWindow();
-                }));
+                }
             };
             worker.RunWorkerAsync();
         }
 
         private void linkNow_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(update.Link);
-            Hide();
+            lbMsg.Text = @"正在下载更新包...";
+            OnlineUpdate.Update(update.Link, update.Version, result =>
+            {
+                var msg = @"更新包下载" + (result ? @"完成" : @"失败");
+                if (InvokeRequired)
+                {
+                    Invoke(new MethodInvoker(() =>
+                    {
+                        lbMsg.Text = msg;
+                    }));
+                }
+                else
+                {
+                    lbMsg.Text = msg;
+                }
+
+                Hide();
+                return true;
+            });
         }
 
         private void linkIgnore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

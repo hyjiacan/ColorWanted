@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Web.Script.Serialization;
@@ -72,6 +73,32 @@ namespace ColorWanted.update
             catch
             {
                 return info;
+            }
+        }
+
+        public static void Update(string url, string version, Func<bool, bool> callback)
+        {
+            var filename = Path.Combine(Application.StartupPath,
+                string.Format("ColorWanted-{0}.tmp.exe", version));
+
+            try
+            {
+                using (var web = new WebClient())
+                {
+                    web.DownloadFileCompleted += (sender, e) =>
+                    {
+                        callback.Invoke(true);
+
+                        Process.Start(filename, string.Format(@"-update 1 ""{0}""", Application.ExecutablePath));
+
+                        Application.Exit();
+                    };
+                    web.DownloadFileAsync(new Uri(url), filename);
+                }
+            }
+            catch
+            {
+                callback.Invoke(false);
             }
         }
     }
