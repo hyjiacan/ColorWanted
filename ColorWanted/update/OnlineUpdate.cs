@@ -51,9 +51,19 @@ namespace ColorWanted.update
 
                         foreach (var item in list)
                         {
-                            if (currentVersion < Version.Parse(item.name))
+                            if (tag == null)
                             {
-                                tag = item;
+                                if (currentVersion < Version.Parse(item.name))
+                                {
+                                    tag = item;
+                                }
+                            }
+                            else
+                            {
+                                if (Version.Parse(tag.name) < Version.Parse(item.name))
+                                {
+                                    tag = item;
+                                }
                             }
                         }
 

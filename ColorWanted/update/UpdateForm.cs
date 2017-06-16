@@ -126,7 +126,7 @@ namespace ColorWanted.update
 
         private void linkNow_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            lbMsg.Text = @"正在下载更新包...";
+            lbMsg.Text = string.Format(@"正在下载更新包({0})...", update.Version);
             OnlineUpdate.Update(update.Link, update.Version, result =>
             {
                 var msg = @"更新包下载" + (result ? @"完成" : @"失败");

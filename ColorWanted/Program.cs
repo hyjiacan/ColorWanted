@@ -33,16 +33,20 @@ namespace ColorWanted
 
         private static bool DoUpdateThing(string[] args)
         {
+            log("文件", Application.ExecutablePath);
+            log("接受到参数", string.Join(" ", args));
             // 参数长度至少应该是三个
 
             if (args.Length < 3)
             {
+                log("参数长度<3");
                 return false;
             }
 
             // 第一个参数  -update 才有效
             if (args[0] != "-update")
             {
+                log("第一个参数不是  -update");
                 return false;
             }
 
@@ -77,6 +81,11 @@ namespace ColorWanted
             }
 
             return false;
+        }
+
+        static void log(params string[] msg)
+        {
+            File.AppendAllText(@"D:\x.log",string.Join("", msg));
         }
     }
 }
