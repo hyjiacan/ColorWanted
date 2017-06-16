@@ -56,13 +56,14 @@
             this.trayMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.trayMenuCheckUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbHex
             // 
             this.lbHex.BackColor = System.Drawing.Color.Black;
-            this.lbHex.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHex.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbHex.ForeColor = System.Drawing.Color.Lime;
             this.lbHex.Location = new System.Drawing.Point(0, 0);
             this.lbHex.Name = "lbHex";
@@ -77,7 +78,7 @@
             // lbRgb
             // 
             this.lbRgb.BackColor = System.Drawing.Color.Black;
-            this.lbRgb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbRgb.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRgb.ForeColor = System.Drawing.Color.Lime;
             this.lbRgb.Location = new System.Drawing.Point(68, 0);
             this.lbRgb.Name = "lbRgb";
@@ -114,10 +115,11 @@
             this.trayMenuAutoStart,
             this.trayMenuOpenConfigFile,
             this.toolStripSeparator1,
+            this.trayMenuCheckUpdate,
             this.trayMenuShowHelp,
             this.trayMenuExit});
             this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(153, 286);
+            this.trayMenu.Size = new System.Drawing.Size(153, 308);
             // 
             // trayMenuDisplayMode
             // 
@@ -192,7 +194,7 @@
             // trayMenuCopyPolicyHexValueOnly
             // 
             this.trayMenuCopyPolicyHexValueOnly.Name = "trayMenuCopyPolicyHexValueOnly";
-            this.trayMenuCopyPolicyHexValueOnly.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuCopyPolicyHexValueOnly.Size = new System.Drawing.Size(125, 22);
             this.trayMenuCopyPolicyHexValueOnly.Text = "仅HEX值";
             this.trayMenuCopyPolicyHexValueOnly.ToolTipText = "只复制HEX值，此时不包含前面的#符号";
             this.trayMenuCopyPolicyHexValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyHexValueOnly_Click);
@@ -200,7 +202,7 @@
             // trayMenuCopyPolicyRgbValueOnly
             // 
             this.trayMenuCopyPolicyRgbValueOnly.Name = "trayMenuCopyPolicyRgbValueOnly";
-            this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(125, 22);
             this.trayMenuCopyPolicyRgbValueOnly.Text = "仅RGB值";
             this.trayMenuCopyPolicyRgbValueOnly.ToolTipText = "只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255";
             this.trayMenuCopyPolicyRgbValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click);
@@ -263,6 +265,13 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // trayMenuCheckUpdate
+            // 
+            this.trayMenuCheckUpdate.Name = "trayMenuCheckUpdate";
+            this.trayMenuCheckUpdate.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuCheckUpdate.Text = "检查更新";
+            this.trayMenuCheckUpdate.Click += new System.EventHandler(this.trayMenuCheckUpdate_Click);
             // 
             // trayMenuShowHelp
             // 
@@ -333,6 +342,7 @@
         private System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicy;
         private System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyHexValueOnly;
         private System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyRgbValueOnly;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdate;
     }
 }
 

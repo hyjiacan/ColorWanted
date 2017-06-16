@@ -1,12 +1,14 @@
 ﻿using ColorWanted.enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.update;
 
 namespace ColorWanted
 {
@@ -32,9 +34,9 @@ namespace ColorWanted
         private bool settingLoaded;
         private readonly Screen screen;
         private HelpForm helpForm;
+        private static UpdateForm updateForm;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
-
 
         /// <summary>
         /// 控制是否停止绘制预览窗口，为true时就停止绘制预览窗口
@@ -230,7 +232,7 @@ namespace ColorWanted
             {
                 graphics.CopyFromScreen(pt.X - extend, pt.Y - extend, 0, 0, pic.Size);
             }
-            catch (System.ComponentModel.Win32Exception)
+            catch (Win32Exception)
             {
                 // ignore the exception
                 // System.ComponentModel.Win32Exception (0x80004005): 句柄无效。
@@ -384,6 +386,20 @@ namespace ColorWanted
                 // 首次运行时，打开帮助窗口
                 trayMenuShowHelp_Click(null, null);
             }
+
+            // 检查更新
+            CheckUpdate();
+        }
+
+        public static void CheckUpdate(bool showDetail = false)
+        {
+            if (updateForm == null)
+            {
+                updateForm = new UpdateForm();
+            }
+
+            updateForm.ShowDetail = showDetail;
+            updateForm.Action(); 
         }
 
         private void previewForm_LocationChanged(object sender, EventArgs e)
@@ -557,6 +573,11 @@ namespace ColorWanted
 
             // 写注册表
             Settings.Autostart = item.Checked;
+        }
+
+        private void trayMenuCheckUpdate_Click(object sender, EventArgs e)
+        {
+            CheckUpdate(true);
         }
 
         private void trayMenuOpenConfigFile_Click(object sender, EventArgs e)

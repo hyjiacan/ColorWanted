@@ -1,6 +1,6 @@
 # ColorWanted 赏色
 这是一个**Windows**平台使用的屏幕取色器工具。有十六进制和RGB两种颜色值的显示。
-> 运行环境 .net 4.0 client profile
+> 运行环境 [Microsoft .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)
 
 [MENU]
 

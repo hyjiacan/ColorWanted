@@ -315,5 +315,17 @@ namespace ColorWanted
                 Set("rgbvalueonly", value ? "1" : "0");
             }
         }
+
+        /// <summary>
+        /// 要忽略的版本
+        /// </summary>
+        public static string IgnoreVersion
+        {
+            get { return Get("ignoreversion"); }
+            set
+            {
+                Set("ignoreversion", value);
+            }
+        }
     }
 }
