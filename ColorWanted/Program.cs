@@ -53,7 +53,8 @@ namespace ColorWanted
             // phase 控制更新不同阶段
             var phase = args[1];
 
-            var oldname = args[1];
+            var oldname = args[2];
+
             if (phase == "1")
             {
                 Thread.Sleep(2000);
