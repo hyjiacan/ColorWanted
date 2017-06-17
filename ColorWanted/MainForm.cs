@@ -388,7 +388,7 @@ namespace ColorWanted
             }
 
             // 启动时检查更新
-            //CheckUpdate();
+            CheckUpdate();
         }
 
         public static void CheckUpdate(bool showDetail = false)

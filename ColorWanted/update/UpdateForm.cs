@@ -1,12 +1,16 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ColorWanted.update
 {
     public partial class UpdateForm : Form
     {
+        /// <summary>
+        /// 定时隐藏升级提示窗口
+        /// </summary>
+        private System.Threading.Timer hideTimer;
         public UpdateForm()
         {
             InitializeComponent();
@@ -73,44 +77,30 @@ namespace ColorWanted.update
                 }
                 lbMsg.Text = @"正在检查更新版本...";
             }
-            var worker = new BackgroundWorker();
-            worker.DoWork += (sender, e) =>
+            //var worker = new BackgroundWorker();
+            //worker.DoWork += Worker_DoWork;
+            //worker.RunWorkerAsync();
+            RunCheck();
+        }
+
+        private void RunCheck()
+        {
+            update = OnlineUpdate.Check();
+            if (InvokeRequired)
             {
-                update = OnlineUpdate.Check();
-                if (InvokeRequired)
-                {
-                    Invoke(new MethodInvoker(() =>
-                    {
-                        if (update == null)
-                        {
-                            lbMsg.Text = @"没有更新版本";
-                            return;
-                        }
-
-                        if (!update.Status)
-                        {
-                            lbMsg.Text = @"查检更新失败";
-                            return;
-                        }
-
-                        linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
-
-                        lbMsg.Text = @"有新版本 " + update.Version;
-
-                        ShowWindow();
-                    }));
-                }
-                else
+                Invoke(new MethodInvoker(() =>
                 {
                     if (update == null)
                     {
                         lbMsg.Text = @"没有更新版本";
+                        DelayHide();
                         return;
                     }
 
                     if (!update.Status)
                     {
-                        lbMsg.Text = @"查检更新失败";
+                        lbMsg.Text = @"检查更新失败";
+                        DelayHide();
                         return;
                     }
 
@@ -119,13 +109,37 @@ namespace ColorWanted.update
                     lbMsg.Text = @"有新版本 " + update.Version;
 
                     ShowWindow();
+                    DelayHide(10000);
+                }));
+            }
+            else
+            {
+                if (update == null)
+                {
+                    lbMsg.Text = @"没有更新版本";
+                    DelayHide();
+                    return;
                 }
-            };
-            worker.RunWorkerAsync();
+
+                if (!update.Status)
+                {
+                    lbMsg.Text = @"查检更新失败";
+                    DelayHide();
+                    return;
+                }
+
+                linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
+
+                lbMsg.Text = @"有新版本 " + update.Version;
+
+                ShowWindow();
+                DelayHide(10000);
+            }
         }
 
         private void linkNow_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            CancelHide();
             linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
             lbMsg.Text = string.Format(@"正在下载更新包({0})...", update.Version);
             OnlineUpdate.Update(update.Link, update.Version, result =>
@@ -151,11 +165,13 @@ namespace ColorWanted.update
         private void linkIgnore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Settings.IgnoreVersion = update.Version;
+            CancelHide();
             Hide();
         }
 
         private void linkNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            CancelHide();
             Hide();
         }
 
@@ -163,6 +179,33 @@ namespace ColorWanted.update
         {
             Show();
             BringToFront();
+        }
+
+        private void DelayHide(int timeout = 3000)
+        {
+            if (hideTimer == null)
+            {
+                hideTimer = new System.Threading.Timer(state =>
+                {
+                    if (InvokeRequired)
+                    {
+                        Invoke(new MethodInvoker(Hide));
+                    }
+                    else
+                    {
+                        Hide();
+                    }
+                },null,  timeout, Timeout.Infinite);
+            }
+        }
+
+        private void CancelHide()
+        {
+            if (hideTimer == null)
+            {
+                return;
+            }
+            hideTimer.Change(Timeout.Infinite, Timeout.Infinite);
         }
     }
 }
