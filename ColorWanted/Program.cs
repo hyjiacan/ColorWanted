@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using ColorWanted.update;
+using System;
 using System.Threading;
 using System.Windows.Forms;
-using ColorWanted.update;
 
 namespace ColorWanted
 {
