@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            this.picLOGO = new System.Windows.Forms.PictureBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lbMsg = new System.Windows.Forms.Label();
@@ -37,19 +35,9 @@
             this.linkNow = new System.Windows.Forms.LinkLabel();
             this.linkIgnore = new System.Windows.Forms.LinkLabel();
             this.linkNext = new System.Windows.Forms.LinkLabel();
+            this.picLOGO = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
-            // 
-            // picLOGO
-            // 
-            this.picLOGO.BackColor = System.Drawing.Color.White;
-            this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
-            this.picLOGO.Location = new System.Drawing.Point(12, 10);
-            this.picLOGO.Name = "picLOGO";
-            this.picLOGO.Size = new System.Drawing.Size(16, 16);
-            this.picLOGO.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picLOGO.TabIndex = 12;
-            this.picLOGO.TabStop = false;
             // 
             // btnExit
             // 
@@ -71,9 +59,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(34, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(95, 12);
             this.label1.TabIndex = 15;
-            this.label1.Text = "检查更新";
+            this.label1.Text = "赏色 - 检查更新";
             // 
             // lbMsg
             // 
@@ -129,6 +117,17 @@
             this.linkNext.Text = "下次再说";
             this.linkNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkNext_LinkClicked);
             // 
+            // picLOGO
+            // 
+            this.picLOGO.BackColor = System.Drawing.Color.White;
+            this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
+            this.picLOGO.Location = new System.Drawing.Point(12, 10);
+            this.picLOGO.Name = "picLOGO";
+            this.picLOGO.Size = new System.Drawing.Size(16, 16);
+            this.picLOGO.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLOGO.TabIndex = 12;
+            this.picLOGO.TabStop = false;
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -146,7 +145,6 @@
             this.Controls.Add(this.picLOGO);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(240, 100);
             this.MinimizeBox = false;

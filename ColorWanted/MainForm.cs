@@ -34,7 +34,6 @@ namespace ColorWanted
         private bool settingLoaded;
         private readonly Screen screen;
         private HelpForm helpForm;
-        private static UpdateForm updateForm;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
 
@@ -393,13 +392,7 @@ namespace ColorWanted
 
         public static void CheckUpdate(bool showDetail = false)
         {
-            if (updateForm == null)
-            {
-                updateForm = new UpdateForm();
-            }
-
-            updateForm.ShowDetail = showDetail;
-            updateForm.Action();
+            new UpdateForm { ShowDetail = showDetail }.Action();
         }
 
         private void previewForm_LocationChanged(object sender, EventArgs e)

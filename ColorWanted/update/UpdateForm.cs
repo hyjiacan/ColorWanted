@@ -45,7 +45,7 @@ namespace ColorWanted.update
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Hide();
+            DelayHide(0);
         }
 
         public bool ShowDetail { get; set; }
@@ -80,7 +80,8 @@ namespace ColorWanted.update
             //var worker = new BackgroundWorker();
             //worker.DoWork += Worker_DoWork;
             //worker.RunWorkerAsync();
-            RunCheck();
+            new Thread(RunCheck).Start();
+            //RunCheck();
         }
 
         private void RunCheck()
@@ -157,7 +158,7 @@ namespace ColorWanted.update
                     lbMsg.Text = msg;
                 }
 
-                Hide();
+                DelayHide();
                 return true;
             });
         }
@@ -166,46 +167,54 @@ namespace ColorWanted.update
         {
             Settings.IgnoreVersion = update.Version;
             CancelHide();
-            Hide();
+            DelayHide(0);
         }
 
         private void linkNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CancelHide();
-            Hide();
+            DelayHide(0);
         }
 
         private void ShowWindow()
         {
-            Show();
+            Visible = true;
             BringToFront();
         }
 
         private void DelayHide(int timeout = 3000)
         {
+            if (timeout == 0)
+            {
+                Close();
+                Dispose();
+                return;
+            }
             if (hideTimer == null)
             {
                 hideTimer = new System.Threading.Timer(state =>
                 {
                     if (InvokeRequired)
                     {
-                        Invoke(new MethodInvoker(Hide));
+                        Invoke(new MethodInvoker(() =>
+                        {
+                            DelayHide(0);
+                        }));
                     }
                     else
                     {
-                        Hide();
+                        DelayHide(0);
                     }
-                },null,  timeout, Timeout.Infinite);
+                }, null, timeout, Timeout.Infinite);
             }
         }
 
         private void CancelHide()
         {
-            if (hideTimer == null)
-            {
-                return;
-            }
-            hideTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            if (hideTimer == null) return;
+
+            hideTimer.Dispose();
+            hideTimer = null;
         }
     }
 }
