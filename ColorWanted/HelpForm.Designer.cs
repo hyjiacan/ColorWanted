@@ -44,7 +44,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.lkVersion = new System.Windows.Forms.LinkLabel();
+            this.lkRelease = new System.Windows.Forms.LinkLabel();
             this.label4 = new System.Windows.Forms.Label();
             this.lkCopyReleaseUrl = new System.Windows.Forms.LinkLabel();
             this.label5 = new System.Windows.Forms.Label();
@@ -55,7 +55,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("SimSun", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(68, 36);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(56, 22);
@@ -91,7 +91,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(68, 224);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(93, 16);
@@ -102,7 +102,7 @@
             // lkCopySourceUrl
             // 
             this.lkCopySourceUrl.AutoSize = true;
-            this.lkCopySourceUrl.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkCopySourceUrl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lkCopySourceUrl.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lkCopySourceUrl.Location = new System.Drawing.Point(249, 88);
             this.lkCopySourceUrl.Name = "lkCopySourceUrl";
@@ -116,7 +116,7 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Font = new System.Drawing.Font("SimSun", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.linkLabel1.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.linkLabel1.LinkColor = System.Drawing.Color.Lime;
             this.linkLabel1.Location = new System.Drawing.Point(130, 42);
             this.linkLabel1.Name = "linkLabel1";
@@ -163,7 +163,7 @@
             // lbVersion
             // 
             this.lbVersion.AutoSize = true;
-            this.lbVersion.Font = new System.Drawing.Font("SimSun", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbVersion.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbVersion.Location = new System.Drawing.Point(190, 43);
             this.lbVersion.Name = "lbVersion";
             this.lbVersion.Size = new System.Drawing.Size(63, 15);
@@ -229,20 +229,20 @@
             this.label12.Text = "Alt+` 暂停/开始绘制预览窗,双击暂停/开始取色";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // lkVersion
+            // lkRelease
             // 
-            this.lkVersion.AutoSize = true;
-            this.lkVersion.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkVersion.Location = new System.Drawing.Point(68, 173);
-            this.lkVersion.Name = "lkVersion";
-            this.lkVersion.Size = new System.Drawing.Size(323, 12);
-            this.lkVersion.TabIndex = 7;
-            this.lkVersion.TabStop = true;
-            this.lkVersion.Text = "https://git.oschina.net/hyjiacan/ColorWanted/releases";
-            this.lkVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lkVersion.VisitedLinkColor = System.Drawing.Color.Lime;
-            this.lkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked);
+            this.lkRelease.AutoSize = true;
+            this.lkRelease.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkRelease.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lkRelease.Location = new System.Drawing.Point(68, 173);
+            this.lkRelease.Name = "lkRelease";
+            this.lkRelease.Size = new System.Drawing.Size(323, 12);
+            this.lkRelease.TabIndex = 7;
+            this.lkRelease.TabStop = true;
+            this.lkRelease.Text = "https://git.oschina.net/hyjiacan/ColorWanted/releases";
+            this.lkRelease.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lkRelease.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.lkRelease.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked);
             // 
             // label4
             // 
@@ -257,7 +257,7 @@
             // lkCopyReleaseUrl
             // 
             this.lkCopyReleaseUrl.AutoSize = true;
-            this.lkCopyReleaseUrl.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkCopyReleaseUrl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lkCopyReleaseUrl.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lkCopyReleaseUrl.Location = new System.Drawing.Point(151, 148);
             this.lkCopyReleaseUrl.Name = "lkCopyReleaseUrl";
@@ -307,7 +307,7 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.linkLabel1);
-            this.Controls.Add(this.lkVersion);
+            this.Controls.Add(this.lkRelease);
             this.Controls.Add(this.lkCopyReleaseUrl);
             this.Controls.Add(this.lkCopySourceUrl);
             this.Controls.Add(this.label3);
@@ -349,7 +349,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.LinkLabel lkVersion;
+        private System.Windows.Forms.LinkLabel lkRelease;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.LinkLabel lkCopyReleaseUrl;
         private System.Windows.Forms.Label label5;

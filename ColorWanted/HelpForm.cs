@@ -40,12 +40,12 @@ namespace ColorWanted
 
         private void lkVersion_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(lkVersion.Text);
+            Process.Start(lkRelease.Text);
         }
 
         private void lkCopyReleaseUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Util.SetClipboard(Handle, lkVersion.Text);
+            Util.SetClipboard(Handle, lkRelease.Text);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -69,6 +69,7 @@
     <Compile Include="enums\HotKeyValue.cs" />
     <Compile Include="enums\DisplayMode.cs" />
     <Compile Include="ext\EnumExtension.cs" />
+    <Compile Include="ColorHistory.cs" />
     <Compile Include="KeyModifiers.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -79,6 +80,12 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="update\CommitItem.cs" />
     <Compile Include="update\FileItem.cs" />
+    <Compile Include="HistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HistoryForm.Designer.cs">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="update\UpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HistoryForm.resx">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

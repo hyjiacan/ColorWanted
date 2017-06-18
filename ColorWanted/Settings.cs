@@ -20,6 +20,10 @@ namespace ColorWanted
     internal static class Settings
     {
         /// <summary>
+        /// 配置数据存放路径
+        /// </summary>
+        public static readonly string DataPath;
+        /// <summary>
         /// 配置文件名
         /// </summary>
         public static readonly string FileName;
@@ -27,16 +31,16 @@ namespace ColorWanted
 
         static Settings()
         {
-            var path = Path.Combine(Environment
+            DataPath = Path.Combine(Environment
                     .GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 Application.ProductName);
-            FileName = Path.Combine(path, "option.ini");
+            FileName = Path.Combine(DataPath, "option.ini");
 
-            if (Directory.Exists(path)) return;
+            if (Directory.Exists(DataPath)) return;
 
             try
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(DataPath);
             }
             catch
             {

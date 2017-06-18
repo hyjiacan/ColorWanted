@@ -590,6 +590,13 @@ namespace ColorWanted
             }
         }
 
+        private void trayMenuHistory_Click(object sender, EventArgs e)
+        {
+            var form = new HistoryForm();
+            form.Show(this);
+            form.BringToFront();
+        }
+
         private void ToggleCopyPolicy()
         {
             trayMenuCopyPolicyHexValueOnly.Checked =
@@ -667,6 +674,7 @@ namespace ColorWanted
             if (DialogResult.OK == colorPicker.ShowDialog(this))
             {
                 var cl = colorPicker.Color;
+                ColorHistory.Record(cl);
                 Util.SetClipboard(Handle, string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B));
 
                 // 保存自定义颜色
@@ -863,6 +871,7 @@ namespace ColorWanted
         {
             try
             {
+                ColorHistory.Record(ColorUtil.GetColor(MousePosition));
                 var result = Util.SetClipboard(Handle, doubleClick ?
                     (trayMenuCopyPolicyRgbValueOnly.Checked ? lbRgb.Tag.ToString() : lbRgb.Text) :
                     (trayMenuCopyPolicyHexValueOnly.Checked ? lbHex.Tag.ToString() : lbHex.Text));
