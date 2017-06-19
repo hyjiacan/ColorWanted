@@ -80,7 +80,15 @@ namespace ColorWanted.update
                 lbMsg.Text = @"正在检查更新版本...";
             }
 
-            new Thread(RunCheck).Start();
+
+            if (ShowDetail)
+            {
+                new Thread(RunCheck).Start();
+            }
+            else
+            {
+                RunCheck();
+            }
         }
 
         private void RunCheck()
