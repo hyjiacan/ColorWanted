@@ -58,13 +58,14 @@
             this.trayMenuShowHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.trayMenuCheckUpdateOnStartup = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbHex
             // 
             this.lbHex.BackColor = System.Drawing.Color.Black;
-            this.lbHex.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHex.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbHex.ForeColor = System.Drawing.Color.Lime;
             this.lbHex.Location = new System.Drawing.Point(0, 0);
             this.lbHex.Name = "lbHex";
@@ -79,7 +80,7 @@
             // lbRgb
             // 
             this.lbRgb.BackColor = System.Drawing.Color.Black;
-            this.lbRgb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbRgb.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRgb.ForeColor = System.Drawing.Color.Lime;
             this.lbRgb.Location = new System.Drawing.Point(68, 0);
             this.lbRgb.Name = "lbRgb";
@@ -139,21 +140,21 @@
             this.trayMenuHideWindow.Checked = true;
             this.trayMenuHideWindow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuHideWindow.Name = "trayMenuHideWindow";
-            this.trayMenuHideWindow.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuHideWindow.Size = new System.Drawing.Size(124, 22);
             this.trayMenuHideWindow.Text = "隐藏窗口";
             this.trayMenuHideWindow.Click += new System.EventHandler(this.trayMenuHideWindow_Click);
             // 
             // trayMenuFollowCaret
             // 
             this.trayMenuFollowCaret.Name = "trayMenuFollowCaret";
-            this.trayMenuFollowCaret.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuFollowCaret.Size = new System.Drawing.Size(124, 22);
             this.trayMenuFollowCaret.Text = "跟随模式";
             this.trayMenuFollowCaret.Click += new System.EventHandler(this.trayMenuFollowCaret_Click);
             // 
             // trayMenuFixed
             // 
             this.trayMenuFixed.Name = "trayMenuFixed";
-            this.trayMenuFixed.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuFixed.Size = new System.Drawing.Size(124, 22);
             this.trayMenuFixed.Text = "固定模式";
             this.trayMenuFixed.Click += new System.EventHandler(this.trayMenuFixed_Click);
             // 
@@ -172,7 +173,7 @@
             this.trayMenuFormatMini.Checked = true;
             this.trayMenuFormatMini.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuFormatMini.Name = "trayMenuFormatMini";
-            this.trayMenuFormatMini.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuFormatMini.Size = new System.Drawing.Size(124, 22);
             this.trayMenuFormatMini.Text = "迷你模式";
             this.trayMenuFormatMini.ToolTipText = "只显示HEX格式";
             this.trayMenuFormatMini.Click += new System.EventHandler(this.trayMenuFormatMini_Click);
@@ -180,7 +181,7 @@
             // trayMenuFormatExtention
             // 
             this.trayMenuFormatExtention.Name = "trayMenuFormatExtention";
-            this.trayMenuFormatExtention.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuFormatExtention.Size = new System.Drawing.Size(124, 22);
             this.trayMenuFormatExtention.Text = "扩展模式";
             this.trayMenuFormatExtention.ToolTipText = "显示HEX格式和GRB格式";
             this.trayMenuFormatExtention.Click += new System.EventHandler(this.trayMenuFormatExtention_Click);
@@ -198,7 +199,7 @@
             // trayMenuCopyPolicyHexValueOnly
             // 
             this.trayMenuCopyPolicyHexValueOnly.Name = "trayMenuCopyPolicyHexValueOnly";
-            this.trayMenuCopyPolicyHexValueOnly.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuCopyPolicyHexValueOnly.Size = new System.Drawing.Size(125, 22);
             this.trayMenuCopyPolicyHexValueOnly.Text = "仅HEX值";
             this.trayMenuCopyPolicyHexValueOnly.ToolTipText = "只复制HEX值，此时不包含前面的#符号";
             this.trayMenuCopyPolicyHexValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyHexValueOnly_Click);
@@ -206,7 +207,7 @@
             // trayMenuCopyPolicyRgbValueOnly
             // 
             this.trayMenuCopyPolicyRgbValueOnly.Name = "trayMenuCopyPolicyRgbValueOnly";
-            this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(125, 22);
             this.trayMenuCopyPolicyRgbValueOnly.Text = "仅RGB值";
             this.trayMenuCopyPolicyRgbValueOnly.ToolTipText = "只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255";
             this.trayMenuCopyPolicyRgbValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click);
@@ -282,10 +283,19 @@
             // 
             // trayMenuCheckUpdate
             // 
+            this.trayMenuCheckUpdate.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayMenuCheckUpdateOnStartup});
             this.trayMenuCheckUpdate.Name = "trayMenuCheckUpdate";
             this.trayMenuCheckUpdate.Size = new System.Drawing.Size(152, 22);
             this.trayMenuCheckUpdate.Text = "检查更新";
             this.trayMenuCheckUpdate.Click += new System.EventHandler(this.trayMenuCheckUpdate_Click);
+            // 
+            // trayMenuCheckUpdateOnStartup
+            // 
+            this.trayMenuCheckUpdateOnStartup.Name = "trayMenuCheckUpdateOnStartup";
+            this.trayMenuCheckUpdateOnStartup.Size = new System.Drawing.Size(165, 22);
+            this.trayMenuCheckUpdateOnStartup.Text = "启动时检查";
+            this.trayMenuCheckUpdateOnStartup.Click += new System.EventHandler(this.trayMenuCheckUpdateOnStartup_Click);
             // 
             // trayMenuShowHelp
             // 
@@ -358,6 +368,7 @@
         private System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyRgbValueOnly;
         private System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdate;
         private System.Windows.Forms.ToolStripMenuItem trayMenuHistory;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdateOnStartup;
     }
 }
 

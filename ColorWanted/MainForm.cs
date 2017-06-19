@@ -369,6 +369,8 @@ namespace ColorWanted
             trayMenuCopyPolicyHexValueOnly.Checked = Settings.HexValueOnly;
             trayMenuCopyPolicyRgbValueOnly.Checked = Settings.RgbValueOnly;
 
+            trayMenuCheckUpdateOnStartup.Checked = Settings.CheckUpdateOnStartup;
+
             // 读取开机启动的注册表
             trayMenuAutoStart.Checked = Settings.Autostart;
 
@@ -390,7 +392,10 @@ namespace ColorWanted
             }
 
             // 启动时检查更新
-            CheckUpdate();
+            if (Settings.CheckUpdateOnStartup)
+            {
+                CheckUpdate();
+            }
         }
 
         public static void CheckUpdate(bool showDetail = false)
@@ -574,6 +579,15 @@ namespace ColorWanted
         private void trayMenuCheckUpdate_Click(object sender, EventArgs e)
         {
             CheckUpdate(true);
+        }
+
+        private void trayMenuCheckUpdateOnStartup_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            // ReSharper disable once PossibleNullReferenceException
+            item.Checked = !item.Checked;
+
+            Settings.CheckUpdateOnStartup = item.Checked;
         }
 
         private void trayMenuOpenConfigFile_Click(object sender, EventArgs e)

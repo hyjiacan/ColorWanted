@@ -241,6 +241,18 @@ namespace ColorWanted.util
         }
 
         /// <summary>
+        /// 是否在启动时检查更新
+        /// </summary>
+        public static bool CheckUpdateOnStartup
+        {
+            get { return Get("checkupdateonstartup") != "0"; }
+            set
+            {
+                Set("checkupdateonstartup", value ? "1" : "0");
+            }
+        }
+
+        /// <summary>
         /// 调色板的自定义颜色
         /// </summary>
         public static int[] CustomColors
