@@ -1,4 +1,4 @@
-﻿namespace ColorWanted
+﻿namespace ColorWanted.history
 {
     partial class HistoryForm
     {
@@ -40,6 +40,7 @@
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.linkHex = new System.Windows.Forms.LinkLabel();
             this.linkRgb = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,8 +86,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.list.AutoArrange = false;
-            this.list.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.list.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.list.BackColor = System.Drawing.Color.Gray;
+            this.list.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.list.ForeColor = System.Drawing.Color.White;
             this.list.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.list.HideSelection = false;
@@ -97,7 +98,9 @@
             this.list.ShowItemToolTips = true;
             this.list.Size = new System.Drawing.Size(446, 234);
             this.list.TabIndex = 0;
+            this.list.TileSize = new System.Drawing.Size(80, 32);
             this.list.UseCompatibleStateImageBehavior = false;
+            this.list.View = System.Windows.Forms.View.Tile;
             this.list.SelectedIndexChanged += new System.EventHandler(this.list_SelectedIndexChanged);
             // 
             // linkFile
@@ -144,7 +147,7 @@
             this.linkHex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkHex.AutoSize = true;
             this.linkHex.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.linkHex.Location = new System.Drawing.Point(294, 283);
+            this.linkHex.Location = new System.Drawing.Point(294, 280);
             this.linkHex.Name = "linkHex";
             this.linkHex.Size = new System.Drawing.Size(47, 12);
             this.linkHex.TabIndex = 17;
@@ -158,7 +161,7 @@
             this.linkRgb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkRgb.AutoSize = true;
             this.linkRgb.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.linkRgb.Location = new System.Drawing.Point(353, 283);
+            this.linkRgb.Location = new System.Drawing.Point(353, 280);
             this.linkRgb.Name = "linkRgb";
             this.linkRgb.Size = new System.Drawing.Size(65, 12);
             this.linkRgb.TabIndex = 17;
@@ -167,6 +170,16 @@
             this.tooltip.SetToolTip(this.linkRgb, "点击复制");
             this.linkRgb.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkRgb_LinkClicked);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(207, 280);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 12);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "点击复制 →";
+            this.tooltip.SetToolTip(this.label2, "从这里复制不会添加到历史记录中");
+            // 
             // HistoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -174,6 +187,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(470, 303);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.linkRgb);
             this.Controls.Add(this.linkHex);
             this.Controls.Add(this.linkReload);
@@ -183,7 +197,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.picLOGO);
-            this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -213,5 +227,6 @@
         private System.Windows.Forms.ToolTip tooltip;
         private System.Windows.Forms.LinkLabel linkHex;
         private System.Windows.Forms.LinkLabel linkRgb;
+        private System.Windows.Forms.Label label2;
     }
 }

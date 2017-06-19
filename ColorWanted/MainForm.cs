@@ -8,7 +8,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.ext;
+using ColorWanted.history;
 using ColorWanted.update;
+using ColorWanted.util;
 
 namespace ColorWanted
 {
@@ -593,7 +596,7 @@ namespace ColorWanted
         private void trayMenuHistory_Click(object sender, EventArgs e)
         {
             var form = new HistoryForm();
-            form.Show(this);
+            form.Show();
             form.BringToFront();
         }
 

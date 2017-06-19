@@ -45,11 +45,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BugReportForm.cs">
@@ -65,25 +63,25 @@
     <Compile Include="HelpForm.Designer.cs">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ColorUtil.cs" />
+    <Compile Include="util\ColorUtil.cs" />
     <Compile Include="enums\HotKeyValue.cs" />
     <Compile Include="enums\DisplayMode.cs" />
     <Compile Include="ext\EnumExtension.cs" />
-    <Compile Include="ColorHistory.cs" />
-    <Compile Include="KeyModifiers.cs" />
+    <Compile Include="history\ColorHistory.cs" />
+    <Compile Include="enums\KeyModifiers.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NativeMethods.cs" />
+    <Compile Include="ext\NativeMethods.cs" />
     <Compile Include="update\CommitItem.cs" />
     <Compile Include="update\FileItem.cs" />
-    <Compile Include="HistoryForm.cs">
+    <Compile Include="history\HistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HistoryForm.Designer.cs">
+    <Compile Include="history\HistoryForm.Designer.cs">
       <DependentUpon>HistoryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="update\UpdateForm.cs">
@@ -101,18 +99,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
-    <Compile Include="ShowMode.cs" />
+    <Compile Include="util\Settings.cs" />
+    <Compile Include="enums\ShowMode.cs" />
     <Compile Include="update\TagItem.cs" />
     <Compile Include="update\UpdateInfo.cs" />
-    <Compile Include="Util.cs" />
+    <Compile Include="util\Util.cs" />
     <EmbeddedResource Include="BugReportForm.resx">
       <DependentUpon>BugReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HelpForm.resx">
       <DependentUpon>HelpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HistoryForm.resx">
+    <EmbeddedResource Include="history\HistoryForm.resx">
       <DependentUpon>HistoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">

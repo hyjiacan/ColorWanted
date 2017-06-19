@@ -1,8 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.enums;
 
 /**
 * winapi与头文件参考：
@@ -12,7 +12,7 @@ using System.Windows.Forms;
 * kernel32.dll WinBase.h
 */
 
-namespace ColorWanted
+namespace ColorWanted.ext
 {
     /// <summary>
     /// Win API 接口

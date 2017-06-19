@@ -1,4 +1,4 @@
-﻿namespace ColorWanted
+﻿namespace ColorWanted.enums
 {
     /// <summary>
     /// 窗口显示模式

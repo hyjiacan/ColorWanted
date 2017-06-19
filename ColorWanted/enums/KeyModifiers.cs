@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ColorWanted
+namespace ColorWanted.enums
 {
     /**
      * 这个定义在 winuser.h 中

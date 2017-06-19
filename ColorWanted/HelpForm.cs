@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using ColorWanted.ext;
+using ColorWanted.util;
 
 namespace ColorWanted
 {

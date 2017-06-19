@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using ColorWanted.ext;
 
-namespace ColorWanted
+namespace ColorWanted.util
 {
     class ColorUtil
     {

@@ -1,18 +1,19 @@
-﻿using ColorWanted.enums;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.enums;
+using ColorWanted.ext;
+using Microsoft.Win32;
 
 // ReSharper disable EmptyGeneralCatchClause
 // 防止权限问题导致的失败
 // 即使失败，也不应该影响功能
 // 所有文件操作都加个  ttry catch
 
-namespace ColorWanted
+namespace ColorWanted.util
 {
     /// <summary>
     /// 配置文件操作

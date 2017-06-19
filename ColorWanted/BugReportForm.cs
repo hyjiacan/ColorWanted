@@ -42,7 +42,7 @@ namespace ColorWanted
             {
                 var client = new WebClient();
                 client.UploadValues(
-                        "http://www.hyjiacan.com/git/bug.php?token=bugreport",
+                        "http://git.hyjiacan.com/bug.php?token=bugreport",
                         "post",
                         new NameValueCollection
                         {

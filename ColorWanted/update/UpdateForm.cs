@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.ext;
+using ColorWanted.util;
 
 namespace ColorWanted.update
 {
@@ -77,11 +79,8 @@ namespace ColorWanted.update
                 }
                 lbMsg.Text = @"正在检查更新版本...";
             }
-            //var worker = new BackgroundWorker();
-            //worker.DoWork += Worker_DoWork;
-            //worker.RunWorkerAsync();
+
             new Thread(RunCheck).Start();
-            //RunCheck();
         }
 
         private void RunCheck()

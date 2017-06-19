@@ -4,8 +4,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using ColorWanted.ext;
+using ColorWanted.util;
 
-namespace ColorWanted
+namespace ColorWanted.history
 {
     public partial class HistoryForm : Form
     {
@@ -76,7 +78,6 @@ namespace ColorWanted
                 if (group == null || groupTime != item.DateTime.Date)
                 {
                     group = new ListViewGroup(item.DateTime.ToString("yyyy-MM-dd"));
-
                     list.Groups.Add(group);
                     groupTime = item.DateTime.Date;
                 }
@@ -95,7 +96,8 @@ namespace ColorWanted
                     history.Color.G,
                     history.Color.B),
                 Tag = history.Color,
-                ToolTipText = history.DateTime.ToString("yyyy-MM-dd HH:mm:ss")
+                ToolTipText = string.Format(@"时间: {0:HH:mm:ss}{1}来源: {2}",
+                    history.DateTime, '\n', history.Source == 0 ? "屏幕取色" : "调色板")
             };
         }
 
@@ -107,12 +109,14 @@ namespace ColorWanted
         private void linkHex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var item = sender as LinkLabel;
+            // ReSharper disable once PossibleNullReferenceException
             Util.SetClipboard(Handle, item.Text);
         }
 
         private void linkRgb_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var item = sender as LinkLabel;
+            // ReSharper disable once PossibleNullReferenceException
             Util.SetClipboard(Handle, item.Text);
         }
 

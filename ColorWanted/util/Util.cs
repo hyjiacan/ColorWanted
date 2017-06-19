@@ -1,12 +1,11 @@
-﻿using ColorWanted.enums;
-using ColorWanted.ext;
-using System;
-using System.Drawing;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.enums;
+using ColorWanted.ext;
 
-namespace ColorWanted
+namespace ColorWanted.util
 {
     /// <summary>
     /// 静态工具类

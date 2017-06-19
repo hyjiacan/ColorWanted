@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+using ColorWanted.ext;
+using ColorWanted.util;
 
 namespace ColorWanted
 {
