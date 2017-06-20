@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace ColorWanted
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// 应用程序的主入口点。

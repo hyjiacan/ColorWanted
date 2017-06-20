@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,7 @@ namespace ColorWanted.util
         /// 配置文件名
         /// </summary>
         public static readonly string FileName;
-        private const string section = "colorwanted";
+        private const string section = "base";
 
         static Settings()
         {
@@ -206,7 +207,7 @@ namespace ColorWanted.util
 
         private static Point ParsePoint(string loc)
         {
-            Point point = Point.Empty;
+            var point = Point.Empty;
 
             if (string.IsNullOrWhiteSpace(loc))
             {

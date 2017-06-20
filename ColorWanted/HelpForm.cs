@@ -6,7 +6,7 @@ using ColorWanted.util;
 
 namespace ColorWanted
 {
-    public partial class HelpForm : Form
+    internal partial class HelpForm : Form
     {
         public HelpForm()
         {
@@ -27,7 +27,8 @@ namespace ColorWanted
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Hide();
+            Close();
+            Dispose();
         }
 
         private void llScm_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ColorWanted
 {
-    public partial class BugReportForm : Form
+    internal partial class BugReportForm : Form
     {
         /// <summary>
         /// 数据模板

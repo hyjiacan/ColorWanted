@@ -4,7 +4,7 @@ using ColorWanted.ext;
 
 namespace ColorWanted.util
 {
-    class ColorUtil
+    internal class ColorUtil
     {
         public static byte GetRValue(uint color)
         {
@@ -61,8 +61,8 @@ namespace ColorWanted.util
 
         public static Color GetColor(Point screenPoint)
         {
-            IntPtr displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
-            uint colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
+            var displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
+            var colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
             NativeMethods.DeleteDC(displayDC);
             return Color.FromArgb(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref));
         }

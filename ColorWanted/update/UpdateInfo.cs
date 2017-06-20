@@ -1,6 +1,6 @@
 ﻿namespace ColorWanted.update
 {
-    class UpdateInfo
+    internal class UpdateInfo
     {
         public string Version { get; set; }
         public string Link { get; set; }

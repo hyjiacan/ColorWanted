@@ -9,7 +9,7 @@ using ColorWanted.util;
 
 namespace ColorWanted.history
 {
-    public partial class HistoryForm : Form
+    internal partial class HistoryForm : Form
     {
         public HistoryForm()
         {

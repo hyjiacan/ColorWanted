@@ -3,7 +3,7 @@
     /// <summary>
     /// 窗口显示模式
     /// </summary>
-    enum ShowMode
+    internal enum ShowMode
     {
         /// <summary>
         /// 隐藏

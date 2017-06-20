@@ -7,7 +7,7 @@ using ColorWanted.util;
 
 namespace ColorWanted
 {
-    public partial class PreviewForm : Form
+    internal partial class PreviewForm : Form
     {
         public bool MouseOnMe { get; private set; }
 
@@ -57,7 +57,7 @@ namespace ColorWanted
             {
                 const int WS_EX_APPWINDOW = 0x40000;
                 const int WS_EX_TOOLWINDOW = 0x80;
-                CreateParams cp = base.CreateParams;
+                var cp = base.CreateParams;
                 cp.ExStyle &= (~WS_EX_APPWINDOW);    // 不显示在TaskBar
                 cp.ExStyle |= WS_EX_TOOLWINDOW;      // 不显示在Alt-Tab
                 return cp;
@@ -166,11 +166,11 @@ namespace ColorWanted
                 // 放大后行数据的缓存
                 var rowbuffer = new byte[destData.Stride];
 
-                for (int i = 0; i < srcRect.Height; i++)
+                for (var i = 0; i < srcRect.Height; i++)
                 {
                     // 写第i行数据
 
-                    for (int j = 0; j < srcData.Stride; j += 4)
+                    for (var j = 0; j < srcData.Stride; j += 4)
                     {
                         // 写第j列数据 这个循环完成后  就写完一行了
                         // 当前位置的色值

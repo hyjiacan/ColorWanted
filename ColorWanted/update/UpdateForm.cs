@@ -7,7 +7,7 @@ using ColorWanted.util;
 
 namespace ColorWanted.update
 {
-    public partial class UpdateForm : Form
+    internal partial class UpdateForm : Form
     {
         /// <summary>
         /// 定时隐藏升级提示窗口
@@ -28,7 +28,7 @@ namespace ColorWanted.update
             {
                 const int WS_EX_APPWINDOW = 0x40000;
                 const int WS_EX_TOOLWINDOW = 0x80;
-                CreateParams cp = base.CreateParams;
+                var cp = base.CreateParams;
                 cp.ExStyle &= (~WS_EX_APPWINDOW);    // 不显示在TaskBar
                 cp.ExStyle |= WS_EX_TOOLWINDOW;      // 不显示在Alt-Tab
                 return cp;
@@ -131,7 +131,7 @@ namespace ColorWanted.update
 
                 if (!update.Status)
                 {
-                    lbMsg.Text = @"查检更新失败";
+                    lbMsg.Text = @"查检更新失败(可能是网络问题)";
                     DelayHide();
                     return;
                 }

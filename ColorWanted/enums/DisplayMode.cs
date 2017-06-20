@@ -3,7 +3,7 @@
     /// <summary>
     /// 显示模式
     /// </summary>
-    enum DisplayMode
+    internal enum DisplayMode
     {
         /// <summary>
         /// 隐藏窗口，此时在后台工作，仍然可以通过快捷键复制取到的颜色值

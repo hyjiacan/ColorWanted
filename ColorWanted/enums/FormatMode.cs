@@ -3,7 +3,7 @@
     /// <summary>
     /// 颜色格式面板显示模式
     /// </summary>
-    enum FormatMode
+    internal enum FormatMode
     {
         /// <summary>
         /// mini模式，只显示HEX格式

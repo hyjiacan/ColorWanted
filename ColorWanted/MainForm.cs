@@ -1,4 +1,9 @@
 ﻿using ColorWanted.enums;
+using ColorWanted.ext;
+using ColorWanted.history;
+using ColorWanted.hotkey;
+using ColorWanted.update;
+using ColorWanted.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,36 +12,36 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
-using ColorWanted.ext;
-using ColorWanted.history;
-using ColorWanted.update;
-using ColorWanted.util;
+using Timer = System.Windows.Forms.Timer;
 
 namespace ColorWanted
 {
-    public partial class MainForm : Form
+    internal partial class MainForm : Form
     {
         /// <summary>
         /// 取色的定时器
         /// </summary>
         private Timer colorTimer;
+
         /// <summary>
         /// 取色窗口移动位置定时器
         /// </summary>
         private Timer caretTimer;
+
         /// <summary>
         /// 取色周期
         /// </summary>
         private const int colorInterval = 200;
+
         /// <summary>
         /// 取色窗口移动周期
         /// </summary>
         private const int caretInterval = 50;
 
         private bool settingLoaded;
-        private readonly Screen screen;
-        private HelpForm helpForm;
+        private Screen screen;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
 
@@ -69,37 +74,16 @@ namespace ColorWanted
         /// <summary>
         /// 上次按下快捷键的时间记录
         /// </summary>
-        private readonly Dictionary<HotKeyValue, DateTime> lastPressTime;
+        private Dictionary<HotKeyType, DateTime> lastPressTime;
 
         /// <summary>
         /// 颜色值字符串的缓存
         /// </summary>
-        private readonly StringBuilder colorBuffer;
+        private StringBuilder colorBuffer;
 
         public MainForm()
         {
             InitializeComponent();
-
-            screen = Screen.PrimaryScreen;
-
-            currentDisplayMode = DisplayMode.Fixed;
-
-            colorBuffer = new StringBuilder(8, 64);
-
-            var now = DateTime.Now;
-
-            lastPressTime = new Dictionary<HotKeyValue, DateTime>
-            {
-                {HotKeyValue.CopyColor, now},
-                {HotKeyValue.CopyPolicy, now},
-                {HotKeyValue.DrawControl, now},
-                {HotKeyValue.ShowColorPicker, now},
-                {HotKeyValue.ShowMoreFormat, now},
-                {HotKeyValue.ShowPreview, now},
-                {HotKeyValue.SwitchMode, now}
-            };
-
-            Util.BindHotkeys(Handle);
         }
 
         protected override CreateParams CreateParams
@@ -108,11 +92,90 @@ namespace ColorWanted
             {
                 const int WS_EX_APPWINDOW = 0x40000;
                 const int WS_EX_TOOLWINDOW = 0x80;
-                CreateParams cp = base.CreateParams;
-                cp.ExStyle &= (~WS_EX_APPWINDOW);    // 不显示在TaskBar
-                cp.ExStyle |= WS_EX_TOOLWINDOW;      // 不显示在Alt-Tab
+                var cp = base.CreateParams;
+                cp.ExStyle &= (~WS_EX_APPWINDOW); // 不显示在TaskBar
+                cp.ExStyle |= WS_EX_TOOLWINDOW; // 不显示在Alt-Tab
                 return cp;
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Height = 20;
+            Width = 88;
+
+            Init();
+        }
+
+        /// <summary>
+        /// 执行初始化操作
+        /// </summary>
+        private void Init()
+        {
+            previewForm = new PreviewForm();
+            previewForm.LocationChanged += previewForm_LocationChanged;
+
+            screen = Screen.PrimaryScreen;
+
+            currentDisplayMode = DisplayMode.Fixed;
+
+            colorBuffer = new StringBuilder(8, 64);
+
+
+            if (Settings.PreviewVisible)
+            {
+                TogglePreview();
+            }
+
+            if (!trayMenuFollowCaret.Checked)
+            {
+                FixedPosition();
+            }
+
+            SwitchFormatMode(Settings.FormatMode);
+
+            var now = DateTime.Now;
+
+            lastPressTime = Util.Enum<HotKeyType>()
+                .ToDictionary(item => item, item => now);
+
+            HotKey.Bind(Handle);
+
+            trayMenuCopyPolicyHexValueOnly.Checked = Settings.HexValueOnly;
+            trayMenuCopyPolicyRgbValueOnly.Checked = Settings.RgbValueOnly;
+
+            new Thread(() =>
+            {
+                // 读取开机启动的注册表
+                trayMenuAutoStart.Checked = Settings.Autostart;
+
+                // 检查是否是首次运行
+                if (Settings.IsFirstRun)
+                {
+                    Settings.IsFirstRun = false;
+
+                    // 首次运行时，打开帮助窗口
+                    trayMenuShowHelp_Click(null, null);
+                }
+
+                trayMenuAutoPin.Checked = Settings.AutoPin;
+                trayMenuCheckUpdateOnStartup.Checked = Settings.CheckUpdateOnStartup;
+
+                // 启动时检查更新
+                if (trayMenuCheckUpdateOnStartup.Checked)
+                {
+                    CheckUpdate();
+                }
+            }).Start();
+
+            caretTimer = new Timer { Interval = caretInterval };
+            caretTimer.Tick += carettimer_Tick;
+            caretTimer.Start();
+
+            colorTimer = new Timer { Interval = colorInterval };
+            colorTimer.Tick += colortimer_Tick;
+            colorTimer.Start();
+
         }
 
         /// <summary>
@@ -157,7 +220,7 @@ namespace ColorWanted
                 settingLoaded = true;
             }
 
-            Color color = ColorUtil.GetColor(MousePosition);
+            var color = ColorUtil.GetColor(MousePosition);
 
             // 如果光标位置不变，颜色也不变，就不绘制了
             if (MousePosition.Equals(lastPosition) && color.Equals(lastColor))
@@ -267,7 +330,7 @@ namespace ColorWanted
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Util.UnbindHotkeys(Handle);
+            HotKey.Unbind(Handle);
         }
 
         /// <summary>
@@ -282,10 +345,11 @@ namespace ColorWanted
                 base.WndProc(ref m);
                 return;
             }
+
             // 收到的快捷键的值
             var keyValue = m.WParam.ToInt32();
 
-            var key = (HotKeyValue)keyValue;
+            var key = (HotKeyType)keyValue;
 
             var lasttime = lastPressTime[key];
             var now = DateTime.Now;
@@ -295,31 +359,31 @@ namespace ColorWanted
             switch (key)
             {
                 // 切换显示模式
-                case HotKeyValue.SwitchMode:
+                case HotKeyType.SwitchMode:
                     SwitchDisplayMode();
                     break;
                 // 显示/隐藏更多的颜色格式
-                case HotKeyValue.ShowMoreFormat:
+                case HotKeyType.ShowMoreFormat:
                     SwitchFormatMode();
                     break;
                 // 复制颜色值
-                case HotKeyValue.CopyColor:
+                case HotKeyType.CopyColor:
                     CopyColor(doubleClick);
                     break;
                 // 切换复制策略
-                case HotKeyValue.CopyPolicy:
+                case HotKeyType.CopyPolicy:
                     ToggleCopyPolicy();
                     break;
                 // 打开预览窗口
-                case HotKeyValue.ShowPreview:
+                case HotKeyType.ShowPreview:
                     TogglePreview();
                     break;
                 // 显示/隐藏调色板
-                case HotKeyValue.ShowColorPicker:
+                case HotKeyType.ShowColorPicker:
                     ShowColorPicker();
                     break;
                 // 绘制预览窗口
-                case HotKeyValue.DrawControl:
+                case HotKeyType.ControlDraw:
                     DrawControl(doubleClick);
                     break;
                 default:
@@ -344,63 +408,10 @@ namespace ColorWanted
 
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            Height = 20;
-            Width = 88;
-
-            previewForm = new PreviewForm();
-            previewForm.LocationChanged += previewForm_LocationChanged;
-            if (Settings.PreviewVisible)
-            {
-                TogglePreview();
-            }
-
-            if (!trayMenuFollowCaret.Checked)
-            {
-                FixedPosition();
-            }
-
-            // 加载配置
-            trayMenuAutoPin.Checked = Settings.AutoPin;
-
-            SwitchFormatMode(Settings.FormatMode);
-
-            trayMenuCopyPolicyHexValueOnly.Checked = Settings.HexValueOnly;
-            trayMenuCopyPolicyRgbValueOnly.Checked = Settings.RgbValueOnly;
-
-            trayMenuCheckUpdateOnStartup.Checked = Settings.CheckUpdateOnStartup;
-
-            // 读取开机启动的注册表
-            trayMenuAutoStart.Checked = Settings.Autostart;
-
-            caretTimer = new Timer { Interval = caretInterval };
-            caretTimer.Tick += carettimer_Tick;
-            caretTimer.Start();
-
-            colorTimer = new Timer { Interval = colorInterval };
-            colorTimer.Tick += colortimer_Tick;
-            colorTimer.Start();
-
-            // 检查是否是首次运行
-            if (Settings.IsFirstRun)
-            {
-                Settings.IsFirstRun = false;
-
-                // 首次运行时，打开帮助窗口
-                trayMenuShowHelp_Click(null, null);
-            }
-
-            // 启动时检查更新
-            if (Settings.CheckUpdateOnStartup)
-            {
-                CheckUpdate();
-            }
-        }
-
         public static void CheckUpdate(bool showDetail = false)
         {
-            new UpdateForm { ShowDetail = showDetail }.Action();
+            var form = Application.OpenForms["UpdateForm"] as UpdateForm ?? new UpdateForm { ShowDetail = showDetail };
+            form.Action();
         }
 
         private void previewForm_LocationChanged(object sender, EventArgs e)
@@ -487,6 +498,25 @@ namespace ColorWanted
         #region 托盘菜单
 
 
+        /// <summary>
+        /// 处理鼠标左键单击托盘图标的事件
+        /// 此时若取色窗口或预览窗口是可见的，刚将其设置为 topmost
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tray_Click(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                TopMost = true;
+            }
+            if (previewForm.Visible)
+            {
+                previewForm.TopMost = true;
+            }
+        }
+
+
         private void trayMenuHideWindow_Click(object sender, EventArgs e)
         {
             SwitchDisplayMode(DisplayMode.Hidden);
@@ -532,11 +562,8 @@ namespace ColorWanted
 
         private void trayMenuShowHelp_Click(object sender, EventArgs e)
         {
-            if (helpForm == null)
-            {
-                helpForm = new HelpForm();
-            }
-            helpForm.Show();
+            var form = Application.OpenForms["HelpForm"] ?? new HelpForm();
+            form.Show();
         }
 
 
@@ -565,7 +592,11 @@ namespace ColorWanted
 
             previewForm.Location = new Point(0, 0);
         }
-
+        private void trayMenuHotkey_Click(object sender, EventArgs e)
+        {
+            var form = Application.OpenForms["HotkeyForm"] ?? new HotkeyForm();
+            form.Show();
+        }
         private void trayMenuAutoStart_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
@@ -609,9 +640,8 @@ namespace ColorWanted
 
         private void trayMenuHistory_Click(object sender, EventArgs e)
         {
-            var form = new HistoryForm();
+            var form = Application.OpenForms["HistoryForm"] ?? new HistoryForm();
             form.Show();
-            form.BringToFront();
         }
 
         private void ToggleCopyPolicy()
@@ -719,7 +749,7 @@ namespace ColorWanted
         private void SwitchDisplayMode()
         {
             // 下一个要激活的模式
-            DisplayMode mode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), currentDisplayMode + 1);
+            var mode = (DisplayMode)Enum.ToObject(typeof(DisplayMode), currentDisplayMode + 1);
             // 看加了后这个模式有没有定义，如果没有定义，则跳转到隐藏模式
             if (!Enum.IsDefined(typeof(DisplayMode), mode))
             {

@@ -1,48 +1,17 @@
-﻿using System;
+﻿using ColorWanted.ext;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
-using ColorWanted.enums;
-using ColorWanted.ext;
 
 namespace ColorWanted.util
 {
     /// <summary>
     /// 静态工具类
     /// </summary>
-    public static class Util
+    internal static class Util
     {
-        /// <summary>
-        /// 将全局快捷键绑定到指定句柄上
-        /// </summary>
-        /// <param name="handle"></param>
-        public static void BindHotkeys(IntPtr handle)
-        {
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyColor.AsInt(), KeyModifiers.Alt, Keys.C);
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.CopyPolicy.AsInt(), KeyModifiers.Alt, Keys.V);
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowMoreFormat.AsInt(), KeyModifiers.Alt, Keys.E);
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.SwitchMode.AsInt(), KeyModifiers.Alt, Keys.F1);
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowPreview.AsInt(), KeyModifiers.Alt, Keys.F2);
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.ShowColorPicker.AsInt(), KeyModifiers.Alt, Keys.F3);
-            // Alt + ` 键
-            NativeMethods.RegisterHotKey(handle, HotKeyValue.DrawControl.AsInt(), KeyModifiers.Alt, Keys.Oemtilde);
-        }
-
-        /// <summary>
-        /// 将全局快捷键从指定句柄上解除绑定
-        /// </summary>
-        /// <param name="handle"></param>
-        public static void UnbindHotkeys(IntPtr handle)
-        {
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyColor.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.CopyPolicy.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowMoreFormat.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.SwitchMode.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowPreview.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.ShowColorPicker.AsInt());
-            NativeMethods.UnregisterHotKey(handle, HotKeyValue.DrawControl.AsInt());
-        }
-
         /// <summary>
         /// 使用 Windows API复制数据到剪贴板
         /// </summary>
@@ -121,6 +90,18 @@ namespace ColorWanted.util
             }
             reportform.SetException(ex);
             reportform.ShowDialog();
+        }
+
+        /// <summary>
+        /// 枚举出一个枚举类型的所有项
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static IEnumerable<T> Enum<T>() where T : struct
+        {
+            var type = typeof(T);
+            return System.Enum.GetNames(type)
+                .Select(name => (T)System.Enum.Parse(type, name));
         }
 
         private static BugReportForm reportform;
