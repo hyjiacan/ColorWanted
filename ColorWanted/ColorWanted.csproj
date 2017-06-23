@@ -59,6 +59,13 @@
     <Compile Include="BugReportForm.Designer.cs">
       <DependentUpon>BugReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="hotkey\HotkeyChangeEvent.cs" />
+    <Compile Include="hotkey\HotkeyCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="hotkey\HotkeyCtrl.Designer.cs">
+      <DependentUpon>HotkeyCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="mode\FormatMode.cs" />
     <Compile Include="AboutForm.cs">
       <SubType>Form</SubType>
@@ -127,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="history\HistoryForm.resx">
       <DependentUpon>HistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hotkey\HotkeyCtrl.resx">
+      <DependentUpon>HotkeyCtrl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="hotkey\HotkeyForm.resx">
       <DependentUpon>HotkeyForm.cs</DependentUpon>

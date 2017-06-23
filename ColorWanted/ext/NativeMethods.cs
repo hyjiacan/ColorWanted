@@ -38,7 +38,7 @@ namespace ColorWanted.ext
         public static extern bool RegisterHotKey(
             IntPtr hWnd,                //要定义热键的窗口的句柄
             int id,                     //定义热键ID（不能与其它ID重复）           
-            KeyModifier fsModifiers,   //标识热键是否在按Alt、Ctrl、Shift、Windows等键时才会生效
+            KeyModifier fsModifiers,   //标识热键是否在按Alt、Ctrl、Shift、等键时才会生效
             Keys vk                     //定义热键的内容
             );
 

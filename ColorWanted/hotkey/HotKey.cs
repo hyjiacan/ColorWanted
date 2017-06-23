@@ -19,7 +19,6 @@ namespace ColorWanted.hotkey
         public HotKey(string name)
         {
             Name = name;
-            Modifiers = KeyModifier.Alt;
         }
 
         public override string ToString()
@@ -50,6 +49,13 @@ namespace ColorWanted.hotkey
                 buffer.Append(Key);
             }
             return buffer.ToString();
+        }
+
+        public void Reset()
+        {
+            var hotkey = FromType(HotKeyType);
+            Modifiers = hotkey.Modifiers;
+            Key = hotkey.Key;
         }
 
         public string ToFullString()
@@ -93,7 +99,10 @@ namespace ColorWanted.hotkey
             MainFormHandle = handle;
             foreach (var hotkey in Util.Enum<HotKeyType>().Select(Get))
             {
-                NativeMethods.RegisterHotKey(handle, hotkey.HotKeyType.AsInt(), hotkey.Modifiers, hotkey.Key);
+                NativeMethods.RegisterHotKey(handle,
+                    hotkey.HotKeyType.AsInt(),
+                    hotkey.Modifiers,
+                    hotkey.Key);
             }
         }
 
