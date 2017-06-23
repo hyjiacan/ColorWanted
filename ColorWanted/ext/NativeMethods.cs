@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using ColorWanted.enums;
+using ColorWanted.hotkey;
 
 /**
 * winapi与头文件参考：

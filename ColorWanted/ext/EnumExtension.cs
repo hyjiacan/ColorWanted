@@ -1,5 +1,5 @@
-﻿using ColorWanted.enums;
-using ColorWanted.hotkey;
+﻿using ColorWanted.hotkey;
+using ColorWanted.mode;
 
 namespace ColorWanted.ext
 {
@@ -27,19 +27,6 @@ namespace ColorWanted.ext
         public static int AsInt(this DisplayMode mode)
         {
             return (int)mode;
-        }
-
-        public static HotkeyAttribute GetAttribute(this HotKeyType hotKeyType)
-        {
-            var type = hotKeyType.GetType();
-            var attrs = type.GetCustomAttributes(typeof(HotkeyAttribute), false);
-            if (attrs.Length == 0)
-            {
-                return null;
-            }
-            var attr = attrs[0] as HotkeyAttribute;
-            attr.HotKeyType = hotKeyType;
-            return attr;
         }
     }
 }

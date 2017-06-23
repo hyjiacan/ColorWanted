@@ -1,5 +1,4 @@
-﻿using ColorWanted.enums;
-using ColorWanted.ext;
+﻿using ColorWanted.ext;
 using ColorWanted.history;
 using ColorWanted.hotkey;
 using ColorWanted.update;
@@ -14,6 +13,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.mode;
+using ColorWanted.setting;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ColorWanted
@@ -122,7 +123,7 @@ namespace ColorWanted
             colorBuffer = new StringBuilder(8, 64);
 
 
-            if (Settings.PreviewVisible)
+            if (Settings.Preview.Visible)
             {
                 TogglePreview();
             }
@@ -132,7 +133,7 @@ namespace ColorWanted
                 FixedPosition();
             }
 
-            SwitchFormatMode(Settings.FormatMode);
+            SwitchFormatMode(Settings.Main.Format);
 
             var now = DateTime.Now;
 
@@ -141,25 +142,25 @@ namespace ColorWanted
 
             HotKey.Bind(Handle);
 
-            trayMenuCopyPolicyHexValueOnly.Checked = Settings.HexValueOnly;
-            trayMenuCopyPolicyRgbValueOnly.Checked = Settings.RgbValueOnly;
+            trayMenuCopyPolicyHexValueOnly.Checked = Settings.Base.HexValueOnly;
+            trayMenuCopyPolicyRgbValueOnly.Checked = Settings.Base.RgbValueOnly;
 
             new Thread(() =>
             {
                 // 读取开机启动的注册表
-                trayMenuAutoStart.Checked = Settings.Autostart;
+                trayMenuAutoStart.Checked = Settings.Base.Autostart;
 
                 // 检查是否是首次运行
-                if (Settings.IsFirstRun)
+                if (Settings.Base.IsFirstRun)
                 {
-                    Settings.IsFirstRun = false;
+                    Settings.Base.IsFirstRun = false;
 
                     // 首次运行时，打开帮助窗口
                     trayMenuShowHelp_Click(null, null);
                 }
 
-                trayMenuAutoPin.Checked = Settings.AutoPin;
-                trayMenuCheckUpdateOnStartup.Checked = Settings.CheckUpdateOnStartup;
+                trayMenuAutoPin.Checked = Settings.Base.AutoPin;
+                trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;
 
                 // 启动时检查更新
                 if (trayMenuCheckUpdateOnStartup.Checked)
@@ -215,7 +216,7 @@ namespace ColorWanted
             if (!settingLoaded)
             {
                 // 不晓得为啥，在启动时加载Visible会被覆盖，所在放到这里来了
-                SwitchDisplayMode(Settings.DisplayMode);
+                SwitchDisplayMode(Settings.Main.Display);
 
                 settingLoaded = true;
             }
@@ -490,7 +491,7 @@ namespace ColorWanted
 
             if (settingLoaded)
             {
-                Settings.Location = Location;
+                Settings.Main.Location = Location;
             }
         }
 
@@ -548,7 +549,7 @@ namespace ColorWanted
             // ReSharper disable once PossibleNullReferenceException
             item.Checked = !item.Checked;
 
-            Settings.HexValueOnly = item.Checked;
+            Settings.Base.HexValueOnly = item.Checked;
         }
 
         private void trayMenuCopyPolicyRgbValueOnly_Click(object sender, EventArgs e)
@@ -557,12 +558,12 @@ namespace ColorWanted
             // ReSharper disable once PossibleNullReferenceException
             item.Checked = !item.Checked;
 
-            Settings.RgbValueOnly = item.Checked;
+            Settings.Base.RgbValueOnly = item.Checked;
         }
 
         private void trayMenuShowHelp_Click(object sender, EventArgs e)
         {
-            var form = Application.OpenForms["HelpForm"] ?? new HelpForm();
+            var form = Application.OpenForms["HelpForm"] ?? new AboutForm();
             form.Show();
         }
 
@@ -579,7 +580,7 @@ namespace ColorWanted
             item.Checked = !item.Checked;
             if (settingLoaded)
             {
-                Settings.AutoPin = item.Checked;
+                Settings.Base.AutoPin = item.Checked;
             }
         }
         private void trayMenuShowColorPicker_Click(object sender, EventArgs e)
@@ -604,7 +605,7 @@ namespace ColorWanted
             item.Checked = !item.Checked;
 
             // 写注册表
-            Settings.Autostart = item.Checked;
+            Settings.Base.Autostart = item.Checked;
         }
 
         private void trayMenuCheckUpdate_Click(object sender, EventArgs e)
@@ -618,19 +619,19 @@ namespace ColorWanted
             // ReSharper disable once PossibleNullReferenceException
             item.Checked = !item.Checked;
 
-            Settings.CheckUpdateOnStartup = item.Checked;
+            Settings.Update.CheckOnStartup = item.Checked;
         }
 
         private void trayMenuOpenConfigFile_Click(object sender, EventArgs e)
         {
             try
             {
-                if (!File.Exists(Settings.FileName))
+                if (!File.Exists(Settings.FullName))
                 {
-                    File.Create(Settings.FileName).Close();
+                    File.Create(Settings.FullName).Close();
                 }
 
-                Process.Start(Settings.FileName);
+                Process.Start(Settings.FullName);
             }
             catch (Exception ex)
             {
@@ -648,14 +649,14 @@ namespace ColorWanted
         {
             trayMenuCopyPolicyHexValueOnly.Checked =
                 trayMenuCopyPolicyRgbValueOnly.Checked =
-                    Settings.HexValueOnly =
-                        Settings.RgbValueOnly =
-                            !Settings.HexValueOnly;
+                    Settings.Base.HexValueOnly =
+                        Settings.Base.RgbValueOnly =
+                            !Settings.Base.HexValueOnly;
         }
 
         private void TogglePreview()
         {
-            Settings.PreviewVisible = trayMenuShowPreview.Checked = previewForm.Visible = !previewForm.Visible;
+            Settings.Preview.Visible = trayMenuShowPreview.Checked = previewForm.Visible = !previewForm.Visible;
             if (previewForm.Visible)
             {
                 previewForm.BringToFront();
@@ -715,7 +716,7 @@ namespace ColorWanted
             }
 
             // 加载保存的自定义颜色
-            colorPicker.CustomColors = Settings.CustomColors;
+            colorPicker.CustomColors = Settings.Base.CustomColors;
 
             trayMenuShowColorPicker.Checked = true;
             if (DialogResult.OK == colorPicker.ShowDialog(this))
@@ -725,7 +726,7 @@ namespace ColorWanted
                 Util.SetClipboard(Handle, string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B));
 
                 // 保存自定义颜色
-                Settings.CustomColors = colorPicker.CustomColors;
+                Settings.Base.CustomColors = colorPicker.CustomColors;
             }
 
             trayMenuShowColorPicker.Checked = false;
@@ -813,7 +814,7 @@ namespace ColorWanted
             currentDisplayMode = mode;
             if (settingLoaded)
             {
-                Settings.DisplayMode = mode;
+                Settings.Main.Display = mode;
             }
         }
 
@@ -853,7 +854,7 @@ namespace ColorWanted
 
             if (settingLoaded)
             {
-                Settings.FormatMode = mode;
+                Settings.Main.Format = mode;
             }
         }
 
@@ -896,7 +897,7 @@ namespace ColorWanted
         /// </summary>
         private void FixedPosition()
         {
-            var loc = Settings.Location;
+            var loc = Settings.Main.Location;
             if (loc.IsEmpty)
             {
                 // 配置文件里面没有位置数据或数据无效，那么将窗口显示在默认的位置

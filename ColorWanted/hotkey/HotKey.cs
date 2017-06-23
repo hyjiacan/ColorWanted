@@ -1,52 +1,89 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
-using ColorWanted.enums;
 using ColorWanted.ext;
+using ColorWanted.setting;
 using ColorWanted.util;
 
 namespace ColorWanted.hotkey
 {
-    internal class HotKey
+    [AttributeUsage(AttributeTargets.Field)]
+    internal class HotKey : Attribute
     {
-        public HotKeyType HotKeyType { get; set; }
-        public KeyModifier KeyModifier { get; set; }
+        public string Name { get; private set; }
+        public KeyModifier Modifiers { get; set; }
         public Keys Key { get; set; }
+        public HotKeyType HotKeyType { get; set; }
+
+        public HotKey(string name)
+        {
+            Name = name;
+            Modifiers = KeyModifier.Alt;
+        }
+
+        public override string ToString()
+        {
+            var buffer = new StringBuilder();
+            if ((Modifiers & KeyModifier.Ctrl) == KeyModifier.Ctrl)
+            {
+                buffer.Append(@"Ctrl + ");
+            }
+            if ((Modifiers & KeyModifier.Shift) == KeyModifier.Shift)
+            {
+                buffer.Append(@"Shift + ");
+            }
+            if ((Modifiers & KeyModifier.Alt) == KeyModifier.Alt)
+            {
+                buffer.Append(@"Alt + ");
+            }
+            if (Key == Keys.Oemtilde)
+            {
+                buffer.Append("`");
+            }
+            else if (Key == Keys.Enter)
+            {
+                buffer.Append("Enter");
+            }
+            else
+            {
+                buffer.Append(Key);
+            }
+            return buffer.ToString();
+        }
+
+        public string ToFullString()
+        {
+            return string.Format(@"{0} # {1} #", Name, ToString());
+        }
+
+        public static HotKey FromType(HotKeyType hotKeyType)
+        {
+            var type = typeof(HotKeyType);
+            var attrs = type.GetField(hotKeyType.ToString()).GetCustomAttributes(typeof(HotKey), false);
+            if (attrs.Length == 0)
+            {
+                return null;
+            }
+            var attr = attrs[0] as HotKey;
+            // ReSharper disable once PossibleNullReferenceException
+            attr.HotKeyType = hotKeyType;
+            return attr;
+        }
 
         private static IntPtr MainFormHandle;
 
-        public HotKey() { }
-
-        public HotKey(HotKeyType hotKeyType, Keys key, KeyModifier keyModifier = KeyModifier.Alt)
-        {
-            HotKeyType = hotKeyType;
-            KeyModifier = keyModifier;
-            Key = key;
-        }
-
-        private static readonly HotKey[] hotkeys;
-        // TODO 定义快捷键   
-        static HotKey()
-        {
-            hotkeys = new[]
-            { 
-                new HotKey(HotKeyType.BringToTop ,Keys.T),
-                new HotKey(HotKeyType.CopyColor,  Keys.C),
-                new HotKey(HotKeyType.CopyPolicy,  Keys.V),   
-                new HotKey(HotKeyType.ControlDraw,  Keys.Oemtilde),
-                new HotKey(HotKeyType.ShowColorPicker,  Keys.F3),
-                new HotKey(HotKeyType.ShowMoreFormat,  Keys.E),
-                new HotKey(HotKeyType.ShowPreview,  Keys.F2),
-                new HotKey(HotKeyType.SwitchMode,  Keys.F1) 
-            };
-        }
-
         public static HotKey Get(HotKeyType type)
         {
-            return hotkeys.First(item => item.HotKeyType == type);
+            return Settings.Hotkeys.Get(type) ?? FromType(type);
         }
 
+        public static void Set(HotKey hotkey)
+        {
+            Settings.Hotkeys.Set(hotkey);
+        }
 
+        #region 快捷键的绑定与解除绑定操作
         /// <summary>
         /// 将全局快捷键绑定到指定句柄上
         /// </summary>
@@ -56,7 +93,7 @@ namespace ColorWanted.hotkey
             MainFormHandle = handle;
             foreach (var hotkey in Util.Enum<HotKeyType>().Select(Get))
             {
-                NativeMethods.RegisterHotKey(handle, hotkey.HotKeyType.AsInt(), hotkey.KeyModifier, hotkey.Key);
+                NativeMethods.RegisterHotKey(handle, hotkey.HotKeyType.AsInt(), hotkey.Modifiers, hotkey.Key);
             }
         }
 
@@ -86,5 +123,7 @@ namespace ColorWanted.hotkey
         {
             Unbind(MainFormHandle);
         }
+        #endregion
     }
 }
+

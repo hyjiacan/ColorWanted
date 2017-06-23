@@ -85,7 +85,7 @@ namespace ColorWanted.history
             }
         }
 
-        private ListViewItem RenderItem(ColorHistory history, ListViewGroup group)
+        private static ListViewItem RenderItem(ColorHistory history, ListViewGroup group)
         {
             return new ListViewItem(group)
             {

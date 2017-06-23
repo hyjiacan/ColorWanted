@@ -1,4 +1,4 @@
-﻿namespace ColorWanted.enums
+﻿namespace ColorWanted.mode
 {
     /// <summary>
     /// 窗口显示模式

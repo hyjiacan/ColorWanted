@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using ColorWanted.setting;
 using ColorWanted.util;
 
 namespace ColorWanted.history

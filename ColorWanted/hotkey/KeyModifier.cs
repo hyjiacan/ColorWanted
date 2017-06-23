@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ColorWanted.enums
+namespace ColorWanted.hotkey
 {
     /**
      * 这个定义在 winuser.h 中
@@ -16,6 +16,6 @@ namespace ColorWanted.enums
         Alt = 1,
         Ctrl = 2,
         Shift = 4,
-        WindowsKey = 8
+        //Windows = 8
     }
 }

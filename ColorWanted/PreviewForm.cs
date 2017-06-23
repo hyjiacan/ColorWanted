@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 using ColorWanted.ext;
+using ColorWanted.setting;
 using ColorWanted.util;
 
 namespace ColorWanted
@@ -42,7 +43,7 @@ namespace ColorWanted
             InitializeComponent();
 
             // 加载保存的窗口大小
-            var w = Settings.PreviewSize;
+            var w = Settings.Preview.Size;
             if (w != 0)
             {
                 Width = Height = w;
@@ -79,7 +80,7 @@ namespace ColorWanted
             Width = Height = Width + 11 * delta;
 
             // 记住大小
-            Settings.PreviewSize = Width;
+            Settings.Preview.Size = Width;
         }
 
         /// <summary>
@@ -117,12 +118,12 @@ namespace ColorWanted
 
         private void PreviewForm_LocationChanged(object sender, EventArgs e)
         {
-            Settings.PreviewLocation = Location;
+            Settings.Preview.Location = Location;
         }
 
         private void PreviewForm_Load(object sender, EventArgs e)
         {
-            Location = Settings.PreviewLocation;
+            Location = Settings.Preview.Location;
         }
 
 

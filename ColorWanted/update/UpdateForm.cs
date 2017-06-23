@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using ColorWanted.ext;
-using ColorWanted.util;
+using ColorWanted.setting;
 
 namespace ColorWanted.update
 {
@@ -172,7 +172,7 @@ namespace ColorWanted.update
 
         private void linkIgnore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Settings.IgnoreVersion = update.Version;
+            Settings.Update.IgnoreVersion = update.Version;
             CancelHide();
             DelayHide(0);
         }
