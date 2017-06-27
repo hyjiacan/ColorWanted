@@ -297,11 +297,11 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(83, 424);
+            this.label8.Location = new System.Drawing.Point(94, 435);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(281, 12);
             this.label8.TabIndex = 13;
-            this.label8.Text = "本程序版权归 hyjiacan 所有，版权受到法律会保护";
+            this.label8.Text = "本程序版权归 hyjiacan 所有，版权受到法律保护。";
             // 
             // label9
             // 
@@ -311,7 +311,7 @@
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(257, 36);
             this.label9.TabIndex = 13;
-            this.label9.Text = "对因使用本程序导致的直接或间接的一切损失，\r\n\r\n须使用者自行承担，本人没有任何责任和义务";
+            this.label9.Text = "对因使用本程序导致的直接或间接的一切损失，\r\n\r\n须使用者自行承担，本人不承担任何责任。";
             // 
             // label10
             // 

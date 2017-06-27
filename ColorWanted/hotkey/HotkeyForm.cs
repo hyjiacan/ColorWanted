@@ -28,7 +28,6 @@ namespace ColorWanted.hotkey
         {
             HotKey.Bind();
             Close();
-            Dispose();
         }
 
         private void HotkeyForm_Load(object sender, EventArgs e)

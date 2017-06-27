@@ -36,17 +36,20 @@ namespace ColorWanted.hotkey
             {
                 buffer.Append(@"Alt + ");
             }
-            if (Key == Keys.Oemtilde)
+            switch (Key)
             {
-                buffer.Append("`");
-            }
-            else if (Key == Keys.Enter)
-            {
-                buffer.Append("Enter");
-            }
-            else
-            {
-                buffer.Append(Key);
+                case Keys.Oemtilde:
+                    buffer.Append("`");
+                    break;
+                case Keys.Enter:
+                    buffer.Append("Enter");
+                    break;
+                case Keys.CapsLock:
+                    buffer.Append("CapsLock");
+                    break;
+                default:
+                    buffer.Append(Key);
+                    break;
             }
             return buffer.ToString();
         }

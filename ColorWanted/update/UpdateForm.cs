@@ -194,7 +194,6 @@ namespace ColorWanted.update
             if (timeout == 0)
             {
                 Close();
-                Dispose();
                 return;
             }
             if (hideTimer == null)

@@ -43,10 +43,10 @@
             this.tbInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.tbInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbInput.ForeColor = System.Drawing.Color.Lime;
-            this.tbInput.Location = new System.Drawing.Point(3, 30);
+            this.tbInput.Location = new System.Drawing.Point(36, 30);
             this.tbInput.Name = "tbInput";
             this.tbInput.ReadOnly = true;
-            this.tbInput.Size = new System.Drawing.Size(438, 21);
+            this.tbInput.Size = new System.Drawing.Size(405, 21);
             this.tbInput.TabIndex = 21;
             this.tbInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyDown);
             this.tbInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyUp);

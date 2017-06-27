@@ -35,6 +35,7 @@ namespace ColorWanted.setting
 
                 var hotkey = HotKey.FromType(type);
                 hotkey.Modifiers = (KeyModifier)Enum.Parse(typeof(KeyModifier), temp[0]);
+
                 switch (temp[1])
                 {
                     case "`":
@@ -42,6 +43,9 @@ namespace ColorWanted.setting
                         break;
                     case "Enter":
                         hotkey.Key = Keys.Enter;
+                        break;
+                    case "CapsLock":
+                        hotkey.Key = Keys.CapsLock;
                         break;
                     default:
                         hotkey.Key = (Keys) Enum.Parse(typeof(Keys), temp[1]);

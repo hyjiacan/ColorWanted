@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace ColorWanted.hotkey
@@ -53,6 +54,7 @@ namespace ColorWanted.hotkey
             {
                 buffer.Clear();
             }
+
             hotkey.Modifiers = KeyModifier.None;
             if (e.Control)
             {
@@ -87,6 +89,16 @@ namespace ColorWanted.hotkey
             else if (e.KeyCode == Keys.Enter)
             {
                 buffer.Append("Enter");
+            }
+            else if (e.KeyCode == Keys.CapsLock)
+            {
+                buffer.Append("CapsLock");
+            }
+            else if (new[] {
+                    Keys.Space}
+                .Contains(e.KeyCode))
+            {
+                buffer.Append(e.KeyCode);
             }
 
             tbInput.Text = buffer.ToString();

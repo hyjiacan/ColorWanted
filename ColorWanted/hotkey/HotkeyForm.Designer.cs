@@ -75,8 +75,9 @@
             // 
             // lbMsg
             // 
+            this.lbMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbMsg.AutoSize = true;
-            this.lbMsg.Location = new System.Drawing.Point(45, 395);
+            this.lbMsg.Location = new System.Drawing.Point(45, 583);
             this.lbMsg.Name = "lbMsg";
             this.lbMsg.Size = new System.Drawing.Size(71, 12);
             this.lbMsg.TabIndex = 21;
@@ -84,9 +85,10 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(409, 395);
+            this.label5.Location = new System.Drawing.Point(409, 583);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(179, 12);
             this.label5.TabIndex = 24;
@@ -101,7 +103,7 @@
             this.panel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.panel.Location = new System.Drawing.Point(47, 46);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(520, 320);
+            this.panel.Size = new System.Drawing.Size(520, 514);
             this.panel.TabIndex = 25;
             this.panel.WrapContents = false;
             // 
@@ -123,7 +125,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(610, 416);
+            this.ClientSize = new System.Drawing.Size(610, 610);
             this.Controls.Add(this.lkReset);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.label5);

@@ -149,16 +149,6 @@ namespace ColorWanted
             {
                 // 读取开机启动的注册表
                 trayMenuAutoStart.Checked = Settings.Base.Autostart;
-
-                // 检查是否是首次运行
-                if (Settings.Base.IsFirstRun)
-                {
-                    Settings.Base.IsFirstRun = false;
-
-                    // 首次运行时，打开帮助窗口
-                    trayMenuShowHelp_Click(null, null);
-                }
-
                 trayMenuAutoPin.Checked = Settings.Base.AutoPin;
                 trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;
 
@@ -176,6 +166,21 @@ namespace ColorWanted
             colorTimer = new Timer { Interval = colorInterval };
             colorTimer.Tick += colortimer_Tick;
             colorTimer.Start();
+
+            // 检查是否是首次运行
+            if (Settings.Base.IsFirstRun)
+            {
+                Settings.Base.IsFirstRun = false;
+
+                // 首次运行时，打开帮助窗口
+                trayMenuShowHelp_Click(null, null);
+                if (IsDisposed)
+                {
+                    return;
+                }
+                // 然后打开快捷键设置窗口
+                trayMenuHotkey_Click(null, null);
+            }
 
         }
 
@@ -387,6 +392,17 @@ namespace ColorWanted
                 case HotKeyType.ControlDraw:
                     DrawControl(doubleClick);
                     break;
+                    // 设置窗口在最前显示
+                case HotKeyType.BringToTop:
+                    if (Visible)
+                    {
+                        BringToFront();
+                    }
+                    if (previewForm != null && previewForm.Visible)
+                    {
+                        previewForm.BringToFront();
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -411,8 +427,15 @@ namespace ColorWanted
 
         public static void CheckUpdate(bool showDetail = false)
         {
-            var form = Application.OpenForms["UpdateForm"] as UpdateForm ?? new UpdateForm { ShowDetail = showDetail };
-            form.Action();
+            try
+            {
+                var form = Application.OpenForms["UpdateForm"] as UpdateForm ?? new UpdateForm { ShowDetail = showDetail };
+                form.Action();
+            }
+            catch (ObjectDisposedException)
+            {
+                // ignore
+            }
         }
 
         private void previewForm_LocationChanged(object sender, EventArgs e)
@@ -563,8 +586,15 @@ namespace ColorWanted
 
         private void trayMenuShowHelp_Click(object sender, EventArgs e)
         {
-            var form = Application.OpenForms["HelpForm"] ?? new AboutForm();
-            form.Show();
+            try
+            {
+                var form = Application.OpenForms["HelpForm"] ?? new AboutForm();
+                form.ShowDialog(this);
+            }
+            catch (ObjectDisposedException)
+            {
+                // ignore
+            }
         }
 
 
@@ -595,8 +625,15 @@ namespace ColorWanted
         }
         private void trayMenuHotkey_Click(object sender, EventArgs e)
         {
-            var form = Application.OpenForms["HotkeyForm"] ?? new HotkeyForm();
-            form.Show();
+            try
+            {
+                var form = Application.OpenForms["HotkeyForm"] ?? new HotkeyForm();
+                form.ShowDialog(this);
+            }
+            catch (ObjectDisposedException)
+            {
+                // ignore
+            }
         }
         private void trayMenuAutoStart_Click(object sender, EventArgs e)
         {
@@ -641,8 +678,15 @@ namespace ColorWanted
 
         private void trayMenuHistory_Click(object sender, EventArgs e)
         {
-            var form = Application.OpenForms["HistoryForm"] ?? new HistoryForm();
-            form.Show();
+            try
+            {
+                var form = Application.OpenForms["HistoryForm"] ?? new HistoryForm();
+                form.Show();
+            }
+            catch (ObjectDisposedException)
+            {
+                // ignore
+            }
         }
 
         private void ToggleCopyPolicy()
