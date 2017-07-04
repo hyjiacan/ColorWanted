@@ -147,6 +147,8 @@ namespace ColorWanted
 
             new Thread(() =>
             {
+                UpdateTooltip();
+
                 // 读取开机启动的注册表
                 trayMenuAutoStart.Checked = Settings.Base.Autostart;
                 trayMenuAutoPin.Checked = Settings.Base.AutoPin;
@@ -182,6 +184,27 @@ namespace ColorWanted
                 trayMenuHotkey_Click(null, null);
             }
 
+        }
+
+        public void UpdateTooltip()
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(() =>
+                {
+                    tooltip.SetToolTip(lbHex, "十六进制颜色值，快速复制：" +
+                                              HotKey.Get(HotKeyType.CopyColor));
+                    tooltip.SetToolTip(lbRgb, "RGB通道颜色值，快速复制：双击" +
+                                              HotKey.Get(HotKeyType.CopyColor));
+                }));
+            }
+            else
+            {
+                tooltip.SetToolTip(lbHex, "十六进制颜色值，快速复制：" +
+                                          HotKey.Get(HotKeyType.CopyColor));
+                tooltip.SetToolTip(lbRgb, "RGB通道颜色值，快速复制：双击" +
+                                          HotKey.Get(HotKeyType.CopyColor));
+            }
         }
 
         /// <summary>

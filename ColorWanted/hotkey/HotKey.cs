@@ -21,6 +21,11 @@ namespace ColorWanted.hotkey
             Name = name;
         }
 
+        public bool HasHotkey()
+        {
+            return Modifiers != KeyModifier.None || Key != Keys.None;
+        }
+
         public override string ToString()
         {
             var buffer = new StringBuilder();
@@ -100,7 +105,8 @@ namespace ColorWanted.hotkey
         public static void Bind(IntPtr handle)
         {
             MainFormHandle = handle;
-            foreach (var hotkey in Util.Enum<HotKeyType>().Select(Get))
+            foreach (var hotkey in Util.Enum<HotKeyType>().Select(Get)
+                .Where(hotkey=>hotkey.HasHotkey()))
             {
                 NativeMethods.RegisterHotKey(handle,
                     hotkey.HotKeyType.AsInt(),

@@ -75,7 +75,6 @@
             this.lbHex.TabIndex = 0;
             this.lbHex.Text = "#FFFFFF";
             this.lbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltip.SetToolTip(this.lbHex, "十六进制颜色值，快速复制：Alt+C");
             this.lbHex.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // lbRgb
@@ -90,7 +89,6 @@
             this.lbRgb.TabIndex = 0;
             this.lbRgb.Text = "RGB(255,255,255)";
             this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltip.SetToolTip(this.lbRgb, "RGB通道颜色值，快速复制：双击 Alt+C 两次");
             this.lbRgb.Visible = false;
             this.lbRgb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 

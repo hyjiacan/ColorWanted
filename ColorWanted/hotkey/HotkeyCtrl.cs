@@ -18,19 +18,24 @@ namespace ColorWanted.hotkey
             InitializeComponent();
         }
 
+        private string GetHotkeyText(HotKey hotkey)
+        {
+            return hotkey.HasHotkey() ? hotkey.ToString() : "无";
+        }
+
         public HotkeyCtrl(HotKey hotkey)
         {
             InitializeComponent();
 
             this.hotkey = hotkey;
             lbTypeName.Text = hotkey.Name;
-            tbInput.Text = hotkey.ToString();
+            tbInput.Text = GetHotkeyText(hotkey);
         }
 
         public void Reset()
         {
             hotkey.Reset();
-            tbInput.Text = hotkey.ToString();
+            tbInput.Text = GetHotkeyText(hotkey);
             lkOK_LinkClicked(null, null);
         }
 
@@ -39,10 +44,9 @@ namespace ColorWanted.hotkey
             // 删除键，清空快捷键
             if (e.KeyValue == 8)
             {
-                tbInput.Clear();
-
                 hotkey.Modifiers = KeyModifier.None;
                 hotkey.Key = Keys.None;
+                tbInput.Text = "无";
                 return;
             }
 
@@ -109,10 +113,9 @@ namespace ColorWanted.hotkey
         private void tbInput_KeyUp(object sender, KeyEventArgs e)
         {
             var str = tbInput.Text.TrimEnd();
-
             if (!str.EndsWith("+")) return;
 
-            tbInput.Text = hotkey.ToString();
+            tbInput.Text = GetHotkeyText(hotkey);
         }
 
         private void lkOK_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
