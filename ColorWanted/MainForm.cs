@@ -1,6 +1,8 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.history;
 using ColorWanted.hotkey;
+using ColorWanted.mode;
+using ColorWanted.setting;
 using ColorWanted.update;
 using ColorWanted.util;
 using System;
@@ -13,8 +15,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using ColorWanted.mode;
-using ColorWanted.setting;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ColorWanted
@@ -81,6 +81,11 @@ namespace ColorWanted
         /// 颜色值字符串的缓存
         /// </summary>
         private StringBuilder colorBuffer;
+
+        /// <summary>
+        /// 检查更新的间隔天数
+        /// </summary>
+        private const int UPDATE_SPAN = 1;
 
         public MainForm()
         {
@@ -152,14 +157,10 @@ namespace ColorWanted
                 // 读取开机启动的注册表
                 trayMenuAutoStart.Checked = Settings.Base.Autostart;
                 trayMenuAutoPin.Checked = Settings.Base.AutoPin;
-                trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;
-
-                // 启动时检查更新
-                if (trayMenuCheckUpdateOnStartup.Checked)
-                {
-                    CheckUpdate();
-                }
-            }).Start();
+            })
+            {
+                IsBackground = true
+            }.Start();
 
             caretTimer = new Timer { Interval = caretInterval };
             caretTimer.Tick += carettimer_Tick;
@@ -172,18 +173,27 @@ namespace ColorWanted
             // 检查是否是首次运行
             if (Settings.Base.IsFirstRun)
             {
+
                 Settings.Base.IsFirstRun = false;
 
                 // 首次运行时，打开帮助窗口
                 trayMenuShowHelp_Click(null, null);
-                if (IsDisposed)
+                if (!IsDisposed)
                 {
-                    return;
+                    // 然后打开快捷键设置窗口
+                    trayMenuHotkey_Click(null, null);
                 }
-                // 然后打开快捷键设置窗口
-                trayMenuHotkey_Click(null, null);
             }
 
+            // 启动时检查更新
+            trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;
+
+            // 自动检查更新
+            if (trayMenuCheckUpdateOnStartup.Checked &&
+                (DateTime.Now.Date - Settings.Update.LastUpdate).TotalDays >= UPDATE_SPAN)
+            {
+                UpdateForm.ShowWindow(true);
+            }
         }
 
         public void UpdateTooltip()
@@ -415,7 +425,7 @@ namespace ColorWanted
                 case HotKeyType.ControlDraw:
                     DrawControl(doubleClick);
                     break;
-                    // 设置窗口在最前显示
+                // 设置窗口在最前显示
                 case HotKeyType.BringToTop:
                     if (Visible)
                     {
@@ -445,20 +455,6 @@ namespace ColorWanted
             NativeMethods.ReleaseCapture();
             NativeMethods.SendMessage(Handle, NativeMethods.WM_SYSCOMMAND,
                 new IntPtr(NativeMethods.SC_MOVE + NativeMethods.HTCAPTION), IntPtr.Zero);
-
-        }
-
-        public static void CheckUpdate(bool showDetail = false)
-        {
-            try
-            {
-                var form = Application.OpenForms["UpdateForm"] as UpdateForm ?? new UpdateForm { ShowDetail = showDetail };
-                form.Action();
-            }
-            catch (ObjectDisposedException)
-            {
-                // ignore
-            }
         }
 
         private void previewForm_LocationChanged(object sender, EventArgs e)
@@ -670,7 +666,7 @@ namespace ColorWanted
 
         private void trayMenuCheckUpdate_Click(object sender, EventArgs e)
         {
-            CheckUpdate(true);
+            UpdateForm.ShowWindow();
         }
 
         private void trayMenuCheckUpdateOnStartup_Click(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.hotkey;
+using ColorWanted.update;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -74,7 +75,7 @@ namespace ColorWanted
 
         private void lkVersion_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MainForm.CheckUpdate(true);
+            UpdateForm.ShowWindow();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ColorWanted.hotkey
             InitializeComponent();
         }
 
-        private string GetHotkeyText(HotKey hotkey)
+        private static string GetHotkeyText(HotKey hotkey)
         {
             return hotkey.HasHotkey() ? hotkey.ToString() : "无";
         }

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace ColorWanted.setting
 {
     partial class Settings
@@ -37,6 +39,26 @@ namespace ColorWanted.setting
                 set
                 {
                     Set("checkonstartup", value ? "1" : "0");
+                }
+            }
+
+            /// <summary>
+            /// 最后一次检查更新的日期
+            /// </summary>
+            public static DateTime LastUpdate
+            {
+                get
+                {
+                    DateTime date;
+                    if (!DateTime.TryParse(Get("lastupdate"), out date))
+                    {
+                        date = DateTime.MinValue;
+                    }
+                    return date;
+                }
+                set
+                {
+                    Set("lastupdate", value.ToString("yyyy-MM-dd"));
                 }
             }
         }

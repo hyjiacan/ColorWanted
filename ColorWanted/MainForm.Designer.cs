@@ -301,8 +301,9 @@
             // trayMenuCheckUpdateOnStartup
             // 
             this.trayMenuCheckUpdateOnStartup.Name = "trayMenuCheckUpdateOnStartup";
-            this.trayMenuCheckUpdateOnStartup.Size = new System.Drawing.Size(136, 22);
+            this.trayMenuCheckUpdateOnStartup.Size = new System.Drawing.Size(152, 22);
             this.trayMenuCheckUpdateOnStartup.Text = "启动时检查";
+            this.trayMenuCheckUpdateOnStartup.ToolTipText = "每天首次启动时检查更新";
             this.trayMenuCheckUpdateOnStartup.Click += new System.EventHandler(this.trayMenuCheckUpdateOnStartup_Click);
             // 
             // trayMenuShowAbout

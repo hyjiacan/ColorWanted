@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ColorWanted.ext;
+using ColorWanted.setting;
+using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using ColorWanted.ext;
-using ColorWanted.setting;
 
 namespace ColorWanted.update
 {
@@ -13,15 +14,49 @@ namespace ColorWanted.update
         /// 定时隐藏升级提示窗口
         /// </summary>
         private System.Threading.Timer hideTimer;
-        public UpdateForm()
+
+        private static UpdateForm Instance;
+        private static bool AutoClose;
+
+        private UpdateInfo update;
+
+        private bool Busy;
+
+        /// <summary>
+        /// 呈现更新状态的后台线程
+        /// </summary>
+        private BackgroundWorker updateStatePresent;
+
+        private Image originLogo;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void ShowWindow(bool autoClose = false)
+        {
+            AutoClose = autoClose;
+
+            if (Instance == null)
+            {
+                Instance = new UpdateForm();
+            }
+
+            if (Instance.Busy)
+            {
+                return;
+            }
+
+            Instance.Show();
+            Instance.BringToFront();
+            new Thread(Instance.RunCheck) { IsBackground = true }.Start();
+        }
+
+        private UpdateForm()
         {
             InitializeComponent();
             var screen = Screen.PrimaryScreen.WorkingArea;
             Location = new Point(screen.Width - Width, screen.Height - Height);
         }
-
-        private UpdateInfo update;
-
         protected override CreateParams CreateParams
         {
             get
@@ -29,7 +64,7 @@ namespace ColorWanted.update
                 const int WS_EX_APPWINDOW = 0x40000;
                 const int WS_EX_TOOLWINDOW = 0x80;
                 var cp = base.CreateParams;
-                cp.ExStyle &= (~WS_EX_APPWINDOW);    // 不显示在TaskBar
+                cp.ExStyle &= ~WS_EX_APPWINDOW;    // 不显示在TaskBar
                 cp.ExStyle |= WS_EX_TOOLWINDOW;      // 不显示在Alt-Tab
                 return cp;
             }
@@ -50,77 +85,33 @@ namespace ColorWanted.update
             DelayHide(0);
         }
 
-        public bool ShowDetail { get; set; }
-
-        public void Action()
+        private void RunCheck()
         {
-            if (InvokeRequired)
+            if (updateStatePresent == null)
             {
-                Invoke(new MethodInvoker(() =>
+                updateStatePresent = new BackgroundWorker
                 {
-                    linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
-                    lbCurrent.Text = @"当前版本 " + Application.ProductVersion;
-
-                    if (ShowDetail)
-                    {
-                        ShowWindow();
-                    }
-                    lbMsg.Text = @"正在检查更新版本...";
-                }));
+                    WorkerSupportsCancellation = true
+                };
+                updateStatePresent.DoWork += updateStatePresent_DoWork;
+                updateStatePresent.RunWorkerCompleted += updateStatePresent_RunWorkerCompleted;
             }
-            else
+            Busy = true;
+
+            updateStatePresent.RunWorkerAsync();
+
+            InvokeMethod(() =>
             {
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
                 lbCurrent.Text = @"当前版本 " + Application.ProductVersion;
-
-                if (ShowDetail)
-                {
-                    ShowWindow();
-                }
                 lbMsg.Text = @"正在检查更新版本...";
-            }
+            });
 
-
-            if (ShowDetail)
-            {
-                new Thread(RunCheck).Start();
-            }
-            else
-            {
-                RunCheck();
-            }
-        }
-
-        private void RunCheck()
-        {
             update = OnlineUpdate.Check();
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(() =>
-                {
-                    if (update == null)
-                    {
-                        lbMsg.Text = @"没有更新版本";
-                        DelayHide();
-                        return;
-                    }
 
-                    if (!update.Status)
-                    {
-                        lbMsg.Text = @"检查更新失败";
-                        DelayHide();
-                        return;
-                    }
+            Settings.Update.LastUpdate = DateTime.Now;
 
-                    linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
-
-                    lbMsg.Text = @"有新版本 " + update.Version;
-
-                    ShowWindow();
-                    DelayHide(10000);
-                }));
-            }
-            else
+            InvokeMethod(() =>
             {
                 if (update == null)
                 {
@@ -131,17 +122,80 @@ namespace ColorWanted.update
 
                 if (!update.Status)
                 {
-                    lbMsg.Text = @"查检更新失败(可能是网络问题)";
+                    lbMsg.Text = @"检查更新失败";
                     DelayHide();
                     return;
                 }
 
+                if (update.Version == Settings.Update.IgnoreVersion)
+                {
+                    if (AutoClose)
+                    {
+                        DelayHide();
+                        return;
+                    }
+
+                    lbMsg.Text = string.Format(@"有新版本 {0} (已忽略)", update.Version);
+                }
+                else
+                {
+                    lbMsg.Text = @"有新版本 " + update.Version;
+                }
+
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
 
-                lbMsg.Text = @"有新版本 " + update.Version;
+                Busy = false;
+                updateStatePresent.CancelAsync();
 
-                ShowWindow();
-                DelayHide(10000);
+                if (!AutoClose)
+                {
+                    return;
+                }
+                DelayHide(15000);
+            });
+        }
+
+        private void updateStatePresent_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            InvokeMethod(() =>
+            {
+                picLOGO.Image = originLogo;
+                picLOGO.Refresh();
+            });
+        }
+
+        private void updateStatePresent_DoWork(object sender, DoWorkEventArgs e)
+        {
+            originLogo = picLOGO.Image;
+
+            // 反转logo颜色
+            var reverse = new Bitmap(originLogo);
+            for (var i = 0; i < reverse.Width; i++)
+            {
+                for (var j = 0; j < reverse.Height; j++)
+                {
+                    var c = reverse.GetPixel(i, j);
+                    reverse.SetPixel(i, j,
+                        Color.FromArgb(255 - c.R, 255 - c.G, 255 - c.B));
+                }
+            }
+
+            var x = 1;
+
+            while (true)
+            {
+                if (!Busy)
+                {
+                    break;
+                }
+                var x1 = x;
+                InvokeMethod(() =>
+                {
+                    picLOGO.Image = x1 == 1 ? reverse : originLogo;
+                    picLOGO.Refresh();
+                });
+                Thread.Sleep(250);
+                x *= -1;
             }
         }
 
@@ -153,17 +207,11 @@ namespace ColorWanted.update
             OnlineUpdate.Update(update.Link, update.Version, result =>
             {
                 var msg = @"更新包下载" + (result ? @"完成" : @"失败");
-                if (InvokeRequired)
-                {
-                    Invoke(new MethodInvoker(() =>
-                    {
-                        lbMsg.Text = msg;
-                    }));
-                }
-                else
+
+                InvokeMethod(() =>
                 {
                     lbMsg.Text = msg;
-                }
+                });
 
                 DelayHide();
                 return true;
@@ -183,19 +231,14 @@ namespace ColorWanted.update
             DelayHide(0);
         }
 
-        private void ShowWindow()
-        {
-            Visible = true;
-            BringToFront();
-        }
-
-        private void DelayHide(int timeout = 3000)
+        private void DelayHide(int timeout = 5000)
         {
             if (timeout == 0)
             {
-                Close();
+                Hide();
                 return;
             }
+
             if (hideTimer == null)
             {
                 hideTimer = new System.Threading.Timer(state =>
@@ -221,6 +264,24 @@ namespace ColorWanted.update
 
             hideTimer.Dispose();
             hideTimer = null;
+        }
+
+        private delegate void Invoker();
+
+        private void InvokeMethod(Invoker invoker)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+            if (InvokeRequired)
+            {
+                Invoke(new MethodInvoker(invoker));
+            }
+            else
+            {
+                invoker.Invoke();
+            }
         }
     }
 }

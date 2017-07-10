@@ -27,6 +27,7 @@ namespace ColorWanted.hotkey
         private void btnExit_Click(object sender, EventArgs e)
         {
             HotKey.Bind();
+            // ReSharper disable once PossibleNullReferenceException
             ((MainForm)Application.OpenForms["MainForm"]).UpdateTooltip();
             Close();
         }
@@ -57,7 +58,10 @@ namespace ColorWanted.hotkey
                         ).ToArray());
                     lbMsg.Text = "加载完成";
                 }));
-            }).Start();
+            })
+            {
+                IsBackground = true
+            }.Start();
         }
 
 
