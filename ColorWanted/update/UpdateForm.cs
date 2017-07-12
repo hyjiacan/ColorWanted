@@ -110,6 +110,9 @@ namespace ColorWanted.update
             update = OnlineUpdate.Check();
 
             Settings.Update.LastUpdate = DateTime.Now;
+            
+                Busy = false;
+            updateStatePresent.CancelAsync();
 
             InvokeMethod(() =>
             {
@@ -143,9 +146,6 @@ namespace ColorWanted.update
                 }
 
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
-
-                Busy = false;
-                updateStatePresent.CancelAsync();
 
                 if (!AutoClose)
                 {
@@ -239,23 +239,26 @@ namespace ColorWanted.update
                 return;
             }
 
-            if (hideTimer == null)
+            if (hideTimer != null)
             {
-                hideTimer = new System.Threading.Timer(state =>
+                hideTimer.Change(timeout, Timeout.Infinite);
+                return;
+            }
+
+            hideTimer = new System.Threading.Timer(state =>
+            {
+                if (InvokeRequired)
                 {
-                    if (InvokeRequired)
-                    {
-                        Invoke(new MethodInvoker(() =>
-                        {
-                            DelayHide(0);
-                        }));
-                    }
-                    else
+                    Invoke(new MethodInvoker(() =>
                     {
                         DelayHide(0);
-                    }
-                }, null, timeout, Timeout.Infinite);
-            }
+                    }));
+                }
+                else
+                {
+                    DelayHide(0);
+                }
+            }, null, timeout, Timeout.Infinite);
         }
 
         private void CancelHide()
