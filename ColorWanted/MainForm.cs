@@ -42,7 +42,6 @@ namespace ColorWanted
         private const int caretInterval = 50;
 
         private bool settingLoaded;
-        private Screen screen;
         private PreviewForm previewForm;
         private ColorDialog colorPicker;
 
@@ -82,11 +81,6 @@ namespace ColorWanted
         /// </summary>
         private StringBuilder colorBuffer;
 
-        /// <summary>
-        /// 检查更新的间隔天数
-        /// </summary>
-        private const int UPDATE_SPAN = 1;
-
         public MainForm()
         {
             InitializeComponent();
@@ -120,8 +114,6 @@ namespace ColorWanted
         {
             previewForm = new PreviewForm();
             previewForm.LocationChanged += previewForm_LocationChanged;
-
-            screen = Screen.PrimaryScreen;
 
             currentDisplayMode = DisplayMode.Fixed;
 
@@ -190,7 +182,7 @@ namespace ColorWanted
 
             // 自动检查更新
             if (trayMenuCheckUpdateOnStartup.Checked &&
-                (DateTime.Now.Date - Settings.Update.LastUpdate).TotalDays >= UPDATE_SPAN)
+                (DateTime.Now.Date - Settings.Update.LastUpdate).TotalDays >= Settings.Update.Span)
             {
                 UpdateForm.ShowWindow(true);
             }
@@ -198,23 +190,13 @@ namespace ColorWanted
 
         public void UpdateTooltip()
         {
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(() =>
-                {
-                    tooltip.SetToolTip(lbHex, "十六进制颜色值，快速复制：" +
-                                              HotKey.Get(HotKeyType.CopyColor));
-                    tooltip.SetToolTip(lbRgb, "RGB通道颜色值，快速复制：双击" +
-                                              HotKey.Get(HotKeyType.CopyColor));
-                }));
-            }
-            else
+            this.InvokeMethod(() =>
             {
                 tooltip.SetToolTip(lbHex, "十六进制颜色值，快速复制：" +
                                           HotKey.Get(HotKeyType.CopyColor));
                 tooltip.SetToolTip(lbRgb, "RGB通道颜色值，快速复制：双击" +
                                           HotKey.Get(HotKeyType.CopyColor));
-            }
+            });
         }
 
         /// <summary>
@@ -354,7 +336,7 @@ namespace ColorWanted
 
         private void SetDefaultLocation()
         {
-            var size = screen.Bounds;
+            var size = Util.GetScreenSize();
 
             Left = (size.Width - Width) / 2;
             Top = 0;
@@ -369,7 +351,7 @@ namespace ColorWanted
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            HotKey.Unbind(Handle);
+            this.InvokeMethod(() => HotKey.Unbind(Handle));
         }
 
         /// <summary>
@@ -465,7 +447,7 @@ namespace ColorWanted
             }
 
             #region 针对屏幕边缘
-            var size = screen.Bounds;
+            var size = Util.GetScreenSize();
             if (previewForm.Top <= pinSize)
             {
                 previewForm.Top = 0;
@@ -478,9 +460,9 @@ namespace ColorWanted
             {
                 previewForm.Left = size.Width - previewForm.Width;
             }
-            else if (screen.WorkingArea.Height - previewForm.Top - previewForm.Height <= pinSize)
+            else if (size.Height - previewForm.Top - previewForm.Height <= pinSize)
             {
-                previewForm.Top = screen.WorkingArea.Height - previewForm.Height;
+                previewForm.Top = size.Height - previewForm.Height;
             }
             #endregion
 
@@ -512,7 +494,7 @@ namespace ColorWanted
             }
             if (trayMenuAutoPin.Checked)
             {
-                var size = screen.Bounds;
+                var size = Util.GetScreenSize();
                 if (Top <= pinSize)
                 {
                     Top = 0;
@@ -525,9 +507,9 @@ namespace ColorWanted
                 {
                     Left = size.Width - Width;
                 }
-                else if (screen.WorkingArea.Height - Top - Height <= pinSize)
+                else if (size.Height - Top - Height <= pinSize)
                 {
-                    Top = screen.WorkingArea.Height - Height;
+                    Top = size.Height - Height;
                 }
             }
 
@@ -929,7 +911,7 @@ namespace ColorWanted
             int x = MousePosition.X,
                 y = MousePosition.Y;
 
-            var size = screen.Bounds;
+            var size = Util.GetScreenSize();
 
             if (x <= size.Width - Width)
             {
@@ -945,13 +927,13 @@ namespace ColorWanted
 
                 Top = y + 10;
             }
-            else if (y < screen.WorkingArea.Height - Height)
+            else if (y < size.Height - Height)
             {
                 Top = y + 10;
             }
             else
             {
-                Top = screen.WorkingArea.Height - Height;
+                Top = size.Height - Height;
             }
         }
 

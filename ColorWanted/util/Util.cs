@@ -1,9 +1,11 @@
 ﻿using ColorWanted.ext;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace ColorWanted.util
 {
@@ -105,5 +107,17 @@ namespace ColorWanted.util
         }
 
         private static BugReportForm reportform;
+
+        private static Size ScreenSize;
+
+        public static Size GetScreenSize()
+        {
+            if (!ScreenSize.IsEmpty) return ScreenSize;
+
+            var screen = Screen.PrimaryScreen.WorkingArea;
+            ScreenSize = new Size(screen.Width, screen.Height);
+
+            return ScreenSize;
+        }
     }
 }

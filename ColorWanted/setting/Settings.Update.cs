@@ -61,6 +61,22 @@ namespace ColorWanted.setting
                     Set("lastupdate", value.ToString("yyyy-MM-dd"));
                 }
             }
+
+            /// <summary>
+            /// 每多少天执行一次自动检查更新，默认为1天，设置为0表示每次启动都检查更新
+            /// </summary>
+            public static int Span
+            {
+                get
+                {
+                    int days;
+                    if (!int.TryParse(Get("span"), out days))
+                    {
+                        days = 1;
+                    }
+                    return days;
+                }
+            }
         }
     }
 }

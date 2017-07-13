@@ -36,6 +36,8 @@
             this.linkIgnore = new System.Windows.Forms.LinkLabel();
             this.linkNext = new System.Windows.Forms.LinkLabel();
             this.picLOGO = new System.Windows.Forms.PictureBox();
+            this.lbPercentage = new System.Windows.Forms.Label();
+            this.lbProgress = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,7 +92,7 @@
             this.linkNow.Size = new System.Drawing.Size(53, 12);
             this.linkNow.TabIndex = 18;
             this.linkNow.TabStop = true;
-            this.linkNow.Text = "立即升级";
+            this.linkNow.Text = "立即更新";
             this.linkNow.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkNow_LinkClicked);
             // 
             // linkIgnore
@@ -128,6 +130,25 @@
             this.picLOGO.TabIndex = 12;
             this.picLOGO.TabStop = false;
             // 
+            // lbPercentage
+            // 
+            this.lbPercentage.Location = new System.Drawing.Point(12, 77);
+            this.lbPercentage.Name = "lbPercentage";
+            this.lbPercentage.Size = new System.Drawing.Size(216, 16);
+            this.lbPercentage.TabIndex = 19;
+            this.lbPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbPercentage.Visible = false;
+            // 
+            // lbProgress
+            // 
+            this.lbProgress.BackColor = System.Drawing.Color.Lime;
+            this.lbProgress.Location = new System.Drawing.Point(12, 93);
+            this.lbProgress.Name = "lbProgress";
+            this.lbProgress.Size = new System.Drawing.Size(0, 5);
+            this.lbProgress.TabIndex = 19;
+            this.lbProgress.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbProgress.Visible = false;
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -135,6 +156,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(240, 100);
+            this.Controls.Add(this.lbProgress);
             this.Controls.Add(this.linkNext);
             this.Controls.Add(this.linkIgnore);
             this.Controls.Add(this.linkNow);
@@ -143,12 +165,13 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.picLOGO);
+            this.Controls.Add(this.lbPercentage);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(240, 100);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(240, 100);
+            this.MinimumSize = new System.Drawing.Size(0, 100);
             this.Name = "UpdateForm";
             this.Opacity = 0.8D;
             this.ShowInTaskbar = false;
@@ -172,5 +195,7 @@
         private System.Windows.Forms.LinkLabel linkNow;
         private System.Windows.Forms.LinkLabel linkIgnore;
         private System.Windows.Forms.LinkLabel linkNext;
+        private System.Windows.Forms.Label lbPercentage;
+        private System.Windows.Forms.Label lbProgress;
     }
 }

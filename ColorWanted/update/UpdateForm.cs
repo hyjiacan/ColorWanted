@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.util;
 
 namespace ColorWanted.update
 {
@@ -17,6 +18,7 @@ namespace ColorWanted.update
 
         private static UpdateForm Instance;
         private static bool AutoClose;
+        private static int FormWidth;
 
         private UpdateInfo update;
 
@@ -39,6 +41,7 @@ namespace ColorWanted.update
             if (Instance == null)
             {
                 Instance = new UpdateForm();
+                FormWidth = Instance.Width;
             }
 
             if (Instance.Busy)
@@ -46,8 +49,20 @@ namespace ColorWanted.update
                 return;
             }
 
+            if (Instance.Width == 0)
+            {
+                Instance.Width = FormWidth;
+            }
+
+            Instance.Width = 0;
+            Instance.Left = Util.GetScreenSize().Width;
+
             Instance.Show();
             Instance.BringToFront();
+            if (!AutoClose)
+            {
+                Instance.SlideOut();
+            }
             new Thread(Instance.RunCheck) { IsBackground = true }.Start();
         }
 
@@ -100,7 +115,7 @@ namespace ColorWanted.update
 
             updateStatePresent.RunWorkerAsync();
 
-            InvokeMethod(() =>
+            this.InvokeMethod(() =>
             {
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
                 lbCurrent.Text = @"当前版本 " + Application.ProductVersion;
@@ -110,11 +125,11 @@ namespace ColorWanted.update
             update = OnlineUpdate.Check();
 
             Settings.Update.LastUpdate = DateTime.Now;
-            
-                Busy = false;
+
+            Busy = false;
             updateStatePresent.CancelAsync();
 
-            InvokeMethod(() =>
+            this.InvokeMethod(() =>
             {
                 if (update == null)
                 {
@@ -148,16 +163,40 @@ namespace ColorWanted.update
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
 
                 if (!AutoClose)
-                {
                     return;
-                }
-                DelayHide(15000);
+
+                SlideOut();
             });
+        }
+
+        private void SlideOut()
+        {
+            new Thread(() =>
+            {
+                var step = 8;
+                while (Width < FormWidth)
+                {
+                    var step1 = step;
+                    this.InvokeMethod(() =>
+                    {
+                        Width += step1;
+                        Left -= step1;
+                    });
+                    step = (int)(step * 1.2);
+                    Thread.Sleep(50);
+                }
+                this.InvokeMethod(() =>
+                {
+                    Width = FormWidth;
+                    Left = Util.GetScreenSize().Width - Width;
+                });
+                DelayHide(15000);
+            }) { IsBackground = true }.Start();
         }
 
         private void updateStatePresent_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            InvokeMethod(() =>
+            this.InvokeMethod(() =>
             {
                 picLOGO.Image = originLogo;
                 picLOGO.Refresh();
@@ -189,7 +228,7 @@ namespace ColorWanted.update
                     break;
                 }
                 var x1 = x;
-                InvokeMethod(() =>
+                this.InvokeMethod(() =>
                 {
                     picLOGO.Image = x1 == 1 ? reverse : originLogo;
                     picLOGO.Refresh();
@@ -204,18 +243,42 @@ namespace ColorWanted.update
             CancelHide();
             linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
             lbMsg.Text = string.Format(@"正在下载更新包({0})...", update.Version);
-            OnlineUpdate.Update(update.Link, update.Version, result =>
+            new Thread(() =>
             {
-                var msg = @"更新包下载" + (result ? @"完成" : @"失败");
-
-                InvokeMethod(() =>
+                OnlineUpdate.Update(update.Link, update.Version, result =>
                 {
-                    lbMsg.Text = msg;
-                });
+                    if (!result.Success)
+                    {
+                        this.InvokeMethod(() =>
+                        {
+                            lbMsg.Text = @"更新包下载失败";
+                        });
+                        return;
+                    }
 
-                DelayHide();
-                return true;
-            });
+                    this.InvokeMethod(() =>
+                    {
+                        if (!lbPercentage.Visible)
+                        {
+                            lbPercentage.Show();
+                            lbProgress.Show();
+                        }
+                        lbPercentage.Text = string.Format(@"{0}K / {1}K    {2}%",
+                            Math.Ceiling(result.BytesReceived / 1024.0),
+                            Math.Ceiling(result.TotalBytesToReceive / 1024.0),
+                            result.Percentage);
+
+                        lbProgress.Width = lbPercentage.Width * result.Percentage / 100;
+
+                        if (result.TotalBytesToReceive == result.BytesReceived)
+                        {
+                            lbMsg.Text = @"更新包下载完成，即将更新...";
+                        }
+                    });
+
+                    DelayHide();
+                });
+            }) { IsBackground = true }.Start();
         }
 
         private void linkIgnore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -236,6 +299,11 @@ namespace ColorWanted.update
             if (timeout == 0)
             {
                 Hide();
+                lbMsg.Text = "";
+                linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
+                lbPercentage.Hide();
+                lbProgress.Hide();
+                lbProgress.Width = 0;
                 return;
             }
 
@@ -267,24 +335,6 @@ namespace ColorWanted.update
 
             hideTimer.Dispose();
             hideTimer = null;
-        }
-
-        private delegate void Invoker();
-
-        private void InvokeMethod(Invoker invoker)
-        {
-            if (IsDisposed)
-            {
-                return;
-            }
-            if (InvokeRequired)
-            {
-                Invoke(new MethodInvoker(invoker));
-            }
-            else
-            {
-                invoker.Invoke();
-            }
         }
     }
 }

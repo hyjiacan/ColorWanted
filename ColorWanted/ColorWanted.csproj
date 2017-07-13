@@ -59,6 +59,7 @@
     <Compile Include="BugReportForm.Designer.cs">
       <DependentUpon>BugReportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ext\FormExtension.cs" />
     <Compile Include="hotkey\HotkeyChangeEvent.cs" />
     <Compile Include="hotkey\HotkeyCtrl.cs">
       <SubType>UserControl</SubType>
@@ -79,6 +80,7 @@
     <Compile Include="hotkey\HotkeyForm.Designer.cs">
       <DependentUpon>HotkeyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="update\UpdateProcessChangedHandler.cs" />
     <Compile Include="util\ColorUtil.cs" />
     <Compile Include="hotkey\HotKeyType.cs" />
     <Compile Include="mode\DisplayMode.cs" />

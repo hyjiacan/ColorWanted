@@ -113,29 +113,43 @@ namespace ColorWanted.update
         /// <param name="fileurl"></param>
         /// <param name="version"></param>
         /// <param name="callback"></param>
-        public static void Update(string fileurl, string version, Func<bool, bool> callback)
+        public static void Update(string fileurl, string version, UpdateProcessChangedHandler callback)
         {
             var filename = Path.Combine(Application.StartupPath,
                 string.Format("ColorWanted-{0}.tmp.exe", version));
+
+            var data = new UpdateProcessChangedData();
 
             try
             {
                 using (var web = new WebClient())
                 {
+                    data.Success = true;
                     web.DownloadFileCompleted += (sender, e) =>
                     {
-                        callback.Invoke(true);
-
+                        Thread.Sleep(2000);
                         Process.Start(filename, string.Format(@"-update 1 ""{0}""", Application.ExecutablePath));
 
                         Application.Exit();
+                    };
+                    web.DownloadProgressChanged += (sender, e) =>
+                    {
+                        data.BytesReceived = e.BytesReceived;
+                        data.TotalBytesToReceive = e.TotalBytesToReceive;
+                        data.Percentage = e.ProgressPercentage;
+                        callback.Invoke(data);
                     };
                     web.DownloadFileAsync(new Uri(fileurl), filename);
                 }
             }
             catch
             {
-                callback.Invoke(false);
+                data.Success = false;
+                callback.Invoke(data);
+                if (File.Exists(filename))
+                {
+                    File.Delete(filename);
+                }
             }
         }
 
