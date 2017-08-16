@@ -328,9 +328,22 @@ namespace ColorWanted
             {
                 previewForm.UpdateImage(pic);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Util.ShowBugReportForm(e);
+                try
+                {
+                    if (previewForm != null && !previewForm.IsDisposed)
+                    {
+                        previewForm.Dispose();
+                    }
+                }
+                catch (Exception)
+                {
+                    // ignore
+                }
+                // 重试一次
+                previewForm = new PreviewForm();
+                previewForm.UpdateImage(pic);
             }
         }
 
@@ -583,6 +596,11 @@ namespace ColorWanted
             item.Checked = !item.Checked;
 
             Settings.Base.RgbValueOnly = item.Checked;
+        }
+
+        private void trayMenuRestart_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
 
         private void trayMenuShowHelp_Click(object sender, EventArgs e)
@@ -973,7 +991,7 @@ namespace ColorWanted
                 if (result != null)
                 {
                     tray.ShowBalloonTip(5000,
-                        "复制失败",
+                        "复制失败，请重试",
                         result,
                         ToolTipIcon.Error);
                 }

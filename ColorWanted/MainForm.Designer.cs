@@ -60,6 +60,7 @@
             this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.trayMenuRestart = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -120,10 +121,11 @@
             this.trayMenuHistory,
             this.toolStripSeparator1,
             this.trayMenuCheckUpdate,
+            this.trayMenuRestart,
             this.trayMenuShowAbout,
             this.trayMenuExit});
             this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(153, 352);
+            this.trayMenu.Size = new System.Drawing.Size(153, 374);
             // 
             // trayMenuDisplayMode
             // 
@@ -301,7 +303,7 @@
             // trayMenuCheckUpdateOnStartup
             // 
             this.trayMenuCheckUpdateOnStartup.Name = "trayMenuCheckUpdateOnStartup";
-            this.trayMenuCheckUpdateOnStartup.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuCheckUpdateOnStartup.Size = new System.Drawing.Size(136, 22);
             this.trayMenuCheckUpdateOnStartup.Text = "启动时检查";
             this.trayMenuCheckUpdateOnStartup.ToolTipText = "每天首次启动时检查更新";
             this.trayMenuCheckUpdateOnStartup.Click += new System.EventHandler(this.trayMenuCheckUpdateOnStartup_Click);
@@ -319,6 +321,13 @@
             this.trayMenuExit.Size = new System.Drawing.Size(152, 22);
             this.trayMenuExit.Text = "退出";
             this.trayMenuExit.Click += new System.EventHandler(this.trayMenuExit_Click);
+            // 
+            // trayMenuRestart
+            // 
+            this.trayMenuRestart.Name = "trayMenuRestart";
+            this.trayMenuRestart.Size = new System.Drawing.Size(152, 22);
+            this.trayMenuRestart.Text = "重新启动";
+            this.trayMenuRestart.Click += new System.EventHandler(this.trayMenuRestart_Click);
             // 
             // MainForm
             // 
@@ -379,6 +388,7 @@
         private System.Windows.Forms.ToolStripMenuItem trayMenuHistory;
         private System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdateOnStartup;
         private System.Windows.Forms.ToolStripMenuItem trayMenuHotkey;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuRestart;
     }
 }
 

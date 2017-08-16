@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(BugReportForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BugReportForm));
             this.label1 = new System.Windows.Forms.Label();
             this.btnOK = new System.Windows.Forms.Button();
             this.tbMsg = new System.Windows.Forms.TextBox();
@@ -39,6 +39,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.tbExtra = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.cbRestart = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -110,7 +111,7 @@
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnCancel.Location = new System.Drawing.Point(383, 390);
+            this.btnCancel.Location = new System.Drawing.Point(383, 383);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(128, 36);
             this.btnCancel.TabIndex = 3;
@@ -161,6 +162,19 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "附加数据，比如意见和建议，联系方式等";
             // 
+            // cbRestart
+            // 
+            this.cbRestart.AutoSize = true;
+            this.cbRestart.Checked = true;
+            this.cbRestart.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbRestart.Location = new System.Drawing.Point(442, 428);
+            this.cbRestart.Name = "cbRestart";
+            this.cbRestart.Size = new System.Drawing.Size(69, 16);
+            this.cbRestart.TabIndex = 13;
+            this.cbRestart.Text = "重新启动";
+            this.cbRestart.UseVisualStyleBackColor = true;
+            // 
             // BugReportForm
             // 
             this.AcceptButton = this.btnOK;
@@ -168,6 +182,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(542, 456);
+            this.Controls.Add(this.cbRestart);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lkIssue);
@@ -203,5 +218,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox tbExtra;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox cbRestart;
     }
 }

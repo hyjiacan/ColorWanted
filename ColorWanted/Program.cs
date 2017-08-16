@@ -2,6 +2,7 @@
 using System;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.util;
 
 namespace ColorWanted
 {
@@ -25,6 +26,22 @@ namespace ColorWanted
             {
                 return;
             }
+
+            // 绑定异常捕捉处理函数
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += (sender, e) =>
+            {
+                Util.ShowBugReportForm(e.Exception);
+            };
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+            {
+                if (e.IsTerminating)
+                {
+
+                }
+                Util.ShowBugReportForm((Exception)e.ExceptionObject);
+            };
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             try

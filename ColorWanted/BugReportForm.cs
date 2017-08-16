@@ -55,12 +55,21 @@ namespace ColorWanted
             {
                 // ignore
             }
-
+            if (cbRestart.Checked)
+            {
+                Application.Restart();
+                return;
+            }
             Application.Exit();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            if (cbRestart.Checked)
+            {
+                Application.Restart();
+                return;
+            }
             Application.Exit();
         }
 
