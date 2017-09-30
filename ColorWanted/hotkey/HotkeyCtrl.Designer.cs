@@ -40,9 +40,7 @@
             this.tbInput.AcceptsTab = true;
             this.tbInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbInput.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.tbInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbInput.ForeColor = System.Drawing.Color.Lime;
             this.tbInput.Location = new System.Drawing.Point(36, 30);
             this.tbInput.Name = "tbInput";
             this.tbInput.ReadOnly = true;
@@ -91,12 +89,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.lkReset);
             this.Controls.Add(this.lkOK);
             this.Controls.Add(this.lbTypeName);
             this.Controls.Add(this.tbInput);
-            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.Name = "HotkeyCtrl";
             this.Size = new System.Drawing.Size(619, 56);
             this.ResumeLayout(false);

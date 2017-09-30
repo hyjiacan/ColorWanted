@@ -53,6 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="setting\Settings.Theme.cs" />
+    <Compile Include="theme\ThemeDescription.cs" />
+    <Compile Include="theme\ThemeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="theme\ThemeForm.Designer.cs">
+      <DependentUpon>ThemeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BugReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +88,8 @@
     <Compile Include="hotkey\HotkeyForm.Designer.cs">
       <DependentUpon>HotkeyForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="theme\ThemeType.cs" />
+    <Compile Include="theme\ThemeUtil.cs" />
     <Compile Include="update\UpdateProcessChangedHandler.cs" />
     <Compile Include="util\ColorUtil.cs" />
     <Compile Include="hotkey\HotKeyType.cs" />
@@ -128,6 +138,9 @@
     <Compile Include="update\TagItem.cs" />
     <Compile Include="update\UpdateInfo.cs" />
     <Compile Include="util\Util.cs" />
+    <EmbeddedResource Include="theme\ThemeForm.resx">
+      <DependentUpon>ThemeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BugReportForm.resx">
       <DependentUpon>BugReportForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.theme;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ColorWanted
@@ -43,6 +44,7 @@ namespace ColorWanted
 
         private bool settingLoaded;
         private PreviewForm previewForm;
+        private ThemeForm themeForm;
         private ColorDialog colorPicker;
 
         /// <summary>
@@ -84,6 +86,7 @@ namespace ColorWanted
         public MainForm()
         {
             InitializeComponent();
+            ThemeUtil.Apply(this);
         }
 
         protected override CreateParams CreateParams
@@ -274,8 +277,16 @@ namespace ColorWanted
 
             if (FormatMode.Mini == currentFormatMode)
             {
-                BackColor = color;
+                if (!lbColorPreview.Visible)
+                {
+                    lbColorPreview.Show();
+                }
+                lbColorPreview.BackColor = color;
                 return;
+            }
+            else if (lbColorPreview.Visible)
+            {
+                lbColorPreview.Hide();
             }
             lbRgb.BackColor = color;
             lbRgb.ForeColor = ColorUtil.GetContrastColor(color);
@@ -596,6 +607,16 @@ namespace ColorWanted
             item.Checked = !item.Checked;
 
             Settings.Base.RgbValueOnly = item.Checked;
+        }
+
+        private void trayMenuTheme_Click(object sender, EventArgs e)
+        {
+            if (themeForm == null)
+            {
+                themeForm=new ThemeForm();
+            }
+
+            themeForm.ShowDialog(this);
         }
 
         private void trayMenuRestart_Click(object sender, EventArgs e)

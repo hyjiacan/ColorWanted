@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.theme;
 using ColorWanted.util;
 
 namespace ColorWanted.update
@@ -69,6 +70,7 @@ namespace ColorWanted.update
         private UpdateForm()
         {
             InitializeComponent();
+            ThemeUtil.Apply(this);
             var screen = Screen.PrimaryScreen.WorkingArea;
             Location = new Point(screen.Width - Width, screen.Height - Height);
         }

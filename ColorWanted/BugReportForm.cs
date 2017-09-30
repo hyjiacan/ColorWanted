@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
+using ColorWanted.theme;
 
 namespace ColorWanted
 {
@@ -23,6 +24,7 @@ namespace ColorWanted
         public BugReportForm()
         {
             InitializeComponent();
+            ThemeUtil.Apply(this);
         }
 
         internal void SetException(Exception exception)

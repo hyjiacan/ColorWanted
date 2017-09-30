@@ -4,6 +4,7 @@ using ColorWanted.update;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using ColorWanted.theme;
 
 namespace ColorWanted
 {
@@ -12,6 +13,7 @@ namespace ColorWanted
         public AboutForm()
         {
             InitializeComponent();
+            ThemeUtil.Apply(this);
 
             lkVersion.Text = @"v" + Application.ProductVersion;
         }

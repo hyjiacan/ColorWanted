@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.theme;
 
 namespace ColorWanted.hotkey
 {
@@ -12,6 +13,7 @@ namespace ColorWanted.hotkey
         public HotkeyForm()
         {
             InitializeComponent();
+            ThemeUtil.Apply(this);
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)

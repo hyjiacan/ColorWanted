@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using ColorWanted.ext;
+using ColorWanted.theme;
 using ColorWanted.util;
 
 namespace ColorWanted.history
@@ -14,6 +15,7 @@ namespace ColorWanted.history
         public HistoryForm()
         {
             InitializeComponent();
+            ThemeUtil.Apply(this);
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
