@@ -152,6 +152,8 @@ namespace ColorWanted
                 // 读取开机启动的注册表
                 trayMenuAutoStart.Checked = Settings.Base.Autostart;
                 trayMenuAutoPin.Checked = Settings.Base.AutoPin;
+
+                trayMenuPixelScale.Checked = Settings.Preview.PixelScale;
             })
             {
                 IsBackground = true
@@ -284,7 +286,8 @@ namespace ColorWanted
                 lbColorPreview.BackColor = color;
                 return;
             }
-            else if (lbColorPreview.Visible)
+            
+            if (lbColorPreview.Visible)
             {
                 lbColorPreview.Hide();
             }
@@ -441,6 +444,10 @@ namespace ColorWanted
                     {
                         previewForm.BringToFront();
                     }
+                    break;
+                // 使用像素放大算法
+                case HotKeyType.PixelScale:
+                    trayMenuPixelScale_Click(null, null);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -613,7 +620,7 @@ namespace ColorWanted
         {
             if (themeForm == null)
             {
-                themeForm=new ThemeForm();
+                themeForm = new ThemeForm();
             }
 
             themeForm.ShowDialog(this);
@@ -641,6 +648,13 @@ namespace ColorWanted
         private void trayMenuShowPreview_Click(object sender, EventArgs e)
         {
             TogglePreview();
+        }
+
+        private void trayMenuPixelScale_Click(object sender, EventArgs e)
+        {
+            Settings.Preview.PixelScale =
+                trayMenuPixelScale.Checked =
+                !trayMenuPixelScale.Checked;
         }
 
         private void trayMenuAutoPin_Click(object sender, EventArgs e)

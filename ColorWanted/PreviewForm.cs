@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ColorWanted.ext;
+using ColorWanted.setting;
+using ColorWanted.util;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using ColorWanted.ext;
-using ColorWanted.setting;
-using ColorWanted.util;
 
 namespace ColorWanted
 {
@@ -20,6 +20,15 @@ namespace ColorWanted
         /// <param name="img"></param>
         public void UpdateImage(Bitmap img)
         {
+            // 非像素放大
+            if (!Settings.Preview.PixelScale)
+            {
+                picPreview.Image = img;
+                GC.Collect();
+                return;
+            }
+
+            // 像素放大
             // 根据源图大小来设置预览图的大小，预览图的大小需要为源图大小的倍数
             // 如果不是倍数，那以就设置padding
             var padding = picPreview.Size.Width % img.Width;
@@ -35,6 +44,7 @@ namespace ColorWanted
             }
 
             picPreview.Image = ScaleBitmap(img, image);
+
             GC.Collect();
         }
 

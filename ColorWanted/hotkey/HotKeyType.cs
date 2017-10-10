@@ -62,6 +62,13 @@ namespace ColorWanted.hotkey
         [HotKey("将取色和预览窗口显示到最顶层",
             Key = Keys.T,
             Modifiers = KeyModifier.Alt)]
-        BringToTop
+        BringToTop,
+        /// <summary>
+        /// 预览时，是否使用像素放大
+        /// </summary>   
+        [HotKey("切换使用像素放大算法预览",
+            Key = Keys.P,
+            Modifiers = KeyModifier.Alt)]
+        PixelScale
     }
 }
