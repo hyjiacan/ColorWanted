@@ -38,7 +38,13 @@
             this.picLOGO = new System.Windows.Forms.PictureBox();
             this.lbPercentage = new System.Windows.Forms.Label();
             this.lbProgress = new System.Windows.Forms.Label();
+            this.pnDetail = new System.Windows.Forms.Panel();
+            this.lbLog = new System.Windows.Forms.Label();
+            this.lbUpdateDate = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
+            this.pnDetail.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExit
@@ -85,9 +91,10 @@
             // 
             // linkNow
             // 
+            this.linkNow.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.linkNow.AutoSize = true;
             this.linkNow.LinkColor = System.Drawing.Color.Lime;
-            this.linkNow.Location = new System.Drawing.Point(17, 85);
+            this.linkNow.Location = new System.Drawing.Point(17, 86);
             this.linkNow.Name = "linkNow";
             this.linkNow.Size = new System.Drawing.Size(53, 12);
             this.linkNow.TabIndex = 18;
@@ -97,9 +104,10 @@
             // 
             // linkIgnore
             // 
+            this.linkIgnore.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.linkIgnore.AutoSize = true;
             this.linkIgnore.LinkColor = System.Drawing.Color.Lime;
-            this.linkIgnore.Location = new System.Drawing.Point(86, 85);
+            this.linkIgnore.Location = new System.Drawing.Point(86, 86);
             this.linkIgnore.Name = "linkIgnore";
             this.linkIgnore.Size = new System.Drawing.Size(65, 12);
             this.linkIgnore.TabIndex = 18;
@@ -109,9 +117,10 @@
             // 
             // linkNext
             // 
+            this.linkNext.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.linkNext.AutoSize = true;
             this.linkNext.LinkColor = System.Drawing.Color.Lime;
-            this.linkNext.Location = new System.Drawing.Point(166, 85);
+            this.linkNext.Location = new System.Drawing.Point(166, 86);
             this.linkNext.Name = "linkNext";
             this.linkNext.Size = new System.Drawing.Size(53, 12);
             this.linkNext.TabIndex = 18;
@@ -132,7 +141,8 @@
             // 
             // lbPercentage
             // 
-            this.lbPercentage.Location = new System.Drawing.Point(12, 77);
+            this.lbPercentage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lbPercentage.Location = new System.Drawing.Point(12, 83);
             this.lbPercentage.Name = "lbPercentage";
             this.lbPercentage.Size = new System.Drawing.Size(216, 16);
             this.lbPercentage.TabIndex = 19;
@@ -141,13 +151,66 @@
             // 
             // lbProgress
             // 
+            this.lbProgress.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lbProgress.BackColor = System.Drawing.Color.Lime;
-            this.lbProgress.Location = new System.Drawing.Point(12, 93);
+            this.lbProgress.Location = new System.Drawing.Point(12, 94);
             this.lbProgress.Name = "lbProgress";
             this.lbProgress.Size = new System.Drawing.Size(0, 5);
             this.lbProgress.TabIndex = 19;
             this.lbProgress.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lbProgress.Visible = false;
+            // 
+            // pnDetail
+            // 
+            this.pnDetail.AutoScroll = true;
+            this.pnDetail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnDetail.Controls.Add(this.lbLog);
+            this.pnDetail.Controls.Add(this.lbUpdateDate);
+            this.pnDetail.Controls.Add(this.label3);
+            this.pnDetail.Controls.Add(this.label2);
+            this.pnDetail.Location = new System.Drawing.Point(2, 75);
+            this.pnDetail.Name = "pnDetail";
+            this.pnDetail.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.pnDetail.Size = new System.Drawing.Size(251, 135);
+            this.pnDetail.TabIndex = 20;
+            this.pnDetail.MouseEnter += new System.EventHandler(this.UpdateForm_MouseEnter);
+            this.pnDetail.MouseLeave += new System.EventHandler(this.UpdateForm_MouseLeave);
+            // 
+            // lbLog
+            // 
+            this.lbLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbLog.AutoSize = true;
+            this.lbLog.Location = new System.Drawing.Point(40, 53);
+            this.lbLog.Name = "lbLog";
+            this.lbLog.Size = new System.Drawing.Size(0, 12);
+            this.lbLog.TabIndex = 2;
+            // 
+            // lbUpdateDate
+            // 
+            this.lbUpdateDate.AutoSize = true;
+            this.lbUpdateDate.Location = new System.Drawing.Point(80, 6);
+            this.lbUpdateDate.Name = "lbUpdateDate";
+            this.lbUpdateDate.Size = new System.Drawing.Size(0, 12);
+            this.lbUpdateDate.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 30);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "更新详情";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "更新日期";
             // 
             // UpdateForm
             // 
@@ -155,7 +218,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(240, 100);
+            this.ClientSize = new System.Drawing.Size(240, 110);
             this.Controls.Add(this.lbProgress);
             this.Controls.Add(this.linkNext);
             this.Controls.Add(this.linkIgnore);
@@ -166,10 +229,10 @@
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.picLOGO);
             this.Controls.Add(this.lbPercentage);
+            this.Controls.Add(this.pnDetail);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(240, 100);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(0, 100);
             this.Name = "UpdateForm";
@@ -178,8 +241,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "检查更新 - 赏色";
             this.TopMost = true;
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
+            this.MouseEnter += new System.EventHandler(this.UpdateForm_MouseEnter);
+            this.MouseLeave += new System.EventHandler(this.UpdateForm_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
+            this.pnDetail.ResumeLayout(false);
+            this.pnDetail.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -197,5 +263,10 @@
         private System.Windows.Forms.LinkLabel linkNext;
         private System.Windows.Forms.Label lbPercentage;
         private System.Windows.Forms.Label lbProgress;
+        private System.Windows.Forms.Panel pnDetail;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbUpdateDate;
+        private System.Windows.Forms.Label lbLog;
     }
 }

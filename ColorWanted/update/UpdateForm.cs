@@ -47,8 +47,14 @@ namespace ColorWanted.update
 
             if (Instance.Busy)
             {
+                (Application.OpenForms["MainForm"] as MainForm)
+                    .ShowTip(2000, "正在查询更新信息，求你不要再点了...");
                 return;
             }
+
+            Instance.Height = 110;
+            Instance.Top = Screen.PrimaryScreen.WorkingArea.Height - 110;
+            Instance.pnDetail.Hide();
 
             if (Instance.Width == 0)
             {
@@ -62,7 +68,7 @@ namespace ColorWanted.update
             Instance.BringToFront();
             if (!AutoClose)
             {
-                Instance.SlideOut();
+                Instance.SlideIn();
             }
             new Thread(Instance.RunCheck) { IsBackground = true }.Start();
         }
@@ -87,16 +93,6 @@ namespace ColorWanted.update
             }
         }
 
-        private void MouseDownEventHandler(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                NativeMethods.ReleaseCapture();
-                NativeMethods.SendMessage(Handle, NativeMethods.WM_SYSCOMMAND,
-                    new IntPtr(NativeMethods.SC_MOVE + NativeMethods.HTCAPTION), IntPtr.Zero);
-            }
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             DelayHide(0);
@@ -112,6 +108,10 @@ namespace ColorWanted.update
                 };
                 updateStatePresent.DoWork += updateStatePresent_DoWork;
                 updateStatePresent.RunWorkerCompleted += updateStatePresent_RunWorkerCompleted;
+            }
+            if (Instance.updateStatePresent.IsBusy)
+            {
+                return;
             }
             Busy = true;
 
@@ -162,16 +162,24 @@ namespace ColorWanted.update
                     lbMsg.Text = @"有新版本 " + update.Version;
                 }
 
+                lbUpdateDate.Text = update.Date.ToString("yyyy年MM月dd日");
+
+                lbLog.Text = update.Message;
+
+                Top = Screen.PrimaryScreen.WorkingArea.Height - 240;
+                Height = 240;
+                pnDetail.Show();
+
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
 
                 if (!AutoClose)
                     return;
 
-                SlideOut();
+                SlideIn();
             });
         }
 
-        private void SlideOut()
+        private void SlideIn()
         {
             new Thread(() =>
             {
@@ -191,8 +199,37 @@ namespace ColorWanted.update
                 {
                     Width = FormWidth;
                     Left = Util.GetScreenSize().Width - Width;
+                    btnExit.Show();
                 });
                 DelayHide(15000);
+            }) { IsBackground = true }.Start();
+        }
+
+        private void SlideOut()
+        {
+            this.InvokeMethod(() =>
+            {
+                btnExit.Hide();
+            });
+            new Thread(() =>
+            {
+                var step = 8;
+                while (Width > 0)
+                {
+                    var step1 = step;
+                    this.InvokeMethod(() =>
+                    {
+                        Width -= step1;
+                        Left += step1;
+                    });
+                    step = (int)(step * 1.2);
+                    Thread.Sleep(50);
+                }
+                this.InvokeMethod(() =>
+                {
+                    Width = 0;
+                    Left = Util.GetScreenSize().Width;
+                });
             }) { IsBackground = true }.Start();
         }
 
@@ -300,7 +337,7 @@ namespace ColorWanted.update
         {
             if (timeout == 0)
             {
-                Hide();
+                SlideOut();
                 lbMsg.Text = "";
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
                 lbPercentage.Hide();
@@ -337,6 +374,21 @@ namespace ColorWanted.update
 
             hideTimer.Dispose();
             hideTimer = null;
+        }
+
+        private void UpdateForm_MouseEnter(object sender, EventArgs e)
+        {
+            CancelHide();
+        }
+
+        private void UpdateForm_MouseLeave(object sender, EventArgs e)
+        {
+            // 鼠标还在窗体区域内时，不触发事件
+            if (Bounds.Contains(MousePosition))
+            {
+                return;
+            }
+            DelayHide();
         }
     }
 }

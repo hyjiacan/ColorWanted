@@ -286,7 +286,7 @@ namespace ColorWanted
                 lbColorPreview.BackColor = color;
                 return;
             }
-            
+
             if (lbColorPreview.Visible)
             {
                 lbColorPreview.Hide();
@@ -1073,5 +1073,10 @@ namespace ColorWanted
             }
         }
         #endregion
+
+        public void ShowTip(int timeout, string msg)
+        {
+            tray.ShowBalloonTip(timeout, null, msg, ToolTipIcon.None);
+        }
     }
 }

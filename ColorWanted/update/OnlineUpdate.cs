@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorWanted.update.git;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,11 +18,22 @@ namespace ColorWanted.update
         /// <summary>
         /// 查询已经发布的tags
         /// </summary>
-        private const string url = "https://api.github.com/repos/hyjiacan/ColorWanted/tags";
+        private const string tagsUrl = "https://api.github.com/repos/hyjiacan/ColorWanted/tags";
+
         /// <summary>
-        /// 根据tag的sha1来决定下载地址
+        /// 查询tag引用信息
         /// </summary>
-        private const string link = "https://github.com/hyjiacan/ColorWanted/raw/{0}/ColorWanted/bin/Release/ColorWanted.exe";
+        private const string tagrefUrl = "https://api.github.com/repos/hyjiacan/ColorWanted/git/refs/tags/{0}";
+
+        /// <summary>
+        /// 查询tag对象信息
+        /// </summary>
+        private const string tagobjUrl = "https://api.github.com/repos/hyjiacan/ColorWanted/git/tags/{0}";
+
+        /// <summary>
+        /// 根据commit的sha来决定下载地址
+        /// </summary>
+        private const string downloadUrl = "https://github.com/hyjiacan/ColorWanted/raw/{0}/ColorWanted/bin/Release/ColorWanted.exe";
         /// <summary>
         /// 向github请求的api版本
         /// </summary>
@@ -29,7 +41,7 @@ namespace ColorWanted.update
         /// <summary>
         /// 没有userAgent时，github不会接收请求
         /// </summary>
-        private const string userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/5.1.0.1400 Chrome/55.0.2883.75 Safari/537.36 ColorWanted/{0}";
+        private const string userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36 ColorWanted/{0}";
 
         private static readonly JavaScriptSerializer json = new JavaScriptSerializer();
 
@@ -43,63 +55,47 @@ namespace ColorWanted.update
 
             try
             {
-                var req = WebRequest.Create(url) as HttpWebRequest;
-
-                if (req == null)
+                var data = HttpGet(tagsUrl);
+                if (data == null)
                 {
                     return info;
                 }
+                var list = json.Deserialize<List<TagItem>>(data);
 
-                req.Accept = accept;
-                req.Method = "GET";
-                req.UserAgent = string.Format(userAgent, Application.ProductVersion);
-                req.KeepAlive = false;
-                using (var res = req.GetResponse())
+                // 需要找到大于当前版本的tag其中最大的一个
+                TagItem tag = null;
+                var currentVersion = Version.Parse(Application.ProductVersion);
+
+                foreach (var item in list)
                 {
-                    var responseStream = res.GetResponseStream();
-                    if (responseStream == null)
+                    if (tag == null)
                     {
-                        return info;
+                        if (currentVersion < Version.Parse(item.name))
+                        {
+                            tag = item;
+                        }
                     }
-                    using (var stream = new StreamReader(responseStream))
+                    else
                     {
-                        var data = stream.ReadToEnd();
-                        var list = json.Deserialize<List<TagItem>>(data);
-
-                        // 需要找到大于当前版本的tag其中最大的一个
-                        TagItem tag = null;
-                        var currentVersion = Version.Parse(Application.ProductVersion);
-
-                        foreach (var item in list)
+                        if (Version.Parse(tag.name) < Version.Parse(item.name))
                         {
-                            if (tag == null)
-                            {
-                                if (currentVersion < Version.Parse(item.name))
-                                {
-                                    tag = item;
-                                }
-                            }
-                            else
-                            {
-                                if (Version.Parse(tag.name) < Version.Parse(item.name))
-                                {
-                                    tag = item;
-                                }
-                            }
+                            tag = item;
                         }
-
-                        if (tag == null)
-                        {
-                            return null;
-                        }
-
-                        info.Status = true;
-                        info.Version = tag.name;
-                        info.Link = string.Format(link, tag.commit.sha);
-
-                        return info;
                     }
                 }
+
+                if (tag == null)
+                {
+                    return null;
+                }
+
+                info.Status = true;
+                info.Version = tag.name;
+                info.Link = string.Format(downloadUrl, tag.commit.sha);
+
+                LoadUpdateDetail(info);
+
+                return info;
             }
             catch
             {
@@ -208,18 +204,68 @@ namespace ColorWanted.update
                 return false;
             }
 
-            if (phase == "2")
-            {
-                Thread.Sleep(2000);
-                // 删除临时文件
-                File.Delete(oldname);
+            if (phase != "2") return false;
 
-                // 删除旧文件
-                File.Delete(Application.ExecutablePath + ".old");
-                return true;
+            Thread.Sleep(2000);
+            // 删除临时文件
+            File.Delete(oldname);
+
+            // 删除旧文件
+            File.Delete(Application.ExecutablePath + ".old");
+            return true;
+        }
+
+        private static void LoadUpdateDetail(UpdateInfo info)
+        {
+            // 获取tag引用对象信息
+            var data = HttpGet(string.Format(tagrefUrl, info.Version));
+            if (data == null)
+            {
+                return;
             }
 
-            return false;
+            // 获取tag对象信息
+            var @ref = json.Deserialize<RefItem>(data);
+            data = HttpGet(string.Format(tagobjUrl, @ref.@object.sha));
+            if (data == null)
+            {
+                return;
+            }
+
+            var tag = json.Deserialize<TagObject>(data);
+
+            info.Date = tag.tagger.date;
+            info.Message = tag.message;
+        }
+
+        /// <summary>
+        /// 发送get请求
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        private static string HttpGet(string uri)
+        {
+            var req = WebRequest.Create(uri) as HttpWebRequest;
+            if (req == null)
+            {
+                return null;
+            }
+            req.Accept = accept;
+            req.Method = "GET";
+            req.UserAgent = string.Format(userAgent, Application.ProductVersion);
+            req.KeepAlive = false;
+            using (var res = req.GetResponse())
+            {
+                var responseStream = res.GetResponseStream();
+                if (responseStream == null)
+                {
+                    return null;
+                }
+                using (var stream = new StreamReader(responseStream))
+                {
+                    return stream.ReadToEnd();
+                }
+            }
         }
     }
 }

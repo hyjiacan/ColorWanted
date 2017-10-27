@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2075F17B-819D-4D7E-BB02-FB7E3F618551}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ColorWanted</RootNamespace>
     <AssemblyName>ColorWanted</AssemblyName>
@@ -90,6 +90,9 @@
     </Compile>
     <Compile Include="theme\ThemeType.cs" />
     <Compile Include="theme\ThemeUtil.cs" />
+    <Compile Include="update\git\Tagger.cs" />
+    <Compile Include="update\git\RefItem.cs" />
+    <Compile Include="update\git\TagObject.cs" />
     <Compile Include="update\UpdateProcessChangedHandler.cs" />
     <Compile Include="util\ColorUtil.cs" />
     <Compile Include="hotkey\HotKeyType.cs" />
@@ -104,8 +107,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ext\NativeMethods.cs" />
-    <Compile Include="update\CommitItem.cs" />
-    <Compile Include="update\FileItem.cs" />
+    <Compile Include="update\git\CommitItem.cs" />
+    <Compile Include="update\git\FileItem.cs" />
     <Compile Include="history\HistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,7 +138,7 @@
     <Compile Include="setting\Settings.Base.cs" />
     <Compile Include="setting\Settings.cs" />
     <Compile Include="mode\ShowMode.cs" />
-    <Compile Include="update\TagItem.cs" />
+    <Compile Include="update\git\TagItem.cs" />
     <Compile Include="update\UpdateInfo.cs" />
     <Compile Include="util\Util.cs" />
     <EmbeddedResource Include="theme\ThemeForm.resx">

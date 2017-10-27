@@ -1,4 +1,4 @@
-﻿namespace ColorWanted.update
+﻿namespace ColorWanted.update.git
 {
     internal class TagItem
     {
