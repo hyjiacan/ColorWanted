@@ -291,8 +291,32 @@ namespace ColorWanted
             {
                 lbColorPreview.Hide();
             }
-            lbRgb.BackColor = color;
-            lbRgb.ForeColor = ColorUtil.GetContrastColor(color);
+
+            var contrastColor = ColorUtil.GetContrastColor(color);
+            if (FormatMode.Standard == currentFormatMode)
+            {
+                lbRgb.BackColor = color;
+                lbRgb.ForeColor = contrastColor;
+                return;
+            }
+
+            // var hsl = HSL.Parse(color);
+            var hsl = new HSL(color.GetHue(), color.GetSaturation(), color.GetBrightness());
+            lbHsl.Text = colorBuffer.AppendFormat("({0},{1},{2})",
+                Math.Round(hsl.H),
+                Math.Round(hsl.S * 100),
+                Math.Round(hsl.L * 100)).ToString();
+            colorBuffer.Clear();
+
+            var hsb = HSB.Parse(color);
+            lbHsb.Text = colorBuffer.AppendFormat("({0},{1},{2})",
+                Math.Round(hsb.H),
+                Math.Round(hsb.S * 100),
+                Math.Round(hsb.B * 100)).ToString();
+            colorBuffer.Clear();
+
+            pnExt.BackColor = color;
+            pnExt.ForeColor = contrastColor;
         }
 
         /// <summary>
@@ -591,6 +615,12 @@ namespace ColorWanted
         private void trayMenuFormatMini_Click(object sender, EventArgs e)
         {
             SwitchFormatMode(FormatMode.Mini);
+        }
+
+
+        private void trayMenuFormatStandard_Click(object sender, EventArgs e)
+        {
+            SwitchFormatMode(FormatMode.Standard);
         }
 
         private void trayMenuFormatExtention_Click(object sender, EventArgs e)
@@ -933,18 +963,32 @@ namespace ColorWanted
             {
                 case FormatMode.Mini:
                     trayMenuFormatMini.Checked = true;
+                    trayMenuFormatStandard.Checked = false;
                     trayMenuFormatExtention.Checked = false;
 
                     lbRgb.Visible = false;
-
+                    pnExt.Visible = false;
+                    Height = 20;
                     Width = 88;
+                    break;
+                case FormatMode.Standard:
+                    trayMenuFormatMini.Checked = false;
+                    trayMenuFormatStandard.Checked = true;
+                    trayMenuFormatExtention.Checked = false;
+
+                    lbRgb.Visible = true;
+                    pnExt.Visible = false;
+                    Height = 20;
+                    Width = 208;
                     break;
                 case FormatMode.Extention:
                     trayMenuFormatMini.Checked = false;
+                    trayMenuFormatStandard.Checked = false;
                     trayMenuFormatExtention.Checked = true;
 
                     lbRgb.Visible = true;
-
+                    pnExt.Visible = true;
+                    Height = 60;
                     Width = 208;
                     break;
             }

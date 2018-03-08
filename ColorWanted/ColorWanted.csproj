@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HSL.cs" />
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="theme\ThemeDescription.cs" />
     <Compile Include="theme\ThemeForm.cs">
@@ -140,6 +141,7 @@
     <Compile Include="mode\ShowMode.cs" />
     <Compile Include="update\git\TagItem.cs" />
     <Compile Include="update\UpdateInfo.cs" />
+    <Compile Include="HSB.cs" />
     <Compile Include="util\Util.cs" />
     <EmbeddedResource Include="theme\ThemeForm.resx">
       <DependentUpon>ThemeForm.cs</DependentUpon>
@@ -183,6 +185,7 @@
     <Content Include="logo.ico" />
     <None Include="Resources\logo.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

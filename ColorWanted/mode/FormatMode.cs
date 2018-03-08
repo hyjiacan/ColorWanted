@@ -10,7 +10,11 @@
         /// </summary>
         Mini = 1,
         /// <summary>
-        /// 扩展模式，显示HEX和RGB格式
+        /// 标准模式，显示HEX和RGB格式
+        /// </summary>
+        Standard,
+        /// <summary>
+        /// 扩展模式，显示HEX和RGB格式以及HSVB信息
         /// </summary>
         Extention
     }
