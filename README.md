@@ -8,7 +8,7 @@
 - Github [https://github.com/hyjiacan/ColorWanted](https://github.com/hyjiacan/ColorWanted)
 - 码云 [https://gitee.com/hyjiacan/ColorWanted](https://gitee.com/hyjiacan/ColorWanted)
 
-#下载
+# 下载
 
 - [稳定版](https://gitee.com/hyjiacan/ColorWanted/releases)
 - [开发版](https://gitee.com/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
