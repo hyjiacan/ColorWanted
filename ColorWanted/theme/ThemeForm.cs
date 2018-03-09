@@ -67,8 +67,10 @@ namespace ColorWanted.theme
             var color = dialog.Color;
             lbFg.Text = string.Format("#{0:X2}{1:X2}{2:X2}",
                 color.R, color.G, color.B);
-            Settings.Theme.CustomForeColor =
-            btnThemeCustom.ForeColor = color;
+
+            ThemeUtil.Get(ThemeType.Custom).ForeColor =
+                Settings.Theme.CustomForeColor =
+                btnThemeCustom.ForeColor = color;
         }
 
         private void linkBg_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -79,7 +81,9 @@ namespace ColorWanted.theme
             var color = dialog.Color;
             lbBg.Text = string.Format("#{0:X2}{1:X2}{2:X2}",
                 color.R, color.G, color.B);
-            Settings.Theme.CustomBackColor =
+
+            ThemeUtil.Get(ThemeType.Custom).BackColor =
+                Settings.Theme.CustomBackColor =
                 btnThemeCustom.BackColor = color;
         }
 
