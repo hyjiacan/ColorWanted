@@ -1,7 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using ColorWanted.ext;
+﻿using ColorWanted.ext;
 using ColorWanted.setting;
+using System;
+using System.Windows.Forms;
 
 namespace ColorWanted.theme
 {
@@ -28,22 +28,13 @@ namespace ColorWanted.theme
             Close();
         }
 
-        private void btnThemeDark_Click(object sender, EventArgs e)
+        private void btnThemeClick(object sender, EventArgs e)
         {
-            pnChoose.Hide();
-            UpdateTheme(btnThemeDark, ThemeType.Dark);
-        }
-
-        private void btnThemeLight_Click(object sender, EventArgs e)
-        {
-            pnChoose.Hide();
-            UpdateTheme(btnThemeLight, ThemeType.Light);
-        }
-
-        private void btnThemeCustom_Click(object sender, EventArgs e)
-        {
-            pnChoose.Show();
-            UpdateTheme(btnThemeCustom, ThemeType.Custom);
+            var btn = sender as Button;
+            // ReSharper disable once PossibleNullReferenceException
+            var type = (ThemeType)Enum.Parse(typeof(ThemeType), btn.Tag.ToString());
+            pnChoose.Visible = ThemeType.Custom == type;
+            UpdateTheme(btn, type);
         }
 
         private static void UpdateTheme(Button src, ThemeType type)

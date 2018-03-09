@@ -53,7 +53,11 @@ namespace ColorWanted.setting
                 get
                 {
                     ThemeType type;
-                    Enum.TryParse(Get("type"), true, out type);
+                    if (!Enum.TryParse(Get("type"), true, out type))
+                    {
+                        // 默认使用绿色
+                        type  = ThemeType.Green;
+                    }
                     return type;
                 }
                 set

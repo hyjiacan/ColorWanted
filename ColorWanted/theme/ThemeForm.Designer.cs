@@ -44,6 +44,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.pnChoose = new System.Windows.Forms.Panel();
+            this.btnThemeGreen = new System.Windows.Forms.Button();
+            this.btnThemeBlue = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).BeginInit();
             this.pnChoose.SuspendLayout();
             this.SuspendLayout();
@@ -146,11 +148,12 @@
             this.btnThemeDark.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnThemeDark.Location = new System.Drawing.Point(66, 160);
             this.btnThemeDark.Name = "btnThemeDark";
-            this.btnThemeDark.Size = new System.Drawing.Size(328, 63);
+            this.btnThemeDark.Size = new System.Drawing.Size(156, 63);
             this.btnThemeDark.TabIndex = 24;
-            this.btnThemeDark.Text = "深色";
+            this.btnThemeDark.Tag = "Dark";
+            this.btnThemeDark.Text = "黑";
             this.btnThemeDark.UseVisualStyleBackColor = false;
-            this.btnThemeDark.Click += new System.EventHandler(this.btnThemeDark_Click);
+            this.btnThemeDark.Click += new System.EventHandler(this.btnThemeClick);
             // 
             // btnThemeLight
             // 
@@ -158,13 +161,14 @@
             this.btnThemeLight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThemeLight.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnThemeLight.ForeColor = System.Drawing.Color.Black;
-            this.btnThemeLight.Location = new System.Drawing.Point(66, 246);
+            this.btnThemeLight.Location = new System.Drawing.Point(238, 160);
             this.btnThemeLight.Name = "btnThemeLight";
-            this.btnThemeLight.Size = new System.Drawing.Size(328, 63);
+            this.btnThemeLight.Size = new System.Drawing.Size(156, 63);
             this.btnThemeLight.TabIndex = 24;
-            this.btnThemeLight.Text = "浅色";
+            this.btnThemeLight.Tag = "Light";
+            this.btnThemeLight.Text = "白";
             this.btnThemeLight.UseVisualStyleBackColor = false;
-            this.btnThemeLight.Click += new System.EventHandler(this.btnThemeLight_Click);
+            this.btnThemeLight.Click += new System.EventHandler(this.btnThemeClick);
             // 
             // btnThemeCustom
             // 
@@ -176,9 +180,10 @@
             this.btnThemeCustom.Name = "btnThemeCustom";
             this.btnThemeCustom.Size = new System.Drawing.Size(328, 63);
             this.btnThemeCustom.TabIndex = 24;
+            this.btnThemeCustom.Tag = "Custom";
             this.btnThemeCustom.Text = "自定义";
             this.btnThemeCustom.UseVisualStyleBackColor = false;
-            this.btnThemeCustom.Click += new System.EventHandler(this.btnThemeCustom_Click);
+            this.btnThemeCustom.Click += new System.EventHandler(this.btnThemeClick);
             // 
             // label3
             // 
@@ -218,6 +223,36 @@
             this.pnChoose.Size = new System.Drawing.Size(345, 42);
             this.pnChoose.TabIndex = 27;
             // 
+            // btnThemeGreen
+            // 
+            this.btnThemeGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(187)))), ((int)(((byte)(106)))));
+            this.btnThemeGreen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThemeGreen.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnThemeGreen.ForeColor = System.Drawing.Color.White;
+            this.btnThemeGreen.Location = new System.Drawing.Point(66, 243);
+            this.btnThemeGreen.Name = "btnThemeGreen";
+            this.btnThemeGreen.Size = new System.Drawing.Size(156, 63);
+            this.btnThemeGreen.TabIndex = 24;
+            this.btnThemeGreen.Tag = "Green";
+            this.btnThemeGreen.Text = "绿";
+            this.btnThemeGreen.UseVisualStyleBackColor = false;
+            this.btnThemeGreen.Click += new System.EventHandler(this.btnThemeClick);
+            // 
+            // btnThemeBlue
+            // 
+            this.btnThemeBlue.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(141)))), ((int)(((byte)(238)))));
+            this.btnThemeBlue.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThemeBlue.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnThemeBlue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(241)))), ((int)(((byte)(217)))));
+            this.btnThemeBlue.Location = new System.Drawing.Point(238, 243);
+            this.btnThemeBlue.Name = "btnThemeBlue";
+            this.btnThemeBlue.Size = new System.Drawing.Size(156, 63);
+            this.btnThemeBlue.TabIndex = 28;
+            this.btnThemeBlue.Tag = "Blue";
+            this.btnThemeBlue.Text = "蓝";
+            this.btnThemeBlue.UseVisualStyleBackColor = false;
+            this.btnThemeBlue.Click += new System.EventHandler(this.btnThemeClick);
+            // 
             // ThemeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -225,11 +260,13 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(463, 454);
+            this.Controls.Add(this.btnThemeBlue);
             this.Controls.Add(this.pnChoose);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnThemeCustom);
+            this.Controls.Add(this.btnThemeGreen);
             this.Controls.Add(this.btnThemeLight);
             this.Controls.Add(this.btnThemeDark);
             this.Controls.Add(this.label2);
@@ -273,5 +310,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel pnChoose;
+        private System.Windows.Forms.Button btnThemeGreen;
+        private System.Windows.Forms.Button btnThemeBlue;
     }
 }

@@ -27,6 +27,18 @@ namespace ColorWanted.theme
                         BackColor = Color.FromArgb(255, 255, 255)
                     }
                 },{
+                    ThemeType.Green, new ThemeDescription
+                    {
+                        ForeColor = Color.FromArgb(244, 241, 217),
+                        BackColor = Color.FromArgb(40, 187, 106)
+                    }
+                },{
+                    ThemeType.Blue, new ThemeDescription
+                    {
+                        ForeColor = Color.FromArgb(244, 241, 217),
+                        BackColor = Color.FromArgb(83, 141, 238)
+                    }
+                },{
                     ThemeType.Custom, new ThemeDescription
                     {
                         ForeColor = Settings.Theme.CustomForeColor,
