@@ -461,7 +461,7 @@ namespace ColorWanted
                     SwitchDisplayMode();
                     break;
                 // 显示/隐藏更多的颜色格式
-                case HotKeyType.ShowMoreFormat:
+                case HotKeyType.SwitchDisplayMode:
                     SwitchFormatMode();
                     break;
                 // 复制颜色值

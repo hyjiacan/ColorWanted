@@ -49,29 +49,43 @@ namespace ColorWanted.theme
         public static void SetOpacity(int opacity, Form theForm = null)
         {
             var value = opacity / 100.0;
-            foreach (var form in theForm == null ? Application.OpenForms.Cast<Form>() : new[] { theForm })
+            try
             {
-                if (form.Name != "MainForm" && form.Name != "PreviewForm")
+                foreach (var form in theForm == null ? Application.OpenForms.Cast<Form>() : new[] { theForm })
                 {
-                    form.Opacity = value;
+                    if (form.Name != "MainForm" && form.Name != "PreviewForm")
+                    {
+                        form.Opacity = value;
+                    }
                 }
+            }
+            catch
+            {
+                // ignore
             }
         }
 
         public static void SetTheme(ThemeDescription theme, Form theForm = null)
         {
-            foreach (var form in theForm == null ? Application.OpenForms.Cast<Form>() : new[] { theForm })
+            try
             {
-                form.BackColor = theme.BackColor;
-                form.ForeColor = theme.ForeColor;
-                foreach (Control control in form.Controls)
+                foreach (var form in theForm == null ? Application.OpenForms.Cast<Form>() : new[] { theForm })
                 {
-                    if (!(control is LinkLabel)) continue;
+                    form.BackColor = theme.BackColor;
+                    form.ForeColor = theme.ForeColor;
+                    foreach (Control control in form.Controls)
+                    {
+                        if (!(control is LinkLabel)) continue;
 
-                    var link = control as LinkLabel;
-                    link.ForeColor = theme.ForeColor;
-                    link.LinkColor = theme.ForeColor;
+                        var link = control as LinkLabel;
+                        link.ForeColor = theme.ForeColor;
+                        link.LinkColor = theme.ForeColor;
+                    }
                 }
+            }
+            catch
+            {
+                // ignore
             }
         }
 

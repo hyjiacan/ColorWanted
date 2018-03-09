@@ -10,17 +10,17 @@ namespace ColorWanted.hotkey
         /// <summary>
         /// 切换显示模式
         /// </summary>
-        [HotKey("切换显示模式 (隐藏/固定/跟随)",
+        [HotKey("切换窗口模式(隐藏/固定/跟随)",
             Key = Keys.F1, 
             Modifiers = KeyModifier.Alt)]
         SwitchMode = 0xF00001,
         /// <summary>
         /// 显示更多的颜色格式
         /// </summary>       
-        [HotKey("切换显示/隐藏RGB格式面板",
+        [HotKey("切换显示模式(迷你/标准/扩展)",
             Key = Keys.E,
             Modifiers = KeyModifier.Alt)]
-        ShowMoreFormat,
+        SwitchDisplayMode,
         /// <summary>
         /// 复制颜色值
         /// </summary>  
