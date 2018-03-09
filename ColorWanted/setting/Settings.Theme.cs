@@ -46,7 +46,7 @@ namespace ColorWanted.setting
             }
 
             /// <summary>
-            /// 是否显示预览窗口
+            /// 配色类型
             /// </summary>
             public static ThemeType Type
             {

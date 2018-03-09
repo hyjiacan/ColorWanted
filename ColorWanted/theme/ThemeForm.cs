@@ -30,16 +30,19 @@ namespace ColorWanted.theme
 
         private void btnThemeDark_Click(object sender, EventArgs e)
         {
+            pnChoose.Hide();
             UpdateTheme(btnThemeDark, ThemeType.Dark);
         }
 
         private void btnThemeLight_Click(object sender, EventArgs e)
         {
+            pnChoose.Hide();
             UpdateTheme(btnThemeLight, ThemeType.Light);
         }
 
         private void btnThemeCustom_Click(object sender, EventArgs e)
         {
+            pnChoose.Show();
             UpdateTheme(btnThemeCustom, ThemeType.Custom);
         }
 
@@ -54,7 +57,6 @@ namespace ColorWanted.theme
             ThemeUtil.SetTheme(theme);
 
             Settings.Theme.Type = type;
-
         }
 
         private void linkFg_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -65,6 +67,7 @@ namespace ColorWanted.theme
             var color = dialog.Color;
             lbFg.Text = string.Format("#{0:X2}{1:X2}{2:X2}",
                 color.R, color.G, color.B);
+            Settings.Theme.CustomForeColor =
             btnThemeCustom.ForeColor = color;
         }
 
@@ -76,7 +79,8 @@ namespace ColorWanted.theme
             var color = dialog.Color;
             lbBg.Text = string.Format("#{0:X2}{1:X2}{2:X2}",
                 color.R, color.G, color.B);
-            btnThemeCustom.BackColor = color;
+            Settings.Theme.CustomBackColor =
+                btnThemeCustom.BackColor = color;
         }
 
         private void ThemeForm_Load(object sender, EventArgs e)

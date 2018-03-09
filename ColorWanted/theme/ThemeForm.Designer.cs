@@ -43,7 +43,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.pnChoose = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).BeginInit();
+            this.pnChoose.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExit
@@ -73,7 +75,7 @@
             // 
             // lbFg
             // 
-            this.lbFg.Location = new System.Drawing.Point(53, 395);
+            this.lbFg.Location = new System.Drawing.Point(3, 3);
             this.lbFg.Name = "lbFg";
             this.lbFg.Size = new System.Drawing.Size(64, 36);
             this.lbFg.TabIndex = 19;
@@ -82,7 +84,7 @@
             // 
             // lbBg
             // 
-            this.lbBg.Location = new System.Drawing.Point(273, 395);
+            this.lbBg.Location = new System.Drawing.Point(223, 3);
             this.lbBg.Name = "lbBg";
             this.lbBg.Size = new System.Drawing.Size(64, 36);
             this.lbBg.TabIndex = 20;
@@ -116,7 +118,7 @@
             // 
             this.linkFg.AutoSize = true;
             this.linkFg.LinkColor = System.Drawing.Color.Lime;
-            this.linkFg.Location = new System.Drawing.Point(123, 407);
+            this.linkFg.Location = new System.Drawing.Point(73, 15);
             this.linkFg.Name = "linkFg";
             this.linkFg.Size = new System.Drawing.Size(41, 12);
             this.linkFg.TabIndex = 23;
@@ -128,7 +130,7 @@
             // 
             this.linkBg.AutoSize = true;
             this.linkBg.LinkColor = System.Drawing.Color.Lime;
-            this.linkBg.Location = new System.Drawing.Point(343, 407);
+            this.linkBg.Location = new System.Drawing.Point(293, 15);
             this.linkBg.Name = "linkBg";
             this.linkBg.Size = new System.Drawing.Size(41, 12);
             this.linkBg.TabIndex = 23;
@@ -205,6 +207,17 @@
             this.label5.TabIndex = 26;
             this.label5.Text = "不影响取色窗体和预览窗体";
             // 
+            // pnChoose
+            // 
+            this.pnChoose.Controls.Add(this.lbFg);
+            this.pnChoose.Controls.Add(this.lbBg);
+            this.pnChoose.Controls.Add(this.linkFg);
+            this.pnChoose.Controls.Add(this.linkBg);
+            this.pnChoose.Location = new System.Drawing.Point(55, 402);
+            this.pnChoose.Name = "pnChoose";
+            this.pnChoose.Size = new System.Drawing.Size(345, 42);
+            this.pnChoose.TabIndex = 27;
+            // 
             // ThemeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -212,18 +225,15 @@
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
             this.ClientSize = new System.Drawing.Size(463, 454);
+            this.Controls.Add(this.pnChoose);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnThemeCustom);
             this.Controls.Add(this.btnThemeLight);
             this.Controls.Add(this.btnThemeDark);
-            this.Controls.Add(this.linkBg);
-            this.Controls.Add(this.linkFg);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.trOpacity);
-            this.Controls.Add(this.lbBg);
-            this.Controls.Add(this.lbFg);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -239,6 +249,8 @@
             this.Load += new System.EventHandler(this.ThemeForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).EndInit();
+            this.pnChoose.ResumeLayout(false);
+            this.pnChoose.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +272,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel pnChoose;
     }
 }
