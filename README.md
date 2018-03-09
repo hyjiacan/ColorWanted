@@ -6,7 +6,7 @@
 # 源码
 
 - Github [https://github.com/hyjiacan/ColorWanted](https://github.com/hyjiacan/ColorWanted)
-- 码云 [https://gitee.com](https://gitee.com)
+- 码云 [https://gitee.com/hyjiacan/ColorWanted](https://gitee.com/hyjiacan/ColorWanted)
 
 #下载
 
