@@ -323,22 +323,22 @@ namespace ColorWanted
             var hsl = new HSL(color.GetHue(), color.GetSaturation(), color.GetBrightness());
             lbHsl.Text = colorBuffer.AppendFormat("HSL({0},{1},{2})",
                 Math.Round(hsl.H),
-                Math.Round(hsl.S * 100),
-                Math.Round(hsl.L * 100)).ToString();
+                Util.Round(hsl.S * 100),
+                Util.Round(hsl.L * 100)).ToString();
             colorBuffer.Clear();
 
             var hsb = HSB.Parse(color);
             lbHsb.Text = colorBuffer.AppendFormat("HSB({0},{1},{2})",
                 Math.Round(hsb.H),
-                Math.Round(hsb.S * 100),
-                Math.Round(hsb.B * 100)).ToString();
+                Util.Round(hsb.S * 100),
+                Util.Round(hsb.B * 100)).ToString();
             colorBuffer.Clear();
 
             var hsi = HSI.Parse(color, currentHsiAlgorithm);
             lbHsi.Text = colorBuffer.AppendFormat("HSI({0},{1},{2})",
                 Math.Round(hsi.H),
-                Math.Round(hsi.S * 100),
-                Math.Round(hsi.I * 100)).ToString();
+                Util.Round(hsi.S * 100),
+                Util.Round(hsi.I * 100)).ToString();
             colorBuffer.Clear();
 
             pnExt.BackColor = color;
@@ -998,9 +998,9 @@ namespace ColorWanted
                     trayMenuFormatStandard.Checked = false;
                     trayMenuFormatExtention.Checked = false;
 
+                    lbHex.Width = 68;
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
-                    lbHsi.Visible = false;
                     Height = 20;
                     Width = 88;
                     break;
@@ -1009,9 +1009,11 @@ namespace ColorWanted
                     trayMenuFormatStandard.Checked = true;
                     trayMenuFormatExtention.Checked = false;
 
+                    lbRgb.Width = 140;
+                    lbRgb.Left = 68;
+                    lbRgb.Top = 0;
                     lbRgb.Visible = true;
                     pnExt.Visible = false;
-                    lbHsi.Visible = false;
                     Height = 20;
                     Width = 208;
                     break;
@@ -1020,11 +1022,14 @@ namespace ColorWanted
                     trayMenuFormatStandard.Checked = false;
                     trayMenuFormatExtention.Checked = true;
 
+                    lbHex.Width = 180;
+                    lbRgb.Width = 180;
+                    lbRgb.Left = 0;
+                    lbRgb.Top = 20;
                     lbRgb.Visible = true;
                     pnExt.Visible = true;
-                    lbHsi.Visible = true;
-                    Height = 40;
-                    Width = 346;
+                    Height = 100;
+                    Width = 180;
                     break;
             }
             currentFormatMode = mode;

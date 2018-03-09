@@ -119,5 +119,14 @@ namespace ColorWanted.util
 
             return ScreenSize;
         }
+
+        public static string Round(double value)
+        {
+            var temp = value.ToString("0.00").Split('.');
+
+            temp[1] = temp[1].TrimEnd('0');
+
+            return temp[1] == "" ? temp[0] : string.Join(".", temp);
+        }
     }
 }

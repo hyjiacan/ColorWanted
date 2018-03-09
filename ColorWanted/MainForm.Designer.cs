@@ -94,7 +94,7 @@
             // lbRgb
             // 
             this.lbRgb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbRgb.Location = new System.Drawing.Point(68, 0);
+            this.lbRgb.Location = new System.Drawing.Point(0, 20);
             this.lbRgb.Name = "lbRgb";
             this.lbRgb.Padding = new System.Windows.Forms.Padding(2);
             this.lbRgb.Size = new System.Drawing.Size(140, 20);
@@ -429,7 +429,7 @@
             this.lbHsl.Location = new System.Drawing.Point(0, 0);
             this.lbHsl.Name = "lbHsl";
             this.lbHsl.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHsl.Size = new System.Drawing.Size(140, 20);
+            this.lbHsl.Size = new System.Drawing.Size(180, 20);
             this.lbHsl.TabIndex = 2;
             this.lbHsl.Text = "HSL(0,0,0)";
             this.lbHsl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -441,7 +441,7 @@
             this.lbHsb.Location = new System.Drawing.Point(0, 20);
             this.lbHsb.Name = "lbHsb";
             this.lbHsb.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHsb.Size = new System.Drawing.Size(140, 20);
+            this.lbHsb.Size = new System.Drawing.Size(180, 20);
             this.lbHsb.TabIndex = 3;
             this.lbHsb.Text = "HSB(0,0,0)";
             this.lbHsb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -449,24 +449,24 @@
             // 
             // pnExt
             // 
-            this.pnExt.Controls.Add(this.lbHsl);
             this.pnExt.Controls.Add(this.lbHsb);
-            this.pnExt.Location = new System.Drawing.Point(208, 0);
+            this.pnExt.Controls.Add(this.lbHsi);
+            this.pnExt.Controls.Add(this.lbHsl);
+            this.pnExt.Location = new System.Drawing.Point(0, 40);
             this.pnExt.Name = "pnExt";
-            this.pnExt.Size = new System.Drawing.Size(140, 40);
+            this.pnExt.Size = new System.Drawing.Size(180, 60);
             this.pnExt.TabIndex = 4;
             // 
             // lbHsi
             // 
             this.lbHsi.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbHsi.Location = new System.Drawing.Point(68, 20);
+            this.lbHsi.Location = new System.Drawing.Point(0, 40);
             this.lbHsi.Name = "lbHsi";
             this.lbHsi.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHsi.Size = new System.Drawing.Size(140, 20);
+            this.lbHsi.Size = new System.Drawing.Size(180, 20);
             this.lbHsi.TabIndex = 5;
             this.lbHsi.Text = "HSI(0,0,0)";
             this.lbHsi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbHsi.Visible = false;
             this.lbHsi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // MainForm
@@ -476,7 +476,6 @@
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(348, 236);
             this.ControlBox = false;
-            this.Controls.Add(this.lbHsi);
             this.Controls.Add(this.pnExt);
             this.Controls.Add(this.lbHex);
             this.Controls.Add(this.lbRgb);
