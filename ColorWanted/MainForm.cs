@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.colors;
 using ColorWanted.theme;
 using Timer = System.Windows.Forms.Timer;
 
@@ -83,6 +84,11 @@ namespace ColorWanted
         /// </summary>
         private StringBuilder colorBuffer;
 
+        /// <summary>
+        /// 当前的HSI算法
+        /// </summary>
+        private HsiAlgorithm currentHsiAlgorithm;
+
         public MainForm()
         {
             InitializeComponent();
@@ -115,10 +121,17 @@ namespace ColorWanted
         /// </summary>
         private void Init()
         {
+            trayMenuHsiAlgorithmGeometry.Tag = HsiAlgorithm.Geometry;
+            trayMenuHsiAlgorithmAxis.Tag = HsiAlgorithm.Axis;
+            trayMenuHsiAlgorithmSegment.Tag = HsiAlgorithm.Segment;
+            trayMenuHsiAlgorithmBajon.Tag = HsiAlgorithm.Bajon;
+            trayMenuHsiAlgorithmStandard.Tag = HsiAlgorithm.Standard;
+
             previewForm = new PreviewForm();
             previewForm.LocationChanged += previewForm_LocationChanged;
 
             currentDisplayMode = DisplayMode.Fixed;
+            SwitchHsiAlgorithm(Settings.Main.HsiAlgorithm);
 
             colorBuffer = new StringBuilder(8, 64);
 
@@ -128,7 +141,7 @@ namespace ColorWanted
                 TogglePreview();
             }
 
-            if (!trayMenuFollowCaret.Checked)
+            if (trayMenuFixed.Checked)
             {
                 FixedPosition();
             }
@@ -300,19 +313,32 @@ namespace ColorWanted
                 return;
             }
 
+            if (lbRgb.BackColor != BackColor)
+            {
+                lbRgb.BackColor = BackColor;
+                lbRgb.ForeColor = ForeColor;
+            }
+
             // var hsl = HSL.Parse(color);
             var hsl = new HSL(color.GetHue(), color.GetSaturation(), color.GetBrightness());
-            lbHsl.Text = colorBuffer.AppendFormat("({0},{1},{2})",
+            lbHsl.Text = colorBuffer.AppendFormat("HSL({0},{1},{2})",
                 Math.Round(hsl.H),
                 Math.Round(hsl.S * 100),
                 Math.Round(hsl.L * 100)).ToString();
             colorBuffer.Clear();
 
             var hsb = HSB.Parse(color);
-            lbHsb.Text = colorBuffer.AppendFormat("({0},{1},{2})",
+            lbHsb.Text = colorBuffer.AppendFormat("HSB({0},{1},{2})",
                 Math.Round(hsb.H),
                 Math.Round(hsb.S * 100),
                 Math.Round(hsb.B * 100)).ToString();
+            colorBuffer.Clear();
+
+            var hsi = HSI.Parse(color, currentHsiAlgorithm);
+            lbHsi.Text = colorBuffer.AppendFormat("HSI({0},{1},{2})",
+                Math.Round(hsi.H),
+                Math.Round(hsi.S * 100),
+                Math.Round(hsi.I * 100)).ToString();
             colorBuffer.Clear();
 
             pnExt.BackColor = color;
@@ -617,7 +643,6 @@ namespace ColorWanted
             SwitchFormatMode(FormatMode.Mini);
         }
 
-
         private void trayMenuFormatStandard_Click(object sender, EventArgs e)
         {
             SwitchFormatMode(FormatMode.Standard);
@@ -644,6 +669,13 @@ namespace ColorWanted
             item.Checked = !item.Checked;
 
             Settings.Base.RgbValueOnly = item.Checked;
+        }
+
+        private void trayMenuHsiAlgorithmChange(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            // ReSharper disable once PossibleNullReferenceException
+            SwitchHsiAlgorithm((HsiAlgorithm)item.Tag);
         }
 
         private void trayMenuTheme_Click(object sender, EventArgs e)
@@ -968,6 +1000,7 @@ namespace ColorWanted
 
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
+                    lbHsi.Visible = false;
                     Height = 20;
                     Width = 88;
                     break;
@@ -978,6 +1011,7 @@ namespace ColorWanted
 
                     lbRgb.Visible = true;
                     pnExt.Visible = false;
+                    lbHsi.Visible = false;
                     Height = 20;
                     Width = 208;
                     break;
@@ -988,8 +1022,9 @@ namespace ColorWanted
 
                     lbRgb.Visible = true;
                     pnExt.Visible = true;
-                    Height = 60;
-                    Width = 208;
+                    lbHsi.Visible = true;
+                    Height = 40;
+                    Width = 346;
                     break;
             }
             currentFormatMode = mode;
@@ -998,6 +1033,36 @@ namespace ColorWanted
             {
                 Settings.Main.Format = mode;
             }
+        }
+
+        private void SwitchHsiAlgorithm(HsiAlgorithm algorithm)
+        {
+            trayMenuHsiAlgorithmGeometry.Checked = false;
+            trayMenuHsiAlgorithmAxis.Checked = false;
+            trayMenuHsiAlgorithmSegment.Checked = false;
+            trayMenuHsiAlgorithmBajon.Checked = false;
+            trayMenuHsiAlgorithmStandard.Checked = false;
+            switch (algorithm)
+            {
+                case HsiAlgorithm.Geometry:
+                    trayMenuHsiAlgorithmGeometry.Checked = true;
+                    break;
+                case HsiAlgorithm.Axis:
+                    trayMenuHsiAlgorithmAxis.Checked = true;
+                    break;
+                case HsiAlgorithm.Segment:
+                    trayMenuHsiAlgorithmSegment.Checked = true;
+                    break;
+                case HsiAlgorithm.Bajon:
+                    trayMenuHsiAlgorithmBajon.Checked = true;
+                    break;
+                case HsiAlgorithm.Standard:
+                    trayMenuHsiAlgorithmStandard.Checked = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("algorithm", algorithm, null);
+            }
+            Settings.Main.HsiAlgorithm = currentHsiAlgorithm = algorithm;
         }
 
         /// <summary>

@@ -46,10 +46,10 @@ namespace ColorWanted.theme
             return Themes[type];
         }
 
-        public static void SetOpacity(int opacity)
+        public static void SetOpacity(int opacity, Form theForm = null)
         {
             var value = opacity / 100.0;
-            foreach (Form form in Application.OpenForms)
+            foreach (var form in theForm == null ? Application.OpenForms.Cast<Form>() : new[] { theForm })
             {
                 if (form.Name != "MainForm" && form.Name != "PreviewForm")
                 {
@@ -81,7 +81,7 @@ namespace ColorWanted.theme
         /// <param name="form"></param>
         public static void Apply(Form form)
         {
-            SetOpacity(Settings.Theme.Opacity);
+            SetOpacity(Settings.Theme.Opacity, form);
 
             var theme = GetCurrent();
             if (theme.IsEmpty)

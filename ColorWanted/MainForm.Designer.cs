@@ -45,6 +45,12 @@
             this.trayMenuCopyPolicy = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCopyPolicyHexValueOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCopyPolicyRgbValueOnly = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuHsiAlgorithm = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuHsiAlgorithmGeometry = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuHsiAlgorithmAxis = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuHsiAlgorithmSegment = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuHsiAlgorithmBajon = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuHsiAlgorithmStandard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuShowPreview = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowColorPicker = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,9 +73,8 @@
             this.lbColorPreview = new System.Windows.Forms.Label();
             this.lbHsl = new System.Windows.Forms.Label();
             this.lbHsb = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.pnExt = new System.Windows.Forms.Panel();
+            this.lbHsi = new System.Windows.Forms.Label();
             this.trayMenu.SuspendLayout();
             this.pnExt.SuspendLayout();
             this.SuspendLayout();
@@ -94,7 +99,7 @@
             this.lbRgb.Padding = new System.Windows.Forms.Padding(2);
             this.lbRgb.Size = new System.Drawing.Size(140, 20);
             this.lbRgb.TabIndex = 0;
-            this.lbRgb.Text = "RGB(255,255,255)";
+            this.lbRgb.Text = "RGB(0,0,0)";
             this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbRgb.Visible = false;
             this.lbRgb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
@@ -115,6 +120,7 @@
             this.trayMenuDisplayMode,
             this.trayMenuFormatMode,
             this.trayMenuCopyPolicy,
+            this.trayMenuHsiAlgorithm,
             this.toolStripSeparator3,
             this.trayMenuShowPreview,
             this.trayMenuShowColorPicker,
@@ -133,7 +139,7 @@
             this.trayMenuShowAbout,
             this.trayMenuExit});
             this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(149, 396);
+            this.trayMenu.Size = new System.Drawing.Size(149, 418);
             // 
             // trayMenuDisplayMode
             // 
@@ -231,6 +237,55 @@
             this.trayMenuCopyPolicyRgbValueOnly.Text = "仅RGB值";
             this.trayMenuCopyPolicyRgbValueOnly.ToolTipText = "只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255";
             this.trayMenuCopyPolicyRgbValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click);
+            // 
+            // trayMenuHsiAlgorithm
+            // 
+            this.trayMenuHsiAlgorithm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayMenuHsiAlgorithmGeometry,
+            this.trayMenuHsiAlgorithmAxis,
+            this.trayMenuHsiAlgorithmSegment,
+            this.trayMenuHsiAlgorithmBajon,
+            this.trayMenuHsiAlgorithmStandard});
+            this.trayMenuHsiAlgorithm.Name = "trayMenuHsiAlgorithm";
+            this.trayMenuHsiAlgorithm.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuHsiAlgorithm.Text = "HSI算法";
+            // 
+            // trayMenuHsiAlgorithmGeometry
+            // 
+            this.trayMenuHsiAlgorithmGeometry.Name = "trayMenuHsiAlgorithmGeometry";
+            this.trayMenuHsiAlgorithmGeometry.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmGeometry.Text = "几何推导法";
+            this.trayMenuHsiAlgorithmGeometry.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            // 
+            // trayMenuHsiAlgorithmAxis
+            // 
+            this.trayMenuHsiAlgorithmAxis.Name = "trayMenuHsiAlgorithmAxis";
+            this.trayMenuHsiAlgorithmAxis.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmAxis.Text = "坐标变换法";
+            this.trayMenuHsiAlgorithmAxis.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            // 
+            // trayMenuHsiAlgorithmSegment
+            // 
+            this.trayMenuHsiAlgorithmSegment.Name = "trayMenuHsiAlgorithmSegment";
+            this.trayMenuHsiAlgorithmSegment.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmSegment.Text = "分段定义法";
+            this.trayMenuHsiAlgorithmSegment.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            // 
+            // trayMenuHsiAlgorithmBajon
+            // 
+            this.trayMenuHsiAlgorithmBajon.Name = "trayMenuHsiAlgorithmBajon";
+            this.trayMenuHsiAlgorithmBajon.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmBajon.Text = "Bajon近似算法";
+            this.trayMenuHsiAlgorithmBajon.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            // 
+            // trayMenuHsiAlgorithmStandard
+            // 
+            this.trayMenuHsiAlgorithmStandard.Checked = true;
+            this.trayMenuHsiAlgorithmStandard.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.trayMenuHsiAlgorithmStandard.Name = "trayMenuHsiAlgorithmStandard";
+            this.trayMenuHsiAlgorithmStandard.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmStandard.Text = "标准模型法";
+            this.trayMenuHsiAlgorithmStandard.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // toolStripSeparator3
             // 
@@ -371,69 +426,57 @@
             // lbHsl
             // 
             this.lbHsl.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbHsl.Location = new System.Drawing.Point(0, 20);
+            this.lbHsl.Location = new System.Drawing.Point(0, 0);
             this.lbHsl.Name = "lbHsl";
             this.lbHsl.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHsl.Size = new System.Drawing.Size(104, 20);
+            this.lbHsl.Size = new System.Drawing.Size(140, 20);
             this.lbHsl.TabIndex = 2;
-            this.lbHsl.Text = "(0,0,0)";
+            this.lbHsl.Text = "HSL(0,0,0)";
             this.lbHsl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbHsl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // lbHsb
             // 
             this.lbHsb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbHsb.Location = new System.Drawing.Point(104, 20);
+            this.lbHsb.Location = new System.Drawing.Point(0, 20);
             this.lbHsb.Name = "lbHsb";
             this.lbHsb.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHsb.Size = new System.Drawing.Size(104, 20);
+            this.lbHsb.Size = new System.Drawing.Size(140, 20);
             this.lbHsb.TabIndex = 3;
-            this.lbHsb.Text = "(0,0,0)";
+            this.lbHsb.Text = "HSB(0,0,0)";
             this.lbHsb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbHsb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Padding = new System.Windows.Forms.Padding(2);
-            this.label1.Size = new System.Drawing.Size(104, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "HSL";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            // 
-            // label2
-            // 
-            this.label2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(104, 0);
-            this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(2);
-            this.label2.Size = new System.Drawing.Size(104, 20);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "HSB/HSV";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // pnExt
             // 
             this.pnExt.Controls.Add(this.lbHsl);
-            this.pnExt.Controls.Add(this.label1);
             this.pnExt.Controls.Add(this.lbHsb);
-            this.pnExt.Controls.Add(this.label2);
-            this.pnExt.Location = new System.Drawing.Point(0, 20);
+            this.pnExt.Location = new System.Drawing.Point(208, 0);
             this.pnExt.Name = "pnExt";
-            this.pnExt.Size = new System.Drawing.Size(208, 40);
+            this.pnExt.Size = new System.Drawing.Size(140, 40);
             this.pnExt.TabIndex = 4;
+            // 
+            // lbHsi
+            // 
+            this.lbHsi.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHsi.Location = new System.Drawing.Point(68, 20);
+            this.lbHsi.Name = "lbHsi";
+            this.lbHsi.Padding = new System.Windows.Forms.Padding(2);
+            this.lbHsi.Size = new System.Drawing.Size(140, 20);
+            this.lbHsi.TabIndex = 5;
+            this.lbHsi.Text = "HSI(0,0,0)";
+            this.lbHsi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbHsi.Visible = false;
+            this.lbHsi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(208, 236);
+            this.ClientSize = new System.Drawing.Size(348, 236);
             this.ControlBox = false;
+            this.Controls.Add(this.lbHsi);
             this.Controls.Add(this.pnExt);
             this.Controls.Add(this.lbHex);
             this.Controls.Add(this.lbRgb);
@@ -498,9 +541,14 @@
         private System.Windows.Forms.ToolStripMenuItem trayMenuFormatStandard;
         private System.Windows.Forms.Label lbHsl;
         private System.Windows.Forms.Label lbHsb;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pnExt;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithm;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmGeometry;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmAxis;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmSegment;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmBajon;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmStandard;
+        private System.Windows.Forms.Label lbHsi;
     }
 }
 

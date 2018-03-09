@@ -73,6 +73,7 @@ namespace ColorWanted
         {
             var form = Application.OpenForms["HotkeyForm"] ?? new HotkeyForm();
             form.Show();
+            form.BringToFront();
         }
 
         private void lkVersion_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)

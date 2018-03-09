@@ -1,7 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
-namespace ColorWanted
+
+namespace ColorWanted.colors
 {
     public class HSL
     {
@@ -20,6 +20,7 @@ namespace ColorWanted
 
         public static HSL Parse(Color color)
         {
+            // 算法参考: https://en.wikipedia.org/wiki/HSL_and_HSV#Hue_and_chroma
             var hsl = new HSL();
             var r = color.R / 255f;
             var g = color.G / 255f;

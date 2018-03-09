@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using ColorWanted.colors;
 using ColorWanted.mode;
 
 namespace ColorWanted.setting
@@ -67,6 +68,24 @@ namespace ColorWanted.setting
                 set
                 {
                     Set("display", value.ToString());
+                }
+            }
+
+            public static HsiAlgorithm HsiAlgorithm
+            {
+                get
+                {
+                    var v = Get("hsialgorithm");
+                    HsiAlgorithm algorithm;
+                    if (!Enum.TryParse(v, out algorithm))
+                    {
+                        algorithm = HsiAlgorithm.Standard;
+                    }
+                    return algorithm;
+                }
+                set
+                {
+                    Set("hsialgorithm", value.ToString());
                 }
             }
         }

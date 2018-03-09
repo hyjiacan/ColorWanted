@@ -1,7 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
-namespace ColorWanted
+
+namespace ColorWanted.colors
 {
     public class HSB
     {
@@ -20,6 +20,7 @@ namespace ColorWanted
 
         public static HSB Parse(Color color)
         {
+            // 算法参考: https://en.wikipedia.org/wiki/HSL_and_HSV#Hue_and_chroma
             var hsb = new HSB
             {
                 H = (int)color.GetHue()

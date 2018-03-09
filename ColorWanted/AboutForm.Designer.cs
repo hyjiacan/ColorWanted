@@ -83,10 +83,10 @@
             this.llOsc.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.llOsc.Location = new System.Drawing.Point(130, 207);
             this.llOsc.Name = "llOsc";
-            this.llOsc.Size = new System.Drawing.Size(269, 12);
+            this.llOsc.Size = new System.Drawing.Size(233, 12);
             this.llOsc.TabIndex = 5;
             this.llOsc.TabStop = true;
-            this.llOsc.Text = "https://git.oschina.net/hyjiacan/ColorWanted";
+            this.llOsc.Text = "https://gitee.com/hyjiacan/ColorWanted";
             this.llOsc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.llOsc.VisitedLinkColor = System.Drawing.Color.Lime;
             this.llOsc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOsc_LinkClicked);

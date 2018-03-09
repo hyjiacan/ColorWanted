@@ -10,15 +10,25 @@ namespace ColorWanted.util
         {
             return (byte)color;
         }
+
         public static byte GetGValue(uint color)
         {
             return (byte)((short)color >> 8);
         }
+
         public static byte GetBValue(uint color)
         {
             return (byte)(color >> 16);
         }
 
+        public static Color GetColor(Point screenPoint)
+        {
+            var displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
+            var colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
+            NativeMethods.DeleteDC(displayDC);
+            // return ColorTranslator.FromWin32((int)colorref);
+            return Color.FromArgb(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref));
+        }
 
         public static bool isGray(Color color)
         {
@@ -56,15 +66,6 @@ namespace ColorWanted.util
         public static int gt200(byte val)
         {
             return val >= 200 ? 1 : 0;
-        }
-
-
-        public static Color GetColor(Point screenPoint)
-        {
-            var displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
-            var colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
-            NativeMethods.DeleteDC(displayDC);
-            return Color.FromArgb(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref));
         }
 
         /// <summary>
@@ -109,3 +110,4 @@ namespace ColorWanted.util
         }
     }
 }
+
