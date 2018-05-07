@@ -2,12 +2,13 @@
 
 这是一个**Windows**平台使用的屏幕取色器工具。支持**RGB**、**HSL**、**HSB/HSV**、**HSI**颜色空间。
 
-运行环境 
+## 运行环境 
+
 - WindowsXP [(2.6.1及之前的版本) .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)    
 - Windows7及更高版本 [(2.6.2及之后的版本) .NET Framework 4.5.2](https://www.microsoft.com/zh-CN/download/details.aspx?id=42642)
 
-备注:由于[Github*升级SSL协议到*Tls12*](https://blog.github.com/2018-02-23-weak-cryptographic-standards-removed/)(发生在2018年2月)，
-导致使用.net4.0不能再支持自动更新功能，所以**在版本2.6.2开始，不再支持.net4.0，也就不再支持XP系统**
+备注:由于[Github 升级SSL协议到 Tls12](https://blog.github.com/2018-02-23-weak-cryptographic-standards-removed/)(发生在2018年2月)，
+导致使用.net4.0不能再支持自动更新功能，所以**从版本2.6.2开始，不再支持.net4.0，也就不再支持WindowsXP**
 
 # 源码
 
