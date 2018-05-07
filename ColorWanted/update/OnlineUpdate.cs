@@ -245,6 +245,9 @@ namespace ColorWanted.update
         /// <returns></returns>
         private static string HttpGet(string uri)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+
             var req = WebRequest.Create(uri) as HttpWebRequest;
             if (req == null)
             {
@@ -254,6 +257,7 @@ namespace ColorWanted.update
             req.Method = "GET";
             req.UserAgent = string.Format(userAgent, Application.ProductVersion);
             req.KeepAlive = false;
+
             using (var res = req.GetResponse())
             {
                 var responseStream = res.GetResponseStream();

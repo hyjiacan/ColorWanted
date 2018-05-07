@@ -47,8 +47,10 @@ namespace ColorWanted.update
 
             if (Instance.Busy)
             {
-                (Application.OpenForms["MainForm"] as MainForm)
-                    .ShowTip(2000, "正在查询更新信息，求你不要再点了...");
+                var mainForm = Application.OpenForms["MainForm"] as MainForm;
+                if (mainForm != null)
+                    mainForm
+                        .ShowTip(2000, "正在查询更新信息，求你不要再点了...");
                 return;
             }
 

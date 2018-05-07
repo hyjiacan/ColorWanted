@@ -29,11 +29,11 @@ namespace ColorWanted.colors
             var max = Math.Max(r, Math.Max(g, b));
 
             #region H
-            if (max == min)
+            if (max.Equals(min))
             {
                 hsl.H = 0;
             }
-            else if (max == r)
+            else if (max.Equals(r))
             {
                 if (g >= b)
                 {
@@ -44,7 +44,7 @@ namespace ColorWanted.colors
                     hsl.H = 60 * ((g - b) / (max - min)) + 360;
                 }
             }
-            else if (max == g)
+            else if (max.Equals(g))
             {
                 hsl.H = 60 * ((b - r) / (max - min)) + 120;
             }
@@ -56,7 +56,7 @@ namespace ColorWanted.colors
 
             hsl.L = (max + min) / 2;
 
-            if (hsl.L == 0 || max == min)
+            if (hsl.L.Equals(0) || max.Equals(min))
             {
                 hsl.S = 0;
                 return hsl;
@@ -64,7 +64,7 @@ namespace ColorWanted.colors
 
             if (hsl.L < 0.5)
             {
-                hsl.S = (max - min) / (max+min);
+                hsl.S = (max - min) / (max + min);
                 return hsl;
             }
 

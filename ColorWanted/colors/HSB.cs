@@ -30,7 +30,7 @@ namespace ColorWanted.colors
             var g = color.G / 255f;
             var b = color.B / 255f;
 
-            if (r == g && g == b)
+            if (r.Equals(g) && g.Equals(b))
             {
                 hsb.S = 0;
                 hsb.B = r;
