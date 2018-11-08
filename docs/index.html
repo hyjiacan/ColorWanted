@@ -1,0 +1,96 @@
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="Author" content="hyjiacan;hyjiacan@163.com"/>
+    <meta name="Keywords" content="ColorWanted;赏色;取色器;拾色器"/>
+    <meta name="Description" content="好用的Windows屏幕取色器"/>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>ColorWanted 好用的Windows屏幕取色器 - 官方网站</title>
+    <link rel="stylesheet" type="text/css" href="./css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/markdown.css"/>
+    <script type="text/javascript">
+    function readmeCallback(response) {
+        window.content = decodeURIComponent(escape(atob(response.data.content)))
+    }
+
+    function tagsCallback(response) {
+        let tag = response.data[0]
+        window.latest = {
+            version: tag.name,
+            tag: `https://github.com/hyjiacan/ColorWanted/releases/tag/${tag.name}`
+        }
+
+        // 加载日期
+        let xhr = new XMLHttpRequest()
+        xhr.open('get', tag.commit.url)
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState !== 4 || xhr.status !== 200) {
+                return
+            }
+            document.querySelector('#date').innerHTML = JSON.parse(xhr.responseText)
+                .commit.author.date.replace('T', ' ').replace('Z', '')
+        }
+        xhr.send()
+    }
+    </script>
+    <script src="https://api.github.com/repos/hyjiacan/ColorWanted/readme?callback=readmeCallback"
+            type="text/javascript"
+            charset="utf-8"></script>
+    <script src="https://api.github.com/repos/hyjiacan/ColorWanted/tags?callback=tagsCallback" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="https://cdn.bootcss.com/Base64/1.0.1/base64.min.js" type="text/javascript"></script>
+    <script src="https://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div class="container">
+    <div id="metas">
+        <span>
+            <span>最新版本:</span>
+            <a href="" id="source"></a>
+        </span>
+        <span>发布于</span>
+        <span id="date"></span>
+    </div>
+    <main id="content" class="markdown">
+    </main>
+    <footer></footer>
+    <script>
+    function render() {
+        let html = markdown.toHTML(window.content)
+        let content = document.querySelector('#content');
+        content.innerHTML = html
+
+        let title = content.querySelector('h1')
+        let metas = document.querySelector('#metas')
+        title.appendChild(metas)
+
+        // 追加其它数据
+        let handle = setInterval(() => {
+            if (!window.latest) {
+                return
+            }
+            clearInterval(handle)
+
+            let source = document.querySelector('#source');
+            source.href = latest.tag
+            source.innerHTML = latest.version
+        }, 100)
+    }
+
+    let handle = setInterval(() => {
+        if (!window.content) {
+            return
+        }
+        clearInterval(handle)
+        render()
+    }, 100)
+    </script>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: rgb(67, 67, 68);
+    font-size: 12px;
+    font-family: "Microsoft YaHei", sans-serif;
+    overflow: hidden;
+}
+
+body {
+    padding-right: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body:hover {
+    padding-right: 0;
+    overflow: auto;
+}
+
+.container {
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #AAAAAA;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+header {
+    height: 80px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    float: left;
+    width: 64px;
+    height: 64px;
+}
+
+.header-right {
+    margin-left: 80px;
+}
+
+.title {
+    font-size: 1.6rem;
+}
+
+#metas {
+    display: inline-block;
+    font-size: 12px;
+    padding-left: 60px;
+}
