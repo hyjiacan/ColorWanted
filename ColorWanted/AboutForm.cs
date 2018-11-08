@@ -40,7 +40,7 @@ namespace ColorWanted
 
         private void lkFeedback_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(@"http://gitee.com/hyjiacan/ColorWanted/issues/new");
+            Process.Start(@"https://github.com/hyjiacan/ColorWanted/issues/new");
         }
 
         private void lkQQGroup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -57,11 +57,6 @@ namespace ColorWanted
         private void lkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(lkGithub.Text);
-        }
-
-        private void llOsc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(llOsc.Text);
         }
 
         private void lkSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

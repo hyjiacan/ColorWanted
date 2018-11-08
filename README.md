@@ -10,16 +10,12 @@
 备注:由于[Github 升级SSL协议到 Tls12](https://blog.github.com/2018-02-23-weak-cryptographic-standards-removed/)(发生在2018年2月)，
 导致使用.net4.0不能再支持自动更新功能，所以**从版本2.6.2开始，不再支持.net4.0，也就不再支持WindowsXP**
 
-# 源码
+# 源码&下载
 
-- Github [https://github.com/hyjiacan/ColorWanted](https://github.com/hyjiacan/ColorWanted)
-- 码云 [https://gitee.com/hyjiacan/ColorWanted](https://gitee.com/hyjiacan/ColorWanted)
-
-# 下载
-
+- [源码](https://github.com/hyjiacan/ColorWanted)
 - [稳定版](https://github.com/hyjiacan/ColorWanted/releases)
 - [开发版](https://github.com/hyjiacan/ColorWanted/blob/master/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
-- [2.6.1](https://github.com/hyjiacan/ColorWanted/blob/86b1fd2d88515282ae5195ef300164e024718c2b/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
+- [2.6.1.2](https://github.com/hyjiacan/ColorWanted/blob/84255e2ff5a5cef4f6b70c2efbebbcee981ddb65/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
 
 # 使用说明
 
