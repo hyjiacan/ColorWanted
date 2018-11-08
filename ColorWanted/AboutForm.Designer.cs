@@ -42,16 +42,16 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lkQQGroup = new System.Windows.Forms.LinkLabel();
             this.lkVersion = new System.Windows.Forms.LinkLabel();
-            this.lkMail = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lkHotkey = new System.Windows.Forms.LinkLabel();
-            this.label6 = new System.Windows.Forms.Label();
             this.lkFeedback = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lkMail = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,7 +140,7 @@
             this.lkSite.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lkSite.Location = new System.Drawing.Point(130, 114);
             this.lkSite.Name = "lkSite";
-            this.lkSite.Size = new System.Drawing.Size(191, 12);
+            this.lkSite.Size = new System.Drawing.Size(227, 12);
             this.lkSite.TabIndex = 7;
             this.lkSite.TabStop = true;
             this.lkSite.Text = "http://hyjiacan.github.io/ColorWanted";
@@ -205,22 +205,6 @@
             this.lkVersion.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked_1);
             // 
-            // lkMail
-            // 
-            this.lkMail.AutoSize = true;
-            this.lkMail.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lkMail.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkMail.Location = new System.Drawing.Point(178, 278);
-            this.lkMail.Name = "lkMail";
-            this.lkMail.Size = new System.Drawing.Size(101, 12);
-            this.lkMail.TabIndex = 7;
-            this.lkMail.TabStop = true;
-            this.lkMail.Text = "dev@hyjiacan.com";
-            this.lkMail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip.SetToolTip(this.lkMail, "向我发送邮件");
-            this.lkMail.VisitedLinkColor = System.Drawing.Color.Lime;
-            this.lkMail.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkMail_LinkClicked);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -257,16 +241,6 @@
             this.lkHotkey.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lkHotkey.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkHotkey.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkHotkey_LinkClicked);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(132, 278);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "E-Mail";
             // 
             // lkFeedback
             // 
@@ -323,6 +297,32 @@
             this.label10.TabIndex = 4;
             this.label10.Text = "免责声明";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Location = new System.Drawing.Point(132, 278);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "E-Mail";
+            // 
+            // lkMail
+            // 
+            this.lkMail.AutoSize = true;
+            this.lkMail.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkMail.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lkMail.Location = new System.Drawing.Point(178, 278);
+            this.lkMail.Name = "lkMail";
+            this.lkMail.Size = new System.Drawing.Size(101, 12);
+            this.lkMail.TabIndex = 7;
+            this.lkMail.TabStop = true;
+            this.lkMail.Text = "hyjiacan@163.com";
+            this.lkMail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip.SetToolTip(this.lkMail, "向我发送邮件");
+            this.lkMail.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.lkMail.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkMail_LinkClicked);
             // 
             // AboutForm
             // 
@@ -383,9 +383,7 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.LinkLabel lkMail;
         private System.Windows.Forms.LinkLabel lkHotkey;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.LinkLabel lkFeedback;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel lkQQGroup;
@@ -393,5 +391,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel lkMail;
     }
 }

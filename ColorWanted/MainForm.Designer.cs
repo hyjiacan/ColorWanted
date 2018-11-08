@@ -475,6 +475,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(348, 236);
+            this.ContextMenuStrip = this.trayMenu;
             this.ControlBox = false;
             this.Controls.Add(this.pnExt);
             this.Controls.Add(this.lbHex);
