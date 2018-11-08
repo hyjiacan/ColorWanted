@@ -1,9 +1,10 @@
-﻿using ColorWanted.ext;
+﻿using ColorWanted.colors;
+using ColorWanted.ext;
 using ColorWanted.history;
 using ColorWanted.hotkey;
 using ColorWanted.mode;
 using ColorWanted.setting;
-using ColorWanted.update;
+using ColorWanted.theme;
 using ColorWanted.util;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using ColorWanted.colors;
-using ColorWanted.theme;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ColorWanted
@@ -193,16 +192,6 @@ namespace ColorWanted
                     // 然后打开快捷键设置窗口
                     trayMenuHotkey_Click(null, null);
                 }
-            }
-
-            // 启动时检查更新
-            trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;
-
-            // 自动检查更新
-            if (trayMenuCheckUpdateOnStartup.Checked &&
-                (DateTime.Now.Date - Settings.Update.LastUpdate).TotalDays >= Settings.Update.Span)
-            {
-                UpdateForm.ShowWindow(true);
             }
         }
 
@@ -763,16 +752,7 @@ namespace ColorWanted
 
         private void trayMenuCheckUpdate_Click(object sender, EventArgs e)
         {
-            UpdateForm.ShowWindow();
-        }
-
-        private void trayMenuCheckUpdateOnStartup_Click(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            item.Checked = !item.Checked;
-
-            Settings.Update.CheckOnStartup = item.Checked;
+            Process.Start("https://github.com/hyjiacan/ColorWanted/releases");
         }
 
         private void trayMenuOpenConfigFile_Click(object sender, EventArgs e)

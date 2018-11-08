@@ -1,6 +1,5 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.hotkey;
-using ColorWanted.update;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -40,7 +39,7 @@ namespace ColorWanted
 
         private void lkFeedback_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(@"http://git.oschina.net/hyjiacan/ColorWanted/issues/new");
+            Process.Start(@"http://gitee.net/hyjiacan/ColorWanted/issues/new");
         }
 
         private void lkQQGroup_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -78,7 +77,7 @@ namespace ColorWanted
 
         private void lkVersion_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            UpdateForm.ShowWindow();
+            Process.Start("https://github.com/hyjiacan/ColorWanted/releases");
         }
     }
 }

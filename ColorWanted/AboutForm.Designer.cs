@@ -41,7 +41,6 @@
             this.lkGithub = new System.Windows.Forms.LinkLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lkQQGroup = new System.Windows.Forms.LinkLabel();
-            this.lkVersion = new System.Windows.Forms.LinkLabel();
             this.lkMail = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -52,6 +51,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.lkVersion = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,10 +140,10 @@
             this.lkSite.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lkSite.Location = new System.Drawing.Point(130, 114);
             this.lkSite.Name = "lkSite";
-            this.lkSite.Size = new System.Drawing.Size(191, 12);
+            this.lkSite.Size = new System.Drawing.Size(239, 12);
             this.lkSite.TabIndex = 7;
             this.lkSite.TabStop = true;
-            this.lkSite.Text = "http://colorwanted.hyjiacan.com";
+            this.lkSite.Text = "https://hyjiacan.github.io/ColorWanted/";
             this.lkSite.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lkSite.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkSite_LinkClicked);
@@ -189,22 +189,6 @@
             this.lkQQGroup.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkQQGroup.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkQQGroup_LinkClicked);
             // 
-            // lkVersion
-            // 
-            this.lkVersion.AutoSize = true;
-            this.lkVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkVersion.Location = new System.Drawing.Point(170, 43);
-            this.lkVersion.Name = "lkVersion";
-            this.lkVersion.Size = new System.Drawing.Size(41, 12);
-            this.lkVersion.TabIndex = 7;
-            this.lkVersion.TabStop = true;
-            this.lkVersion.Text = "v1.0.0";
-            this.lkVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip.SetToolTip(this.lkVersion, "点击检查更新");
-            this.lkVersion.VisitedLinkColor = System.Drawing.Color.Lime;
-            this.lkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked_1);
-            // 
             // lkMail
             // 
             this.lkMail.AutoSize = true;
@@ -215,7 +199,7 @@
             this.lkMail.Size = new System.Drawing.Size(101, 12);
             this.lkMail.TabIndex = 7;
             this.lkMail.TabStop = true;
-            this.lkMail.Text = "dev@hyjiacan.com";
+            this.lkMail.Text = "hyjiacan@163.com";
             this.lkMail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip(this.lkMail, "向我发送邮件");
             this.lkMail.VisitedLinkColor = System.Drawing.Color.Lime;
@@ -324,6 +308,22 @@
             this.label10.Text = "免责声明";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // lkVersion
+            // 
+            this.lkVersion.AutoSize = true;
+            this.lkVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lkVersion.Location = new System.Drawing.Point(170, 43);
+            this.lkVersion.Name = "lkVersion";
+            this.lkVersion.Size = new System.Drawing.Size(41, 12);
+            this.lkVersion.TabIndex = 7;
+            this.lkVersion.TabStop = true;
+            this.lkVersion.Text = "v1.0.0";
+            this.lkVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip.SetToolTip(this.lkVersion, "点击检查更新");
+            this.lkVersion.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.lkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked_1);
+            // 
             // AboutForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -389,9 +389,9 @@
         private System.Windows.Forms.LinkLabel lkFeedback;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel lkQQGroup;
-        private System.Windows.Forms.LinkLabel lkVersion;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.LinkLabel lkVersion;
     }
 }

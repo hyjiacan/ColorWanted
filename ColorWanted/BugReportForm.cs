@@ -38,34 +38,13 @@ namespace ColorWanted
             exception.StackTrace));
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void btnCopy_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var client = new WebClient();
-                client.UploadValues(
-                        "http://git.hyjiacan.com/bug.php?token=bugreport",
-                        "post",
-                        new NameValueCollection
-                        {
-                            {"project", Convert.ToBase64String(Encoding.UTF8.GetBytes(Application.ProductName))},
-                            {"summary", Convert.ToBase64String(Encoding.UTF8.GetBytes(tbMsg.Text))},
-                            {"extra", Convert.ToBase64String(Encoding.UTF8.GetBytes(tbExtra.Text))}
-                        });
-            }
-            catch
-            {
-                // ignore
-            }
-            if (cbRestart.Checked)
-            {
-                Application.Restart();
-                return;
-            }
-            Application.Exit();
+            Clipboard.SetText(tbMsg.Text);
+            btnCopy.Text = "已复制";
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnOKl_Click(object sender, EventArgs e)
         {
             if (cbRestart.Checked)
             {
