@@ -187,7 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
-    <None Include="app.config" />
     <None Include="Resources\logo.jpg" />
   </ItemGroup>
   <ItemGroup />

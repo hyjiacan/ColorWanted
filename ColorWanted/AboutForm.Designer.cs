@@ -143,7 +143,7 @@
             this.lkSite.Size = new System.Drawing.Size(191, 12);
             this.lkSite.TabIndex = 7;
             this.lkSite.TabStop = true;
-            this.lkSite.Text = "http://colorwanted.hyjiacan.com";
+            this.lkSite.Text = "http://hyjiacan.github.io/ColorWanted";
             this.lkSite.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lkSite.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkSite.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkSite_LinkClicked);
