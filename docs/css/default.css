@@ -61,7 +61,7 @@ header {
 }
 
 #metas {
-    display: inline-block;
     font-size: 12px;
     padding-left: 60px;
+    display: none;
 }
