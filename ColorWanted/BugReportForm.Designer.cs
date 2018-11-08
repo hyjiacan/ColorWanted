@@ -68,10 +68,10 @@
             this.lkIssue.LinkColor = System.Drawing.Color.Lime;
             this.lkIssue.Location = new System.Drawing.Point(31, 257);
             this.lkIssue.Name = "lkIssue";
-            this.lkIssue.Size = new System.Drawing.Size(335, 12);
+            this.lkIssue.Size = new System.Drawing.Size(305, 12);
             this.lkIssue.TabIndex = 4;
             this.lkIssue.TabStop = true;
-            this.lkIssue.Text = "https://git.oschina.net/hyjiacan/ColorWanted/issues/new";
+            this.lkIssue.Text = "https://github.com/hyjiacan/ColorWanted/issues/new";
             this.lkIssue.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkIssue_LinkClicked);
             // 
             // btnOk
@@ -96,7 +96,7 @@
             this.cbRestart.Checked = true;
             this.cbRestart.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbRestart.Location = new System.Drawing.Point(37, 290);
+            this.cbRestart.Location = new System.Drawing.Point(33, 298);
             this.cbRestart.Name = "cbRestart";
             this.cbRestart.Size = new System.Drawing.Size(69, 16);
             this.cbRestart.TabIndex = 13;

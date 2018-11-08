@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.llOsc = new System.Windows.Forms.LinkLabel();
             this.lkLicense = new System.Windows.Forms.LinkLabel();
             this.picLOGO = new System.Windows.Forms.PictureBox();
             this.btnExit = new System.Windows.Forms.Button();
@@ -42,6 +41,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.lkQQGroup = new System.Windows.Forms.LinkLabel();
             this.lkMail = new System.Windows.Forms.LinkLabel();
+            this.lkVersion = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lkHotkey = new System.Windows.Forms.LinkLabel();
@@ -51,7 +51,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.lkVersion = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,20 +75,6 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "开源的屏幕取色器";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // llOsc
-            // 
-            this.llOsc.AutoSize = true;
-            this.llOsc.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.llOsc.Location = new System.Drawing.Point(130, 207);
-            this.llOsc.Name = "llOsc";
-            this.llOsc.Size = new System.Drawing.Size(233, 12);
-            this.llOsc.TabIndex = 5;
-            this.llOsc.TabStop = true;
-            this.llOsc.Text = "https://gitee.com/hyjiacan/ColorWanted";
-            this.llOsc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.llOsc.VisitedLinkColor = System.Drawing.Color.Lime;
-            this.llOsc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llOsc_LinkClicked);
             // 
             // lkLicense
             // 
@@ -165,10 +150,10 @@
             this.lkGithub.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lkGithub.Location = new System.Drawing.Point(130, 177);
             this.lkGithub.Name = "lkGithub";
-            this.lkGithub.Size = new System.Drawing.Size(239, 12);
+            this.lkGithub.Size = new System.Drawing.Size(305, 12);
             this.lkGithub.TabIndex = 5;
             this.lkGithub.TabStop = true;
-            this.lkGithub.Text = "https://github.com/hyjiacan/ColorWanted";
+            this.lkGithub.Text = "https://github.com/hyjiacan/ColorWanted/tree/net40";
             this.lkGithub.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lkGithub.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkGithub_LinkClicked);
@@ -178,7 +163,7 @@
             this.lkQQGroup.AutoSize = true;
             this.lkQQGroup.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lkQQGroup.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkQQGroup.Location = new System.Drawing.Point(178, 303);
+            this.lkQQGroup.Location = new System.Drawing.Point(177, 273);
             this.lkQQGroup.Name = "lkQQGroup";
             this.lkQQGroup.Size = new System.Drawing.Size(59, 12);
             this.lkQQGroup.TabIndex = 7;
@@ -194,7 +179,7 @@
             this.lkMail.AutoSize = true;
             this.lkMail.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lkMail.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkMail.Location = new System.Drawing.Point(178, 278);
+            this.lkMail.Location = new System.Drawing.Point(177, 248);
             this.lkMail.Name = "lkMail";
             this.lkMail.Size = new System.Drawing.Size(101, 12);
             this.lkMail.TabIndex = 7;
@@ -204,6 +189,22 @@
             this.toolTip.SetToolTip(this.lkMail, "向我发送邮件");
             this.lkMail.VisitedLinkColor = System.Drawing.Color.Lime;
             this.lkMail.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkMail_LinkClicked);
+            // 
+            // lkVersion
+            // 
+            this.lkVersion.AutoSize = true;
+            this.lkVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.lkVersion.Location = new System.Drawing.Point(170, 43);
+            this.lkVersion.Name = "lkVersion";
+            this.lkVersion.Size = new System.Drawing.Size(41, 12);
+            this.lkVersion.TabIndex = 7;
+            this.lkVersion.TabStop = true;
+            this.lkVersion.Text = "v1.0.0";
+            this.lkVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip.SetToolTip(this.lkVersion, "点击检查更新");
+            this.lkVersion.VisitedLinkColor = System.Drawing.Color.Lime;
+            this.lkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked_1);
             // 
             // label3
             // 
@@ -220,7 +221,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(58, 246);
+            this.label5.Location = new System.Drawing.Point(58, 216);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(67, 15);
             this.label5.TabIndex = 4;
@@ -246,7 +247,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label6.Location = new System.Drawing.Point(132, 278);
+            this.label6.Location = new System.Drawing.Point(131, 248);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 13;
@@ -257,7 +258,7 @@
             this.lkFeedback.AutoSize = true;
             this.lkFeedback.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lkFeedback.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkFeedback.Location = new System.Drawing.Point(132, 249);
+            this.lkFeedback.Location = new System.Drawing.Point(131, 219);
             this.lkFeedback.Name = "lkFeedback";
             this.lkFeedback.Size = new System.Drawing.Size(89, 12);
             this.lkFeedback.TabIndex = 7;
@@ -271,7 +272,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(132, 303);
+            this.label7.Location = new System.Drawing.Point(131, 273);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(29, 12);
             this.label7.TabIndex = 13;
@@ -281,7 +282,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label8.Location = new System.Drawing.Point(94, 435);
+            this.label8.Location = new System.Drawing.Point(129, 374);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(281, 12);
             this.label8.TabIndex = 13;
@@ -291,7 +292,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(130, 345);
+            this.label9.Location = new System.Drawing.Point(129, 315);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(257, 36);
             this.label9.TabIndex = 13;
@@ -301,28 +302,12 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(58, 342);
+            this.label10.Location = new System.Drawing.Point(58, 312);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 15);
             this.label10.TabIndex = 4;
             this.label10.Text = "免责声明";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lkVersion
-            // 
-            this.lkVersion.AutoSize = true;
-            this.lkVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkVersion.Location = new System.Drawing.Point(170, 43);
-            this.lkVersion.Name = "lkVersion";
-            this.lkVersion.Size = new System.Drawing.Size(41, 12);
-            this.lkVersion.TabIndex = 7;
-            this.lkVersion.TabStop = true;
-            this.lkVersion.Text = "v1.0.0";
-            this.lkVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolTip.SetToolTip(this.lkVersion, "点击检查更新");
-            this.lkVersion.VisitedLinkColor = System.Drawing.Color.Lime;
-            this.lkVersion.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lkVersion_LinkClicked_1);
             // 
             // AboutForm
             // 
@@ -330,7 +315,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(463, 480);
+            this.ClientSize = new System.Drawing.Size(463, 415);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -345,7 +330,6 @@
             this.Controls.Add(this.lkMail);
             this.Controls.Add(this.lkSite);
             this.Controls.Add(this.lkGithub);
-            this.Controls.Add(this.llOsc);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label5);
@@ -373,7 +357,6 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel llOsc;
         private System.Windows.Forms.LinkLabel lkLicense;
         private System.Windows.Forms.PictureBox picLOGO;
         private System.Windows.Forms.Button btnExit;

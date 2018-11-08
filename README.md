@@ -5,13 +5,11 @@
 
 # 源码
 
-- Github [https://github.com/hyjiacan/ColorWanted](https://github.com/hyjiacan/ColorWanted)
-- 码云 [https://gitee.com/hyjiacan/ColorWanted](https://gitee.com/hyjiacan/ColorWanted)
 
 # 下载
 
-- [稳定版](https://gitee.com/hyjiacan/ColorWanted/releases)
-- [开发版](https://gitee.com/hyjiacan/ColorWanted/raw/master/ColorWanted/bin/Release/ColorWanted.exe)
+- [源码](https://github.com/hyjiacan/ColorWanted/tree/net40)
+- [可执行程序](https://github.com/hyjiacan/ColorWanted/blob/net40/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
 
 # 使用说明
 
