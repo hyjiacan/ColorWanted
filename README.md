@@ -2,6 +2,8 @@
 
 这是一个**Windows**平台使用的屏幕取色器工具。支持**RGB**、**HSL**、**HSB/HSV**、**HSI**颜色空间。
 
+有任何意见或建议，欢迎通过[issue](https://github.com/hyjiacan/ColorWanted/issues/new)提出
+
 ## 运行环境 
 
 - WindowsXP [(2.6.1及之前的版本) .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)    
@@ -67,7 +69,7 @@
 
 > 以上是*默认*的快捷键，可以通过托盘的**快捷键**菜单，打开快捷键设置窗口来更改。
 
-**所有的功能都在托盘菜单上，请尽情玩耍**
+在预览窗口点击鼠标右键，可以开启/暂停预览功能
 
 ## 截图
 

@@ -45,6 +45,7 @@
             this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picPreview.TabIndex = 0;
             this.picPreview.TabStop = false;
+            this.picPreview.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseClick);
             this.picPreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseDown);
             this.picPreview.MouseEnter += new System.EventHandler(this.PreviewForm_MouseEnter);
             this.picPreview.MouseLeave += new System.EventHandler(this.PreviewForm_MouseLeave);

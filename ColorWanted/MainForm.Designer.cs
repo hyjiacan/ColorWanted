@@ -33,7 +33,7 @@
             this.lbHex = new System.Windows.Forms.Label();
             this.lbRgb = new System.Windows.Forms.Label();
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.trayMenuDisplayMode = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHideWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFollowCaret = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,7 +75,7 @@
             this.lbHsb = new System.Windows.Forms.Label();
             this.pnExt = new System.Windows.Forms.Panel();
             this.lbHsi = new System.Windows.Forms.Label();
-            this.trayMenu.SuspendLayout();
+            this.menu.SuspendLayout();
             this.pnExt.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,15 +108,15 @@
             // 
             this.tray.BalloonTipText = "屏幕取色器正在工作";
             this.tray.BalloonTipTitle = "赏色";
-            this.tray.ContextMenuStrip = this.trayMenu;
+            this.tray.ContextMenuStrip = this.menu;
             this.tray.Icon = ((System.Drawing.Icon)(resources.GetObject("tray.Icon")));
             this.tray.Text = "赏色-好用的Windows屏幕取色器";
             this.tray.Visible = true;
             this.tray.Click += new System.EventHandler(this.tray_Click);
             // 
-            // trayMenu
+            // menu
             // 
-            this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuDisplayMode,
             this.trayMenuFormatMode,
             this.trayMenuCopyPolicy,
@@ -126,8 +126,8 @@
             this.trayMenuShowColorPicker,
             this.trayMenuPixelScale,
             this.trayMenuAutoPin,
-            this.trayMenuTheme,
             this.toolStripSeparator2,
+            this.trayMenuTheme,
             this.trayMenuHotkey,
             this.trayMenuRestoreLocation,
             this.trayMenuAutoStart,
@@ -138,8 +138,8 @@
             this.trayMenuRestart,
             this.trayMenuShowAbout,
             this.trayMenuExit});
-            this.trayMenu.Name = "trayMenu";
-            this.trayMenu.Size = new System.Drawing.Size(149, 418);
+            this.menu.Name = "trayMenu";
+            this.menu.Size = new System.Drawing.Size(181, 440);
             // 
             // trayMenuDisplayMode
             // 
@@ -148,7 +148,7 @@
             this.trayMenuFollowCaret,
             this.trayMenuFixed});
             this.trayMenuDisplayMode.Name = "trayMenuDisplayMode";
-            this.trayMenuDisplayMode.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuDisplayMode.Size = new System.Drawing.Size(180, 22);
             this.trayMenuDisplayMode.Text = "窗口模式";
             this.trayMenuDisplayMode.ToolTipText = "切换不同的窗口模式";
             // 
@@ -157,21 +157,21 @@
             this.trayMenuHideWindow.Checked = true;
             this.trayMenuHideWindow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuHideWindow.Name = "trayMenuHideWindow";
-            this.trayMenuHideWindow.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuHideWindow.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHideWindow.Text = "隐藏窗口";
             this.trayMenuHideWindow.Click += new System.EventHandler(this.trayMenuHideWindow_Click);
             // 
             // trayMenuFollowCaret
             // 
             this.trayMenuFollowCaret.Name = "trayMenuFollowCaret";
-            this.trayMenuFollowCaret.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFollowCaret.Size = new System.Drawing.Size(180, 22);
             this.trayMenuFollowCaret.Text = "跟随模式";
             this.trayMenuFollowCaret.Click += new System.EventHandler(this.trayMenuFollowCaret_Click);
             // 
             // trayMenuFixed
             // 
             this.trayMenuFixed.Name = "trayMenuFixed";
-            this.trayMenuFixed.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFixed.Size = new System.Drawing.Size(180, 22);
             this.trayMenuFixed.Text = "固定模式";
             this.trayMenuFixed.Click += new System.EventHandler(this.trayMenuFixed_Click);
             // 
@@ -182,7 +182,7 @@
             this.trayMenuFormatStandard,
             this.trayMenuFormatExtention});
             this.trayMenuFormatMode.Name = "trayMenuFormatMode";
-            this.trayMenuFormatMode.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuFormatMode.Size = new System.Drawing.Size(180, 22);
             this.trayMenuFormatMode.Text = "显示格式";
             this.trayMenuFormatMode.ToolTipText = "设置是否显示RGB颜色值";
             // 
@@ -218,14 +218,14 @@
             this.trayMenuCopyPolicyHexValueOnly,
             this.trayMenuCopyPolicyRgbValueOnly});
             this.trayMenuCopyPolicy.Name = "trayMenuCopyPolicy";
-            this.trayMenuCopyPolicy.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuCopyPolicy.Size = new System.Drawing.Size(180, 22);
             this.trayMenuCopyPolicy.Text = "复制策略";
             this.trayMenuCopyPolicy.ToolTipText = "在复制颜色值时是否只复制值";
             // 
             // trayMenuCopyPolicyHexValueOnly
             // 
             this.trayMenuCopyPolicyHexValueOnly.Name = "trayMenuCopyPolicyHexValueOnly";
-            this.trayMenuCopyPolicyHexValueOnly.Size = new System.Drawing.Size(125, 22);
+            this.trayMenuCopyPolicyHexValueOnly.Size = new System.Drawing.Size(180, 22);
             this.trayMenuCopyPolicyHexValueOnly.Text = "仅HEX值";
             this.trayMenuCopyPolicyHexValueOnly.ToolTipText = "只复制HEX值，此时不包含前面的#符号";
             this.trayMenuCopyPolicyHexValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyHexValueOnly_Click);
@@ -233,7 +233,7 @@
             // trayMenuCopyPolicyRgbValueOnly
             // 
             this.trayMenuCopyPolicyRgbValueOnly.Name = "trayMenuCopyPolicyRgbValueOnly";
-            this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(125, 22);
+            this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(180, 22);
             this.trayMenuCopyPolicyRgbValueOnly.Text = "仅RGB值";
             this.trayMenuCopyPolicyRgbValueOnly.ToolTipText = "只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255";
             this.trayMenuCopyPolicyRgbValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click);
@@ -247,34 +247,34 @@
             this.trayMenuHsiAlgorithmBajon,
             this.trayMenuHsiAlgorithmStandard});
             this.trayMenuHsiAlgorithm.Name = "trayMenuHsiAlgorithm";
-            this.trayMenuHsiAlgorithm.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuHsiAlgorithm.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHsiAlgorithm.Text = "HSI算法";
             // 
             // trayMenuHsiAlgorithmGeometry
             // 
             this.trayMenuHsiAlgorithmGeometry.Name = "trayMenuHsiAlgorithmGeometry";
-            this.trayMenuHsiAlgorithmGeometry.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmGeometry.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHsiAlgorithmGeometry.Text = "几何推导法";
             this.trayMenuHsiAlgorithmGeometry.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // trayMenuHsiAlgorithmAxis
             // 
             this.trayMenuHsiAlgorithmAxis.Name = "trayMenuHsiAlgorithmAxis";
-            this.trayMenuHsiAlgorithmAxis.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmAxis.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHsiAlgorithmAxis.Text = "坐标变换法";
             this.trayMenuHsiAlgorithmAxis.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // trayMenuHsiAlgorithmSegment
             // 
             this.trayMenuHsiAlgorithmSegment.Name = "trayMenuHsiAlgorithmSegment";
-            this.trayMenuHsiAlgorithmSegment.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmSegment.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHsiAlgorithmSegment.Text = "分段定义法";
             this.trayMenuHsiAlgorithmSegment.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // trayMenuHsiAlgorithmBajon
             // 
             this.trayMenuHsiAlgorithmBajon.Name = "trayMenuHsiAlgorithmBajon";
-            this.trayMenuHsiAlgorithmBajon.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmBajon.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHsiAlgorithmBajon.Text = "Bajon近似算法";
             this.trayMenuHsiAlgorithmBajon.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
@@ -283,33 +283,33 @@
             this.trayMenuHsiAlgorithmStandard.Checked = true;
             this.trayMenuHsiAlgorithmStandard.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuHsiAlgorithmStandard.Name = "trayMenuHsiAlgorithmStandard";
-            this.trayMenuHsiAlgorithmStandard.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmStandard.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHsiAlgorithmStandard.Text = "标准模型法";
             this.trayMenuHsiAlgorithmStandard.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // trayMenuShowPreview
             // 
             this.trayMenuShowPreview.Name = "trayMenuShowPreview";
-            this.trayMenuShowPreview.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuShowPreview.Size = new System.Drawing.Size(180, 22);
             this.trayMenuShowPreview.Text = "显示预览窗口";
             this.trayMenuShowPreview.Click += new System.EventHandler(this.trayMenuShowPreview_Click);
             // 
             // trayMenuShowColorPicker
             // 
             this.trayMenuShowColorPicker.Name = "trayMenuShowColorPicker";
-            this.trayMenuShowColorPicker.Size = new System.Drawing.Size(148, 22);
-            this.trayMenuShowColorPicker.Text = "显示调色板";
+            this.trayMenuShowColorPicker.Size = new System.Drawing.Size(180, 22);
+            this.trayMenuShowColorPicker.Text = "打开调色板";
             this.trayMenuShowColorPicker.Click += new System.EventHandler(this.trayMenuShowColorPicker_Click);
             // 
             // trayMenuPixelScale
             // 
             this.trayMenuPixelScale.Name = "trayMenuPixelScale";
-            this.trayMenuPixelScale.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuPixelScale.Size = new System.Drawing.Size(180, 22);
             this.trayMenuPixelScale.Text = "像素放大算法";
             this.trayMenuPixelScale.ToolTipText = "预览窗口使用像素放大算法预览图片";
             this.trayMenuPixelScale.Click += new System.EventHandler(this.trayMenuPixelScale_Click);
@@ -319,40 +319,40 @@
             this.trayMenuAutoPin.Checked = true;
             this.trayMenuAutoPin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuAutoPin.Name = "trayMenuAutoPin";
-            this.trayMenuAutoPin.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuAutoPin.Size = new System.Drawing.Size(180, 22);
             this.trayMenuAutoPin.Text = "边缘自动吸附";
             this.trayMenuAutoPin.Click += new System.EventHandler(this.trayMenuAutoPin_Click);
             // 
             // trayMenuTheme
             // 
             this.trayMenuTheme.Name = "trayMenuTheme";
-            this.trayMenuTheme.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuTheme.Size = new System.Drawing.Size(180, 22);
             this.trayMenuTheme.Text = "主题配色";
             this.trayMenuTheme.Click += new System.EventHandler(this.trayMenuTheme_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // trayMenuHotkey
             // 
             this.trayMenuHotkey.Name = "trayMenuHotkey";
-            this.trayMenuHotkey.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuHotkey.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHotkey.Text = "快捷键";
             this.trayMenuHotkey.Click += new System.EventHandler(this.trayMenuHotkey_Click);
             // 
             // trayMenuRestoreLocation
             // 
             this.trayMenuRestoreLocation.Name = "trayMenuRestoreLocation";
-            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(180, 22);
             this.trayMenuRestoreLocation.Text = "重置窗口位置";
             this.trayMenuRestoreLocation.Click += new System.EventHandler(this.trayMenuRestoreLocation_Click);
             // 
             // trayMenuAutoStart
             // 
             this.trayMenuAutoStart.Name = "trayMenuAutoStart";
-            this.trayMenuAutoStart.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuAutoStart.Size = new System.Drawing.Size(180, 22);
             this.trayMenuAutoStart.Text = "开机启动";
             this.trayMenuAutoStart.ToolTipText = "设置或取消开机自动启动";
             this.trayMenuAutoStart.Click += new System.EventHandler(this.trayMenuAutoStart_Click);
@@ -360,7 +360,7 @@
             // trayMenuOpenConfigFile
             // 
             this.trayMenuOpenConfigFile.Name = "trayMenuOpenConfigFile";
-            this.trayMenuOpenConfigFile.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuOpenConfigFile.Size = new System.Drawing.Size(180, 22);
             this.trayMenuOpenConfigFile.Text = "查看配置文件";
             this.trayMenuOpenConfigFile.ToolTipText = "打开配置文件";
             this.trayMenuOpenConfigFile.Click += new System.EventHandler(this.trayMenuOpenConfigFile_Click);
@@ -368,7 +368,7 @@
             // trayMenuHistory
             // 
             this.trayMenuHistory.Name = "trayMenuHistory";
-            this.trayMenuHistory.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuHistory.Size = new System.Drawing.Size(180, 22);
             this.trayMenuHistory.Text = "取色历史";
             this.trayMenuHistory.ToolTipText = "查看取色历史记录";
             this.trayMenuHistory.Click += new System.EventHandler(this.trayMenuHistory_Click);
@@ -376,14 +376,14 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // trayMenuCheckUpdate
             // 
             this.trayMenuCheckUpdate.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuCheckUpdateOnStartup});
             this.trayMenuCheckUpdate.Name = "trayMenuCheckUpdate";
-            this.trayMenuCheckUpdate.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuCheckUpdate.Size = new System.Drawing.Size(180, 22);
             this.trayMenuCheckUpdate.Text = "检查更新";
             this.trayMenuCheckUpdate.Click += new System.EventHandler(this.trayMenuCheckUpdate_Click);
             // 
@@ -398,21 +398,21 @@
             // trayMenuRestart
             // 
             this.trayMenuRestart.Name = "trayMenuRestart";
-            this.trayMenuRestart.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuRestart.Size = new System.Drawing.Size(180, 22);
             this.trayMenuRestart.Text = "重新启动";
             this.trayMenuRestart.Click += new System.EventHandler(this.trayMenuRestart_Click);
             // 
             // trayMenuShowAbout
             // 
             this.trayMenuShowAbout.Name = "trayMenuShowAbout";
-            this.trayMenuShowAbout.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuShowAbout.Size = new System.Drawing.Size(180, 22);
             this.trayMenuShowAbout.Text = "关于";
             this.trayMenuShowAbout.Click += new System.EventHandler(this.trayMenuShowHelp_Click);
             // 
             // trayMenuExit
             // 
             this.trayMenuExit.Name = "trayMenuExit";
-            this.trayMenuExit.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuExit.Size = new System.Drawing.Size(180, 22);
             this.trayMenuExit.Text = "退出";
             this.trayMenuExit.Click += new System.EventHandler(this.trayMenuExit_Click);
             // 
@@ -475,7 +475,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(348, 236);
-            this.ContextMenuStrip = this.trayMenu;
+            this.ContextMenuStrip = this.menu;
             this.ControlBox = false;
             this.Controls.Add(this.pnExt);
             this.Controls.Add(this.lbHex);
@@ -496,7 +496,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            this.trayMenu.ResumeLayout(false);
+            this.menu.ResumeLayout(false);
             this.pnExt.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -507,7 +507,7 @@
         private System.Windows.Forms.Label lbRgb;
         private System.Windows.Forms.Label lbHex;
         private System.Windows.Forms.NotifyIcon tray;
-        private System.Windows.Forms.ContextMenuStrip trayMenu;
+        private System.Windows.Forms.ContextMenuStrip menu;
         private System.Windows.Forms.ToolStripMenuItem trayMenuShowAbout;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem trayMenuExit;

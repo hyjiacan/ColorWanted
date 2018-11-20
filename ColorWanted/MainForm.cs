@@ -1154,7 +1154,7 @@ namespace ColorWanted
         /// <summary>
         /// 控制绘制预览面板以及更新颜色格式的值
         /// </summary>
-        private void DrawControl(bool doubleClick)
+        internal void DrawControl(bool doubleClick)
         {
             if (doubleClick)
             {
@@ -1163,13 +1163,17 @@ namespace ColorWanted
                 if (stopPickColor)
                 {
                     colorTimer.Start();
+                    tray.ShowBalloonTip(1000,
+                        "已开启取色",
+                        "双击 Ctrl+` 暂停取色",
+                        ToolTipIcon.Info);
                 }
                 else
                 {
                     colorTimer.Stop();
                     tray.ShowBalloonTip(3000,
                         "已暂停取色",
-                        "双击 Ctrl+` 开始取色",
+                        "双击 Ctrl+` 开启取色",
                         ToolTipIcon.Info);
                 }
 
@@ -1180,9 +1184,16 @@ namespace ColorWanted
             previewForm.ToggleCursor(stopDrawPreview);
             if (stopDrawPreview)
             {
-                tray.ShowBalloonTip(3000,
+                tray.ShowBalloonTip(1000,
                     "已暂停预览",
-                    "按下 Ctrl+` 开始预览",
+                    "点击鼠标右键或按下 Ctrl+` 开启预览",
+                    ToolTipIcon.Info);
+            }
+            else
+            {
+                tray.ShowBalloonTip(3000,
+                    "已开启预览",
+                    "点击鼠标右键或按下 Ctrl+` 暂停预览",
                     ToolTipIcon.Info);
             }
         }

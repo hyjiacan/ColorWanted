@@ -59,18 +59,6 @@ namespace ColorWanted.setting
                 Set(hotkey.HotKeyType.ToString(),
                     string.Format("{0}#{1}", (int)hotkey.Modifiers, (int)hotkey.Key));
             }
-
-            /// <summary>
-            /// 是否在启动时检查更新
-            /// </summary>
-            public static bool CheckOnStartup
-            {
-                get { return Get("checkonstartup") != "0"; }
-                set
-                {
-                    Set("checkonstartup", value ? "1" : "0");
-                }
-            }
         }
     }
 }
