@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.lbHex = new System.Windows.Forms.Label();
             this.lbRgb = new System.Windows.Forms.Label();
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
@@ -109,7 +108,7 @@
             this.tray.BalloonTipText = "屏幕取色器正在工作";
             this.tray.BalloonTipTitle = "赏色";
             this.tray.ContextMenuStrip = this.menu;
-            this.tray.Icon = ((System.Drawing.Icon)(resources.GetObject("tray.Icon")));
+            this.tray.Icon = global::ColorWanted.Properties.Resources.ico;
             this.tray.Text = "赏色-好用的Windows屏幕取色器";
             this.tray.Visible = true;
             this.tray.Click += new System.EventHandler(this.tray_Click);
@@ -483,7 +482,7 @@
             this.Controls.Add(this.lbColorPreview);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::ColorWanted.Properties.Resources.ico;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
