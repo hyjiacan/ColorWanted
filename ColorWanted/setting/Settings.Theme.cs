@@ -55,8 +55,8 @@ namespace ColorWanted.setting
                     ThemeType type;
                     if (!Enum.TryParse(Get("type"), true, out type))
                     {
-                        // 默认使用绿色
-                        type  = ThemeType.Green;
+                        // 默认使用黑色
+                        type  = ThemeType.Dark;
                     }
                     return type;
                 }
