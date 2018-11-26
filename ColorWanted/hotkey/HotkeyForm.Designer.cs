@@ -61,7 +61,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 12);
             this.label2.TabIndex = 17;
-            this.label2.Text = "赏色 - 快捷键";
+            this.label2.Text = "ColorWanted - 快捷键";
             // 
             // picLOGO
             // 
@@ -142,7 +142,7 @@
             this.Opacity = 0.8D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "快捷键-赏色";
+            this.Text = "快捷键-ColorWanted";
             this.Load += new System.EventHandler(this.HotkeyForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();

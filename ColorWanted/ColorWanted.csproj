@@ -150,9 +150,6 @@
     <EmbeddedResource Include="theme\ThemeForm.resx">
       <DependentUpon>ThemeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BugReportForm.resx">
-      <DependentUpon>BugReportForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="history\HistoryForm.resx">
       <DependentUpon>HistoryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -161,9 +158,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="hotkey\HotkeyForm.resx">
       <DependentUpon>HotkeyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.resx">
-      <DependentUpon>PreviewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

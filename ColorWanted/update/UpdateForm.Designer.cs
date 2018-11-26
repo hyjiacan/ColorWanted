@@ -69,7 +69,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 12);
             this.label1.TabIndex = 15;
-            this.label1.Text = "赏色 - 检查更新";
+            this.label1.Text = "ColorWanted - 检查更新";
             // 
             // lbMsg
             // 
@@ -239,7 +239,7 @@
             this.Opacity = 0.8D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "检查更新 - 赏色";
+            this.Text = "检查更新 - ColorWanted";
             this.TopMost = true;
             this.MouseEnter += new System.EventHandler(this.UpdateForm_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.UpdateForm_MouseLeave);
