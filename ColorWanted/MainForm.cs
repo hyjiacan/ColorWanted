@@ -1,8 +1,11 @@
-﻿using ColorWanted.ext;
+﻿using ColorWanted.colors;
+using ColorWanted.ext;
 using ColorWanted.history;
 using ColorWanted.hotkey;
+using ColorWanted.misc;
 using ColorWanted.mode;
 using ColorWanted.setting;
+using ColorWanted.theme;
 using ColorWanted.update;
 using ColorWanted.util;
 using System;
@@ -15,8 +18,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using ColorWanted.colors;
-using ColorWanted.theme;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ColorWanted
@@ -522,12 +523,44 @@ namespace ColorWanted
 
         private void previewForm_LocationChanged(object sender, EventArgs e)
         {
-            if (!trayMenuAutoPin.Checked)
+            if (!trayMenuAutoPin.Checked || previewForm.FollowMainForm)
             {
                 return;
             }
 
-            #region 针对屏幕边缘
+            #region 针对主窗口边缘(仅下方和右侧)
+
+            // 右侧
+            if (Math.Abs(previewForm.Left - (Left + Width)) <= pinSize
+                && previewForm.Top <= Top + Height // 没有在主窗口下方
+                && (previewForm.Top + previewForm.Height >= previewForm.Top))// 没有在主窗口上方
+            {
+                previewForm.Left = Left + Width;
+                previewForm.Top = Top;
+                Settings.Preview.PinPosition = PinPosition.Right;
+            }
+            else
+            // 下方
+            if (Math.Abs(previewForm.Top - (Top + Height)) <= pinSize
+                && previewForm.Left <= Left + Width // 没有在主窗口右侧
+                && (previewForm.Left + previewForm.Width >= previewForm.Left))// 没有在主窗口左侧
+            {
+                previewForm.Top = Top + Height;
+                previewForm.Left = Left;
+                Settings.Preview.PinPosition = PinPosition.Bottom;
+            }
+            else if (previewForm.Initialized)
+            {
+                // 初始化完成再搞这个事，以解决初始化预览窗口位置时导致 Pin 状态的错误
+                Settings.Preview.PinPosition = PinPosition.None;
+            }
+            #endregion
+
+            #region 针对屏幕边缘 如果已经紧贴了Main窗口，就不管屏幕边缘了
+            if (Settings.Preview.PinPosition != PinPosition.None)
+            {
+                return;
+            }
             var size = Util.GetScreenSize();
             if (previewForm.Top <= pinSize)
             {
@@ -544,25 +577,6 @@ namespace ColorWanted
             else if (size.Height - previewForm.Top - previewForm.Height <= pinSize)
             {
                 previewForm.Top = size.Height - previewForm.Height;
-            }
-            #endregion
-
-            #region 针对主窗口边缘(仅下方和右侧)
-
-            // 右侧
-            if (Math.Abs(previewForm.Left - (Left + Width)) <= pinSize
-                && previewForm.Top <= Top + Height // 没有在主窗口下方
-                && (previewForm.Top + previewForm.Height >= previewForm.Top))// 没有在主窗口上方
-            {
-                previewForm.Left = Left + Width;
-            }
-
-            // 下方
-            if (Math.Abs(previewForm.Top - (Top + Height)) <= pinSize
-                && previewForm.Left <= Left + Width // 没有在主窗口右侧
-                && (previewForm.Left + previewForm.Width >= previewForm.Left))// 没有在主窗口左侧
-            {
-                previewForm.Top = Top + Height;
             }
             #endregion
         }
@@ -593,11 +607,32 @@ namespace ColorWanted
                     Top = size.Height - Height;
                 }
             }
+            // 同步移动预览窗口
+            UpdatePreviewPosition();
 
             if (settingLoaded)
             {
                 Settings.Main.Location = Location;
             }
+        }
+
+        /// <summary>
+        /// 当预览窗口紧贴此窗口时，若此窗口移动，同步更新预览窗口位置
+        /// </summary>
+        private void UpdatePreviewPosition()
+        {
+            previewForm.FollowMainForm = true;
+            if (Settings.Preview.PinPosition == PinPosition.Right)
+            {
+                previewForm.Top = Top;
+                previewForm.Left = Left + Width;
+            }
+            else if (Settings.Preview.PinPosition == PinPosition.Bottom)
+            {
+                previewForm.Top = Top + Height;
+                previewForm.Left = Left;
+            }
+            previewForm.FollowMainForm = false;
         }
 
 
@@ -1103,6 +1138,8 @@ namespace ColorWanted
             {
                 Top = size.Height - Height;
             }
+            // 同步移动预览窗口
+            UpdatePreviewPosition();
         }
 
         /// <summary>
