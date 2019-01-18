@@ -1172,7 +1172,7 @@ namespace ColorWanted
         /// <summary>
         /// 控制绘制预览面板以及更新颜色格式的值
         /// </summary>
-        private void DrawControl(bool doubleClick)
+        internal void DrawControl(bool doubleClick)
         {
             if (doubleClick)
             {

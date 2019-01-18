@@ -73,7 +73,7 @@
             this.lbHsb = new System.Windows.Forms.Label();
             this.pnExt = new System.Windows.Forms.Panel();
             this.lbHsi = new System.Windows.Forms.Label();
-            this.trayMenu.SuspendLayout();
+            this.menu.SuspendLayout();
             this.pnExt.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,15 +106,15 @@
             // 
             this.tray.BalloonTipText = "屏幕取色器正在工作";
             this.tray.BalloonTipTitle = "ColorWanted";
-            this.tray.ContextMenuStrip = this.trayMenu;
+            this.tray.ContextMenuStrip = this.menu;
             this.tray.Icon = global::ColorWanted.Properties.Resources.ico;
             this.tray.Text = "ColorWanted-好用的Windows屏幕取色器";
             this.tray.Visible = true;
             this.tray.Click += new System.EventHandler(this.tray_Click);
             // 
-            // trayMenu
+            // menu
             // 
-            this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuDisplayMode,
             this.trayMenuFormatMode,
             this.trayMenuCopyPolicy,
@@ -136,7 +136,7 @@
             this.trayMenuRestart,
             this.trayMenuShowAbout,
             this.trayMenuExit});
-            this.menu.Name = "trayMenu";
+            this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(149, 418);
             // 
             // trayMenuDisplayMode
@@ -463,7 +463,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(348, 236);
-            this.ContextMenuStrip = this.trayMenu;
+            this.ContextMenuStrip = this.menu;
             this.ControlBox = false;
             this.Controls.Add(this.pnExt);
             this.Controls.Add(this.lbHex);
@@ -483,7 +483,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            this.trayMenu.ResumeLayout(false);
+            this.menu.ResumeLayout(false);
             this.pnExt.ResumeLayout(false);
             this.ResumeLayout(false);
 
