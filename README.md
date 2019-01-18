@@ -1,4 +1,4 @@
-# ColorWanted 赏色
+# ColorWanted
 
 这是一个**Windows**平台使用的屏幕取色器工具。支持**RGB**、**HSL**、**HSB/HSV**、**HSI**颜色空间。
 > 运行环境 [Microsoft .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)

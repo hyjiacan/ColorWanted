@@ -282,7 +282,7 @@
             this.Opacity = 0.8D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "关于-赏色";
+            this.Text = "关于-ColorWanted";
             this.Load += new System.EventHandler(this.ThemeForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).EndInit();

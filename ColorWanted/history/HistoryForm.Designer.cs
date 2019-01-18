@@ -66,7 +66,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 12);
             this.label1.TabIndex = 15;
-            this.label1.Text = "赏色 - 取色历史";
+            this.label1.Text = "ColorWanted - 取色历史";
             // 
             // picLOGO
             // 
@@ -206,7 +206,7 @@
             this.Name = "HistoryForm";
             this.Opacity = 0.8D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "取色历史 - 赏色";
+            this.Text = "取色历史 - ColorWanted";
             this.Load += new System.EventHandler(this.HistoryForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
