@@ -88,7 +88,6 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(170)))), ((int)(((byte)(0)))));
             this.label5.Location = new System.Drawing.Point(409, 583);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(179, 12);
