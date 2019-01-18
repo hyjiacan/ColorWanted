@@ -11,6 +11,15 @@ namespace ColorWanted
     internal partial class PreviewForm : Form
     {
         public bool MouseOnMe { get; private set; }
+        /// <summary>
+        /// 是否初始化完成
+        /// </summary>
+        public bool Initialized { get; set; }
+
+        /// <summary>
+        /// 是否跟随Main窗口移动
+        /// </summary>
+        public bool FollowMainForm;
 
         private Bitmap image;
 
@@ -51,7 +60,6 @@ namespace ColorWanted
         public PreviewForm()
         {
             InitializeComponent();
-
             // 加载保存的窗口大小
             var w = Settings.Preview.Size;
             if (w != 0)
@@ -134,6 +142,7 @@ namespace ColorWanted
         private void PreviewForm_Load(object sender, EventArgs e)
         {
             Location = Settings.Preview.Location;
+            Initialized = true;
         }
 
 
@@ -232,6 +241,17 @@ namespace ColorWanted
             graphics.Dispose();
 
             return destImage;
+        }
+
+        private void picPreview_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right)
+            {
+                return;
+            }
+            // 切换暂停预览
+            var mainForm = Application.OpenForms["MainForm"] as MainForm;
+            mainForm.DrawControl(false);
         }
     }
 }

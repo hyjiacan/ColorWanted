@@ -1,4 +1,6 @@
 ﻿
+using ColorWanted.misc;
+using System;
 using System.Drawing;
 
 namespace ColorWanted.setting
@@ -83,6 +85,26 @@ namespace ColorWanted.setting
                 set
                 {
                     Set("pixelscale", value ? "1" : "0");
+                }
+            }
+
+            /// <summary>
+            /// 是否紧贴主窗口，默认为 None
+            /// </summary>
+            public static PinPosition PinPosition
+            {
+                get
+                {
+                    var v = Get("pinposition");
+                    if (string.IsNullOrWhiteSpace(v))
+                    {
+                        return PinPosition.None;
+                    }
+                    return (PinPosition)Enum.Parse(typeof(PinPosition), v);
+                }
+                set
+                {
+                    Set("pinposition", value.ToString());
                 }
             }
         }

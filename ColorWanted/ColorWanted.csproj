@@ -56,6 +56,7 @@
     <Compile Include="colors\HSI.cs" />
     <Compile Include="colors\HsiAlgorithm.cs" />
     <Compile Include="colors\HSL.cs" />
+    <Compile Include="misc\PinPosition.cs" />
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="theme\ThemeDescription.cs" />
     <Compile Include="theme\ThemeForm.cs">
