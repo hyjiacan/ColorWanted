@@ -989,6 +989,7 @@ namespace ColorWanted
                     trayMenuFormatStandard.Checked = true;
                     trayMenuFormatExtention.Checked = false;
 
+                    lbHex.Width = 68;
                     lbRgb.Width = 140;
                     lbRgb.Left = 68;
                     lbRgb.Top = 0;

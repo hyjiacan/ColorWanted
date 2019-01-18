@@ -135,9 +135,6 @@
     <EmbeddedResource Include="BugReportForm.resx">
       <DependentUpon>BugReportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="history\HistoryForm.resx">
       <DependentUpon>HistoryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -146,9 +143,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="hotkey\HotkeyForm.resx">
       <DependentUpon>HotkeyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PreviewForm.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
