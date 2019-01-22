@@ -19,7 +19,6 @@ namespace ColorWanted.update
 
         private static UpdateForm Instance;
         private static bool AutoClose;
-        private static int FormWidth;
 
         private UpdateInfo update;
 
@@ -42,7 +41,6 @@ namespace ColorWanted.update
             if (Instance == null)
             {
                 Instance = new UpdateForm();
-                FormWidth = Instance.Width;
             }
 
             if (Instance.Busy)
@@ -58,20 +56,11 @@ namespace ColorWanted.update
             Instance.Top = Screen.PrimaryScreen.WorkingArea.Height - 110;
             Instance.pnDetail.Hide();
 
-            if (Instance.Width == 0)
-            {
-                Instance.Width = FormWidth;
-            }
-
-            Instance.Width = 0;
             Instance.Left = Util.GetScreenSize().Width;
 
             Instance.Show();
             Instance.BringToFront();
-            if (!AutoClose)
-            {
-                Instance.SlideIn();
-            }
+            Instance.SlideIn();
             new Thread(Instance.RunCheck) { IsBackground = true }.Start();
         }
 
@@ -111,7 +100,7 @@ namespace ColorWanted.update
                 updateStatePresent.DoWork += updateStatePresent_DoWork;
                 updateStatePresent.RunWorkerCompleted += updateStatePresent_RunWorkerCompleted;
             }
-            if (Instance.updateStatePresent.IsBusy)
+            if (updateStatePresent.IsBusy)
             {
                 return;
             }
@@ -186,20 +175,21 @@ namespace ColorWanted.update
             new Thread(() =>
             {
                 var step = 8;
-                while (Width < FormWidth)
+                var offset = 0;
+                while (offset < Width)
                 {
                     var step1 = step;
                     this.InvokeMethod(() =>
                     {
-                        Width += step1;
                         Left -= step1;
+                        Application.DoEvents();
                     });
+                    offset += step1;
                     step = (int)(step * 1.2);
                     Thread.Sleep(50);
                 }
                 this.InvokeMethod(() =>
                 {
-                    Width = FormWidth;
                     Left = Util.GetScreenSize().Width - Width;
                     btnExit.Show();
                 });
