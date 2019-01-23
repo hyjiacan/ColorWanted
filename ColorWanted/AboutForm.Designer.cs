@@ -57,9 +57,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(62, 34);
+            this.label2.Location = new System.Drawing.Point(23, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 22);
+            this.label2.Size = new System.Drawing.Size(188, 22);
             this.label2.TabIndex = 1;
             this.label2.Text = "关于ColorWanted";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -178,7 +178,7 @@
             this.lkVersion.AutoSize = true;
             this.lkVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkVersion.Location = new System.Drawing.Point(170, 43);
+            this.lkVersion.Location = new System.Drawing.Point(214, 35);
             this.lkVersion.Name = "lkVersion";
             this.lkVersion.Size = new System.Drawing.Size(41, 12);
             this.lkVersion.TabIndex = 7;

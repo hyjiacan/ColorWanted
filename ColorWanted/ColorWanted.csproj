@@ -148,6 +148,9 @@
     <Compile Include="update\UpdateInfo.cs" />
     <Compile Include="colors\HSB.cs" />
     <Compile Include="util\Util.cs" />
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="theme\ThemeForm.resx">
       <DependentUpon>ThemeForm.cs</DependentUpon>
     </EmbeddedResource>
