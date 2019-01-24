@@ -1,12 +1,12 @@
-﻿using System;
+﻿using ColorWanted.ext;
+using ColorWanted.theme;
+using ColorWanted.util;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using ColorWanted.ext;
-using ColorWanted.theme;
-using ColorWanted.util;
 
 namespace ColorWanted.history
 {
@@ -87,7 +87,7 @@ namespace ColorWanted.history
             }
         }
 
-        private static ListViewItem RenderItem(ColorHistory history, ListViewGroup group)
+        private ListViewItem RenderItem(ColorHistory history, ListViewGroup group)
         {
             return new ListViewItem(group)
             {
@@ -98,8 +98,9 @@ namespace ColorWanted.history
                     history.Color.G,
                     history.Color.B),
                 Tag = history.Color,
-                ToolTipText = string.Format(@"时间: {0:HH:mm:ss}{1}来源: {2}",
-                    history.DateTime, '\n', history.Source == 0 ? "屏幕取色" : "调色板")
+                ToolTipText = string.Format(resources.GetString("historyTipTpl"),
+                    history.DateTime, '\n', history.Source == 0 ?
+                    resources.GetString("screen") : resources.GetString("colorPicker"))
             };
         }
 

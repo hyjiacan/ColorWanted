@@ -120,8 +120,9 @@
   <data name="label1.Text" xml:space="preserve">
     <value>不好意思，出问题了</value>
   </data>
-  <data name="&gt;&gt;lkIssue.Name" xml:space="preserve">
-    <value>lkIssue</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>542, 370</value>
   </data>
   <data name="&gt;&gt;cbRestart.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -135,7 +136,6 @@
   <data name="&gt;&gt;btnOK.Name" xml:space="preserve">
     <value>btnOK</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lkIssue.Location" type="System.Drawing.Point, System.Drawing">
     <value>35, 281</value>
   </data>
@@ -154,9 +154,6 @@
   <data name="tbMsg.Size" type="System.Drawing.Size, System.Drawing">
     <value>478, 154</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>请复制以上信息，打开以下地址提供这些错误信息</value>
-  </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>269, 12</value>
   </data>
@@ -172,6 +169,9 @@
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -197,9 +197,6 @@
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>217, 22</value>
-  </data>
-  <data name="cbRestart.Text" xml:space="preserve">
-    <value>重新启动</value>
   </data>
   <data name="&gt;&gt;lkIssue.Type" xml:space="preserve">
     <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -303,8 +300,11 @@
   <data name="tbMsg.WordWrap" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="label3.Text" xml:space="preserve">
+    <value>请复制以上信息，打开以下地址提供这些错误信息</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="cbRestart.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -321,8 +321,8 @@
   <data name="lkIssue.Text" xml:space="preserve">
     <value>https://github.com/hyjiacan/ColorWanted/issues/new</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>542, 370</value>
+  <data name="cbRestart.Text" xml:space="preserve">
+    <value>重新启动</value>
   </data>
   <data name="&gt;&gt;btnCopy.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -339,13 +339,10 @@
   <data name="btnCopy.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lkIssue.Name" xml:space="preserve">
+    <value>lkIssue</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en</value>
   </metadata>
 </root>
