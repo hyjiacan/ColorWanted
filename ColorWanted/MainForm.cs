@@ -211,9 +211,9 @@ namespace ColorWanted
         {
             this.InvokeMethod(() =>
             {
-                tooltip.SetToolTip(lbHex, "十六进制颜色值，快速复制：" +
+                tooltip.SetToolTip(lbHex, resources.GetString("lbHex.ToolTip") +
                                           HotKey.Get(HotKeyType.CopyColor));
-                tooltip.SetToolTip(lbRgb, "RGB通道颜色值，快速复制：双击" +
+                tooltip.SetToolTip(lbRgb, resources.GetString("lbRgb.ToolTip") +
                                           HotKey.Get(HotKeyType.CopyColor));
             });
         }
@@ -1178,7 +1178,7 @@ namespace ColorWanted
                 if (result != null)
                 {
                     tray.ShowBalloonTip(5000,
-                        "复制失败，请重试",
+                        resources.GetString("copyFailed"),
                         result,
                         ToolTipIcon.Error);
                 }
@@ -1201,18 +1201,10 @@ namespace ColorWanted
                 if (stopPickColor)
                 {
                     colorTimer.Start();
-                    tray.ShowBalloonTip(1000,
-                        "已开启取色",
-                        "双击 Ctrl+` 暂停取色",
-                        ToolTipIcon.Info);
                 }
                 else
                 {
                     colorTimer.Stop();
-                    tray.ShowBalloonTip(3000,
-                        "已暂停取色",
-                        "双击 Ctrl+` 开启取色",
-                        ToolTipIcon.Info);
                 }
 
                 return;
@@ -1220,20 +1212,6 @@ namespace ColorWanted
 
             stopDrawPreview = !stopDrawPreview;
             previewForm.ToggleCursor(stopDrawPreview);
-            if (stopDrawPreview)
-            {
-                tray.ShowBalloonTip(1000,
-                    "已暂停预览",
-                    "点击鼠标右键或按下 Ctrl+` 开启预览",
-                    ToolTipIcon.Info);
-            }
-            else
-            {
-                tray.ShowBalloonTip(3000,
-                    "已开启预览",
-                    "点击鼠标右键或按下 Ctrl+` 暂停预览",
-                    ToolTipIcon.Info);
-            }
         }
         #endregion
 

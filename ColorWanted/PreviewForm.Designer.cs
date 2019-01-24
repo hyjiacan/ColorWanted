@@ -28,21 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreviewForm));
             this.picPreview = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // picPreview
             // 
-            this.picPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.picPreview.Location = new System.Drawing.Point(0, 0);
-            this.picPreview.Margin = new System.Windows.Forms.Padding(0);
+            resources.ApplyResources(this.picPreview, "picPreview");
             this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(121, 121);
-            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picPreview.TabIndex = 0;
             this.picPreview.TabStop = false;
             this.picPreview.MouseClick += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseClick);
             this.picPreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseDown);
@@ -51,20 +45,15 @@
             // 
             // PreviewForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(121, 121);
             this.ControlBox = false;
             this.Controls.Add(this.picPreview);
             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximumSize = new System.Drawing.Size(429, 429);
-            this.MinimumSize = new System.Drawing.Size(77, 77);
             this.Name = "PreviewForm";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "ColorWanted-预览";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.PreviewForm_Load);
             this.LocationChanged += new System.EventHandler(this.PreviewForm_LocationChanged);
