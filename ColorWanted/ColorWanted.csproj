@@ -163,6 +163,12 @@
     <EmbeddedResource Include="history\HistoryForm.en.resx">
       <DependentUpon>HistoryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="hotkey\HotkeyCtrl.en.resx">
+      <DependentUpon>HotkeyCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="hotkey\HotkeyForm.en.resx">
+      <DependentUpon>HotkeyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.en.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

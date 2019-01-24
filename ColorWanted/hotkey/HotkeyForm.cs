@@ -58,7 +58,7 @@ namespace ColorWanted.hotkey
                                 return (Control)ctrl;
                             }
                         ).ToArray());
-                    lbMsg.Text = "加载完成";
+                    lbMsg.Text = resources.GetString("loadComplete");
                 }));
             })
             {
@@ -69,7 +69,7 @@ namespace ColorWanted.hotkey
 
         private void HotkeyChanged(HotKey hotkey)
         {
-            lbMsg.Text = "设置成功";
+            lbMsg.Text = resources.GetString("settingSuccess");
         }
 
         private void lkReset_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

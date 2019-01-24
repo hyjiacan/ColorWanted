@@ -117,133 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lkOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;tbInput.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lkReset.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lkReset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>540, 34</value>
-  </data>
-  <data name="lkOK.TabIndex" type="System.Int32, mscorlib">
-    <value>24</value>
-  </data>
-  <data name="lbTypeName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 1</value>
-  </data>
-  <data name="&gt;&gt;lkReset.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="lbTypeName.TabIndex" type="System.Int32, mscorlib">
-    <value>23</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>HotkeyCtrl</value>
-  </data>
-  <data name="&gt;&gt;lkOK.Name" xml:space="preserve">
-    <value>lkOK</value>
-  </data>
-  <data name="lkOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>482, 34</value>
-  </data>
-  <data name="lbTypeName.Font" type="System.Drawing.Font, System.Drawing">
-    <value>宋体, 11pt</value>
-  </data>
-  <data name="lkOK.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lbTypeName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;tbInput.Name" xml:space="preserve">
-    <value>tbInput</value>
-  </data>
-  <data name="tbInput.Size" type="System.Drawing.Size, System.Drawing">
-    <value>405, 21</value>
-  </data>
-  <data name="&gt;&gt;lkOK.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;lbTypeName.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;lbTypeName.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="tbInput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 30</value>
-  </data>
-  <data name="&gt;&gt;lkOK.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;tbInput.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="tbInput.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="lbTypeName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>616, 28</value>
-  </data>
-  <data name="lkReset.Text" xml:space="preserve">
-    <value>恢复默认</value>
-  </data>
-  <data name="tbInput.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="lkReset.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;lkReset.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="lkOK.Size" type="System.Drawing.Size, System.Drawing">
-    <value>29, 12</value>
-  </data>
-  <data name="&gt;&gt;lkReset.Name" xml:space="preserve">
-    <value>lkReset</value>
-  </data>
-  <data name="&gt;&gt;lbTypeName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tbInput.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>17, 12</value>
   </data>
   <data name="lkOK.Text" xml:space="preserve">
-    <value>确定</value>
+    <value>OK</value>
   </data>
   <data name="lkReset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 12</value>
+    <value>35, 12</value>
   </data>
-  <data name="lkReset.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="lkReset.Text" xml:space="preserve">
+    <value>Reset</value>
   </data>
-  <data name="&gt;&gt;lkReset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="&gt;&gt;lkOK.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>619, 56</value>
-  </data>
-  <data name="&gt;&gt;lbTypeName.Name" xml:space="preserve">
-    <value>lbTypeName</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
 </root>
