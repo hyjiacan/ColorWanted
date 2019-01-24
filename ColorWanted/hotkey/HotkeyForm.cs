@@ -10,6 +10,7 @@ namespace ColorWanted.hotkey
 {
     internal partial class HotkeyForm : Form
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HotkeyForm));
         public HotkeyForm()
         {
             InitializeComponent();

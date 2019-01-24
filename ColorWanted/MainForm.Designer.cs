@@ -7,7 +7,7 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        System.ComponentModel.ComponentResourceManager resources;
+        
 
         /// <summary>
         /// 清理所有正在使用的资源。

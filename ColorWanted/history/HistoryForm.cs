@@ -12,6 +12,7 @@ namespace ColorWanted.history
 {
     internal partial class HistoryForm : Form
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HistoryForm));
         public HistoryForm()
         {
             InitializeComponent();

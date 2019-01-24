@@ -24,6 +24,7 @@ namespace ColorWanted
 {
     internal partial class MainForm : Form
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
         /// <summary>
         /// 取色的定时器
         /// </summary>

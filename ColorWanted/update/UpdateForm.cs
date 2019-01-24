@@ -12,6 +12,7 @@ namespace ColorWanted.update
 {
     internal partial class UpdateForm : Form
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
         /// <summary>
         /// 定时隐藏升级提示窗口
         /// </summary>
