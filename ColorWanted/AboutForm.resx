@@ -221,9 +221,6 @@
   <data name="&gt;&gt;label10.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lkMail.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;btnExit.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
@@ -392,8 +389,8 @@
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>AboutForm</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>463, 425</value>
+  <data name="lkHotkey.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 9pt</value>
   </data>
   <data name="&gt;&gt;label4.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -419,6 +416,9 @@
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="picLOGO.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>StretchImage</value>
+  </data>
+  <data name="&gt;&gt;lkSite.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>16</value>
@@ -536,8 +536,8 @@
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;lkSite.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;lkMail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -551,8 +551,8 @@
   <data name="btnExit.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
     <value>Flat</value>
   </data>
-  <data name="lkHotkey.Font" type="System.Drawing.Font, System.Drawing">
-    <value>宋体, 9pt</value>
+  <data name="lkVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>41, 12</value>
   </data>
   <data name="&gt;&gt;lkVersion.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -637,9 +637,6 @@
   </data>
   <data name="&gt;&gt;lkLicense.Type" xml:space="preserve">
     <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="lkSite.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="&gt;&gt;lkLicense.Parent" xml:space="preserve">
     <value>$this</value>
@@ -779,8 +776,8 @@
   <data name="lkMail.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 12</value>
   </data>
-  <data name="lkVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>41, 12</value>
+  <data name="lkSite.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;lkMail.Parent" xml:space="preserve">
     <value>$this</value>
@@ -790,6 +787,9 @@
   </data>
   <data name="lkFeedback.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 12</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>463, 425</value>
   </data>
   <data name="lkQQGroup.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>

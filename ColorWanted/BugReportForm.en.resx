@@ -118,102 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>214, 22</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>About ColorWanted</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 77</value>
-  </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>149, 12</value>
+    <value>334, 22</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Open source Color picker</value>
+    <value>Sorry, something went wrong</value>
   </data>
-  <data name="lkLicense.ToolTip" xml:space="preserve">
-    <value>Please follow the license</value>
-  </data>
-  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 15</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Website</value>
-  </data>
-  <data name="lkQQGroup.ToolTip" xml:space="preserve">
-    <value>Click to join QQ Group(Javascript爱好者)</value>
-  </data>
-  <data name="lkVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>235, 47</value>
-  </data>
-  <data name="lkVersion.ToolTip" xml:space="preserve">
-    <value>Click to check update</value>
-  </data>
-  <data name="lkMail.ToolTip" xml:space="preserve">
-    <value>Mail me</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 149</value>
+  <data name="btnCopy.Text" xml:space="preserve">
+    <value>Copy</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>55, 15</value>
+    <value>245, 12</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>Source</value>
+    <value>Copy message above and send feedback to:</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 15</value>
+  <data name="btnOK.Text" xml:space="preserve">
+    <value>OK</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Contact</value>
+  <data name="cbRestart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 16</value>
   </data>
-  <data name="lkHotkey.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 12</value>
-  </data>
-  <data name="lkHotkey.Text" xml:space="preserve">
-    <value>Show hot keys</value>
-  </data>
-  <data name="lkFeedback.Size" type="System.Drawing.Size, System.Drawing">
-    <value>143, 12</value>
-  </data>
-  <data name="lkFeedback.Text" xml:space="preserve">
-    <value>Any issue or suggestion</value>
-  </data>
-  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>53, 12</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>QQ Group</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 24</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>The copyright of this product belongs to hyjiacan,
-and the copyright is protected by law.</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>127, 320</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>305, 24</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>For all direct or indirect losses arising from
-the use of this, I do not take any responsibility.</value>
-  </data>
-  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
-    <value>59, 298</value>
-  </data>
-  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 15</value>
-  </data>
-  <data name="label10.Text" xml:space="preserve">
-    <value>Responsible statement</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>ColorWanted-About</value>
+  <data name="cbRestart.Text" xml:space="preserve">
+    <value>Restart</value>
   </data>
 </root>
