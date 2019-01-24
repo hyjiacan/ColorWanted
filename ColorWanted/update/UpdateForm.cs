@@ -48,7 +48,7 @@ namespace ColorWanted.update
                 var mainForm = Application.OpenForms["MainForm"] as MainForm;
                 if (mainForm != null)
                     mainForm
-                        .ShowTip(2000, "正在查询更新信息，求你不要再点了...");
+                        .ShowTip(2000, Instance.resources.GetString("updateIsBusy"));
                 return;
             }
 
@@ -111,8 +111,8 @@ namespace ColorWanted.update
             this.InvokeMethod(() =>
             {
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
-                lbCurrent.Text = @"当前版本 " + Application.ProductVersion;
-                lbMsg.Text = @"正在检查更新版本...";
+                lbCurrent.Text = $"{resources.GetString("currentVersion")} " + Application.ProductVersion;
+                lbMsg.Text = resources.GetString("checking");
             });
 
             update = OnlineUpdate.Check();
@@ -126,14 +126,14 @@ namespace ColorWanted.update
             {
                 if (update == null)
                 {
-                    lbMsg.Text = @"没有更新版本";
+                    lbMsg.Text = resources.GetString("noupdate");
                     DelayHide();
                     return;
                 }
 
                 if (!update.Status)
                 {
-                    lbMsg.Text = @"检查更新失败";
+                    lbMsg.Text = resources.GetString("checkFailed");
                     DelayHide();
                     return;
                 }
@@ -146,14 +146,14 @@ namespace ColorWanted.update
                         return;
                     }
 
-                    lbMsg.Text = string.Format(@"有新版本 {0} (已忽略)", update.Version);
+                    lbMsg.Text = string.Format(resources.GetString("newVersionIgnored"), update.Version);
                 }
                 else
                 {
-                    lbMsg.Text = @"有新版本 " + update.Version;
+                    lbMsg.Text = $"{resources.GetString("newVersion")} " + update.Version;
                 }
 
-                lbUpdateDate.Text = update.Date.ToString("yyyy年MM月dd日");
+                lbUpdateDate.Text = update.Date.ToLongDateString();
 
                 lbLog.Text = update.Message;
 
@@ -273,7 +273,7 @@ namespace ColorWanted.update
         {
             CancelHide();
             linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
-            lbMsg.Text = string.Format(@"正在下载更新包({0})...", update.Version);
+            lbMsg.Text = string.Format(resources.GetString("downloading") + "({0})...", update.Version);
             new Thread(() =>
             {
                 OnlineUpdate.Update(update.Link, update.Version, result =>
@@ -282,7 +282,7 @@ namespace ColorWanted.update
                     {
                         this.InvokeMethod(() =>
                         {
-                            lbMsg.Text = @"更新包下载失败";
+                            lbMsg.Text = resources.GetString("downloadFailed");
                         });
                         return;
                     }
@@ -303,7 +303,7 @@ namespace ColorWanted.update
 
                         if (result.TotalBytesToReceive == result.BytesReceived)
                         {
-                            lbMsg.Text = @"更新包下载完成，即将更新...";
+                            lbMsg.Text = resources.GetString("downloadComplete");
                         }
                     });
 
