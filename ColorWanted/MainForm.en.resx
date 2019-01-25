@@ -152,7 +152,7 @@
     <value>Copy Policy</value>
   </data>
   <data name="trayMenuCopyPolicy.ToolTipText" xml:space="preserve">
-    <value>Copy color value only (no addition signals)</value>
+    <value>Copy color value only (no addition symbols)</value>
   </data>
   <data name="trayMenuHsiAlgorithm.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
@@ -316,17 +316,11 @@
   <data name="trayMenuFormatExtention.ToolTipText" xml:space="preserve">
     <value>Show HEX, RGB, and HSVB</value>
   </data>
-  <data name="trayMenuCopyPolicyHexValueOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
   <data name="trayMenuCopyPolicyHexValueOnly.Text" xml:space="preserve">
     <value>HEX only</value>
   </data>
   <data name="trayMenuCopyPolicyHexValueOnly.ToolTipText" xml:space="preserve">
-    <value>Copy HEX only, without # signal</value>
-  </data>
-  <data name="trayMenuCopyPolicyRgbValueOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>Copy HEX only, without symbol #</value>
   </data>
   <data name="trayMenuCopyPolicyRgbValueOnly.Text" xml:space="preserve">
     <value>RGB only</value>
@@ -375,8 +369,5 @@
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>ColorWanted-Screen color picker</value>
-  </data>
-  <data name="copyFailed" xml:space="preserve">
-    <value>Copy failed, try again pls</value>
   </data>
 </root>

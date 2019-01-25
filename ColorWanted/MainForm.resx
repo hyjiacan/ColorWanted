@@ -249,8 +249,8 @@
   <data name="trayMenuFollowCaret.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 22</value>
   </data>
-  <data name="lbHsb.Text" xml:space="preserve">
-    <value>HSB(0,0,0)</value>
+  <data name="trayMenuRestoreLocation.Text" xml:space="preserve">
+    <value>重置窗口位置</value>
   </data>
   <data name="&gt;&gt;trayMenuCopyPolicy.Name" xml:space="preserve">
     <value>trayMenuCopyPolicy</value>
@@ -263,9 +263,6 @@
   </data>
   <data name="&gt;&gt;trayMenuFollowCaret.Name" xml:space="preserve">
     <value>trayMenuFollowCaret</value>
-  </data>
-  <data name="trayMenuShowPreview.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
   </data>
   <data name="trayMenuCheckUpdateOnStartup.ToolTipText" xml:space="preserve">
     <value>每天首次启动时检查更新</value>
@@ -324,9 +321,6 @@
   <data name="&gt;&gt;trayMenuHsiAlgorithm.Name" xml:space="preserve">
     <value>trayMenuHsiAlgorithm</value>
   </data>
-  <data name="&gt;&gt;pnExt.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;trayMenuAutoStart.Name" xml:space="preserve">
     <value>trayMenuAutoStart</value>
   </data>
@@ -342,6 +336,9 @@
   <data name="trayMenuCheckUpdateOnStartup.Text" xml:space="preserve">
     <value>启动时检查</value>
   </data>
+  <data name="&gt;&gt;lbHsl.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="trayMenuOpenConfigFile.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 22</value>
   </data>
@@ -353,9 +350,6 @@
   </data>
   <data name="&gt;&gt;trayMenuCopyPolicyHexValueOnly.Name" xml:space="preserve">
     <value>trayMenuCopyPolicyHexValueOnly</value>
-  </data>
-  <data name="trayMenuCheckUpdateOnStartup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
   </data>
   <data name="&gt;&gt;trayMenuCopyPolicyHexValueOnly.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -375,9 +369,6 @@
   <data name="&gt;&gt;trayMenuHistory.Name" xml:space="preserve">
     <value>trayMenuHistory</value>
   </data>
-  <data name="trayMenuTheme.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 22</value>
-  </data>
   <data name="&gt;&gt;trayMenuPixelScale.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -386,6 +377,9 @@
   </data>
   <data name="lbHex.Size" type="System.Drawing.Size, System.Drawing">
     <value>68, 20</value>
+  </data>
+  <data name="trayMenuHistory.Text" xml:space="preserve">
+    <value>取色历史</value>
   </data>
   <data name="&gt;&gt;trayMenuFormatStandard.Name" xml:space="preserve">
     <value>trayMenuFormatStandard</value>
@@ -422,9 +416,6 @@
   </data>
   <data name="&gt;&gt;trayMenuFormatExtention.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="pnExt.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
   </data>
   <data name="lbColorPreview.Location" type="System.Drawing.Point, System.Drawing">
     <value>69, 0</value>
@@ -490,7 +481,7 @@
     <value>Manual</value>
   </data>
   <data name="trayMenuCopyPolicyRgbValueOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="trayMenuAutoStart.ToolTipText" xml:space="preserve">
     <value>设置或取消开机自动启动</value>
@@ -522,6 +513,9 @@
   <data name="trayMenuFixed.Text" xml:space="preserve">
     <value>固定模式</value>
   </data>
+  <data name="trayMenuDisplayMode.ToolTipText" xml:space="preserve">
+    <value>切换不同的窗口模式</value>
+  </data>
   <data name="lbHsi.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -534,14 +528,17 @@
   <data name="&gt;&gt;lbHsi.Name" xml:space="preserve">
     <value>lbHsi</value>
   </data>
+  <data name="trayMenuCopyPolicyRgbValueOnly.ToolTipText" xml:space="preserve">
+    <value>只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255</value>
+  </data>
   <data name="&gt;&gt;trayMenuHsiAlgorithmStandard.Name" xml:space="preserve">
     <value>trayMenuHsiAlgorithmStandard</value>
   </data>
   <data name="trayMenuDisplayMode.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 22</value>
   </data>
-  <data name="copyFailed" xml:space="preserve">
-    <value>复制失败，请重试</value>
+  <data name="lbHsb.Font" type="System.Drawing.Font, System.Drawing">
+    <value>宋体, 12pt</value>
   </data>
   <data name="&gt;&gt;lbRgb.Name" xml:space="preserve">
     <value>lbRgb</value>
@@ -582,8 +579,8 @@
   <data name="trayMenuFormatMini.Text" xml:space="preserve">
     <value>迷你模式</value>
   </data>
-  <data name="trayMenuDisplayMode.ToolTipText" xml:space="preserve">
-    <value>切换不同的窗口模式</value>
+  <data name="trayMenuCheckUpdateOnStartup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>136, 22</value>
   </data>
   <data name="trayMenuCheckUpdate.Text" xml:space="preserve">
     <value>检查更新</value>
@@ -591,8 +588,8 @@
   <data name="&gt;&gt;lbHsb.Parent" xml:space="preserve">
     <value>pnExt</value>
   </data>
-  <data name="trayMenuHistory.Text" xml:space="preserve">
-    <value>取色历史</value>
+  <data name="trayMenuTheme.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
   </data>
   <data name="&gt;&gt;trayMenuCheckUpdateOnStartup.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -654,6 +651,9 @@
   <data name="trayMenuHsiAlgorithmAxis.Size" type="System.Drawing.Size, System.Drawing">
     <value>157, 22</value>
   </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="trayMenuFormatStandard.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 22</value>
   </data>
@@ -672,14 +672,14 @@
   <data name="trayMenuFormatStandard.ToolTipText" xml:space="preserve">
     <value>显示HEX格式和GRB格式</value>
   </data>
-  <data name="&gt;&gt;lbHex.Name" xml:space="preserve">
-    <value>lbHex</value>
+  <data name="trayMenuShowPreview.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
   </data>
   <data name="trayMenuRestart.Text" xml:space="preserve">
     <value>重新启动</value>
   </data>
-  <data name="&gt;&gt;lbRgb.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;pnExt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="trayMenuFormatMini.ToolTipText" xml:space="preserve">
     <value>只显示HEX格式</value>
@@ -690,14 +690,14 @@
   <data name="trayMenuHotkey.Text" xml:space="preserve">
     <value>快捷键</value>
   </data>
-  <data name="&gt;&gt;lbHsl.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="trayMenuHideWindow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>124, 22</value>
   </data>
   <data name="trayMenuExit.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 22</value>
   </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;lbHex.Name" xml:space="preserve">
+    <value>lbHex</value>
   </data>
   <data name="trayMenuExit.Text" xml:space="preserve">
     <value>退出</value>
@@ -742,7 +742,7 @@
     <value>trayMenuCheckUpdate</value>
   </data>
   <data name="trayMenuCopyPolicyHexValueOnly.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="&gt;&gt;trayMenuFormatMode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -768,8 +768,8 @@
   <data name="lbRgb.Font" type="System.Drawing.Font, System.Drawing">
     <value>宋体, 12pt</value>
   </data>
-  <data name="trayMenuCopyPolicyRgbValueOnly.ToolTipText" xml:space="preserve">
-    <value>只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255</value>
+  <data name="pnExt.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;trayMenuFormatStandard.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -816,11 +816,8 @@
   <data name="lbRgb.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="lbHsb.Font" type="System.Drawing.Font, System.Drawing">
-    <value>宋体, 12pt</value>
-  </data>
-  <data name="trayMenuHideWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>124, 22</value>
+  <data name="&gt;&gt;lbRgb.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="trayMenuAutoStart.Text" xml:space="preserve">
     <value>开机启动</value>
@@ -831,8 +828,8 @@
   <data name="&gt;&gt;trayMenuHsiAlgorithmBajon.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="trayMenuRestoreLocation.Text" xml:space="preserve">
-    <value>重置窗口位置</value>
+  <data name="lbHsb.Text" xml:space="preserve">
+    <value>HSB(0,0,0)</value>
   </data>
   <data name="&gt;&gt;trayMenuShowAbout.Name" xml:space="preserve">
     <value>trayMenuShowAbout</value>
