@@ -307,8 +307,6 @@ namespace ColorWanted.update
                             lbMsg.Text = resources.GetString("downloadComplete");
                         }
                     });
-
-                    DelayHide();
                 });
             }) { IsBackground = true }.Start();
         }
