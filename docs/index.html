@@ -62,6 +62,7 @@
     <script>
     function render() {
         let html = markdown.toHTML(window.content)
+        html = html.replace(/docs\/img/g, 'img')
         let content = document.querySelector('#content');
         content.innerHTML = html
 
