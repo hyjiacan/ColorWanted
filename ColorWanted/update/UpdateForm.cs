@@ -1,15 +1,18 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.setting;
+using ColorWanted.theme;
+using ColorWanted.util;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using ColorWanted.theme;
-using ColorWanted.util;
 
 namespace ColorWanted.update
 {
+    /// <summary>
+    /// 更新窗口，作为单例使用
+    /// </summary>
     internal partial class UpdateForm : Form
     {
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
@@ -17,12 +20,20 @@ namespace ColorWanted.update
         /// 定时隐藏升级提示窗口
         /// </summary>
         private System.Threading.Timer hideTimer;
-
+        /// <summary>
+        /// 实例
+        /// </summary>
         private static UpdateForm Instance;
-        private static bool AutoClose;
+        /// <summary>
+        /// 更新请求是否是来自于自动更新
+        /// </summary>
+        private static bool FromAutoUpdate;
 
         private UpdateInfo update;
 
+        /// <summary>
+        /// 是否正在检查更新
+        /// </summary>
         private bool Busy;
 
         /// <summary>
@@ -31,13 +42,15 @@ namespace ColorWanted.update
         private BackgroundWorker updateStatePresent;
 
         private Image originLogo;
+        private Bitmap reverseLogo;
 
         /// <summary>
-        /// 
+        /// 显示检查更新的窗口
+        /// <paramref name="fromAutoUpdate">更新请求是否是来自于自动更新</paramref>
         /// </summary>
-        public static void ShowWindow(bool autoClose = false)
+        public static void ShowWindow(bool fromAutoUpdate = false)
         {
-            AutoClose = autoClose;
+            FromAutoUpdate = fromAutoUpdate;
 
             if (Instance == null)
             {
@@ -59,9 +72,21 @@ namespace ColorWanted.update
 
             Instance.Left = Util.GetScreenSize().Width;
 
-            Instance.Show();
-            Instance.BringToFront();
-            Instance.SlideIn();
+            // 如果不是来自自动更新，就先显示窗口
+            if (!FromAutoUpdate)
+            {
+                Instance.Show();
+                Instance.BringToFront();
+                Instance.SlideIn(() =>
+                {
+                    Instance.InvokeMethod(() =>
+                    {
+                        Instance.Left = Util.GetScreenSize().Width - Instance.Width;
+                        Instance.btnExit.Show();
+                    });
+                });
+            }
+            // 启动检查更新
             new Thread(Instance.RunCheck) { IsBackground = true }.Start();
         }
 
@@ -72,6 +97,7 @@ namespace ColorWanted.update
             var screen = Screen.PrimaryScreen.WorkingArea;
             Location = new Point(screen.Width - Width, screen.Height - Height);
         }
+
         protected override CreateParams CreateParams
         {
             get
@@ -125,6 +151,7 @@ namespace ColorWanted.update
 
             this.InvokeMethod(() =>
             {
+                // 没有更新
                 if (update == null)
                 {
                     lbMsg.Text = resources.GetString("noupdate");
@@ -132,6 +159,7 @@ namespace ColorWanted.update
                     return;
                 }
 
+                // 检查更新失败
                 if (!update.Status)
                 {
                     lbMsg.Text = resources.GetString("checkFailed");
@@ -139,20 +167,17 @@ namespace ColorWanted.update
                     return;
                 }
 
+                // 检查到更新，但是已经被忽略
                 if (update.Version == Settings.Update.IgnoreVersion)
                 {
-                    if (AutoClose)
-                    {
-                        DelayHide();
-                        return;
-                    }
-
                     lbMsg.Text = string.Format(resources.GetString("newVersionIgnored"), update.Version);
+                    DelayHide();
+                    return;
                 }
-                else
-                {
-                    lbMsg.Text = $"{resources.GetString("newVersion")} " + update.Version;
-                }
+
+                // 检查到可用的更新
+                lbMsg.Text = $"{resources.GetString("newVersion")} " + update.Version;
+
 
                 lbUpdateDate.Text = update.Date.ToLongDateString();
 
@@ -164,67 +189,23 @@ namespace ColorWanted.update
 
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = true;
 
-                if (!AutoClose)
+                // 当不是来自于自动更新时，窗口已经处于可见状态
+                if (!FromAutoUpdate)
                     return;
 
-                SlideIn();
+                // 只有来自于自动更新时，窗口才是在检查到更新到才显示
+                this.SlideIn(() =>
+                {
+                    this.InvokeMethod(() =>
+                    {
+                        Left = Util.GetScreenSize().Width - Width;
+                        btnExit.Show();
+                    });
+                    DelayHide(15000);
+                });
             });
         }
 
-        private void SlideIn()
-        {
-            new Thread(() =>
-            {
-                var step = 8;
-                var offset = 0;
-                while (offset < Width)
-                {
-                    var step1 = step;
-                    this.InvokeMethod(() =>
-                    {
-                        Left -= step1;
-                        Application.DoEvents();
-                    });
-                    offset += step1;
-                    step = (int)(step * 1.2);
-                    Thread.Sleep(50);
-                }
-                this.InvokeMethod(() =>
-                {
-                    Left = Util.GetScreenSize().Width - Width;
-                    btnExit.Show();
-                });
-                DelayHide(15000);
-            }) { IsBackground = true }.Start();
-        }
-
-        private void SlideOut()
-        {
-            this.InvokeMethod(() =>
-            {
-                btnExit.Hide();
-            });
-            new Thread(() =>
-            {
-                var step = 8;
-                while (Width > 0)
-                {
-                    var step1 = step;
-                    this.InvokeMethod(() =>
-                    {
-                        Width -= step1;
-                        Left += step1;
-                    });
-                    step = (int)(step * 1.2);
-                    Thread.Sleep(50);
-                }
-                this.InvokeMethod(() =>
-                {
-                    Width = 0;
-                    Left = Util.GetScreenSize().Width;
-                });
-            }) { IsBackground = true }.Start();
-        }
 
         private void updateStatePresent_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -235,19 +216,27 @@ namespace ColorWanted.update
             });
         }
 
+        /// <summary>
+        /// 闪烁窗口图标，表示正在检查更新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void updateStatePresent_DoWork(object sender, DoWorkEventArgs e)
         {
             originLogo = picLOGO.Image;
 
             // 反转logo颜色
-            var reverse = new Bitmap(originLogo);
-            for (var i = 0; i < reverse.Width; i++)
+            if (reverseLogo == null)
             {
-                for (var j = 0; j < reverse.Height; j++)
+                reverseLogo = new Bitmap(originLogo);
+                for (var i = 0; i < reverseLogo.Width; i++)
                 {
-                    var c = reverse.GetPixel(i, j);
-                    reverse.SetPixel(i, j,
+                    for (var j = 0; j < reverseLogo.Height; j++)
+                    {
+                        var c = reverseLogo.GetPixel(i, j);
+                        reverseLogo.SetPixel(i, j,
                         Color.FromArgb(255 - c.R, 255 - c.G, 255 - c.B));
+                    }
                 }
             }
 
@@ -262,7 +251,7 @@ namespace ColorWanted.update
                 var x1 = x;
                 this.InvokeMethod(() =>
                 {
-                    picLOGO.Image = x1 == 1 ? reverse : originLogo;
+                    picLOGO.Image = x1 == 1 ? reverseLogo : originLogo;
                     picLOGO.Refresh();
                 });
                 Thread.Sleep(250);
@@ -270,6 +259,11 @@ namespace ColorWanted.update
             }
         }
 
+        /// <summary>
+        /// 立即更新 被点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkNow_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CancelHide();
@@ -308,9 +302,15 @@ namespace ColorWanted.update
                         }
                     });
                 });
-            }) { IsBackground = true }.Start();
+            })
+            { IsBackground = true }.Start();
         }
 
+        /// <summary>
+        /// 忽略此版本 被点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkIgnore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Settings.Update.IgnoreVersion = update.Version;
@@ -318,17 +318,30 @@ namespace ColorWanted.update
             DelayHide(0);
         }
 
+        /// <summary>
+        /// 下次再说 被点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void linkNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             CancelHide();
             DelayHide(0);
         }
 
+        /// <summary>
+        /// 延迟关闭窗口
+        /// </summary>
+        /// <param name="timeout"></param>
         private void DelayHide(int timeout = 5000)
         {
             if (timeout == 0)
             {
-                SlideOut();
+                this.InvokeMethod(() =>
+                {
+                    btnExit.Hide();
+                });
+                this.SlideOut();
                 lbMsg.Text = "";
                 linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
                 lbPercentage.Hide();
@@ -359,6 +372,9 @@ namespace ColorWanted.update
             }, null, timeout, Timeout.Infinite);
         }
 
+        /// <summary>
+        /// 取消关闭窗口
+        /// </summary>
         private void CancelHide()
         {
             if (hideTimer == null) return;
@@ -367,11 +383,21 @@ namespace ColorWanted.update
             hideTimer = null;
         }
 
+        /// <summary>
+        /// 鼠标放到窗口上时，取消关闭窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateForm_MouseEnter(object sender, EventArgs e)
         {
             CancelHide();
         }
 
+        /// <summary>
+        /// 鼠标离开窗口时，延迟关闭窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateForm_MouseLeave(object sender, EventArgs e)
         {
             // 鼠标还在窗体区域内时，不触发事件

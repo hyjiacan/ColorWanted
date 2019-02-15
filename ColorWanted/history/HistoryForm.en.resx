@@ -259,4 +259,16 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 </value>
   </data>
+  <data name="colorPicker" xml:space="preserve">
+    <value>ColorPicker</value>
+  </data>
+  <data name="historyTipTpl" xml:space="preserve">
+    <value>Time: {0:HH:mm:ss}{1}Source: {2}</value>
+  </data>
+  <data name="screen" xml:space="preserve">
+    <value>Screen</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>The background is the history color</value>
+  </data>
 </root>

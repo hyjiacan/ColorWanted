@@ -41,6 +41,7 @@
             this.linkHex = new System.Windows.Forms.LinkLabel();
             this.linkRgb = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,7 +52,6 @@
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.btnExit.Name = "btnExit";
-            this.tooltip.SetToolTip(this.btnExit, resources.GetString("btnExit.ToolTip"));
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
@@ -59,31 +59,28 @@
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.tooltip.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // picLOGO
             // 
-            resources.ApplyResources(this.picLOGO, "picLOGO");
             this.picLOGO.BackColor = System.Drawing.Color.White;
             this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
+            resources.ApplyResources(this.picLOGO, "picLOGO");
             this.picLOGO.Name = "picLOGO";
             this.picLOGO.TabStop = false;
-            this.tooltip.SetToolTip(this.picLOGO, resources.GetString("picLOGO.ToolTip"));
             // 
             // list
             // 
             resources.ApplyResources(this.list, "list");
             this.list.AutoArrange = false;
-            this.list.BackColor = System.Drawing.Color.Gray;
+            this.list.BackColor = System.Drawing.Color.White;
             this.list.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.list.ForeColor = System.Drawing.Color.White;
+            this.list.ForeColor = System.Drawing.Color.Black;
             this.list.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.list.HideSelection = false;
             this.list.MultiSelect = false;
             this.list.Name = "list";
             this.list.ShowItemToolTips = true;
             this.list.TileSize = new System.Drawing.Size(80, 32);
-            this.tooltip.SetToolTip(this.list, resources.GetString("list.ToolTip"));
             this.list.UseCompatibleStateImageBehavior = false;
             this.list.View = System.Windows.Forms.View.Tile;
             this.list.SelectedIndexChanged += new System.EventHandler(this.list_SelectedIndexChanged);
@@ -94,7 +91,6 @@
             this.linkFile.LinkColor = System.Drawing.Color.Lime;
             this.linkFile.Name = "linkFile";
             this.linkFile.TabStop = true;
-            this.tooltip.SetToolTip(this.linkFile, resources.GetString("linkFile.ToolTip"));
             this.linkFile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFile_LinkClicked);
             // 
             // linkClear
@@ -103,7 +99,6 @@
             this.linkClear.LinkColor = System.Drawing.Color.Lime;
             this.linkClear.Name = "linkClear";
             this.linkClear.TabStop = true;
-            this.tooltip.SetToolTip(this.linkClear, resources.GetString("linkClear.ToolTip"));
             this.linkClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkClear_LinkClicked);
             // 
             // linkReload
@@ -112,7 +107,6 @@
             this.linkReload.LinkColor = System.Drawing.Color.Lime;
             this.linkReload.Name = "linkReload";
             this.linkReload.TabStop = true;
-            this.tooltip.SetToolTip(this.linkReload, resources.GetString("linkReload.ToolTip"));
             this.linkReload.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkReload_LinkClicked);
             // 
             // linkHex
@@ -139,12 +133,18 @@
             this.label2.Name = "label2";
             this.tooltip.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
             // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
             // HistoryForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.linkRgb);
             this.Controls.Add(this.linkHex);
@@ -161,7 +161,6 @@
             this.MinimizeBox = false;
             this.Name = "HistoryForm";
             this.Opacity = 0.8D;
-            this.tooltip.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.Load += new System.EventHandler(this.HistoryForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
@@ -183,5 +182,6 @@
         private System.Windows.Forms.LinkLabel linkHex;
         private System.Windows.Forms.LinkLabel linkRgb;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
