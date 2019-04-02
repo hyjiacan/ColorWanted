@@ -40,7 +40,10 @@ namespace ColorWanted.ext
         /// </summary>
         public static void SlideIn(this Form form, Action callback)
         {
-            form.Show();
+            if (!form.Visible)
+            {
+              form.Show();
+            }
             form.BringToFront();
             new Thread(() =>
             {
@@ -86,6 +89,7 @@ namespace ColorWanted.ext
                 {
                     form.Width = 0;
                     form.Left = Util.GetScreenSize().Width;
+                    form.Hide();
                 });
             })
             { IsBackground = true }.Start();

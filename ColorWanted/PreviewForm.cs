@@ -59,7 +59,7 @@ namespace ColorWanted
 
         public PreviewForm()
         {
-            InitializeComponent();
+            componentsLayout();
             // 加载保存的窗口大小
             var w = Settings.Preview.Size;
             if (w != 0)
@@ -252,6 +252,18 @@ namespace ColorWanted
             // 切换暂停预览
             var mainForm = Application.OpenForms["MainForm"] as MainForm;
             mainForm.DrawControl(false);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // PreviewForm
+            // 
+            this.ClientSize = new Size(284, 261);
+            this.Name = "PreviewForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

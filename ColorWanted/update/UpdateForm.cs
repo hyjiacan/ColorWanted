@@ -15,7 +15,7 @@ namespace ColorWanted.update
     /// </summary>
     internal partial class UpdateForm : Form
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
+        i18n.I18nManager resources = new i18n.I18nManager(typeof(UpdateForm));
         /// <summary>
         /// 定时隐藏升级提示窗口
         /// </summary>
@@ -75,8 +75,6 @@ namespace ColorWanted.update
             // 如果不是来自自动更新，就先显示窗口
             if (!FromAutoUpdate)
             {
-                Instance.Show();
-                Instance.BringToFront();
                 Instance.SlideIn(() =>
                 {
                     Instance.InvokeMethod(() =>
@@ -92,8 +90,9 @@ namespace ColorWanted.update
 
         private UpdateForm()
         {
-            InitializeComponent();
+            componentsLayout();
             ThemeUtil.Apply(this);
+            
             var screen = Screen.PrimaryScreen.WorkingArea;
             Location = new Point(screen.Width - Width, screen.Height - Height);
         }
@@ -406,6 +405,18 @@ namespace ColorWanted.update
                 return;
             }
             DelayHide();
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // UpdateForm
+            // 
+            this.ClientSize = new Size(284, 261);
+            this.Name = "UpdateForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

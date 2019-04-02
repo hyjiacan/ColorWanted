@@ -20,8 +20,9 @@ namespace ColorWanted
 
         public BugReportForm()
         {
-            InitializeComponent();
+            componentsLayout();
             ThemeUtil.Apply(this);
+            
         }
 
         internal void SetException(Exception exception)
@@ -54,6 +55,18 @@ namespace ColorWanted
         private void lkIssue_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(lkIssue.Text);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BugReportForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "BugReportForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

@@ -24,7 +24,7 @@ namespace ColorWanted
 {
     internal partial class MainForm : Form
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+        i18n.I18nManager resources = new i18n.I18nManager(typeof(MainForm));
         /// <summary>
         /// 取色的定时器
         /// </summary>
@@ -93,7 +93,7 @@ namespace ColorWanted
 
         public MainForm()
         {
-            InitializeComponent();
+            componentsLayout();
             ThemeUtil.Apply(this);
         }
 
@@ -114,7 +114,6 @@ namespace ColorWanted
         {
             Height = 20;
             Width = 88;
-
             Init();
         }
 
@@ -195,6 +194,17 @@ namespace ColorWanted
                     // 然后打开快捷键设置窗口
                     trayMenuHotkey_Click(null, null);
                 }
+            }
+
+            // 使用的语言
+            var lang = Settings.I18n.Lang ?? System.Globalization.CultureInfo.InstalledUICulture.Name;
+            if (lang.StartsWith("zh", StringComparison.OrdinalIgnoreCase))
+            {
+                trayMenuLanguageZH.Checked = true;
+            }
+            else
+            {
+                trayMenuLanguageEN.Checked = true;
             }
 
             // 启动时检查更新
@@ -652,7 +662,7 @@ namespace ColorWanted
             {
                 TopMost = true;
             }
-            if (previewForm.Visible)
+            if (previewForm != null && previewForm.Visible)
             {
                 previewForm.TopMost = true;
             }
@@ -722,6 +732,20 @@ namespace ColorWanted
             }
 
             themeForm.ShowDialog(this);
+        }
+
+        private void trayMenuLanguageEN_Click(object sender, EventArgs e)
+        {
+            trayMenuLanguageEN.Checked = true;
+            trayMenuLanguageZH.Checked = false;
+            Settings.I18n.Lang = "en";
+        }
+
+        private void trayMenuLanguageZH_Click(object sender, EventArgs e)
+        {
+            trayMenuLanguageZH.Checked = true;
+            trayMenuLanguageEN.Checked = false;
+            Settings.I18n.Lang = "zh";
         }
 
         private void trayMenuRestart_Click(object sender, EventArgs e)
@@ -1219,6 +1243,18 @@ namespace ColorWanted
         public void ShowTip(int timeout, string msg)
         {
             tray.ShowBalloonTip(timeout, null, msg, ToolTipIcon.None);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.ClientSize = new Size(284, 261);
+            this.Name = "MainForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

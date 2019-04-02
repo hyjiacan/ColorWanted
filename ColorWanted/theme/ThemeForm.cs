@@ -9,8 +9,9 @@ namespace ColorWanted.theme
     {
         public ThemeForm()
         {
-            InitializeComponent();
+            componentsLayout();
             ThemeUtil.Apply(this);
+            
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -104,6 +105,18 @@ namespace ColorWanted.theme
             var opacity = trOpacity.Value;
             ThemeUtil.SetOpacity(opacity);
             Settings.Theme.Opacity = opacity;
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ThemeForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "ThemeForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

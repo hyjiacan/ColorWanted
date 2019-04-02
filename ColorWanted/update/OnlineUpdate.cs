@@ -1,11 +1,11 @@
 ﻿using ColorWanted.update.git;
+using ColorWanted.util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
-using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 namespace ColorWanted.update
@@ -34,16 +34,6 @@ namespace ColorWanted.update
         /// 根据commit的sha来决定下载地址
         /// </summary>
         private const string downloadUrl = "https://github.com/hyjiacan/ColorWanted/raw/{0}/ColorWanted/bin/Release/ColorWanted.exe";
-        /// <summary>
-        /// 向github请求的api版本
-        /// </summary>
-        private const string accept = "application/vnd.github.v3+json";
-        /// <summary>
-        /// 没有userAgent时，github不会接收请求
-        /// </summary>
-        private const string userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36 ColorWanted/{0}";
-
-        private static readonly JavaScriptSerializer json = new JavaScriptSerializer();
 
         /// <summary>
         /// 检查更新
@@ -55,12 +45,12 @@ namespace ColorWanted.update
 
             try
             {
-                var data = HttpGet(tagsUrl);
+                var data = Http.Get(tagsUrl);
                 if (data == null)
                 {
                     return info;
                 }
-                var list = json.Deserialize<List<TagItem>>(data);
+                var list = Json.Deserialize<List<TagItem>>(data);
 
                 // 需要找到大于当前版本的tag其中最大的一个
                 TagItem tag = null;
@@ -218,58 +208,24 @@ namespace ColorWanted.update
         private static void LoadUpdateDetail(UpdateInfo info)
         {
             // 获取tag引用对象信息
-            var data = HttpGet(string.Format(tagrefUrl, info.Version));
+            var data = Http.Get(string.Format(tagrefUrl, info.Version));
             if (data == null)
             {
                 return;
             }
 
             // 获取tag对象信息
-            var @ref = json.Deserialize<RefItem>(data);
-            data = HttpGet(string.Format(tagobjUrl, @ref.@object.sha));
+            var @ref = Json.Deserialize<RefItem>(data);
+            data = Http.Get(string.Format(tagobjUrl, @ref.@object.sha));
             if (data == null)
             {
                 return;
             }
 
-            var tag = json.Deserialize<TagObject>(data);
+            var tag = Json.Deserialize<TagObject>(data);
 
             info.Date = tag.tagger.date;
             info.Message = tag.message;
-        }
-
-        /// <summary>
-        /// 发送get请求
-        /// </summary>
-        /// <param name="uri"></param>
-        /// <returns></returns>
-        private static string HttpGet(string uri)
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
-
-            var req = WebRequest.Create(uri) as HttpWebRequest;
-            if (req == null)
-            {
-                return null;
-            }
-            req.Accept = accept;
-            req.Method = "GET";
-            req.UserAgent = string.Format(userAgent, Application.ProductVersion);
-            req.KeepAlive = false;
-
-            using (var res = req.GetResponse())
-            {
-                var responseStream = res.GetResponseStream();
-                if (responseStream == null)
-                {
-                    return null;
-                }
-                using (var stream = new StreamReader(responseStream))
-                {
-                    return stream.ReadToEnd();
-                }
-            }
         }
     }
 }

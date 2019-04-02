@@ -58,41 +58,50 @@
     <Compile Include="colors\HSI.cs" />
     <Compile Include="colors\HsiAlgorithm.cs" />
     <Compile Include="colors\HSL.cs" />
+    <Compile Include="i18n\Author.cs" />
+    <Compile Include="i18n\I18nManager.cs" />
+    <Compile Include="i18n\Language.cs" />
     <Compile Include="misc\PinPosition.cs" />
     <Compile Include="setting\Settings.Theme.cs" />
+    <Compile Include="setting\Settings.I18n.cs" />
     <Compile Include="theme\ThemeDescription.cs" />
     <Compile Include="theme\ThemeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="theme\ThemeForm.Designer.cs">
+    <Compile Include="theme\ThemeForm.Layout.cs">
       <DependentUpon>ThemeForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="BugReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BugReportForm.Designer.cs">
+    <Compile Include="BugReportForm.Layout.cs">
       <DependentUpon>BugReportForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="ext\FormExtension.cs" />
     <Compile Include="hotkey\HotkeyChangeEvent.cs" />
     <Compile Include="hotkey\HotkeyCtrl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="hotkey\HotkeyCtrl.Designer.cs">
+    <Compile Include="hotkey\HotkeyCtrl.Layout.cs">
       <DependentUpon>HotkeyCtrl.cs</DependentUpon>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="mode\FormatMode.cs" />
     <Compile Include="AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
+    <Compile Include="AboutForm.Layout.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="hotkey\HotkeyForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="hotkey\HotkeyForm.Designer.cs">
+    <Compile Include="hotkey\HotkeyForm.Layout.cs">
       <DependentUpon>HotkeyForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="theme\ThemeType.cs" />
     <Compile Include="theme\ThemeUtil.cs" />
@@ -109,30 +118,34 @@
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ext\NativeMethods.cs" />
     <Compile Include="update\git\CommitItem.cs" />
     <Compile Include="update\git\FileItem.cs" />
     <Compile Include="history\HistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="history\HistoryForm.Designer.cs">
+    <Compile Include="history\HistoryForm.Layout.cs">
       <DependentUpon>HistoryForm.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Layout.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="update\UpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="update\UpdateForm.Designer.cs">
+    <Compile Include="update\UpdateForm.Layout.cs">
       <DependentUpon>UpdateForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="update\OnlineUpdate.cs" />
     <Compile Include="PreviewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PreviewForm.Designer.cs">
+    <Compile Include="PreviewForm.Layout.cs">
       <DependentUpon>PreviewForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,55 +160,9 @@
     <Compile Include="update\git\TagItem.cs" />
     <Compile Include="update\UpdateInfo.cs" />
     <Compile Include="colors\HSB.cs" />
+    <Compile Include="util\Http.cs" />
+    <Compile Include="util\Json.cs" />
     <Compile Include="util\Util.cs" />
-    <EmbeddedResource Include="AboutForm.en.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BugReportForm.en.resx">
-      <DependentUpon>BugReportForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BugReportForm.resx">
-      <DependentUpon>BugReportForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="history\HistoryForm.en.resx">
-      <DependentUpon>HistoryForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="hotkey\HotkeyCtrl.en.resx">
-      <DependentUpon>HotkeyCtrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="hotkey\HotkeyForm.en.resx">
-      <DependentUpon>HotkeyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.en.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.en.resx">
-      <DependentUpon>PreviewForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PreviewForm.resx">
-      <DependentUpon>PreviewForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="theme\ThemeForm.en.resx">
-      <DependentUpon>ThemeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="theme\ThemeForm.resx">
-      <DependentUpon>ThemeForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="history\HistoryForm.resx">
-      <DependentUpon>HistoryForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="hotkey\HotkeyCtrl.resx">
-      <DependentUpon>HotkeyCtrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="hotkey\HotkeyForm.resx">
-      <DependentUpon>HotkeyForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -206,15 +173,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="update\UpdateForm.en.resx">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="update\UpdateForm.resx">
-      <DependentUpon>UpdateForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\langs\en.json" />
+    <None Include="Resources\langs\zh.json" />
     <None Include="Resources\logo.jpg" />
   </ItemGroup>
   <ItemGroup />

@@ -1,13 +1,12 @@
-﻿namespace ColorWanted
+﻿using System;
+
+namespace ColorWanted
 {
     partial class MainForm
-    {
-        /// <summary>
-        /// 必需的设计器变量。
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        
+    {/// <summary>
+     /// 必需的设计器变量。
+     /// </summary>
+        private System.ComponentModel.IContainer componentsSet = null;
 
         /// <summary>
         /// 清理所有正在使用的资源。
@@ -15,9 +14,9 @@
         /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (componentsSet != null))
             {
-                components.Dispose();
+                componentsSet.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -28,14 +27,14 @@
         /// 设计器支持所需的方法 - 不要
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
-        private void InitializeComponent()
+        private void componentsLayout()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            this.componentsSet = new System.ComponentModel.Container();
+            i18n.I18nManager resources = new i18n.I18nManager(typeof(MainForm));
             this.lbHex = new System.Windows.Forms.Label();
             this.lbRgb = new System.Windows.Forms.Label();
-            this.tray = new System.Windows.Forms.NotifyIcon(this.components);
-            this.menu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tray = new System.Windows.Forms.NotifyIcon(this.componentsSet);
+            this.menu = new System.Windows.Forms.ContextMenuStrip(this.componentsSet);
             this.trayMenuDisplayMode = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHideWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFollowCaret = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,13 +64,16 @@
             this.trayMenuAutoStart = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuOpenConfigFile = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuLanguage = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuLanguageEN = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuLanguageZH = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuCheckUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCheckUpdateOnStartup = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuRestart = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.tooltip = new System.Windows.Forms.ToolTip(this.componentsSet);
             this.lbColorPreview = new System.Windows.Forms.Label();
             this.lbHsl = new System.Windows.Forms.Label();
             this.lbHsb = new System.Windows.Forms.Label();
@@ -84,15 +86,28 @@
             // lbHex
             // 
             resources.ApplyResources(this.lbHex, "lbHex");
+            this.lbHex.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHex.Location = new System.Drawing.Point(0, 0);
             this.lbHex.Name = "lbHex";
+            this.lbHex.Padding = new System.Windows.Forms.Padding(2);
+            this.lbHex.Size = new System.Drawing.Size(68, 20);
+            this.lbHex.TabIndex = 0;
             this.tooltip.SetToolTip(this.lbHex, resources.GetString("lbHex.ToolTip"));
+            this.lbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbHex.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // lbRgb
             // 
             resources.ApplyResources(this.lbRgb, "lbRgb");
+            this.lbRgb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbRgb.Location = new System.Drawing.Point(0, 20);
             this.lbRgb.Name = "lbRgb";
+            this.lbRgb.Padding = new System.Windows.Forms.Padding(2);
+            this.lbRgb.Size = new System.Drawing.Size(140, 20);
+            this.lbRgb.TabIndex = 0;
             this.tooltip.SetToolTip(this.lbRgb, resources.GetString("lbRgb.ToolTip"));
+            this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbRgb.Visible = false;
             this.lbRgb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // tray
@@ -100,7 +115,8 @@
             resources.ApplyResources(this.tray, "tray");
             this.tray.ContextMenuStrip = this.menu;
             this.tray.Icon = global::ColorWanted.Properties.Resources.ico;
-            this.tray.Click += new System.EventHandler(this.tray_Click);
+            this.tray.Click += new EventHandler(this.tray_Click);
+            this.tray.Visible = true;
             // 
             // menu
             // 
@@ -123,11 +139,13 @@
             this.trayMenuOpenConfigFile,
             this.trayMenuHistory,
             this.toolStripSeparator1,
+            this.trayMenuLanguage,
             this.trayMenuCheckUpdate,
             this.trayMenuRestart,
             this.trayMenuShowAbout,
             this.trayMenuExit});
             this.menu.Name = "trayMenu";
+            this.menu.Size = new System.Drawing.Size(149, 418);
             this.tooltip.SetToolTip(this.menu, resources.GetString("menu.ToolTip"));
             // 
             // trayMenuDisplayMode
@@ -138,6 +156,8 @@
             this.trayMenuFollowCaret,
             this.trayMenuFixed});
             this.trayMenuDisplayMode.Name = "trayMenuDisplayMode";
+            this.trayMenuDisplayMode.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuDisplayMode.ToolTipText = "切换不同的窗口模式";
             // 
             // trayMenuHideWindow
             // 
@@ -145,19 +165,22 @@
             this.trayMenuHideWindow.Checked = true;
             this.trayMenuHideWindow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuHideWindow.Name = "trayMenuHideWindow";
-            this.trayMenuHideWindow.Click += new System.EventHandler(this.trayMenuHideWindow_Click);
+            this.trayMenuHideWindow.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuHideWindow.Click += new EventHandler(this.trayMenuHideWindow_Click);
             // 
             // trayMenuFollowCaret
             // 
             resources.ApplyResources(this.trayMenuFollowCaret, "trayMenuFollowCaret");
             this.trayMenuFollowCaret.Name = "trayMenuFollowCaret";
-            this.trayMenuFollowCaret.Click += new System.EventHandler(this.trayMenuFollowCaret_Click);
+            this.trayMenuFollowCaret.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFollowCaret.Click += new EventHandler(this.trayMenuFollowCaret_Click);
             // 
             // trayMenuFixed
             // 
             resources.ApplyResources(this.trayMenuFixed, "trayMenuFixed");
             this.trayMenuFixed.Name = "trayMenuFixed";
-            this.trayMenuFixed.Click += new System.EventHandler(this.trayMenuFixed_Click);
+            this.trayMenuFixed.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFixed.Click += new EventHandler(this.trayMenuFixed_Click);
             // 
             // trayMenuFormatMode
             // 
@@ -167,6 +190,7 @@
             this.trayMenuFormatStandard,
             this.trayMenuFormatExtention});
             this.trayMenuFormatMode.Name = "trayMenuFormatMode";
+            this.trayMenuFormatMode.Size = new System.Drawing.Size(148, 22);
             // 
             // trayMenuFormatMini
             // 
@@ -174,19 +198,22 @@
             this.trayMenuFormatMini.Checked = true;
             this.trayMenuFormatMini.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuFormatMini.Name = "trayMenuFormatMini";
-            this.trayMenuFormatMini.Click += new System.EventHandler(this.trayMenuFormatMini_Click);
+            this.trayMenuFormatMini.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFormatMini.Click += new EventHandler(this.trayMenuFormatMini_Click);
             // 
             // trayMenuFormatStandard
             // 
             resources.ApplyResources(this.trayMenuFormatStandard, "trayMenuFormatStandard");
             this.trayMenuFormatStandard.Name = "trayMenuFormatStandard";
-            this.trayMenuFormatStandard.Click += new System.EventHandler(this.trayMenuFormatStandard_Click);
+            this.trayMenuFormatStandard.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFormatStandard.Click += new EventHandler(this.trayMenuFormatStandard_Click);
             // 
             // trayMenuFormatExtention
             // 
             resources.ApplyResources(this.trayMenuFormatExtention, "trayMenuFormatExtention");
             this.trayMenuFormatExtention.Name = "trayMenuFormatExtention";
-            this.trayMenuFormatExtention.Click += new System.EventHandler(this.trayMenuFormatExtention_Click);
+            this.trayMenuFormatExtention.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFormatExtention.Click += new EventHandler(this.trayMenuFormatExtention_Click);
             // 
             // trayMenuCopyPolicy
             // 
@@ -195,18 +222,21 @@
             this.trayMenuCopyPolicyHexValueOnly,
             this.trayMenuCopyPolicyRgbValueOnly});
             this.trayMenuCopyPolicy.Name = "trayMenuCopyPolicy";
+            this.trayMenuCopyPolicy.Size = new System.Drawing.Size(148, 22);
             // 
             // trayMenuCopyPolicyHexValueOnly
             // 
             resources.ApplyResources(this.trayMenuCopyPolicyHexValueOnly, "trayMenuCopyPolicyHexValueOnly");
             this.trayMenuCopyPolicyHexValueOnly.Name = "trayMenuCopyPolicyHexValueOnly";
-            this.trayMenuCopyPolicyHexValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyHexValueOnly_Click);
+            this.trayMenuCopyPolicyHexValueOnly.Size = new System.Drawing.Size(125, 22);
+            this.trayMenuCopyPolicyHexValueOnly.Click += new EventHandler(this.trayMenuCopyPolicyHexValueOnly_Click);
             // 
             // trayMenuCopyPolicyRgbValueOnly
             // 
             resources.ApplyResources(this.trayMenuCopyPolicyRgbValueOnly, "trayMenuCopyPolicyRgbValueOnly");
             this.trayMenuCopyPolicyRgbValueOnly.Name = "trayMenuCopyPolicyRgbValueOnly";
-            this.trayMenuCopyPolicyRgbValueOnly.Click += new System.EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click);
+            this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(125, 22);
+            this.trayMenuCopyPolicyRgbValueOnly.Click += new EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click);
             // 
             // trayMenuHsiAlgorithm
             // 
@@ -218,30 +248,35 @@
             this.trayMenuHsiAlgorithmBajon,
             this.trayMenuHsiAlgorithmStandard});
             this.trayMenuHsiAlgorithm.Name = "trayMenuHsiAlgorithm";
+            this.trayMenuHsiAlgorithm.Size = new System.Drawing.Size(148, 22);
             // 
             // trayMenuHsiAlgorithmGeometry
             // 
             resources.ApplyResources(this.trayMenuHsiAlgorithmGeometry, "trayMenuHsiAlgorithmGeometry");
             this.trayMenuHsiAlgorithmGeometry.Name = "trayMenuHsiAlgorithmGeometry";
-            this.trayMenuHsiAlgorithmGeometry.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            this.trayMenuHsiAlgorithmGeometry.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmGeometry.Click += new EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // trayMenuHsiAlgorithmAxis
             // 
             resources.ApplyResources(this.trayMenuHsiAlgorithmAxis, "trayMenuHsiAlgorithmAxis");
             this.trayMenuHsiAlgorithmAxis.Name = "trayMenuHsiAlgorithmAxis";
-            this.trayMenuHsiAlgorithmAxis.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            this.trayMenuHsiAlgorithmAxis.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmAxis.Click += new EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // trayMenuHsiAlgorithmSegment
             // 
             resources.ApplyResources(this.trayMenuHsiAlgorithmSegment, "trayMenuHsiAlgorithmSegment");
             this.trayMenuHsiAlgorithmSegment.Name = "trayMenuHsiAlgorithmSegment";
-            this.trayMenuHsiAlgorithmSegment.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            this.trayMenuHsiAlgorithmSegment.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmSegment.Click += new EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // trayMenuHsiAlgorithmBajon
             // 
             resources.ApplyResources(this.trayMenuHsiAlgorithmBajon, "trayMenuHsiAlgorithmBajon");
             this.trayMenuHsiAlgorithmBajon.Name = "trayMenuHsiAlgorithmBajon";
-            this.trayMenuHsiAlgorithmBajon.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            this.trayMenuHsiAlgorithmBajon.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmBajon.Click += new EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // trayMenuHsiAlgorithmStandard
             // 
@@ -249,30 +284,35 @@
             this.trayMenuHsiAlgorithmStandard.Checked = true;
             this.trayMenuHsiAlgorithmStandard.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuHsiAlgorithmStandard.Name = "trayMenuHsiAlgorithmStandard";
-            this.trayMenuHsiAlgorithmStandard.Click += new System.EventHandler(this.trayMenuHsiAlgorithmChange);
+            this.trayMenuHsiAlgorithmStandard.Size = new System.Drawing.Size(157, 22);
+            this.trayMenuHsiAlgorithmStandard.Click += new EventHandler(this.trayMenuHsiAlgorithmChange);
             // 
             // toolStripSeparator3
             // 
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(145, 6);
             // 
             // trayMenuShowPreview
             // 
             resources.ApplyResources(this.trayMenuShowPreview, "trayMenuShowPreview");
             this.trayMenuShowPreview.Name = "trayMenuShowPreview";
-            this.trayMenuShowPreview.Click += new System.EventHandler(this.trayMenuShowPreview_Click);
+            this.trayMenuShowPreview.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuShowPreview.Click += new EventHandler(this.trayMenuShowPreview_Click);
             // 
             // trayMenuShowColorPicker
             // 
             resources.ApplyResources(this.trayMenuShowColorPicker, "trayMenuShowColorPicker");
             this.trayMenuShowColorPicker.Name = "trayMenuShowColorPicker";
-            this.trayMenuShowColorPicker.Click += new System.EventHandler(this.trayMenuShowColorPicker_Click);
+            this.trayMenuShowColorPicker.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuShowColorPicker.Click += new EventHandler(this.trayMenuShowColorPicker_Click);
             // 
             // trayMenuPixelScale
             // 
             resources.ApplyResources(this.trayMenuPixelScale, "trayMenuPixelScale");
             this.trayMenuPixelScale.Name = "trayMenuPixelScale";
-            this.trayMenuPixelScale.Click += new System.EventHandler(this.trayMenuPixelScale_Click);
+            this.trayMenuPixelScale.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuPixelScale.Click += new EventHandler(this.trayMenuPixelScale_Click);
             // 
             // trayMenuAutoPin
             // 
@@ -280,53 +320,91 @@
             this.trayMenuAutoPin.Checked = true;
             this.trayMenuAutoPin.CheckState = System.Windows.Forms.CheckState.Checked;
             this.trayMenuAutoPin.Name = "trayMenuAutoPin";
-            this.trayMenuAutoPin.Click += new System.EventHandler(this.trayMenuAutoPin_Click);
+            this.trayMenuAutoPin.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuAutoPin.Click += new EventHandler(this.trayMenuAutoPin_Click);
             // 
             // toolStripSeparator2
             // 
             resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
             // 
             // trayMenuTheme
             // 
             resources.ApplyResources(this.trayMenuTheme, "trayMenuTheme");
             this.trayMenuTheme.Name = "trayMenuTheme";
-            this.trayMenuTheme.Click += new System.EventHandler(this.trayMenuTheme_Click);
+            this.trayMenuTheme.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuTheme.Click += new EventHandler(this.trayMenuTheme_Click);
             // 
             // trayMenuHotkey
             // 
             resources.ApplyResources(this.trayMenuHotkey, "trayMenuHotkey");
             this.trayMenuHotkey.Name = "trayMenuHotkey";
-            this.trayMenuHotkey.Click += new System.EventHandler(this.trayMenuHotkey_Click);
+            this.trayMenuHotkey.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuHotkey.Click += new EventHandler(this.trayMenuHotkey_Click);
             // 
             // trayMenuRestoreLocation
             // 
             resources.ApplyResources(this.trayMenuRestoreLocation, "trayMenuRestoreLocation");
             this.trayMenuRestoreLocation.Name = "trayMenuRestoreLocation";
-            this.trayMenuRestoreLocation.Click += new System.EventHandler(this.trayMenuRestoreLocation_Click);
+            this.trayMenuRestoreLocation.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuRestoreLocation.Click += new EventHandler(this.trayMenuRestoreLocation_Click);
             // 
             // trayMenuAutoStart
             // 
             resources.ApplyResources(this.trayMenuAutoStart, "trayMenuAutoStart");
             this.trayMenuAutoStart.Name = "trayMenuAutoStart";
-            this.trayMenuAutoStart.Click += new System.EventHandler(this.trayMenuAutoStart_Click);
+            this.trayMenuAutoStart.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuAutoStart.Click += new EventHandler(this.trayMenuAutoStart_Click);
             // 
             // trayMenuOpenConfigFile
             // 
             resources.ApplyResources(this.trayMenuOpenConfigFile, "trayMenuOpenConfigFile");
             this.trayMenuOpenConfigFile.Name = "trayMenuOpenConfigFile";
-            this.trayMenuOpenConfigFile.Click += new System.EventHandler(this.trayMenuOpenConfigFile_Click);
+            this.trayMenuOpenConfigFile.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuOpenConfigFile.Click += new EventHandler(this.trayMenuOpenConfigFile_Click);
             // 
             // trayMenuHistory
             // 
             resources.ApplyResources(this.trayMenuHistory, "trayMenuHistory");
             this.trayMenuHistory.Name = "trayMenuHistory";
-            this.trayMenuHistory.Click += new System.EventHandler(this.trayMenuHistory_Click);
+            this.trayMenuHistory.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuHistory.Click += new EventHandler(this.trayMenuHistory_Click);
             // 
             // toolStripSeparator1
             // 
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
+            // 
+            // trayMenuLanguage
+            // 
+            resources.ApplyResources(this.trayMenuLanguage, "trayMenuLanguage");
+            this.trayMenuLanguage.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayMenuLanguageZH, this.trayMenuLanguageEN
+            });
+            this.trayMenuLanguage.Name = "trayMenuLanguage";
+            this.trayMenuLanguage.Size = new System.Drawing.Size(148, 22);
+            // 
+            // trayMenuLanguageZH
+            // 
+            resources.ApplyResources(this.trayMenuLanguageZH, "trayMenuLanguageZH");
+            this.trayMenuLanguageZH.Name = "trayMenuLanguageZH";
+            this.trayMenuLanguageZH.CheckOnClick = true;
+            this.trayMenuLanguageZH.Text = "中文";
+            this.trayMenuLanguageZH.ToolTipText = "重启软件后生效";
+            this.trayMenuLanguageZH.Size = new System.Drawing.Size(136, 22);
+            this.trayMenuLanguageZH.Click += new EventHandler(this.trayMenuLanguageZH_Click);
+            // 
+            // trayMenuLanguageEN
+            // 
+            resources.ApplyResources(this.trayMenuLanguageEN, "trayMenuLanguageEN");
+            this.trayMenuLanguageEN.Name = "trayMenuLanguageEN";
+            this.trayMenuLanguageEN.CheckOnClick = true;
+            this.trayMenuLanguageEN.Text = "English";
+            this.trayMenuLanguageEN.ToolTipText = "Take affected after restart me";
+            this.trayMenuLanguageEN.Size = new System.Drawing.Size(136, 22);
+            this.trayMenuLanguageEN.Click += new EventHandler(this.trayMenuLanguageEN_Click);
             // 
             // trayMenuCheckUpdate
             // 
@@ -334,50 +412,70 @@
             this.trayMenuCheckUpdate.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuCheckUpdateOnStartup});
             this.trayMenuCheckUpdate.Name = "trayMenuCheckUpdate";
-            this.trayMenuCheckUpdate.Click += new System.EventHandler(this.trayMenuCheckUpdate_Click);
+            this.trayMenuCheckUpdate.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuCheckUpdate.Click += new EventHandler(this.trayMenuCheckUpdate_Click);
             // 
             // trayMenuCheckUpdateOnStartup
             // 
             resources.ApplyResources(this.trayMenuCheckUpdateOnStartup, "trayMenuCheckUpdateOnStartup");
             this.trayMenuCheckUpdateOnStartup.Name = "trayMenuCheckUpdateOnStartup";
-            this.trayMenuCheckUpdateOnStartup.Click += new System.EventHandler(this.trayMenuCheckUpdateOnStartup_Click);
+            this.trayMenuCheckUpdateOnStartup.Size = new System.Drawing.Size(136, 22);
+            this.trayMenuCheckUpdateOnStartup.Click += new EventHandler(this.trayMenuCheckUpdateOnStartup_Click);
             // 
             // trayMenuRestart
             // 
             resources.ApplyResources(this.trayMenuRestart, "trayMenuRestart");
             this.trayMenuRestart.Name = "trayMenuRestart";
-            this.trayMenuRestart.Click += new System.EventHandler(this.trayMenuRestart_Click);
+            this.trayMenuRestart.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuRestart.Click += new EventHandler(this.trayMenuRestart_Click);
             // 
             // trayMenuShowAbout
             // 
             resources.ApplyResources(this.trayMenuShowAbout, "trayMenuShowAbout");
             this.trayMenuShowAbout.Name = "trayMenuShowAbout";
-            this.trayMenuShowAbout.Click += new System.EventHandler(this.trayMenuShowHelp_Click);
+            this.trayMenuShowAbout.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuShowAbout.Click += new EventHandler(this.trayMenuShowHelp_Click);
             // 
             // trayMenuExit
             // 
             resources.ApplyResources(this.trayMenuExit, "trayMenuExit");
             this.trayMenuExit.Name = "trayMenuExit";
-            this.trayMenuExit.Click += new System.EventHandler(this.trayMenuExit_Click);
+            this.trayMenuExit.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuExit.Click += new EventHandler(this.trayMenuExit_Click);
             // 
             // lbColorPreview
             // 
+            this.lbColorPreview.Location = new System.Drawing.Point(69, 0);
             resources.ApplyResources(this.lbColorPreview, "lbColorPreview");
             this.lbColorPreview.Name = "lbColorPreview";
+            this.lbColorPreview.Size = new System.Drawing.Size(20, 20);
+            this.lbColorPreview.TabIndex = 1;
             this.tooltip.SetToolTip(this.lbColorPreview, resources.GetString("lbColorPreview.ToolTip"));
             // 
             // lbHsl
             // 
+            this.lbHsl.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             resources.ApplyResources(this.lbHsl, "lbHsl");
+            this.lbHsl.Location = new System.Drawing.Point(0, 0);
             this.lbHsl.Name = "lbHsl";
+            this.lbHsl.Padding = new System.Windows.Forms.Padding(2);
             this.tooltip.SetToolTip(this.lbHsl, resources.GetString("lbHsl.ToolTip"));
+            this.lbHsl.Size = new System.Drawing.Size(180, 20);
+            this.lbHsl.TabIndex = 2;
+            this.lbHsl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbHsl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // lbHsb
             // 
+            this.lbHsb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHsb.Location = new System.Drawing.Point(0, 20);
             resources.ApplyResources(this.lbHsb, "lbHsb");
             this.lbHsb.Name = "lbHsb";
+            this.lbHsb.Padding = new System.Windows.Forms.Padding(2);
+            this.lbHsb.Size = new System.Drawing.Size(180, 20);
+            this.lbHsb.TabIndex = 3;
             this.tooltip.SetToolTip(this.lbHsb, resources.GetString("lbHsb.ToolTip"));
+            this.lbHsb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbHsb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // pnExt
@@ -386,21 +484,32 @@
             this.pnExt.Controls.Add(this.lbHsb);
             this.pnExt.Controls.Add(this.lbHsi);
             this.pnExt.Controls.Add(this.lbHsl);
+            this.pnExt.Location = new System.Drawing.Point(0, 40);
             this.pnExt.Name = "pnExt";
+            this.pnExt.Size = new System.Drawing.Size(180, 60);
+            this.pnExt.TabIndex = 4;
             this.tooltip.SetToolTip(this.pnExt, resources.GetString("pnExt.ToolTip"));
             // 
             // lbHsi
             // 
+            this.lbHsi.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHsi.Location = new System.Drawing.Point(0, 40);
             resources.ApplyResources(this.lbHsi, "lbHsi");
             this.lbHsi.Name = "lbHsi";
+            this.lbHsi.Padding = new System.Windows.Forms.Padding(2);
+            this.lbHsi.Size = new System.Drawing.Size(180, 20);
+            this.lbHsi.TabIndex = 5;
             this.tooltip.SetToolTip(this.lbHsi, resources.GetString("lbHsi.ToolTip"));
+            this.lbHsi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbHsi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // MainForm
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(348, 236);
             this.ContextMenuStrip = this.menu;
             this.ControlBox = false;
             this.Controls.Add(this.pnExt);
@@ -414,11 +523,12 @@
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.tooltip.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
+            this.Load += new EventHandler(this.MainForm_Load);
+            this.LocationChanged += new EventHandler(this.MainForm_LocationChanged);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             this.menu.ResumeLayout(false);
             this.pnExt.ResumeLayout(false);
@@ -428,51 +538,53 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lbRgb;
-        private System.Windows.Forms.Label lbHex;
-        private System.Windows.Forms.NotifyIcon tray;
-        private System.Windows.Forms.ContextMenuStrip menu;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuShowAbout;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuExit;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHideWindow;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuAutoPin;
-        private System.Windows.Forms.ToolTip tooltip;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuShowPreview;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuRestoreLocation;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFollowCaret;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuAutoStart;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFixed;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuDisplayMode;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuShowColorPicker;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuOpenConfigFile;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFormatMode;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFormatMini;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFormatExtention;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicy;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyHexValueOnly;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyRgbValueOnly;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdate;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHistory;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdateOnStartup;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHotkey;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuRestart;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuTheme;
-        private System.Windows.Forms.Label lbColorPreview;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuPixelScale;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuFormatStandard;
-        private System.Windows.Forms.Label lbHsl;
-        private System.Windows.Forms.Label lbHsb;
-        private System.Windows.Forms.Panel pnExt;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithm;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmGeometry;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmAxis;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmSegment;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmBajon;
-        private System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmStandard;
-        private System.Windows.Forms.Label lbHsi;
+        public System.Windows.Forms.Label lbRgb;
+        public System.Windows.Forms.Label lbHex;
+        public System.Windows.Forms.NotifyIcon tray;
+        public System.Windows.Forms.ContextMenuStrip menu;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuShowAbout;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuExit;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHideWindow;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuAutoPin;
+        public System.Windows.Forms.ToolTip tooltip;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuShowPreview;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuRestoreLocation;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFollowCaret;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuAutoStart;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFixed;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuDisplayMode;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuShowColorPicker;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuOpenConfigFile;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFormatMode;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFormatMini;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFormatExtention;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicy;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyHexValueOnly;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyRgbValueOnly;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdate;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHistory;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuLanguage;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuLanguageZH;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuLanguageEN;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdateOnStartup;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHotkey;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuRestart;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuTheme;
+        public System.Windows.Forms.Label lbColorPreview;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuPixelScale;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFormatStandard;
+        public System.Windows.Forms.Label lbHsl;
+        public System.Windows.Forms.Label lbHsb;
+        public System.Windows.Forms.Panel pnExt;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithm;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmGeometry;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmAxis;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmSegment;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmBajon;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmStandard;
+        public System.Windows.Forms.Label lbHsi;
     }
 }
-

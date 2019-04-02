@@ -12,8 +12,9 @@ namespace ColorWanted
     {
         public AboutForm()
         {
-            InitializeComponent();
+            componentsLayout();
             ThemeUtil.Apply(this);
+            
 
             lkVersion.Text = @"v" + Application.ProductVersion;
         }
@@ -74,6 +75,18 @@ namespace ColorWanted
         private void lkVersion_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             UpdateForm.ShowWindow();
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // AboutForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "AboutForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

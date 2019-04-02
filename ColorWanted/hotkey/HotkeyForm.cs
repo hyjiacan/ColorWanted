@@ -10,11 +10,12 @@ namespace ColorWanted.hotkey
 {
     internal partial class HotkeyForm : Form
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HotkeyForm));
+        i18n.I18nManager resources = new i18n.I18nManager(typeof(HotkeyForm));
         public HotkeyForm()
         {
-            InitializeComponent();
+            componentsLayout();
             ThemeUtil.Apply(this);
+            
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -79,6 +80,18 @@ namespace ColorWanted.hotkey
             {
                 ctrl.Reset();
             }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // HotkeyForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Name = "HotkeyForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

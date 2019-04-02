@@ -15,7 +15,7 @@ namespace ColorWanted.hotkey
 
         public HotkeyCtrl()
         {
-            InitializeComponent();
+            componentsLayout();
         }
 
         private static string GetHotkeyText(HotKey hotkey)
@@ -25,7 +25,7 @@ namespace ColorWanted.hotkey
 
         public HotkeyCtrl(HotKey hotkey)
         {
-            InitializeComponent();
+            componentsLayout();
 
             this.hotkey = hotkey;
             lbTypeName.Text = hotkey.Name;
@@ -133,6 +133,17 @@ namespace ColorWanted.hotkey
         private void lkReset_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Reset();
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // HotkeyCtrl
+            // 
+            this.Name = "HotkeyCtrl";
+            this.ResumeLayout(false);
+
         }
     }
 }
