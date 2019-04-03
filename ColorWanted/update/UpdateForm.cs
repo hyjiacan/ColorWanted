@@ -406,17 +406,5 @@ namespace ColorWanted.update
             }
             DelayHide();
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // UpdateForm
-            // 
-            this.ClientSize = new Size(284, 261);
-            this.Name = "UpdateForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }

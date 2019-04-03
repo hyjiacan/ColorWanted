@@ -56,17 +56,5 @@ namespace ColorWanted
         {
             Process.Start(lkIssue.Text);
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // BugReportForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "BugReportForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }

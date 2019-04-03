@@ -76,17 +76,5 @@ namespace ColorWanted
         {
             UpdateForm.ShowWindow();
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // AboutForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "AboutForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }

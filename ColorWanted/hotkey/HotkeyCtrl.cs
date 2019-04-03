@@ -134,16 +134,5 @@ namespace ColorWanted.hotkey
         {
             Reset();
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // HotkeyCtrl
-            // 
-            this.Name = "HotkeyCtrl";
-            this.ResumeLayout(false);
-
-        }
     }
 }

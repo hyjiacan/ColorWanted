@@ -1300,17 +1300,5 @@ namespace ColorWanted
         {
             tray.ShowBalloonTip(timeout, null, msg, ToolTipIcon.None);
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // MainForm
-            // 
-            this.ClientSize = new Size(284, 261);
-            this.Name = "MainForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }

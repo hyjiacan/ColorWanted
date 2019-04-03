@@ -106,17 +106,5 @@ namespace ColorWanted.theme
             ThemeUtil.SetOpacity(opacity);
             Settings.Theme.Opacity = opacity;
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // ThemeForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "ThemeForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }

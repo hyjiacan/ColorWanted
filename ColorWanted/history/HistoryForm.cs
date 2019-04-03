@@ -134,17 +134,5 @@ namespace ColorWanted.history
             linkHex.Text = string.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
             linkRgb.Text = string.Format("RGB({0},{1},{2})", color.R, color.G, color.B);
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // HistoryForm
-            // 
-            this.ClientSize = new Size(284, 261);
-            this.Name = "HistoryForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }

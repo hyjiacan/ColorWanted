@@ -253,17 +253,5 @@ namespace ColorWanted
             var mainForm = Application.OpenForms["MainForm"] as MainForm;
             mainForm.DrawControl(false);
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // PreviewForm
-            // 
-            this.ClientSize = new Size(284, 261);
-            this.Name = "PreviewForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }

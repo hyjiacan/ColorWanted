@@ -81,17 +81,5 @@ namespace ColorWanted.hotkey
                 ctrl.Reset();
             }
         }
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // HotkeyForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "HotkeyForm";
-            this.ResumeLayout(false);
-
-        }
     }
 }
