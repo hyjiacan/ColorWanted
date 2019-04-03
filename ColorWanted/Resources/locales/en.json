@@ -121,7 +121,7 @@
         "": "Screen"
       },
       "label3": {
-        "Text": "The background is the history color"
+        "Text": "The BG is the history color"
       },
       "$this": {
         "Text": "ColorWanted - History"

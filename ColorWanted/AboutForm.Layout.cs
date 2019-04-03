@@ -70,7 +70,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(94, 78);
+            this.label1.Location = new System.Drawing.Point(64, 78);
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 12);
@@ -192,7 +192,7 @@
             this.lkVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             resources.ApplyResources(this.lkVersion, "lkVersion");
             this.lkVersion.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.lkVersion.Location = new System.Drawing.Point(214, 35);
+            this.lkVersion.Location = new System.Drawing.Point(214, 45);
             this.lkVersion.Name = "lkVersion";
             this.lkVersion.Size = new System.Drawing.Size(41, 12);
             this.lkVersion.TabIndex = 7;
@@ -224,13 +224,13 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(90, 151);
+            this.label3.Location = new System.Drawing.Point(58, 151);
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(37, 15);
             this.label3.TabIndex = 4;
             this.toolTip.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label5
             // 
@@ -313,7 +313,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(58, 310);
+            this.label10.Location = new System.Drawing.Point(58, 295);
             resources.ApplyResources(this.label10, "label10");
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 15);

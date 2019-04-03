@@ -87,7 +87,7 @@
             // 
             // lbBg
             // 
-            this.lbBg.Location = new System.Drawing.Point(223, 3);
+            this.lbBg.Location = new System.Drawing.Point(203, 3);
             resources.ApplyResources(this.lbBg, "lbBg");
             this.lbBg.Name = "lbBg";
             this.lbBg.Size = new System.Drawing.Size(64, 36);
@@ -136,7 +136,7 @@
             this.linkBg.AutoSize = true;
             resources.ApplyResources(this.linkBg, "linkBg");
             this.linkBg.LinkColor = System.Drawing.Color.Lime;
-            this.linkBg.Location = new System.Drawing.Point(293, 15);
+            this.linkBg.Location = new System.Drawing.Point(273, 15);
             this.linkBg.Name = "linkBg";
             this.linkBg.Size = new System.Drawing.Size(41, 12);
             this.linkBg.TabIndex = 23;
