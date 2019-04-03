@@ -61,12 +61,35 @@ namespace ColorWanted.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
+        ///   查找类似 {
+        ///  &quot;locale&quot;: &quot;en-US&quot;,
+        ///  &quot;name&quot;: &quot;English&quot;,
+        ///  &quot;authors&quot;: [{
+        ///      &quot;name&quot;: &quot;hyjiacan&quot;,
+        ///      &quot;mail&quot;: &quot;hyjiacan@163.com&quot;,
+        ///      &quot;homepage&quot;: &quot;&quot;
+        ///    }
+        ///  ],
+        ///  &quot;resource&quot;: {
+        ///    &quot;AboutForm&quot;: {
+        ///      &quot;label2&quot;: {
+        ///        &quot;Text&quot;: &quot;About ColorWanted&quot;
+        ///      },
+        ///      &quot;label1&quot;: {
+        ///        &quot;Text&quot;: &quot;Open source Color picker&quot;
+        ///      },
+        ///      &quot;lkLicense&quot;: {
+        ///        &quot;ToolTip&quot;: &quot;Please follow the license&quot;,
+        ///        &quot;Text&quot;: &quot;&quot;
+        ///      },
+        ///      &quot;label4&quot;: {
+        ///        &quot;Text&quot;: &quot;Website&quot;
+        ///      },
+        ///      &quot;lkQQGroup&quot;: [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static byte[] en {
+        internal static string en {
             get {
-                object obj = ResourceManager.GetObject("en", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("en", resourceCulture);
             }
         }
         
@@ -91,12 +114,32 @@ namespace ColorWanted.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Byte[] 类型的本地化资源。
+        ///   查找类似 {
+        ///    &quot;locale&quot;: &quot;zh-CN&quot;,
+        ///    &quot;name&quot;: &quot;简体中文&quot;,
+        ///    &quot;authors&quot;: [
+        ///        {
+        ///            &quot;name&quot;: &quot;hyjiacan&quot;,
+        ///            &quot;mail&quot;: &quot;hyjiacan@163.com&quot;,
+        ///            &quot;homepage&quot;: &quot;&quot;
+        ///        }
+        ///    ],
+        ///    &quot;resource&quot;: {
+        ///        &quot;AboutForm&quot;: {
+        ///            &quot;label2&quot;: {
+        ///                &quot;Text&quot;: &quot;关于ColorWanted&quot;
+        ///            },
+        ///            &quot;label1&quot;: {
+        ///                &quot;Text&quot;: &quot;开源的屏幕取色器&quot;
+        ///            },
+        ///            &quot;lkLicense&quot;: {
+        ///                &quot;ToolTip&quot;: &quot;使用本程序源码请遵守此开源协议&quot;
+        ///            },
+        ///            &quot;label4&quot;:  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static byte[] zh {
+        internal static string zh {
             get {
-                object obj = ResourceManager.GetObject("zh", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("zh", resourceCulture);
             }
         }
     }

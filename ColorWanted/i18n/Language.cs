@@ -13,6 +13,11 @@ namespace ColorWanted.i18n
         public string Locale { get; set; }
 
         /// <summary>
+        /// 语言名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// 语言版本
         /// </summary>
         public string Version { get; set; }

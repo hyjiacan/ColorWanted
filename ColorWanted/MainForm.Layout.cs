@@ -402,7 +402,7 @@ namespace ColorWanted
             this.trayMenuLanguageEN.Name = "trayMenuLanguageEN";
             this.trayMenuLanguageEN.CheckOnClick = true;
             this.trayMenuLanguageEN.Text = "English";
-            this.trayMenuLanguageEN.ToolTipText = "Take affected after restart me";
+            this.trayMenuLanguageEN.ToolTipText = "Take affected after restart";
             this.trayMenuLanguageEN.Size = new System.Drawing.Size(136, 22);
             this.trayMenuLanguageEN.Click += new EventHandler(this.trayMenuLanguageEN_Click);
             // 

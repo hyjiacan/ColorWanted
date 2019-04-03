@@ -48,11 +48,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="colors\HSI.cs" />
@@ -62,6 +60,11 @@
     <Compile Include="i18n\I18nManager.cs" />
     <Compile Include="i18n\Language.cs" />
     <Compile Include="misc\PinPosition.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="setting\Settings.I18n.cs" />
     <Compile Include="theme\ThemeDescription.cs" />
@@ -165,19 +168,14 @@
     <Compile Include="util\Util.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
-    <None Include="Resources\langs\en.json" />
-    <None Include="Resources\langs\zh.json" />
+    <None Include="Resources\locales\en.json" />
+    <None Include="Resources\locales\zh.json" />
     <None Include="Resources\logo.jpg" />
   </ItemGroup>
   <ItemGroup />

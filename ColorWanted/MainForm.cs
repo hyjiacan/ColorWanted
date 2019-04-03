@@ -196,16 +196,72 @@ namespace ColorWanted
                 }
             }
 
-            // 使用的语言
-            var lang = Settings.I18n.Lang ?? System.Globalization.CultureInfo.InstalledUICulture.Name;
-            if (lang.StartsWith("zh", StringComparison.OrdinalIgnoreCase))
+            // 加载语言并选中使用的项
+            new Thread(() =>
             {
-                trayMenuLanguageZH.Checked = true;
-            }
-            else
+                // 当前显示的语言
+                var locale = (Settings.I18n.Lang ?? System.Globalization.CultureInfo.InstalledUICulture.Name).ToLower();
+                // 加载自定义语言
+                var langs = i18n.I18nManager.GetLocalLangs();
+                if (langs.Any())
+                {
+                    // 都放到其它语言菜单项下
+                    var others = new ToolStripMenuItem();
+                    resources.ApplyResources(others, "trayMenuLanguageOther");
+                    others.Name = "trayMenuLanguageOther";
+
+                    // 存放语言 tooltip 的临时量
+                    var temp = new StringBuilder();
+
+                    var subs = langs.Select(language =>
+                    {
+                        var item = new ToolStripMenuItem();
+                        item.Name = $"customize-lang--{language.Locale}";
+                        item.Text = language.Name;
+
+                        // 选中项
+                        var l = language.Locale.ToLower();
+                        item.Checked = locale == l || locale.StartsWith(l) || l.StartsWith(locale);
+
+                        // 提示信息中显示语言的版本以及作者
+                        temp.Append($"{language.Version}\n");
+                        if (language.Authors != null && language.Authors.Any())
+                        {
+                            temp.Append("------------\n");
+                            foreach (var author in language.Authors)
+                            {
+                                temp.AppendFormat("{0}/{1}\n", author.Name, author.Mail);
+                                if (string.IsNullOrEmpty(author.HomePage))
+                                {
+                                    temp.Append(author.HomePage);
+                                }
+                            }
+                        }
+                        item.ToolTipText = temp.ToString();
+                        temp.Clear();
+                        return item;
+                    });
+
+                    // 添加菜单项
+                    others.DropDownItems.AddRange(subs.ToArray());
+                    this.InvokeMethod(() =>
+                    {
+                        trayMenuLanguage.DropDownItems.Add(others);
+                    });
+                }
+                if (locale.StartsWith("zh"))
+                {
+                    trayMenuLanguageZH.Checked = true;
+                }
+                else if (!langs.Any() || locale.StartsWith("en"))
+                {
+                    // 没有其它语言或设置为英语时
+                    trayMenuLanguageEN.Checked = true;
+                }
+            })
             {
-                trayMenuLanguageEN.Checked = true;
-            }
+                IsBackground = true
+            }.Start();
 
             // 启动时检查更新
             trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;

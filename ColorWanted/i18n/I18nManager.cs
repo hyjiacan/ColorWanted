@@ -27,8 +27,7 @@ namespace ColorWanted.i18n
             {
                 Directory.CreateDirectory(LangDir);
             }
-            language = LoadLanguages(string.IsNullOrWhiteSpace(Settings.I18n.Lang) ?
-                System.Globalization.CultureInfo.InstalledUICulture.Name : Settings.I18n.Lang);
+            language = LoadLanguages(Settings.I18n.Lang);
 
         }
         public I18nManager(Type formType)
@@ -167,12 +166,41 @@ namespace ColorWanted.i18n
         }
 
         /// <summary>
-        /// 获取可用的语言
+        /// 获取可用的自定义语言
         /// </summary>
         /// <returns></returns>
-        private static string[] GetLangs()
+        public static IEnumerable<Language> GetLocalLangs()
         {
-            return Directory.GetFiles(LangDir, "*.json", SearchOption.TopDirectoryOnly);
+            return Directory.GetFiles(LangDir, "*.json", SearchOption.TopDirectoryOnly)
+                   .Select(file =>
+                   {
+                       var content = File.ReadAllText(Path.Combine(LangDir, file));
+                       try
+                       {
+                           return Json.Deserialize<Language>(content);
+                       }
+                       catch (Exception)
+                       {
+                           // ignore the exception
+                           return null;
+                       }
+                   })
+                   // 筛选可用的语言包
+                   .Where(lang => lang != null
+                   && !string.IsNullOrWhiteSpace(lang.Locale)
+                   && !string.IsNullOrWhiteSpace(lang.Name)
+                   && lang.Resource != null);
+        }
+
+        /// <summary>
+        /// 根据指定的语言加载内置语言包
+        /// </summary>
+        /// <param name="locale"></param>
+        /// <returns></returns>
+        private static Language GetInnerLang(string locale)
+        {
+            var content = (locale != null && locale.StartsWith("zh")) ? Resources.zh : Resources.en;
+            return Json.Deserialize<Language>(content);
         }
 
         /// <summary>
@@ -182,47 +210,26 @@ namespace ColorWanted.i18n
         /// <returns></returns>
         private static Language LoadLanguages(string locale = null)
         {
-            //var langs = GetLangs();
-            //if (!langs.Any())
-            //{
-            //    // 没有语言包，使用内置的英文
-            //    return null;
-            //}
-            //// 默认的语言
-            //var file = "zh.json";
-            //if (!string.IsNullOrWhiteSpace(locale))
-            //{
-            //    var lang = langs.FirstOrDefault(l =>
-            //    {
-            //        var name = Path.GetFileNameWithoutExtension(l);
-            //        return name == locale
-            //        || name.StartsWith($"{locale}_")
-            //        || name.StartsWith($"{locale}-")
-            //        || locale.StartsWith($"{name}-");
-            //    });
-            //    if (!string.IsNullOrWhiteSpace(lang))
-            //    {
-            //        file = lang;
+            // 本地的自定义语言文件
+            var langs = GetLocalLangs();
 
-            //        // 使用第一个语言
+            // 没有指定时，使用本地语言
+            if (string.IsNullOrWhiteSpace(locale))
+            {
+                locale = System.Globalization.CultureInfo.InstalledUICulture.Name;
+            }
 
-            //    }
-            //}
+            locale = locale.ToLower();
 
-            //// 文件不存在
-            //if (!File.Exists(file))
-            //{
-            //    // TODO 如果文件不存在，需要通过 http 去下载
-            //    return null;
-            //}
+            // 看看本地的自定义语言中有没有本地语言(localization)或指定的语言
+            // 如果没有可用的语言包，加载内置的
+            var language = langs.FirstOrDefault(lang =>
+            {
+                var l = lang.Locale.ToLower();
+                return locale == l || locale.StartsWith(l) || l.StartsWith(locale);
+            }) ?? GetInnerLang(locale);
 
-
-
-            //var content = File.ReadAllText(Path.Combine(LangDir, file));
-
-            var content = (locale != null && locale.StartsWith("zh")) ? Resources.zh : Resources.en;
-
-            return Json.Deserialize<Language>(Encoding.UTF8.GetString(content));
+            return language;
         }
     }
 }
