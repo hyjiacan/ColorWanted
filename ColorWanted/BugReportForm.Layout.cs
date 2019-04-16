@@ -150,7 +150,6 @@
             this.Icon = global::ColorWanted.Properties.Resources.ico;
             this.Name = "BugReportForm";
             this.Opacity = 0.9D;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
             this.PerformLayout();

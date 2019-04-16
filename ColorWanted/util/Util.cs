@@ -88,10 +88,12 @@ namespace ColorWanted.util
             }
             if (reportform.Visible)
             {
+                reportform.BringToFront();
                 return;
             }
             reportform.SetException(ex);
             reportform.ShowDialog();
+            reportform.BringToFront();
         }
 
         /// <summary>

@@ -367,11 +367,11 @@
             this.MinimizeBox = false;
             this.Name = "AboutForm";
             this.Opacity = 0.8D;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.toolTip.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
+            this.Icon = global::ColorWanted.Properties.Resources.ico;
             this.ResumeLayout(false);
             this.PerformLayout();
 

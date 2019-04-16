@@ -434,7 +434,7 @@ namespace ColorWanted
             resources.ApplyResources(this.trayMenuShowAbout, "trayMenuShowAbout");
             this.trayMenuShowAbout.Name = "trayMenuShowAbout";
             this.trayMenuShowAbout.Size = new System.Drawing.Size(148, 22);
-            this.trayMenuShowAbout.Click += new EventHandler(this.trayMenuShowHelp_Click);
+            this.trayMenuShowAbout.Click += new EventHandler(this.trayMenuShowAbout_Click);
             // 
             // trayMenuExit
             // 

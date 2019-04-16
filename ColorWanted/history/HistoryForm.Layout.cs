@@ -222,6 +222,7 @@
             this.Load += new System.EventHandler(this.HistoryForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
+            this.Icon = global::ColorWanted.Properties.Resources.ico;
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -142,11 +142,11 @@
             this.MinimizeBox = false;
             this.Name = "HotkeyForm";
             this.Opacity = 0.8D;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.HotkeyForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
+            this.Icon = global::ColorWanted.Properties.Resources.ico;
             this.ResumeLayout(false);
             this.PerformLayout();
 

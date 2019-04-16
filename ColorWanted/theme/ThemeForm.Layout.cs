@@ -284,11 +284,11 @@
             this.MinimizeBox = false;
             this.Name = "ThemeForm";
             this.Opacity = 0.8D;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ThemeForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).EndInit();
+            this.Icon = global::ColorWanted.Properties.Resources.ico;
             this.pnChoose.ResumeLayout(false);
             this.pnChoose.PerformLayout();
             this.ResumeLayout(false);

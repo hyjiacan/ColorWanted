@@ -188,7 +188,7 @@ namespace ColorWanted
                 Settings.Base.IsFirstRun = false;
 
                 // 首次运行时，打开帮助窗口
-                trayMenuShowHelp_Click(null, null);
+                trayMenuShowAbout_Click(null, null);
                 if (!IsDisposed)
                 {
                     // 然后打开快捷键设置窗口
@@ -786,8 +786,13 @@ namespace ColorWanted
             {
                 themeForm = new ThemeForm();
             }
-
-            themeForm.ShowDialog(this);
+            if (themeForm.Visible)
+            {
+                themeForm.BringToFront();
+                return;
+            }
+            themeForm.Show(this);
+            themeForm.BringToFront();
         }
 
         private void trayMenuLanguageEN_Click(object sender, EventArgs e)
@@ -809,12 +814,19 @@ namespace ColorWanted
             Application.Restart();
         }
 
-        private void trayMenuShowHelp_Click(object sender, EventArgs e)
+        private void trayMenuShowAbout_Click(object sender, EventArgs e)
         {
             try
             {
-                var form = Application.OpenForms["HelpForm"] ?? new AboutForm();
-                form.ShowDialog(this);
+                var form = Application.OpenForms["AboutForm"] ?? new AboutForm();
+
+                if (form.Visible)
+                {
+                    form.BringToFront();
+                    return;
+                }
+                form.Show(this);
+                form.BringToFront();
             }
             catch (ObjectDisposedException)
             {
@@ -860,7 +872,14 @@ namespace ColorWanted
             try
             {
                 var form = Application.OpenForms["HotkeyForm"] ?? new HotkeyForm();
-                form.ShowDialog(this);
+
+                if (form.Visible)
+                {
+                    form.BringToFront();
+                    return;
+                }
+                form.Show(this);
+                form.BringToFront();
             }
             catch (ObjectDisposedException)
             {
@@ -995,6 +1014,7 @@ namespace ColorWanted
             colorPicker.CustomColors = Settings.Base.CustomColors;
 
             trayMenuShowColorPicker.Checked = true;
+
             if (DialogResult.OK == colorPicker.ShowDialog(this))
             {
                 var cl = colorPicker.Color;
