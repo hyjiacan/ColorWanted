@@ -2,19 +2,68 @@
 
 <head>
     <meta charset="utf-8"/>
-    <meta name="Author" content="hyjiacan;hyjiacan@163.com"/>
-    <meta name="Keywords" content="ColorWanted;赏色;取色器;拾色器"/>
-    <meta name="Description" content="好用的Windows屏幕取色器"/>
+    <meta name="Author" content="hyjiacan,hyjiacan@163.com"/>
+    <meta name="Keywords" content="ColorWanted,colorpicker,赏色,取色器,拾色器"/>
+    <meta name="Description" content="Screen color picker for Windows, 好用的Windows屏幕取色器"/>
     <meta charset="UTF-8"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
-    <title>ColorWanted 好用的Windows屏幕取色器 - 官方网站</title>
+    <title>ColorWanted: Screen color picker for Windows/好用的Windows屏幕取色器 - 官方网站</title>
     <link rel="stylesheet" type="text/css" href="./css/default.css"/>
     <link rel="stylesheet" type="text/css" href="./css/markdown.css"/>
+    <script src="https://cdn.bootcss.com/Base64/1.0.2/base64.min.js"></script>
+    <script src="https://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="mask"></div>
+    <div id="metas">
+        <span class="latest-text"></span>
+        <span class="loaded">
+          <span>
+              <a href="" id="source"></a>
+          </span>
+          <span class="release-text"></span>
+          <span id="date"></span>
+        </span>
+        <span class="pending"></span>
+    </div>
+    <main id="content" class="markdown">
+    </main>
+    <footer></footer>
+
     <script type="text/javascript">
+    let metas = document.querySelector('#metas')
+
     function readmeCallback(response) {
-        window.content = decodeURIComponent(escape(atob(response.data.content)))
+        let markdownText = decodeURIComponent(escape(atob(response.data.content.replace(/\n/g, ''))))
+        render(markdownText)
+    }
+    
+    function render(markdownText) {
+        let html = markdown.toHTML(markdownText)
+        html = html.replace(/docs\/img/g, 'img')
+        let content = document.querySelector('#content');
+        content.innerHTML = html
+
+        let title = content.querySelector('h1')
+        title.appendChild(metas)
+        
+        document.body.classList.add('content-loaded')
+
+        // 追加其它数据
+        let handle = setInterval(() => {
+            if (!window.latest) {
+                return
+            }
+            clearInterval(handle)
+
+            let source = document.querySelector('#source');
+            source.href = latest.tag
+            source.innerHTML = latest.version
+        }, 100)
     }
 
     function tagsCallback(response) {
@@ -31,68 +80,24 @@
             if (xhr.readyState !== 4 || xhr.status !== 200) {
                 return
             }
-            document.querySelector('#date').innerHTML = JSON.parse(xhr.responseText)
-                .commit.author.date.replace('T', ' ').replace('Z', '')
+            let date = JSON.parse(xhr.responseText).commit.author.date
+            document.querySelector('#date').innerHTML = new Date(Date.parse(date)).toLocaleString()
+
+            metas.classList.add('loaded')
         }
         xhr.send()
     }
+    let isZH = navigator.language.startsWith('zh')
+    let readmeFile = isZH ? 'README.zh-CN' : 'README'
+    let readmeUrl = `https://api.github.com/repos/hyjiacan/ColorWanted/contents/${readmeFile}.md?callback=readmeCallback`
+    let script = document.createElement('script')
+    script.setAttribute('src', readmeUrl)
+    script.setAttribute('type', 'text/javascript')
+    document.head.appendChild(script)
+    document.body.classList.add(isZH ? 'zh' : 'en')
     </script>
-    <script src="https://api.github.com/repos/hyjiacan/ColorWanted/readme?callback=readmeCallback"
-            type="text/javascript"
-            charset="utf-8"></script>
     <script src="https://api.github.com/repos/hyjiacan/ColorWanted/tags?callback=tagsCallback" type="text/javascript"
             charset="utf-8"></script>
-    <script src="https://cdn.bootcss.com/Base64/1.0.1/base64.min.js" type="text/javascript"></script>
-    <script src="https://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js" type="text/javascript"></script>
-</head>
-
-<body>
-<div class="container">
-    <div id="metas">
-        <span>
-            <span>最新版本:</span>
-            <a href="" id="source"></a>
-        </span>
-        <span>发布于</span>
-        <span id="date"></span>
-    </div>
-    <main id="content" class="markdown">
-    </main>
-    <footer></footer>
-    <script>
-    function render() {
-        let html = markdown.toHTML(window.content)
-        html = html.replace(/docs\/img/g, 'img')
-        let content = document.querySelector('#content');
-        content.innerHTML = html
-
-        let title = content.querySelector('h1')
-        let metas = document.querySelector('#metas')
-        title.appendChild(metas)
-
-        // 追加其它数据
-        let handle = setInterval(() => {
-            if (!window.latest) {
-                return
-            }
-            clearInterval(handle)
-
-            let source = document.querySelector('#source');
-            source.href = latest.tag
-            source.innerHTML = latest.version
-
-            metas.style.display = 'inline-block'
-        }, 100)
-    }
-
-    let handle = setInterval(() => {
-        if (!window.content) {
-            return
-        }
-        clearInterval(handle)
-        render()
-    }, 100)
-    </script>
 </div>
 </body>
 

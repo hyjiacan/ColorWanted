@@ -60,8 +60,67 @@ header {
     font-size: 1.6rem;
 }
 
+.mask {
+  font-size: 24px;
+  color: #777;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, .8);
+  transition: top 618ms, bottom 618ms;
+}
+
+.content-loaded .mask {
+  top: -100%;
+  bottom: 100%;
+}
+
 #metas {
     font-size: 12px;
     padding-left: 60px;
     display: none;
+}
+
+#metas.loaded {
+  display: inline-block;
+}
+
+#metas .loaded {
+  display: none;
+}
+
+#metas.loaded .loaded {
+  display: unset;
+}
+
+#metas.loaded .pending {
+  display: none;
+}
+
+.zh .mask:before {
+  content: '正在加载内容...';
+}
+.zh .latest-text:before {
+  content: '最新版本:';
+}
+.zh .release-text:before {
+  content: '发布于';
+}
+.zh .pending:before {
+  content: '加载中...';
+}
+.en .mask:before {
+  content: 'Loading content...';
+}
+.en .latest-text:before {
+  content: 'Latest: ';
+}
+.en .release-text:before {
+  content: ' released at ';
+}
+.en .pending:before {
+  content: 'Loading...';
 }
