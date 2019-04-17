@@ -47,26 +47,8 @@ namespace ColorWanted.setting
             {
                 get
                 {
-                    try
-                    {
-                        using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run"))
-                        {
-                            if (reg != null)
-                            {
-                                var path = reg.GetValue(Application.ProductName);
-                                if (path != null)
-                                {
-                                    if (string.Equals(path.ToString(), "\"" + Application.ExecutablePath + "\"", StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    catch { }
-
-                    return false;
+                    // 从配置文件读取自动启动的配置
+                    return Get("autostart") == "1";
                 }
 
                 set
@@ -85,6 +67,8 @@ namespace ColorWanted.setting
                                 reg.DeleteValue(Application.ProductName);
                             }
                         }
+                        // 写注册表成功后，将其写入配置文件，以避免每次启动读取注册表
+                        Set("autostart", value ? "1" : "0");
                     }
                     catch
                     {
