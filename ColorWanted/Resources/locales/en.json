@@ -281,7 +281,7 @@
       },
       "trayMenuLanguage": {
         "Text": "Languages",
-        "ToolTipText": "Choose language"
+        "ToolTipText": "Choose language, take affected after restart"
       },
       "trayMenuLanguageOther": {
         "Text": "Others",

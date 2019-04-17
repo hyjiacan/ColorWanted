@@ -392,7 +392,6 @@ namespace ColorWanted
             this.trayMenuLanguageZH.Name = "trayMenuLanguageZH";
             this.trayMenuLanguageZH.CheckOnClick = true;
             this.trayMenuLanguageZH.Text = "中文";
-            this.trayMenuLanguageZH.ToolTipText = "重启软件后生效";
             this.trayMenuLanguageZH.Size = new System.Drawing.Size(136, 22);
             this.trayMenuLanguageZH.Click += new EventHandler(this.trayMenuLanguageZH_Click);
             // 
@@ -402,7 +401,6 @@ namespace ColorWanted
             this.trayMenuLanguageEN.Name = "trayMenuLanguageEN";
             this.trayMenuLanguageEN.CheckOnClick = true;
             this.trayMenuLanguageEN.Text = "English";
-            this.trayMenuLanguageEN.ToolTipText = "Take affected after restart";
             this.trayMenuLanguageEN.Size = new System.Drawing.Size(136, 22);
             this.trayMenuLanguageEN.Click += new EventHandler(this.trayMenuLanguageEN_Click);
             // 

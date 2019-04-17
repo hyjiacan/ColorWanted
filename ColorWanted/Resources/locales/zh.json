@@ -276,7 +276,7 @@
       },
       "trayMenuLanguage": {
         "Text": "选择语言",
-        "ToolTipText": "切换显示语言"
+        "ToolTipText": "切换显示语言，重启软件后生效"
       },
       "trayMenuLanguageOther": {
         "Text": "其它",
