@@ -14,8 +14,6 @@ namespace ColorWanted
         {
             componentsLayout();
             ThemeUtil.Apply(this);
-            
-
             lkVersion.Text = @"v" + Application.ProductVersion;
         }
 

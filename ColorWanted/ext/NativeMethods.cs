@@ -91,5 +91,14 @@ namespace ColorWanted.ext
         public static extern bool GlobalUnlock(IntPtr hMem);
 
         #endregion
+
+        #region 窗体阴影
+        public const int CS_DropSHADOW = 0x20000;
+        public const int GCL_STYLE = -26;
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int SetClassLong(IntPtr hwnd, int nIndex, int dwNewLong);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetClassLong(IntPtr hwnd, int nIndex);
+        #endregion
     }
 }
