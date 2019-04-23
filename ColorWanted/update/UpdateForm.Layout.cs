@@ -6,7 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer componentsSet = null;
-        
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -42,7 +42,7 @@
             this.pnDetail = new System.Windows.Forms.Panel();
             this.lbLog = new System.Windows.Forms.Label();
             this.lbUpdateDate = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).BeginInit();
             this.pnDetail.SuspendLayout();
@@ -183,13 +183,13 @@
             // 
             // lbLog
             // 
-            this.lbLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbLog.AutoSize = true;
-            this.lbLog.Location = new System.Drawing.Point(40, 53);
+            this.lbLog.Location = new System.Drawing.Point(10, 53);
             resources.ApplyResources(this.lbLog, "lbLog");
             this.lbLog.Name = "lbLog";
-            this.lbLog.Size = new System.Drawing.Size(0, 12);
+            //this.lbLog.Size = new System.Drawing.Size(180, 74);
             this.lbLog.TabIndex = 2;
             // 
             // lbUpdateDate
@@ -209,6 +209,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 0;
+            this.label3.LinkClicked += Label3_LinkClicked;
             // 
             // label2
             // 
@@ -271,7 +272,7 @@
         public System.Windows.Forms.Label lbPercentage;
         public System.Windows.Forms.Label lbProgress;
         public System.Windows.Forms.Panel pnDetail;
-        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.LinkLabel label3;
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.Label lbUpdateDate;
         public System.Windows.Forms.Label lbLog;

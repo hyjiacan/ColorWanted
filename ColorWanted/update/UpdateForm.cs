@@ -413,5 +413,16 @@ namespace ColorWanted.update
             }
             DelayHide();
         }
+
+        /// <summary>
+        /// 打开更新日志
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Label3_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/hyjiacan/ColorWanted/blob/master/CHANGELOG.md?from=app&v=" + Application.ProductVersion);
+        }
+
     }
 }
