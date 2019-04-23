@@ -1,409 +1,410 @@
 {
-  "locale": "en-US",
-  "name": "English",
-  "version": "1.0.0",
-  "authors": [{
-      "name": "hyjiacan",
-      "mail": "hyjiacan@163.com",
-      "homepage": ""
+    "locale": "en-US",
+    "name": "English",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "hyjiacan",
+            "mail": "hyjiacan@163.com",
+            "homepage": ""
+        }
+    ],
+    "resource": {
+        "AboutForm": {
+            "label2": {
+                "Text": "About ColorWanted"
+            },
+            "label1": {
+                "Text": "Open source Color picker"
+            },
+            "lkLicense": {
+                "ToolTip": "Please follow the license",
+                "Text": ""
+            },
+            "label4": {
+                "Text": "Website"
+            },
+            "lkQQGroup": {
+                "ToolTip": "Click to join QQ Group"
+            },
+            "lkVersion": {
+                "ToolTip": "Click to check update"
+            },
+            "lkMail": {
+                "ToolTip": "Mail me"
+            },
+            "label3": {
+                "Text": "Source"
+            },
+            "label5": {
+                "Text": "Contact"
+            },
+            "lkHotkey": {
+                "Text": "Show hot keys"
+            },
+            "lkFeedback": {
+                "Text": "Any issue or suggestion"
+            },
+            "label7": {
+                "Text": "QQ Group"
+            },
+            "label8": {
+                "Text": "The copyright of this product belongs to hyjiacan,\nand the copyright is protected by law."
+            },
+            "label9": {
+                "Text": "For all direct or indirect losses arising from\nthe use of this, I do not take any responsibility."
+            },
+            "label10": {
+                "Text": "Responsible statement"
+            },
+            "$this": {
+                "Text": "ColorWanted-About"
+            },
+            "label6": {
+                "Text": "E-Mail"
+            }
+        },
+        "BugReportForm": {
+            "label1": {
+                "Text": "Sorry, something went wrong"
+            },
+            "btnCopy": {
+                "Text": "Copy"
+            },
+            "label3": {
+                "Text": "Copy message above and send feedback to:"
+            },
+            "btnOK": {
+                "Text": "OK"
+            },
+            "cbRestart": {
+                "Text": "Restart"
+            },
+            "$this": {
+                "Text": ""
+            },
+            "lkIssue": {
+                "Text": "ColorWanted - BUG report"
+            }
+        },
+        "HistoryForm": {
+            "label1": {
+                "Text": "ColorWanted - History"
+            },
+            "linkFile": {
+                "Text": "Open file"
+            },
+            "linkClear": {
+                "Text": "Clear"
+            },
+            "linkReload": {
+                "Text": "Reload"
+            },
+            "linkHex": {
+                "ToolTip": "Click to copy",
+                "Text": ""
+            },
+            "linkRgb": {
+                "ToolTip": "Click to copy",
+                "Text": ""
+            },
+            "label2": {
+                "Text": "Click to Copy →",
+                "ToolTip": "Copy here will not append to history"
+            },
+            "colorPicker": {
+                "": "ColorPicker"
+            },
+            "historyTipTpl": {
+                "": "Time: {0:HH:mm:ss}{1}Source: {2}"
+            },
+            "screen": {
+                "": "Screen"
+            },
+            "label3": {
+                "Text": "The BG is the history color"
+            },
+            "$this": {
+                "Text": "ColorWanted - History"
+            }
+        },
+        "HotkeyCtrl": {
+            "lkOK": {
+                "Text": "OK"
+            },
+            "lkReset": {
+                "Text": "Reset"
+            }
+        },
+        "HotkeyForm": {
+            "label2": {
+                "Text": "ColorWanted - Hotkeys"
+            },
+            "lbMsg": {
+                "Text": "Loading..."
+            },
+            "label5": {
+                "Text": "Double press: Press the key(s) twice in 1 second"
+            },
+            "lkReset": {
+                "Text": "Reset all"
+            },
+            "loadComplete": {
+                "": "Load complete"
+            },
+            "settingSuccess": {
+                "": "Change saved"
+            },
+            "$this": {
+                "Text": "ColorWanted - Hotkeys"
+            }
+        },
+        "MainForm": {
+            "lbHex": {
+                "ToolTip": "Copy HEX value:"
+            },
+            "lbRgb": {
+                "ToolTip": "Copy RGB value: double press "
+            },
+            "tray": {
+                "BalloonTipText": "ColorWanted is running",
+                "Text": "ColorWanted-Screen color picker",
+                "BalloonTipTitle": "ColorWanted"
+            },
+            "trayMenuDisplayMode": {
+                "Text": "Window Mode",
+                "ToolTipText": "Switch window mode"
+            },
+            "trayMenuFormatMode": {
+                "Text": "Display Form",
+                "ToolTipText": "Show RGB or not"
+            },
+            "trayMenuCopyPolicy": {
+                "Text": "Copy Policy",
+                "ToolTipText": "Copy color value only (no addition symbols)"
+            },
+            "trayMenuHsiAlgorithm": {
+                "Text": "HSI Algorithm"
+            },
+            "trayMenuShowPreview": {
+                "Text": "Show Preview"
+            },
+            "trayMenuShowColorPicker": {
+                "Text": "Open Color-Panel"
+            },
+            "trayMenuPixelScale": {
+                "Text": "Pixel Scale",
+                "ToolTipText": "Use pixel scale to preview"
+            },
+            "trayMenuAutoPin": {
+                "Text": "Auto Adsorbent"
+            },
+            "trayMenuTheme": {
+                "Text": "Theme"
+            },
+            "trayMenuHotkey": {
+                "Text": "Hotkeys"
+            },
+            "trayMenuRestoreLocation": {
+                "Text": "Reset Position"
+            },
+            "trayMenuAutoStart": {
+                "Text": "Autorun",
+                "ToolTipText": "Toggle autorun ColorWanted at system startup or not"
+            },
+            "trayMenuOpenConfigFile": {
+                "Text": "Open Config",
+                "ToolTipText": "Open configuration file"
+            },
+            "trayMenuHistory": {
+                "Text": "Color History",
+                "ToolTipText": "Show color history (copied)"
+            },
+            "trayMenuCheckUpdate": {
+                "Text": "Check Update"
+            },
+            "trayMenuRestart": {
+                "Text": "Restart"
+            },
+            "trayMenuShowAbout": {
+                "Text": "About"
+            },
+            "trayMenuExit": {
+                "Text": "Exit"
+            },
+            "trayMenuHideWindow": {
+                "Text": "Hidden"
+            },
+            "trayMenuFollowCaret": {
+                "Text": "Follow"
+            },
+            "trayMenuFixed": {
+                "Text": "Fixed"
+            },
+            "trayMenuFormatMini": {
+                "Text": "Mini",
+                "ToolTipText": "Show HEX only"
+            },
+            "trayMenuFormatStandard": {
+                "Text": "Standard",
+                "ToolTipText": "Show HEX and RGB"
+            },
+            "trayMenuFormatExtention": {
+                "Text": "Extended",
+                "ToolTipText": "Show HEX, RGB, and HSVB"
+            },
+            "trayMenuCopyPolicyHexValueOnly": {
+                "Text": "HEX only",
+                "ToolTipText": "Copy HEX only, without symbol #"
+            },
+            "trayMenuCopyPolicyRgbValueOnly": {
+                "Text": "RGB only",
+                "ToolTipText": "Copy RGB only, without RGB(), e.g. 255,255,255"
+            },
+            "trayMenuHsiAlgorithmGeometry": {
+                "Text": "Geometry"
+            },
+            "trayMenuHsiAlgorithmAxis": {
+                "Text": "Axis"
+            },
+            "trayMenuHsiAlgorithmSegment": {
+                "Text": "Segment"
+            },
+            "trayMenuHsiAlgorithmBajon": {
+                "Text": "Bajon"
+            },
+            "trayMenuHsiAlgorithmStandard": {
+                "Text": "Standard"
+            },
+            "trayMenuCheckUpdateOnStartup": {
+                "Text": "Check update at Startup",
+                "ToolTipText": "Check update at system startup per day"
+            },
+            "trayMenuLanguage": {
+                "Text": "Languages",
+                "ToolTipText": "Choose language, take affected after restart"
+            },
+            "trayMenuLanguageOther": {
+                "Text": "Others",
+                "ToolTipText": "Choose other language"
+            },
+            "$this": {
+                "Text": "ColorWanted-Screen color picker"
+            },
+            "lbHsl": {
+                "Text": "HSL(0,0,0)"
+            },
+            "lbHsi": {
+                "Text": "HSI(0,0,0)"
+            },
+            "lbHsb": {
+                "Text": "HSB(0,0,0)"
+            }
+        },
+        "PreviewForm": {
+            "$this": {
+                "Text": "ColorWanted-Preview"
+            }
+        },
+        "ThemeForm": {
+            "label1": {
+                "Text": "Theme"
+            },
+            "label2": {
+                "Text": "Opacity"
+            },
+            "linkFg": {
+                "Text": "ForeColor"
+            },
+            "linkBg": {
+                "Text": "BackColor"
+            },
+            "btnThemeDark": {
+                "Text": "Dark"
+            },
+            "btnThemeLight": {
+                "Text": "Light"
+            },
+            "btnThemeCustom": {
+                "Text": "Customize"
+            },
+            "label3": {
+                "Text": "Transparent"
+            },
+            "label4": {
+                "Text": "Opaque"
+            },
+            "label5": {
+                "Text": "Won't affect main window"
+            },
+            "btnThemeGreen": {
+                "Text": "Green"
+            },
+            "btnThemeBlue": {
+                "Text": "Blue"
+            },
+            "$this": {
+                "Text": "ColorWanted - Theme"
+            }
+        },
+        "UpdateForm": {
+            "label1": {
+                "Text": "ColorWanted - Check update"
+            },
+            "lbMsg": {
+                "Text": "Checking update..."
+            },
+            "lbCurrent": {
+                "Text": "Current v1.0.0"
+            },
+            "linkNow": {
+                "Text": "Update now"
+            },
+            "linkIgnore": {
+                "Text": "Ignore this"
+            },
+            "linkNext": {
+                "Text": "Next time"
+            },
+            "label3": {
+                "Text": "Change Log"
+            },
+            "label2": {
+                "Text": "Update Time"
+            },
+            "noupdate": {
+                "": "It's is the latest"
+            },
+            "$this": {
+                "Text": "ColorWanted - Check update"
+            },
+            "currentVersion": {
+                "": "Current"
+            },
+            "downloadComplete": {
+                "": "Download complete, updating..."
+            },
+            "updateIsBusy": {
+                "": "Update query is busy..."
+            },
+            "checking": {
+                "": "Checking"
+            },
+            "checkFailed": {
+                "": "Check failed"
+            },
+            "newVersionIgnored": {
+                "": "New version {0} (ignored)"
+            },
+            "downloadFailed": {
+                "": "Download package failed"
+            },
+            "downloading": {
+                "": "Downloading..."
+            },
+            "newVersion": {
+                "": "New version"
+            }
+        }
     }
-  ],
-  "resource": {
-    "AboutForm": {
-      "label2": {
-        "Text": "About ColorWanted"
-      },
-      "label1": {
-        "Text": "Open source Color picker"
-      },
-      "lkLicense": {
-        "ToolTip": "Please follow the license",
-        "Text": ""
-      },
-      "label4": {
-        "Text": "Website"
-      },
-      "lkQQGroup": {
-        "ToolTip": "Click to join QQ Group"
-      },
-      "lkVersion": {
-        "ToolTip": "Click to check update"
-      },
-      "lkMail": {
-        "ToolTip": "Mail me"
-      },
-      "label3": {
-        "Text": "Source"
-      },
-      "label5": {
-        "Text": "Contact"
-      },
-      "lkHotkey": {
-        "Text": "Show hot keys"
-      },
-      "lkFeedback": {
-        "Text": "Any issue or suggestion"
-      },
-      "label7": {
-        "Text": "QQ Group"
-      },
-      "label8": {
-        "Text": "The copyright of this product belongs to hyjiacan,\nand the copyright is protected by law."
-      },
-      "label9": {
-        "Text": "For all direct or indirect losses arising from\nthe use of this, I do not take any responsibility."
-      },
-      "label10": {
-        "Text": "Responsible statement"
-      },
-      "$this": {
-        "Text": "ColorWanted-About"
-      },
-      "label6": {
-        "Text": "E-Mail"
-      }
-    },
-    "BugReportForm": {
-      "label1": {
-        "Text": "Sorry, something went wrong"
-      },
-      "btnCopy": {
-        "Text": "Copy"
-      },
-      "label3": {
-        "Text": "Copy message above and send feedback to:"
-      },
-      "btnOK": {
-        "Text": "OK"
-      },
-      "cbRestart": {
-        "Text": "Restart"
-      },
-      "$this": {
-        "Text": ""
-      },
-      "lkIssue": {
-        "Text": "ColorWanted - BUG report"
-      }
-    },
-    "HistoryForm": {
-      "label1": {
-        "Text": "ColorWanted - History"
-      },
-      "linkFile": {
-        "Text": "Open file"
-      },
-      "linkClear": {
-        "Text": "Clear"
-      },
-      "linkReload": {
-        "Text": "Reload"
-      },
-      "linkHex": {
-        "ToolTip": "Click to copy",
-        "Text": ""
-      },
-      "linkRgb": {
-        "ToolTip": "Click to copy",
-        "Text": ""
-      },
-      "label2": {
-        "Text": "Click to Copy →",
-        "ToolTip": "Copy here will not append to history"
-      },
-      "colorPicker": {
-        "": "ColorPicker"
-      },
-      "historyTipTpl": {
-        "": "Time: {0:HH:mm:ss}{1}Source: {2}"
-      },
-      "screen": {
-        "": "Screen"
-      },
-      "label3": {
-        "Text": "The BG is the history color"
-      },
-      "$this": {
-        "Text": "ColorWanted - History"
-      }
-    },
-    "HotkeyCtrl": {
-      "lkOK": {
-        "Text": "OK"
-      },
-      "lkReset": {
-        "Text": "Reset"
-      }
-    },
-    "HotkeyForm": {
-      "label2": {
-        "Text": "ColorWanted - Hotkeys"
-      },
-      "lbMsg": {
-        "Text": "Loading..."
-      },
-      "label5": {
-        "Text": "Double press: Press the key(s) twice in 1 second"
-      },
-      "lkReset": {
-        "Text": "Reset all"
-      },
-      "loadComplete": {
-        "": "Load complete"
-      },
-      "settingSuccess": {
-        "": "Change saved"
-      },
-      "$this": {
-        "Text": "ColorWanted - Hotkeys"
-      }
-    },
-    "MainForm": {
-      "lbHex": {
-        "ToolTip": "Copy HEX value:"
-      },
-      "lbRgb": {
-        "ToolTip": "Copy RGB value: double press "
-      },
-      "tray": {
-        "BalloonTipText": "ColorWanted is running",
-        "Text": "ColorWanted-Screen color picker",
-        "BalloonTipTitle": "ColorWanted"
-      },
-      "trayMenuDisplayMode": {
-        "Text": "Window Mode",
-        "ToolTipText": "Switch window mode"
-      },
-      "trayMenuFormatMode": {
-        "Text": "Display Form",
-        "ToolTipText": "Show RGB or not"
-      },
-      "trayMenuCopyPolicy": {
-        "Text": "Copy Policy",
-        "ToolTipText": "Copy color value only (no addition symbols)"
-      },
-      "trayMenuHsiAlgorithm": {
-        "Text": "HSI Algorithm"
-      },
-      "trayMenuShowPreview": {
-        "Text": "Show Preview"
-      },
-      "trayMenuShowColorPicker": {
-        "Text": "Open Color-Panel"
-      },
-      "trayMenuPixelScale": {
-        "Text": "Pixel Scale",
-        "ToolTipText": "Use pixel scale to preview"
-      },
-      "trayMenuAutoPin": {
-        "Text": "Auto Adsorbent"
-      },
-      "trayMenuTheme": {
-        "Text": "Theme"
-      },
-      "trayMenuHotkey": {
-        "Text": "Hotkeys"
-      },
-      "trayMenuRestoreLocation": {
-        "Text": "Reset Position"
-      },
-      "trayMenuAutoStart": {
-        "Text": "Autorun",
-        "ToolTipText": "Toggle autorun ColorWanted at system startup or not"
-      },
-      "trayMenuOpenConfigFile": {
-        "Text": "Open Config",
-        "ToolTipText": "Open configuration file"
-      },
-      "trayMenuHistory": {
-        "Text": "Color History",
-        "ToolTipText": "Show color history (copied)"
-      },
-      "trayMenuCheckUpdate": {
-        "Text": "Check Update"
-      },
-      "trayMenuRestart": {
-        "Text": "Restart"
-      },
-      "trayMenuShowAbout": {
-        "Text": "About"
-      },
-      "trayMenuExit": {
-        "Text": "Exit"
-      },
-      "trayMenuHideWindow": {
-        "Text": "Hidden"
-      },
-      "trayMenuFollowCaret": {
-        "Text": "Follow"
-      },
-      "trayMenuFixed": {
-        "Text": "Fixed"
-      },
-      "trayMenuFormatMini": {
-        "Text": "Mini",
-        "ToolTipText": "Show HEX only"
-      },
-      "trayMenuFormatStandard": {
-        "Text": "Standard",
-        "ToolTipText": "Show HEX and RGB"
-      },
-      "trayMenuFormatExtention": {
-        "Text": "Extended",
-        "ToolTipText": "Show HEX, RGB, and HSVB"
-      },
-      "trayMenuCopyPolicyHexValueOnly": {
-        "Text": "HEX only",
-        "ToolTipText": "Copy HEX only, without symbol #"
-      },
-      "trayMenuCopyPolicyRgbValueOnly": {
-        "Text": "RGB only",
-        "ToolTipText": "Copy RGB only, without RGB(), e.g. 255,255,255"
-      },
-      "trayMenuHsiAlgorithmGeometry": {
-        "Text": "Geometry"
-      },
-      "trayMenuHsiAlgorithmAxis": {
-        "Text": "Axis"
-      },
-      "trayMenuHsiAlgorithmSegment": {
-        "Text": "Segment"
-      },
-      "trayMenuHsiAlgorithmBajon": {
-        "Text": "Bajon"
-      },
-      "trayMenuHsiAlgorithmStandard": {
-        "Text": "Standard"
-      },
-      "trayMenuCheckUpdateOnStartup": {
-        "Text": "Check update at Startup",
-        "ToolTipText": "Check update at system startup per day"
-      },
-      "trayMenuLanguage": {
-        "Text": "Languages",
-        "ToolTipText": "Choose language, take affected after restart"
-      },
-      "trayMenuLanguageOther": {
-        "Text": "Others",
-        "ToolTipText": "Choose other language"
-      },
-      "$this": {
-        "Text": "ColorWanted-Screen color picker"
-      },
-      "lbHsl": {
-        "Text": "HSL(0,0,0)"
-      },
-      "lbHsi": {
-        "Text": "HSI(0,0,0)"
-      },
-      "lbHsb": {
-        "Text": "HSB(0,0,0)"
-      }
-    },
-    "PreviewForm": {
-      "$this": {
-        "Text": "ColorWanted-Preview"
-      }
-    },
-    "ThemeForm": {
-      "label1": {
-        "Text": "Theme"
-      },
-      "label2": {
-        "Text": "Opacity"
-      },
-      "linkFg": {
-        "Text": "ForeColor"
-      },
-      "linkBg": {
-        "Text": "BackColor"
-      },
-      "btnThemeDark": {
-        "Text": "Dark"
-      },
-      "btnThemeLight": {
-        "Text": "Light"
-      },
-      "btnThemeCustom": {
-        "Text": "Customize"
-      },
-      "label3": {
-        "Text": "Transparent"
-      },
-      "label4": {
-        "Text": "Opaque"
-      },
-      "label5": {
-        "Text": "Won't affect main window"
-      },
-      "btnThemeGreen": {
-        "Text": "Green"
-      },
-      "btnThemeBlue": {
-        "Text": "Blue"
-      },
-      "$this": {
-        "Text": "ColorWanted - Theme"
-      }
-    },
-    "UpdateForm": {
-      "label1": {
-        "Text": "ColorWanted - Check update"
-      },
-      "lbMsg": {
-        "Text": "Checking update..."
-      },
-      "lbCurrent": {
-        "Text": "Current v1.0.0"
-      },
-      "linkNow": {
-        "Text": "Update now"
-      },
-      "linkIgnore": {
-        "Text": "Ignore this"
-      },
-      "linkNext": {
-        "Text": "Next time"
-      },
-      "label3": {
-        "Text": "Change Log"
-      },
-      "label2": {
-        "Text": "Update Time"
-      },
-      "noupdate": {
-        "": "It's is the latest"
-      },
-      "$this": {
-        "Text": "ColorWanted - Check update"
-      },
-      "currentVersion": {
-        "": "Current"
-      },
-      "downloadComplete": {
-        "": "Download complete, updating..."
-      },
-      "updateIsBusy": {
-        "": "Update query is busy..."
-      },
-      "checking": {
-        "": "Checking"
-      },
-      "checkFailed": {
-        "": "Check failed"
-      },
-      "newVersionIgnored": {
-        "": "New version {0} (ignored)"
-      },
-      "downloadFailed": {
-        "": "Download package failed"
-      },
-      "dowloading": {
-        "": "Downloading..."
-      },
-      "newVersion": {
-        "": "New version"
-      }
-    }
-  }
 }

@@ -144,14 +144,20 @@
             // lbPercentage
             // 
             resources.ApplyResources(this.lbPercentage, "lbPercentage");
+            this.lbPercentage.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lbPercentage.Location = new System.Drawing.Point(12, 83);
             this.lbPercentage.Name = "lbPercentage";
+            this.lbPercentage.Size = new System.Drawing.Size(216, 16);
+            this.lbPercentage.TabIndex = 19;
+            this.lbPercentage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbPercentage.Visible = false;
             // 
             // lbProgress
             // 
             this.lbProgress.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             resources.ApplyResources(this.lbProgress, "lbProgress");
             this.lbProgress.BackColor = System.Drawing.Color.Lime;
-            this.lbProgress.Location = new System.Drawing.Point(12, 94);
+            this.lbProgress.Location = new System.Drawing.Point(12, 100);
             this.lbProgress.Name = "lbProgress";
             this.lbProgress.Size = new System.Drawing.Size(0, 5);
             this.lbProgress.TabIndex = 19;

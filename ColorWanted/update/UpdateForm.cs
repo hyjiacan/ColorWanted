@@ -92,7 +92,7 @@ namespace ColorWanted.update
         {
             componentsLayout();
             ThemeUtil.Apply(this);
-            
+
             var screen = Screen.PrimaryScreen.WorkingArea;
             Location = new Point(screen.Width - Width, screen.Height - Height);
         }
@@ -268,6 +268,14 @@ namespace ColorWanted.update
             CancelHide();
             linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
             lbMsg.Text = string.Format(resources.GetString("downloading") + "({0})...", update.Version);
+
+            lbPercentage.Text = "0K / 0K    0%";
+            if (!lbPercentage.Visible)
+            {
+                lbPercentage.Show();
+                lbProgress.Show();
+            }
+            Application.DoEvents();
             new Thread(() =>
             {
                 OnlineUpdate.Update(update.Link, update.Version, result =>
@@ -283,11 +291,6 @@ namespace ColorWanted.update
 
                     this.InvokeMethod(() =>
                     {
-                        if (!lbPercentage.Visible)
-                        {
-                            lbPercentage.Show();
-                            lbProgress.Show();
-                        }
                         lbPercentage.Text = string.Format(@"{0}K / {1}K    {2}%",
                             Math.Ceiling(result.BytesReceived / 1024.0),
                             Math.Ceiling(result.TotalBytesToReceive / 1024.0),
@@ -399,6 +402,10 @@ namespace ColorWanted.update
         /// <param name="e"></param>
         private void UpdateForm_MouseLeave(object sender, EventArgs e)
         {
+            if (hideTimer == null)
+            {
+                return;
+            }
             // 鼠标还在窗体区域内时，不触发事件
             if (Bounds.Contains(MousePosition))
             {

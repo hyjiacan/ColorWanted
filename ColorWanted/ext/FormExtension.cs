@@ -58,7 +58,7 @@ namespace ColorWanted.ext
                         Application.DoEvents();
                     });
                     offset += step1;
-                    step = (int)(step * 1.2);
+                    step = (int)(step * 1.5);
                     Thread.Sleep(50);
                 }
                 if (callback != null)
@@ -82,7 +82,7 @@ namespace ColorWanted.ext
                         form.Width -= step1;
                         form.Left += step1;
                     });
-                    step = (int)(step * 1.2);
+                    step = (int)(step * 1.5);
                     Thread.Sleep(50);
                 }
                 form.InvokeMethod(() =>
