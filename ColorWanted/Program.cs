@@ -19,14 +19,21 @@ namespace ColorWanted
                 return;
             }
 
-            bool createdNew;
             // ReSharper disable once ObjectCreationAsStatement
-            new Mutex(true, Application.ProductName, out createdNew);
-            if (!createdNew)
+            using (_ = new Mutex(true, Application.ProductName, out bool createdNew))
             {
-                return;
-            }
+                if (!createdNew)
+                {
+                    return;
+                }
 
+
+                Run();
+            }
+        }
+
+        private static void Run()
+        {
             // 绑定异常捕捉处理函数
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             Application.ThreadException += (sender, e) =>
