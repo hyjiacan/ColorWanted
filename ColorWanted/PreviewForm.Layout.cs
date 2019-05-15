@@ -30,13 +30,15 @@
         {
             i18n.I18nManager resources = new i18n.I18nManager(typeof(PreviewForm));
             this.picPreview = new System.Windows.Forms.PictureBox();
+            this.lbH = new System.Windows.Forms.Label();
+            this.lbV = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // picPreview
             // 
-            this.picPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.picPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picPreview.Location = new System.Drawing.Point(0, 0);
             this.picPreview.Margin = new System.Windows.Forms.Padding(0);
@@ -51,6 +53,32 @@
             this.picPreview.MouseEnter += new System.EventHandler(this.PreviewForm_MouseEnter);
             this.picPreview.MouseLeave += new System.EventHandler(this.PreviewForm_MouseLeave);
             // 
+            // lbH
+            // 
+            this.lbH.Location = new System.Drawing.Point(0, 60);
+            this.lbH.Margin = new System.Windows.Forms.Padding(0);
+            resources.ApplyResources(this.lbH, "lbH");
+            this.lbH.Name = "lbH";
+            this.lbH.AutoSize = false;
+            this.lbH.Size = new System.Drawing.Size(121, 1);
+            this.lbH.TabIndex = 0;
+            this.lbH.BackColor = System.Drawing.Color.Gray;
+            this.lbH.TabStop = false;
+            this.lbH.Text = "-";
+            // 
+            // lbV
+            // 
+            this.lbV.Location = new System.Drawing.Point(60, 0);
+            this.lbV.Margin = new System.Windows.Forms.Padding(0);
+            resources.ApplyResources(this.lbV, "lbV");
+            this.lbV.Name = "lbV";
+            this.lbV.AutoSize = false;
+            this.lbV.Size = new System.Drawing.Size(1, 121);
+            this.lbV.TabIndex = 0;
+            this.lbV.BackColor = System.Drawing.Color.Gray;
+            this.lbV.TabStop = false;
+            this.lbH.Text = "1";
+            // 
             // PreviewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -59,7 +87,9 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(121, 121);
             this.ControlBox = false;
-            this.Controls.Add(this.picPreview);
+            this.Controls.AddRange(new System.Windows.Forms.Control[] {
+                this.lbH, this.lbV, this.picPreview
+            });
             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximumSize = new System.Drawing.Size(429, 429);
@@ -78,5 +108,7 @@
         #endregion
 
         public System.Windows.Forms.PictureBox picPreview;
+        public System.Windows.Forms.Label lbH;
+        public System.Windows.Forms.Label lbV;
     }
 }

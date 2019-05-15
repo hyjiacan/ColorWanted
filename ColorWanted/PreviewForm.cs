@@ -29,6 +29,9 @@ namespace ColorWanted
         /// <param name="img"></param>
         public void UpdateImage(Bitmap img)
         {
+            // 预览时设置十字的颜色
+            lbH.BackColor = lbV.BackColor = ColorUtil.GetContrastColor(img.GetPixel(img.Width / 2 + 1, img.Height / 2 + 1), true);
+
             // 非像素放大
             if (!Settings.Preview.PixelScale)
             {
@@ -65,6 +68,7 @@ namespace ColorWanted
             if (w != 0)
             {
                 Width = Height = w;
+                setCrossSize(Width);
             }
 
             MouseWheel += picPreview_MouseWheel;
@@ -99,6 +103,7 @@ namespace ColorWanted
 
             // 记住大小
             Settings.Preview.Size = Width;
+            setCrossSize(Width);
         }
 
         /// <summary>
@@ -230,16 +235,6 @@ namespace ColorWanted
                 destImage.UnlockBits(destData);
             }
 
-            // 这是是为了在预览图上画一个 十 符号，符号的中心点就是当前的像素点
-            var graphics = Graphics.FromImage(destImage);
-
-            linePen.Color = ColorUtil.GetContrastColor(srcImage.GetPixel(srcImage.Width / 2 + 1, srcImage.Height / 2 + 1), true);
-            graphics.DrawLine(linePen, 0, destRect.Height / 2, destRect.Width, destRect.Height / 2);
-            graphics.DrawLine(linePen, destRect.Width / 2, destRect.Height, destRect.Width / 2, 0);
-
-            graphics.Save();
-            graphics.Dispose();
-
             return destImage;
         }
 
@@ -252,6 +247,17 @@ namespace ColorWanted
             // 切换暂停预览
             var mainForm = Application.OpenForms["MainForm"] as MainForm;
             mainForm.DrawControl(false);
+        }
+
+        /// <summary>
+        /// 设置 十 的大小和位置
+        /// </summary>
+        /// <param name="size"></param>
+        private void setCrossSize(int size)
+        {
+            var middle = (size - 1) / 2;
+            lbH.Top = lbV.Left = middle;
+            lbH.Width = lbV.Height = size;
         }
     }
 }
