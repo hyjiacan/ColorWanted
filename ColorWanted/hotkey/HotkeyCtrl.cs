@@ -6,6 +6,7 @@ namespace ColorWanted.hotkey
 {
     internal partial class HotkeyCtrl : UserControl
     {
+        i18n.I18nManager resources = new i18n.I18nManager(typeof(HotkeyCtrl));
         private StringBuilder buffer;
         private readonly HotKey hotkey;
         /// <summary>
@@ -28,7 +29,9 @@ namespace ColorWanted.hotkey
             componentsLayout();
 
             this.hotkey = hotkey;
-            lbTypeName.Text = hotkey.Name;
+            // 尝试加载多语言
+            var text = resources.GetString(hotkey.HotKeyType.ToString());
+            lbTypeName.Text = string.IsNullOrWhiteSpace(text) ? hotkey.Name : text;
             tbInput.Text = GetHotkeyText(hotkey);
         }
 

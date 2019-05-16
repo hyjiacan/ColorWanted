@@ -46,6 +46,7 @@ namespace ColorWanted
             this.trayMenuCopyPolicy = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCopyPolicyHexValueOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCopyPolicyRgbValueOnly = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuCopyPolicyUpperCase = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHsiAlgorithm = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHsiAlgorithmGeometry = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHsiAlgorithmAxis = new System.Windows.Forms.ToolStripMenuItem();
@@ -220,7 +221,9 @@ namespace ColorWanted
             resources.ApplyResources(this.trayMenuCopyPolicy, "trayMenuCopyPolicy");
             this.trayMenuCopyPolicy.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuCopyPolicyHexValueOnly,
-            this.trayMenuCopyPolicyRgbValueOnly});
+            this.trayMenuCopyPolicyRgbValueOnly,
+            this.trayMenuCopyPolicyUpperCase,
+            });
             this.trayMenuCopyPolicy.Name = "trayMenuCopyPolicy";
             this.trayMenuCopyPolicy.Size = new System.Drawing.Size(148, 22);
             // 
@@ -236,7 +239,13 @@ namespace ColorWanted
             resources.ApplyResources(this.trayMenuCopyPolicyRgbValueOnly, "trayMenuCopyPolicyRgbValueOnly");
             this.trayMenuCopyPolicyRgbValueOnly.Name = "trayMenuCopyPolicyRgbValueOnly";
             this.trayMenuCopyPolicyRgbValueOnly.Size = new System.Drawing.Size(125, 22);
-            this.trayMenuCopyPolicyRgbValueOnly.Click += new EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click);
+            this.trayMenuCopyPolicyRgbValueOnly.Click += new EventHandler(this.trayMenuCopyPolicyRgbValueOnly_Click); // 
+            // trayMenuCopyPolicyUpperCase
+            // 
+            resources.ApplyResources(this.trayMenuCopyPolicyUpperCase, "trayMenuCopyPolicyUpperCase");
+            this.trayMenuCopyPolicyUpperCase.Name = "trayMenuCopyPolicyUpperCase";
+            this.trayMenuCopyPolicyUpperCase.Size = new System.Drawing.Size(125, 22);
+            this.trayMenuCopyPolicyUpperCase.Click += new EventHandler(this.trayMenuCopyPolicyUpperCase_Click);
             // 
             // trayMenuHsiAlgorithm
             // 
@@ -562,6 +571,7 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicy;
         public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyHexValueOnly;
         public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyRgbValueOnly;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyUpperCase;
         public System.Windows.Forms.ToolStripMenuItem trayMenuCheckUpdate;
         public System.Windows.Forms.ToolStripMenuItem trayMenuHistory;
         public System.Windows.Forms.ToolStripMenuItem trayMenuLanguage;

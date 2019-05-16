@@ -158,6 +158,7 @@ namespace ColorWanted
 
             trayMenuCopyPolicyHexValueOnly.Checked = Settings.Base.HexValueOnly;
             trayMenuCopyPolicyRgbValueOnly.Checked = Settings.Base.RgbValueOnly;
+            trayMenuCopyPolicyUpperCase.Checked = Settings.Base.CopyUpperCase;
 
             new Thread(() =>
             {
@@ -278,9 +279,9 @@ namespace ColorWanted
         {
             this.InvokeMethod(() =>
             {
-                tooltip.SetToolTip(lbHex, resources.GetString("lbHex.ToolTip") +
+                tooltip.SetToolTip(lbHex, resources.GetString("lbHex.ToolTip") + " " +
                                           HotKey.Get(HotKeyType.CopyColor));
-                tooltip.SetToolTip(lbRgb, resources.GetString("lbRgb.ToolTip") +
+                tooltip.SetToolTip(lbRgb, resources.GetString("lbRgb.ToolTip") + " " +
                                           HotKey.Get(HotKeyType.CopyColor));
             });
         }
@@ -771,6 +772,15 @@ namespace ColorWanted
             item.Checked = !item.Checked;
 
             Settings.Base.RgbValueOnly = item.Checked;
+        }
+
+        private void trayMenuCopyPolicyUpperCase_Click(object sender, EventArgs e)
+        {
+            var item = sender as ToolStripMenuItem;
+            // ReSharper disable once PossibleNullReferenceException
+            item.Checked = !item.Checked;
+
+            Settings.Base.CopyUpperCase = item.Checked;
         }
 
         private void trayMenuHsiAlgorithmChange(object sender, EventArgs e)
@@ -1271,9 +1281,10 @@ namespace ColorWanted
             try
             {
                 ColorHistory.Record(ColorUtil.GetColor(MousePosition));
-                var result = Util.SetClipboard(Handle, doubleClick ?
+                var text = doubleClick ?
                     (trayMenuCopyPolicyRgbValueOnly.Checked ? lbRgb.Tag.ToString() : lbRgb.Text) :
-                    (trayMenuCopyPolicyHexValueOnly.Checked ? lbHex.Tag.ToString() : lbHex.Text));
+                    (trayMenuCopyPolicyHexValueOnly.Checked ? lbHex.Tag.ToString() : lbHex.Text);
+                var result = Util.SetClipboard(Handle, trayMenuCopyPolicyUpperCase.Checked ? text : text.ToLower());
 
                 // 复制失败
                 if (result != null)

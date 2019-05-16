@@ -134,6 +134,33 @@
             },
             "lkReset": {
                 "Text": "Reset"
+            },
+            "SwitchMode": {
+                "": "Switch window mode(hidden/fixed/follow)"
+            },
+            "SwitchDisplayMode": {
+                "": "Switch display mode(mini/standard/extended)"
+            },
+            "CopyColor": {
+                "": "Copy value, press to copy HEX, double for RGB"
+            },
+            "CopyPolicy": {
+                "": "Toggle copy policy, switch copy value only or not"
+            },
+            "ShowPreview": {
+                "": "Toggle preview window"
+            },
+            "ShowColorPicker": {
+                "": "Open color picker"
+            },
+            "ControlDraw": {
+                "": "Toggle drawing, press for preview, double press for picking color"
+            },
+            "BringToTop": {
+                "": "Bring windows to top"
+            },
+            "PixelScale": {
+                "": "Toggle pixel scale"
             }
         },
         "HotkeyForm": {
@@ -149,9 +176,6 @@
             "lkReset": {
                 "Text": "Reset all"
             },
-            "loadComplete": {
-                "": "Load complete"
-            },
             "settingSuccess": {
                 "": "Change saved"
             },
@@ -164,7 +188,7 @@
                 "ToolTip": "Copy HEX value:"
             },
             "lbRgb": {
-                "ToolTip": "Copy RGB value: double press "
+                "ToolTip": "Copy RGB value: double press"
             },
             "tray": {
                 "BalloonTipText": "ColorWanted is running",
@@ -190,7 +214,7 @@
                 "Text": "Show Preview"
             },
             "trayMenuShowColorPicker": {
-                "Text": "Open Color-Panel"
+                "Text": "Open Color picker"
             },
             "trayMenuPixelScale": {
                 "Text": "Pixel Scale",
@@ -260,6 +284,10 @@
             "trayMenuCopyPolicyRgbValueOnly": {
                 "Text": "RGB only",
                 "ToolTipText": "Copy RGB only, without RGB(), e.g. 255,255,255"
+            },
+            "trayMenuCopyPolicyUpperCase": {
+                "Text": "Uppercase",
+                "ToolTipText": "Copy uppercase if checked, otherwise copy lowercase"
             },
             "trayMenuHsiAlgorithmGeometry": {
                 "Text": "Geometry"

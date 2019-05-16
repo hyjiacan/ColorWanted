@@ -129,6 +129,18 @@ namespace ColorWanted.setting
                     Set("rgbvalueonly", value ? "1" : "0");
                 }
             }
+
+            /// <summary>
+            /// 是否复制大小颜色值，为true时复制大写，默认为 false
+            /// </summary>
+            public static bool CopyUpperCase
+            {
+                get { return Get("copyuppercase") == "1"; }
+                set
+                {
+                    Set("copyuppercase", value ? "1" : "0");
+                }
+            }
         }
     }
 }

@@ -94,6 +94,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(179, 12);
             this.label5.TabIndex = 24;
+            this.label5.AutoEllipsis = true;
             // 
             // panel
             // 

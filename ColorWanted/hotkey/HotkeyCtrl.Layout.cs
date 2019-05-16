@@ -59,8 +59,9 @@
             this.lbTypeName.Location = new System.Drawing.Point(1, 1);
             resources.ApplyResources(this.lbTypeName, "lbTypeName");
             this.lbTypeName.Name = "lbTypeName";
-            this.lbTypeName.Size = new System.Drawing.Size(616, 28);
+            this.lbTypeName.Size = new System.Drawing.Size(600, 28);
             this.lbTypeName.TabIndex = 23;
+            this.lbTypeName.AutoEllipsis = true;
             // 
             // lkOK
             // 

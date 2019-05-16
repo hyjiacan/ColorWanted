@@ -60,7 +60,6 @@ namespace ColorWanted.hotkey
                                 return (Control)ctrl;
                             }
                         ).ToArray());
-                    lbMsg.Text = resources.GetString("loadComplete");
                 }));
             })
             {

@@ -77,7 +77,7 @@
             // 
             // lbFg
             // 
-            this.lbFg.Location = new System.Drawing.Point(3, 3);
+            this.lbFg.Location = new System.Drawing.Point(73, 3);
             resources.ApplyResources(this.lbFg, "lbFg");
             this.lbFg.Name = "lbFg";
             this.lbFg.Size = new System.Drawing.Size(64, 36);
@@ -87,7 +87,7 @@
             // 
             // lbBg
             // 
-            this.lbBg.Location = new System.Drawing.Point(203, 3);
+            this.lbBg.Location = new System.Drawing.Point(273, 3);
             resources.ApplyResources(this.lbBg, "lbBg");
             this.lbBg.Name = "lbBg";
             this.lbBg.Size = new System.Drawing.Size(64, 36);
@@ -121,26 +121,28 @@
             // 
             // linkFg
             // 
-            this.linkFg.AutoSize = true;
+            this.linkFg.AutoSize = false;
             resources.ApplyResources(this.linkFg, "linkFg");
+            this.linkFg.Location = new System.Drawing.Point(13, 3);
             this.linkFg.LinkColor = System.Drawing.Color.Lime;
-            this.linkFg.Location = new System.Drawing.Point(73, 15);
             this.linkFg.Name = "linkFg";
-            this.linkFg.Size = new System.Drawing.Size(41, 12);
+            this.linkFg.Size = new System.Drawing.Size(41, 36);
             this.linkFg.TabIndex = 23;
             this.linkFg.TabStop = true;
+            this.linkFg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.linkFg.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkFg_LinkClicked);
             // 
             // linkBg
             // 
-            this.linkBg.AutoSize = true;
+            this.linkBg.AutoSize = false;
             resources.ApplyResources(this.linkBg, "linkBg");
+            this.linkBg.Location = new System.Drawing.Point(213, 3);
             this.linkBg.LinkColor = System.Drawing.Color.Lime;
-            this.linkBg.Location = new System.Drawing.Point(273, 15);
             this.linkBg.Name = "linkBg";
-            this.linkBg.Size = new System.Drawing.Size(41, 12);
+            this.linkBg.Size = new System.Drawing.Size(41, 36);
             this.linkBg.TabIndex = 23;
             this.linkBg.TabStop = true;
+            this.linkBg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.linkBg.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkBg_LinkClicked);
             // 
             // btnThemeDark
@@ -217,10 +219,10 @@
             // 
             // pnChoose
             // 
-            this.pnChoose.Controls.Add(this.lbFg);
-            this.pnChoose.Controls.Add(this.lbBg);
             this.pnChoose.Controls.Add(this.linkFg);
+            this.pnChoose.Controls.Add(this.lbFg);
             this.pnChoose.Controls.Add(this.linkBg);
+            this.pnChoose.Controls.Add(this.lbBg);
             this.pnChoose.Location = new System.Drawing.Point(55, 402);
             resources.ApplyResources(this.pnChoose, "pnChoose");
             this.pnChoose.Name = "pnChoose";

@@ -53,7 +53,7 @@
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.btnExit.Location = new System.Drawing.Point(443, 3);
+            this.btnExit.Location = new System.Drawing.Point(573, 3);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(24, 23);
             this.btnExit.TabIndex = 4;
@@ -99,7 +99,7 @@
             this.list.MultiSelect = false;
             this.list.Name = "list";
             this.list.ShowItemToolTips = true;
-            this.list.Size = new System.Drawing.Size(446, 234);
+            this.list.Size = new System.Drawing.Size(579, 291);
             this.list.TabIndex = 0;
             this.list.TileSize = new System.Drawing.Size(80, 32);
             this.list.UseCompatibleStateImageBehavior = false;
@@ -112,7 +112,7 @@
             this.linkFile.AutoSize = true;
             resources.ApplyResources(this.linkFile, "linkFile");
             this.linkFile.LinkColor = System.Drawing.Color.Lime;
-            this.linkFile.Location = new System.Drawing.Point(308, 8);
+            this.linkFile.Location = new System.Drawing.Point(438, 8);
             this.linkFile.Name = "linkFile";
             this.linkFile.Size = new System.Drawing.Size(53, 12);
             this.linkFile.TabIndex = 2;
@@ -125,7 +125,7 @@
             this.linkClear.AutoSize = true;
             resources.ApplyResources(this.linkClear, "linkClear");
             this.linkClear.LinkColor = System.Drawing.Color.Lime;
-            this.linkClear.Location = new System.Drawing.Point(382, 8);
+            this.linkClear.Location = new System.Drawing.Point(512, 8);
             this.linkClear.Name = "linkClear";
             this.linkClear.Size = new System.Drawing.Size(29, 12);
             this.linkClear.TabIndex = 3;
@@ -138,7 +138,7 @@
             this.linkReload.AutoSize = true;
             resources.ApplyResources(this.linkReload, "linkReload");
             this.linkReload.LinkColor = System.Drawing.Color.Lime;
-            this.linkReload.Location = new System.Drawing.Point(259, 8);
+            this.linkReload.Location = new System.Drawing.Point(389, 8);
             this.linkReload.Name = "linkReload";
             this.linkReload.Size = new System.Drawing.Size(29, 12);
             this.linkReload.TabIndex = 1;
@@ -151,7 +151,7 @@
             this.linkHex.AutoSize = true;
             resources.ApplyResources(this.linkHex, "linkHex");
             this.linkHex.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.linkHex.Location = new System.Drawing.Point(294, 280);
+            this.linkHex.Location = new System.Drawing.Point(424, 337);
             this.linkHex.Name = "linkHex";
             this.linkHex.Size = new System.Drawing.Size(47, 12);
             this.linkHex.TabIndex = 17;
@@ -166,7 +166,7 @@
             this.linkRgb.AutoSize = true;
             resources.ApplyResources(this.linkRgb, "linkRgb");
             this.linkRgb.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.linkRgb.Location = new System.Drawing.Point(353, 280);
+            this.linkRgb.Location = new System.Drawing.Point(483, 337);
             this.linkRgb.Name = "linkRgb";
             this.linkRgb.Size = new System.Drawing.Size(65, 12);
             this.linkRgb.TabIndex = 17;
@@ -178,7 +178,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(207, 280);
+            this.label2.Location = new System.Drawing.Point(307, 337);
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 12);
@@ -190,7 +190,7 @@
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 280);
+            this.label3.Location = new System.Drawing.Point(12, 337);
             // 
             // HistoryForm
             // 
@@ -199,7 +199,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(470, 303);
+            this.ClientSize = new System.Drawing.Size(600, 360);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.linkRgb);

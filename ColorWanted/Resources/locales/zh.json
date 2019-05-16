@@ -128,6 +128,33 @@
             },
             "lkReset": {
                 "Text": "恢复默认"
+            },
+            "SwitchMode": {
+                "": "切换窗口模式(隐藏/固定/跟随)"
+            },
+            "SwitchDisplayMode": {
+                "": "切换显示模式(迷你/标准/扩展)"
+            },
+            "CopyColor": {
+                "": "复制颜色值，单击复制十六进制格式,双击复制RGB格式"
+            },
+            "CopyPolicy": {
+                "": "切换复制策略，控制是否仅复制值"
+            },
+            "ShowPreview": {
+                "": "显示/隐藏预览面板"
+            },
+            "ShowColorPicker": {
+                "": "打开调色板"
+            },
+            "ControlDraw": {
+                "": "单击暂停/开始绘制预览窗,双击暂停/开始取色"
+            },
+            "BringToTop": {
+                "": "将取色和预览窗口显示到最顶层"
+            },
+            "PixelScale": {
+                "": "切换使用像素放大算法预览"
             }
         },
         "HotkeyForm": {
@@ -142,9 +169,6 @@
             },
             "lkReset": {
                 "Text": "全部恢复默认值"
-            },
-            "loadComplete": {
-                "": "加载完成"
             },
             "settingSuccess": {
                 "": "设置成功"
@@ -255,6 +279,10 @@
             "trayMenuCopyPolicyRgbValueOnly": {
                 "Text": "仅RGB值",
                 "ToolTipText": "只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255"
+            },
+            "trayMenuCopyPolicyUpperCase": {
+                "Text": "大写值",
+                "ToolTipText": "选中时，复制大写值；否则复制小写值"
             },
             "trayMenuHsiAlgorithmGeometry": {
                 "Text": "几何推导法"
