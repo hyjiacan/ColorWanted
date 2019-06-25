@@ -65,6 +65,19 @@
             source.innerHTML = latest.version
         }, 100)
     }
+    
+    function jsonp(url, callback) {
+      var script = document.createElement('script')
+      script.setAttribute('src', url + '?callback=' + callback)
+      script.setAttribute('type', 'text/javascript')
+      document.head.appendChild(script)
+    }
+    
+    function dateCallback(response) {
+        var date = response.data.commit.author.date
+        document.querySelector('#date').innerHTML = new Date(Date.parse(date)).toLocaleString()
+        metas.classList.add('loaded')
+    }
 
     function tagsCallback(response) {
         var tag = response.data[0]
@@ -74,27 +87,13 @@
         }
 
         // 加载日期
-        var xhr = new XMLHttpRequest()
-        xhr.open('get', tag.commit.url)
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState !== 4 || xhr.status !== 200) {
-                return
-            }
-            var date = JSON.parse(xhr.responseText).commit.author.date
-            document.querySelector('#date').innerHTML = new Date(Date.parse(date)).toLocaleString()
-
-            metas.classList.add('loaded')
-        }
-        xhr.send()
+        jsonp(tag.commit.url, 'dateCallback')
     }
     var isZH = /^zh/i.test(navigator.language)
     var readmeFile = isZH ? 'README.zh-CN' : 'README'
-    var readmeUrl = 'https://api.github.com/repos/hyjiacan/ColorWanted/contents/' + readmeFile + '.md?callback=readmeCallback'
-    var script = document.createElement('script')
-    script.setAttribute('src', readmeUrl)
-    script.setAttribute('type', 'text/javascript')
-    document.head.appendChild(script)
+    var readmeUrl = 'https://api.github.com/repos/hyjiacan/ColorWanted/contents/' + readmeFile + '.md'
     document.body.classList.add(isZH ? 'zh' : 'en')
+    jsonp(readmeUrl, 'readmeCallback')
     </script>
     <script src="https://api.github.com/repos/hyjiacan/ColorWanted/tags?callback=tagsCallback" type="text/javascript"
             charset="utf-8"></script>
