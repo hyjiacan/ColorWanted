@@ -1,6 +1,6 @@
 # ColorWanted
 
-[Click here](README.md) to get English documention.
+**[CLICK HERE](README.md)** for English documention.
 
 这是一个**Windows**平台使用的屏幕取色器工具。支持**RGB**、**HSL**、**HSB/HSV**、**HSI**颜色空间。
 

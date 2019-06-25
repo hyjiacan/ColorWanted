@@ -1,6 +1,6 @@
 # ColorWanted
 
-[点击此处](README.zh-CN.md)查看中文文档。
+**[点击此处](README.zh-CN.md)** 查看中文文档。
 
 This is a screen color picker on **Windows** system. **RGB**、**HSL**、**HSB/HSV**、**HSI** are supported。
 

@@ -35,62 +35,62 @@
     <footer></footer>
 
     <script type="text/javascript">
-    let metas = document.querySelector('#metas')
+    var metas = document.querySelector('#metas')
 
     function readmeCallback(response) {
-        let markdownText = decodeURIComponent(escape(atob(response.data.content.replace(/\n/g, ''))))
+        var markdownText = decodeURIComponent(escape(atob(response.data.content.replace(/\n/g, ''))))
         render(markdownText)
     }
     
     function render(markdownText) {
-        let html = markdown.toHTML(markdownText)
+        var html = markdown.toHTML(markdownText)
         html = html.replace(/docs\/img/g, 'img')
-        let content = document.querySelector('#content');
+        var content = document.querySelector('#content');
         content.innerHTML = html
 
-        let title = content.querySelector('h1')
+        var title = content.querySelector('h1')
         title.appendChild(metas)
         
         document.body.classList.add('content-loaded')
 
         // 追加其它数据
-        let handle = setInterval(() => {
+        var handle = setInterval(function () {
             if (!window.latest) {
                 return
             }
             clearInterval(handle)
 
-            let source = document.querySelector('#source');
+            var source = document.querySelector('#source');
             source.href = latest.tag
             source.innerHTML = latest.version
         }, 100)
     }
 
     function tagsCallback(response) {
-        let tag = response.data[0]
+        var tag = response.data[0]
         window.latest = {
             version: tag.name,
             tag: `https://github.com/hyjiacan/ColorWanted/releases/tag/${tag.name}`
         }
 
         // 加载日期
-        let xhr = new XMLHttpRequest()
+        var xhr = new XMLHttpRequest()
         xhr.open('get', tag.commit.url)
-        xhr.onreadystatechange = () => {
+        xhr.onreadystatechange = function () {
             if (xhr.readyState !== 4 || xhr.status !== 200) {
                 return
             }
-            let date = JSON.parse(xhr.responseText).commit.author.date
+            var date = JSON.parse(xhr.responseText).commit.author.date
             document.querySelector('#date').innerHTML = new Date(Date.parse(date)).toLocaleString()
 
             metas.classList.add('loaded')
         }
         xhr.send()
     }
-    let isZH = navigator.language.startsWith('zh')
-    let readmeFile = isZH ? 'README.zh-CN' : 'README'
-    let readmeUrl = `https://api.github.com/repos/hyjiacan/ColorWanted/contents/${readmeFile}.md?callback=readmeCallback`
-    let script = document.createElement('script')
+    var isZH = navigator.language.startsWith('zh')
+    var readmeFile = isZH ? 'README.zh-CN' : 'README'
+    var readmeUrl = `https://api.github.com/repos/hyjiacan/ColorWanted/contents/${readmeFile}.md?callback=readmeCallback`
+    var script = document.createElement('script')
     script.setAttribute('src', readmeUrl)
     script.setAttribute('type', 'text/javascript')
     document.head.appendChild(script)
