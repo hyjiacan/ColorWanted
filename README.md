@@ -1,18 +1,20 @@
 # ColorWanted
 
+[点击此处](README.zh-CN.md)查看中文文档。
+
 This is a screen color picker on **Windows** system. **RGB**、**HSL**、**HSB/HSV**、**HSI** are supported。
 
 If you got any suggestion or problem, [issue](https://github.com/hyjiacan/ColorWanted/issues/new) is always welcome.
 
-## Execute environment
+## Requirements
 
 - Windows XP [(2.6.1 and lower) .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)    
-- Windows7 or higher [(2.6.2 and later) .NET Framework 4.5.2](https://www.microsoft.com/zh-CN/download/details.aspx?id=42642)
+- Windows7/8/10 [(2.6.2 and later) .NET Framework 4.5.2](https://www.microsoft.com/zh-CN/download/details.aspx?id=42642)
 
 Note: Because of [Github upgrade SSL as Tls12](https://blog.github.com/2018-02-23-weak-cryptographic-standards-removed/)(happened at Feb. 2018),
 .NET4.0/WindowsXP was not supported since version `2.6.2`(.NET4.0 dose not support `Tls12`, so I removed auto update from old version `2.6.1`)
 
-# Source & download
+# Source & Download
 
 - [Source Code](https://github.com/hyjiacan/ColorWanted)
 - [Stable](https://github.com/hyjiacan/ColorWanted/releases)

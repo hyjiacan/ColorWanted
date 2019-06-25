@@ -1,5 +1,7 @@
 # ColorWanted
 
+[Click here](README.md) to get English documention.
+
 这是一个**Windows**平台使用的屏幕取色器工具。支持**RGB**、**HSL**、**HSB/HSV**、**HSI**颜色空间。
 
 有任何意见或建议，欢迎通过[issue](https://github.com/hyjiacan/ColorWanted/issues/new)提出
