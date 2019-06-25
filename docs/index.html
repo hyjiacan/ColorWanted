@@ -87,7 +87,7 @@
         }
         xhr.send()
     }
-    var isZH = navigator.language.startsWith('zh')
+    var isZH = /^zh/i.test(navigator.language)
     var readmeFile = isZH ? 'README.zh-CN' : 'README'
     var readmeUrl = 'https://api.github.com/repos/hyjiacan/ColorWanted/contents/' + readmeFile + '.md?callback=readmeCallback'
     var script = document.createElement('script')
