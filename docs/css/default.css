@@ -93,7 +93,7 @@ header {
 }
 
 #metas.loaded .loaded {
-  display: unset;
+  display: inline;
 }
 
 #metas.loaded .pending {
