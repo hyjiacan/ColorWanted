@@ -4,7 +4,7 @@
 
 This is a screen color picker on **Windows** system. **RGB**、**HSL**、**HSB/HSV**、**HSI** are supported。
 
-If you got any suggestion or problem, [issue](https://github.com/hyjiacan/ColorWanted/issues/new) is always welcome.
+If you got any issue or suggestion, [issue](https://github.com/hyjiacan/ColorWanted/issues/new) is always welcome.
 
 ## Requirements
 
