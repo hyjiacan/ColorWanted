@@ -46,7 +46,8 @@
         var html = markdown.toHTML(markdownText)
         html = html.replace(/docs\/img/g, 'img')
         var content = document.querySelector('#content');
-        content.innerHTML = html
+        content.innerHTML = html.replace(/README\.(zh-CN\.)?md"/, 
+          '#" onclick="window.location.search=\'?lang=' + (isZH ? 'en' : 'zh') + '\';return false;"')
 
         var title = content.querySelector('h1')
         title.appendChild(metas)
@@ -89,7 +90,8 @@
         // 加载日期
         jsonp(tag.commit.url, 'dateCallback')
     }
-    var isZH = /^zh/i.test(navigator.language)
+
+    var isZH = /^zh/i.test((/^.*?[?&]lang=(.+?)(&.*)?$/.exec(window.location.search) || [])[1] || navigator.language)
     var readmeFile = isZH ? 'README.zh-CN' : 'README'
     var readmeUrl = 'https://api.github.com/repos/hyjiacan/ColorWanted/contents/' + readmeFile + '.md'
     document.body.classList.add(isZH ? 'zh' : 'en')
