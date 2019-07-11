@@ -15,7 +15,7 @@ namespace ColorWanted.hotkey
         {
             componentsLayout();
             ThemeUtil.Apply(this);
-            
+
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -60,6 +60,7 @@ namespace ColorWanted.hotkey
                                 return (Control)ctrl;
                             }
                         ).ToArray());
+                    lbMsg.Text = resources.GetString("loaded");
                 }));
             })
             {

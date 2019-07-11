@@ -179,6 +179,9 @@
             "settingSuccess": {
                 "": "Change saved"
             },
+            "loaded": {
+                "": "Loaded"
+            },
             "$this": {
                 "Text": "ColorWanted - Hotkeys"
             }

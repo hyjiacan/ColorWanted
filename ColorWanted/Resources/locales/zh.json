@@ -173,6 +173,9 @@
             "settingSuccess": {
                 "": "设置成功"
             },
+            "loaded": {
+                "": "加载完成"
+            },
             "$this": {
                 "Text": "快捷键-ColorWanted"
             }
