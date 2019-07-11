@@ -81,7 +81,7 @@ You can pause/resume preview by right click on preview window
 
 ![Customize hotkeys](docs/img/hotkey.png)
 
-> You can find full definition of hotkeys.
+> You can find all hotkey definitions here.
 
 ![history](docs/img/history.png)
 
@@ -89,7 +89,7 @@ You can pause/resume preview by right click on preview window
 
 Colorwanted is under license [GPL V3](http://www.gnu.org/licenses/gpl-3.0.html)
 
-## Thank
+## Thanks
 
 - [Pick color](http://www.haolizi.net/example/view_102.html)
 - [Drag window](http://blog.csdn.net/skysky01/article/details/9902247)
