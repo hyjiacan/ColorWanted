@@ -4,6 +4,7 @@ using ColorWanted.history;
 using ColorWanted.hotkey;
 using ColorWanted.misc;
 using ColorWanted.mode;
+using ColorWanted.screen;
 using ColorWanted.setting;
 using ColorWanted.theme;
 using ColorWanted.update;
@@ -568,6 +569,10 @@ namespace ColorWanted
                 case HotKeyType.PixelScale:
                     trayMenuPixelScale_Click(null, null);
                     break;
+                // 截图
+                case HotKeyType.ScreenCapture:
+                    trayMenuScreenCapture_Click(null, null);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -948,6 +953,11 @@ namespace ColorWanted
             {
                 // ignore
             }
+        }
+
+        private void trayMenuScreenCapture_Click(object p1, object p2)
+        {
+            ScreenCapture.Capture();
         }
 
         private void ToggleCopyPolicy()

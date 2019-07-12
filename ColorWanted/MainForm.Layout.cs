@@ -594,5 +594,6 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmBajon;
         public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmStandard;
         public System.Windows.Forms.Label lbHsi;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuScreenCapture;
     }
 }

@@ -51,6 +51,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="colors\HSI.cs" />
@@ -64,6 +65,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="screen\ScreenCapture.cs" />
+    <Compile Include="screen\ScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screen\ScreenForm.Designer.cs">
+      <DependentUpon>ScreenForm.cs</DependentUpon>
     </Compile>
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="setting\Settings.I18n.cs" />
@@ -170,6 +178,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screen\ScreenForm.resx">
+      <DependentUpon>ScreenForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
