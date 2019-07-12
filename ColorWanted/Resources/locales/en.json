@@ -161,6 +161,9 @@
             },
             "PixelScale": {
                 "": "Toggle pixel scale"
+            },
+            "ScreenCapture": {
+                "": "Screen capture"
             }
         },
         "HotkeyForm": {

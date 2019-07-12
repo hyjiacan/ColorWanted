@@ -69,6 +69,13 @@ namespace ColorWanted.hotkey
         [HotKey("切换使用像素放大算法预览",
             Key = Keys.P,
             Modifiers = KeyModifier.Alt)]
-        PixelScale
+        PixelScale,
+        /// <summary>
+        /// 截图
+        /// </summary>   
+        [HotKey("屏幕截图",
+            Key = Keys.X,
+            Modifiers = KeyModifier.Alt)]
+        ScreenCapture
     }
 }

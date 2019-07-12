@@ -155,6 +155,9 @@
             },
             "PixelScale": {
                 "": "切换使用像素放大算法预览"
+            },
+            "ScreenCapture": {
+                "": "屏幕截图"
             }
         },
         "HotkeyForm": {
