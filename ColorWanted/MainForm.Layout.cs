@@ -74,6 +74,7 @@ namespace ColorWanted
             this.trayMenuRestart = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuScreenShot = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.componentsSet);
             this.lbColorPreview = new System.Windows.Forms.Label();
             this.lbHsl = new System.Windows.Forms.Label();
@@ -395,6 +396,13 @@ namespace ColorWanted
             this.trayMenuLanguage.Name = "trayMenuLanguage";
             this.trayMenuLanguage.Size = new System.Drawing.Size(148, 22);
             // 
+            // trayMenuScreenShot
+            // 
+            resources.ApplyResources(this.trayMenuScreenShot, "trayMenuScreenShot");
+            this.trayMenuScreenShot.Name = "trayMenuScreenShot";
+            this.trayMenuScreenShot.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuScreenShot.Click += new EventHandler(this.trayMenuScreenShot_Click);
+            // 
             // trayMenuLanguageZH
             // 
             resources.ApplyResources(this.trayMenuLanguageZH, "trayMenuLanguageZH");
@@ -594,6 +602,6 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmBajon;
         public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmStandard;
         public System.Windows.Forms.Label lbHsi;
-        public System.Windows.Forms.ToolStripMenuItem trayMenuScreenCapture;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuScreenShot;
     }
 }

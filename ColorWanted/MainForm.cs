@@ -570,8 +570,8 @@ namespace ColorWanted
                     trayMenuPixelScale_Click(null, null);
                     break;
                 // 截图
-                case HotKeyType.ScreenCapture:
-                    trayMenuScreenCapture_Click(null, null);
+                case HotKeyType.ScreenShot:
+                    trayMenuScreenShot_Click(null, null);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -955,9 +955,27 @@ namespace ColorWanted
             }
         }
 
-        private void trayMenuScreenCapture_Click(object p1, object p2)
+        private void trayMenuScreenShot_Click(object sender, EventArgs e)
         {
-            ScreenCapture.Capture();
+            var mainVisible = this.Visible;
+            var previewVisible = previewForm.Visible;
+            if (mainVisible)
+            {
+                this.Hide();
+            }
+            if (previewVisible)
+            {
+                previewForm.Hide();
+            }
+            ScreenShot.Capture();
+            if (mainVisible)
+            {
+                this.Show();
+            }
+            if (previewVisible)
+            {
+                previewForm.Show();
+            }
         }
 
         private void ToggleCopyPolicy()

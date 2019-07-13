@@ -3,14 +3,14 @@ using System.Windows.Forms;
 
 namespace ColorWanted.screen
 {
-    internal static class ScreenCapture
+    internal static class ScreenShot
     {
         private static ScreenForm screenForm;
         private static int screenWidth;
         private static int screenHeight;
         private static Bitmap image;
 
-        static ScreenCapture()
+        static ScreenShot()
         {
             var screen = Screen.PrimaryScreen.Bounds;
             screenWidth = screen.Width;
@@ -32,6 +32,7 @@ namespace ColorWanted.screen
                 g.CopyFromScreen(0, 0, 0, 0, new Size(screenWidth, screenHeight));
             }
             screenForm.Show(image);
+            System.GC.Collect();
         }
     }
 }

@@ -65,6 +65,7 @@ Hotkey: `Alt+V`
 - **Alt+`** Pause/resume preview, double click to pause/resume pick color
 - **Alt+T** Bring color windows to the top, escapse from any windows on it
 - **Alt+P** Whether to preview with pixel scale
+- **Alt+X** Take screenshot
 
 > Here is the *default* hotkeys, you can change them by **Hotkey** menu.
 

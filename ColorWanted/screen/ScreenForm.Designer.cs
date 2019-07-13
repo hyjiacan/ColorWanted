@@ -42,6 +42,11 @@
             this.picturePreview.Size = new System.Drawing.Size(800, 450);
             this.picturePreview.TabIndex = 0;
             this.picturePreview.TabStop = false;
+            this.picturePreview.DoubleClick += new System.EventHandler(this.PicturePreview_DoubleClick);
+            this.picturePreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PicturePreview_MouseDown);
+            this.picturePreview.MouseLeave += new System.EventHandler(this.PicturePreview_MouseLeave);
+            this.picturePreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PicturePreview_MouseMove);
+            this.picturePreview.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PicturePreview_MouseUp);
             // 
             // btnExit
             // 
@@ -53,6 +58,7 @@
             this.btnExit.TabIndex = 1;
             this.btnExit.Text = "退出";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // btnOk
             // 
@@ -63,6 +69,7 @@
             this.btnOk.TabIndex = 2;
             this.btnOk.Text = "确定";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.BtnOk_Click);
             // 
             // ScreenForm
             // 

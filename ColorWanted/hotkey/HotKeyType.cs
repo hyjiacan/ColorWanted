@@ -76,6 +76,6 @@ namespace ColorWanted.hotkey
         [HotKey("屏幕截图",
             Key = Keys.X,
             Modifiers = KeyModifier.Alt)]
-        ScreenCapture
+        ScreenShot
     }
 }

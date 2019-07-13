@@ -66,7 +66,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="screen\ScreenCapture.cs" />
+    <Compile Include="screen\ScreenShot.cs" />
     <Compile Include="screen\ScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
