@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorWanted.screen;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -13,9 +14,8 @@ namespace ColorWanted
         /// </summary>
         private Image image;
         private Graphics graphics;
-        private Stack<GraphicsState> history;
-        private Stack<GraphicsState> temp;
-        private GraphicsContainer container;
+        private Stack<DrawRecord> history;
+        private DrawRecord currentShape;
         private Point mousedownLocation;
         private bool mousedown;
 
@@ -28,8 +28,7 @@ namespace ColorWanted
         public ScreenForm()
         {
             InitializeComponent();
-            history = new Stack<GraphicsState>();
-            temp = new Stack<GraphicsState>();
+            history = new Stack<DrawRecord>();
             // 全屏
             var screen = Screen.PrimaryScreen.Bounds;
             //Left = 0;
@@ -40,17 +39,20 @@ namespace ColorWanted
             this.TopMost = false;
             this.ControlBox = true;
             this.ShowInTaskbar = true;
+            DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
         }
 
         public void Show(Bitmap img)
         {
             image = img;
             picturePreview.BackgroundImage = img;
-            if (graphics != null)
+            if (graphics == null)
             {
-                graphics.Dispose();
+                graphics = picturePreview.CreateGraphics();
             }
-            graphics = picturePreview.CreateGraphics();
             history.Clear();
             Show();
             BringToFront();
@@ -94,41 +96,95 @@ namespace ColorWanted
 
         private void PicturePreview_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (history.Count > 0)
+                {
+                    // 撤销
+                    history.Pop();
+                    Redraw();
+                }
+                return;
+            }
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
             mousedownLocation = e.Location;
             mousedown = true;
-            container = graphics.BeginContainer();
+            currentShape = DrawRecord.Make(DrawType.Rectange);
+            currentShape.Start = e.Location;
         }
 
         private void PicturePreview_MouseUp(object sender, MouseEventArgs e)
         {
-            mousedown = false;
-            if (graphics == null)
+            if (!mousedown || graphics == null || currentShape == null)
             {
                 return;
             }
-            graphics.Flush();
-            graphics.EndContainer(container);
-            history.Push(graphics.Save());
+            mousedown = false;
+            currentShape.End = e.Location;
+            if(currentShape.HasOffset)
+            {
+                history.Push(currentShape);
+            }
+            currentShape = null;
+            Redraw();
         }
 
         private void PicturePreview_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!mousedown || graphics == null)
+            if (!mousedown || graphics == null || currentShape == null)
             {
                 return;
             }
-            if (temp.Count > 0)
-            {
-                graphics.Restore(temp.Pop());
-            }
-            graphics.DrawRectangle(Pens.Red, mousedownLocation.X, mousedownLocation.Y,
-                e.X - mousedownLocation.X, e.Y - mousedownLocation.Y);
-            temp.Push(graphics.Save());
+            currentShape.End = e.Location;
+            Redraw();
         }
 
         private void PicturePreview_MouseLeave(object sender, EventArgs e)
         {
-            this.PicturePreview_MouseUp(null, null);
+            currentShape = null;
+            mousedown = false;
+        }
+
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    base.OnPaint(e);
+        //}
+
+        private void Redraw()
+        {
+            Refresh();
+            if (currentShape != null && currentShape.HasOffset)
+            {
+                Draw(currentShape);
+            }
+            foreach (var record in history)
+            {
+                Draw(record);
+            }
+        }
+
+        private void Draw(DrawRecord record)
+        {
+            var pen = new Pen(record.Color);
+            switch (record.Type)
+            {
+                case DrawType.Circle:
+                    break;
+                case DrawType.Ellipse:
+                    break;
+                case DrawType.Line:
+                    graphics.DrawLine(pen, record.Start, record.End);
+                    break;
+                case DrawType.Rectange:
+                    graphics.DrawRectangle(pen, record.Rect);
+                    break;
+                case DrawType.Text:
+                    graphics.DrawString(record.Text, SystemFonts.DefaultFont, new SolidBrush(record.Color), record.Start);
+                    break;
+            }
         }
     }
 }
