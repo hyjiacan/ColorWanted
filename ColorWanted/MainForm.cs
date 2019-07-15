@@ -508,7 +508,8 @@ namespace ColorWanted
         protected override void WndProc(ref Message m)
         {
             // 收到的不是快捷键消息，不作任何处理
-            if (m.Msg != 0x312)
+            // 正在截图时，也不作任何处理
+            if (m.Msg != 0x312 || ScreenShot.Busy)
             {
                 base.WndProc(ref m);
                 return;

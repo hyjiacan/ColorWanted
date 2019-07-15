@@ -10,6 +10,11 @@ namespace ColorWanted.screen
         private static int screenHeight;
         private static Bitmap image;
 
+        /// <summary>
+        /// 标记是否正在截图
+        /// </summary>
+        public static bool Busy { private set; get; }
+
         static ScreenShot()
         {
             var screen = Screen.PrimaryScreen.Bounds;
@@ -19,19 +24,16 @@ namespace ColorWanted.screen
 
         public static void Capture()
         {
-            if (screenForm == null)
-            {
-                screenForm = new ScreenForm();
-            }
-            if (image == null)
-            {
-                image = new Bitmap(screenWidth, screenHeight);
-            }
+            Busy = true;
+            screenForm = new ScreenForm();
+            image = new Bitmap(screenWidth, screenHeight);
             using (Graphics g = Graphics.FromImage(image))
             {
                 g.CopyFromScreen(0, 0, 0, 0, new Size(screenWidth, screenHeight));
             }
             screenForm.Show(image);
+            Busy = false;
+            screenForm = null;
             System.GC.Collect();
         }
     }

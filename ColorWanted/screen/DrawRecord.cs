@@ -40,5 +40,11 @@ namespace ColorWanted.screen
         {
             return new DrawRecord { Type = type, Color = System.Drawing.Color.Red };
         }
+
+        public void Reset()
+        {
+            Start = End = Point.Empty;
+            Text = string.Empty;
+        }
     }
 }

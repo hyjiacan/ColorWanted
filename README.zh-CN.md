@@ -107,3 +107,4 @@
 - [快捷键输入](http://www.jb51.net/article/60257.htm)
 - [RGB转换到HSB/HSL](http://blog.csdn.net/jiangxinyu/article/details/8000999)    
 - [RGB转换到HSI](http://blog.csdn.net/yangleo1987/article/details/53171623)
+- [图片模糊算法](https://www.cnblogs.com/yeye518/p/4161067.html)

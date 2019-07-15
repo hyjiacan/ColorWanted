@@ -13,7 +13,7 @@
         /// <summary>
         /// 矩形
         /// </summary>
-        Rectange,
+        Rectangle,
         /// <summary>
         /// 圆形
         /// </summary>

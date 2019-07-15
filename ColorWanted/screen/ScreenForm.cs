@@ -1,8 +1,8 @@
-﻿using ColorWanted.screen;
+﻿using ColorWanted.ext;
+using ColorWanted.screen;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace ColorWanted
@@ -12,48 +12,65 @@ namespace ColorWanted
         /// <summary>
         /// 截图得到的图片对象
         /// </summary>
-        private Image image;
-        private Graphics graphics;
-        private Stack<DrawRecord> history;
-        private DrawRecord currentShape;
-        private Point mousedownLocation;
-        private bool mousedown;
-
+        private Bitmap image;
         /// <summary>
-        /// 是否选择了选区
+        /// 截图得到的图片对象(模糊后的图)
         /// </summary>
-        private bool selected;
+        private Bitmap blurImage;
+        /// <summary>
+        /// 屏幕截图的画布
+        /// </summary>
+        private Graphics previewGraphics;
+        /// <summary>
+        /// 选择区域的画布
+        /// </summary>
+        private Graphics editorGraphics;
+        /// <summary>
+        /// 标记鼠标是否按下
+        /// </summary>
+        private bool mousedown;
+        /// <summary>
+        /// 当前选择的区域
+        /// </summary>
+        private DrawRecord current;
+        /// <summary>
+        /// 编辑历史
+        /// </summary>
+        private Stack<DrawRecord> history;
 
+        private bool editAreaSelected;
 
         public ScreenForm()
         {
             InitializeComponent();
-            history = new Stack<DrawRecord>();
             // 全屏
             var screen = Screen.PrimaryScreen.Bounds;
-            //Left = 0;
-            //Top = 0;
-            //Width = screen.Width;
-            //Height = screen.Height;
-            this.FormBorderStyle = FormBorderStyle.Sizable;
-            this.TopMost = false;
-            this.ControlBox = true;
-            this.ShowInTaskbar = true;
+            Left = 0;
+            Top = 0;
+            Width = screen.Width;
+            Height = screen.Height;
             DoubleBuffered = true;
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.UserPaint, true);
+
+            history = new Stack<DrawRecord>();
         }
 
         public void Show(Bitmap img)
         {
+            current = new DrawRecord
+            {
+                Type = DrawType.Rectangle,
+                Color = Color.Blue
+            };
             image = img;
             picturePreview.BackgroundImage = img;
-            if (graphics == null)
+            if (previewGraphics == null)
             {
-                graphics = picturePreview.CreateGraphics();
+                previewGraphics = picturePreview.CreateGraphics();
             }
-            history.Clear();
+            Refresh();
             Show();
             BringToFront();
         }
@@ -71,120 +88,131 @@ namespace ColorWanted
         //    }
         //}
 
-        private void BtnOk_Click(object sender, EventArgs e)
-        {
-            if (image != null)
-            {
-                var result = util.Util.SetClipboard(Handle, image);
-                if (result != null)
-                {
-                    MessageBox.Show(result);
-                }
-            }
-            Hide();
-        }
-
-        private void BtnExit_Click(object sender, EventArgs e)
-        {
-            Hide();
-        }
-
-        private void PicturePreview_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
         private void PicturePreview_MouseDown(object sender, MouseEventArgs e)
         {
+            if (editAreaSelected)
+            {
+                // 如果已经开始编辑
+
+                // 点击右键时就撤销编辑
+                // 一直撤销到没有历史
+                // 然后可以重新选择截图区域
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (history.Count > 0)
+                    {
+                        history.Pop();
+                        Redraw();
+                    }
+                    else
+                    {
+                        HideEdit();
+                    }
+                    return;
+                }
+
+                // 点击左键 编辑
+
+                return;
+            }
             if (e.Button == MouseButtons.Right)
             {
-                if (history.Count > 0)
-                {
-                    // 撤销
-                    history.Pop();
-                    Redraw();
-                }
-                return;
+                // 重新选择
+                current.Reset();
             }
-            if (e.Button != MouseButtons.Left)
+            else if (e.Button != MouseButtons.Left)
             {
                 return;
             }
-            mousedownLocation = e.Location;
+            if (current.HasOffset)
+            {
+                ShowEdit();
+                return;
+            }
             mousedown = true;
-            currentShape = DrawRecord.Make(DrawType.Rectange);
-            currentShape.Start = e.Location;
+            // 刷新后再重绘
+            Refresh();
+            current.Start = e.Location;
         }
 
         private void PicturePreview_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!mousedown || graphics == null || currentShape == null)
+            if (!mousedown || previewGraphics == null || current == null)
             {
                 return;
             }
-            mousedown = false;
-            currentShape.End = e.Location;
-            if(currentShape.HasOffset)
-            {
-                history.Push(currentShape);
-            }
-            currentShape = null;
+            current.End = e.Location;
             Redraw();
+            mousedown = false;
         }
 
         private void PicturePreview_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!mousedown || graphics == null || currentShape == null)
+            if (!mousedown || previewGraphics == null)
             {
                 return;
             }
-            currentShape.End = e.Location;
+            current.End = e.Location;
             Redraw();
         }
 
         private void PicturePreview_MouseLeave(object sender, EventArgs e)
         {
-            currentShape = null;
             mousedown = false;
         }
-
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-        //    base.OnPaint(e);
-        //}
 
         private void Redraw()
         {
             Refresh();
-            if (currentShape != null && currentShape.HasOffset)
+            if (current != null && current.HasOffset)
             {
-                Draw(currentShape);
+                previewGraphics.Draw(current);
             }
             foreach (var record in history)
             {
-                Draw(record);
+                previewGraphics.Draw(record);
             }
         }
 
-        private void Draw(DrawRecord record)
+        private void ScreenForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            var pen = new Pen(record.Color);
-            switch (record.Type)
+            this.CloseForm();
+        }
+
+        private void CloseForm()
+        {
+            image = null;
+            mousedown = false;
+            current = null;
+            Hide();
+        }
+
+        private void ShowEdit()
+        {
+            editAreaSelected = true;
+            if (blurImage == null)
             {
-                case DrawType.Circle:
-                    break;
-                case DrawType.Ellipse:
-                    break;
-                case DrawType.Line:
-                    graphics.DrawLine(pen, record.Start, record.End);
-                    break;
-                case DrawType.Rectange:
-                    graphics.DrawRectangle(pen, record.Rect);
-                    break;
-                case DrawType.Text:
-                    graphics.DrawString(record.Text, SystemFonts.DefaultFont, new SolidBrush(record.Color), record.Start);
-                    break;
+                blurImage = image.Blur();
             }
+            picturePreview.BackgroundImage = blurImage;
+            // 画个工作区
+            previewGraphics.Draw(current);
+
+            pictureEditor.Bounds = current.Rect;
+            pictureEditor.BackgroundImage = image.Cut(current.Rect);
+            pictureEditor.Show();
+            pictureEditor.BringToFront();
+            toolbar.Show();
+            toolbar.BringToFront();
+        }
+
+        private void HideEdit()
+        {
+            editAreaSelected = false;
+            toolbar.Hide();
+            pictureEditor.Hide();
+            picturePreview.BackgroundImage = image;
+            picturePreview.BringToFront();
         }
     }
 }
