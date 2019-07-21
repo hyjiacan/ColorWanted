@@ -4,7 +4,7 @@ using ColorWanted.history;
 using ColorWanted.hotkey;
 using ColorWanted.misc;
 using ColorWanted.mode;
-using ColorWanted.screen;
+using ColorWanted.screenshot;
 using ColorWanted.setting;
 using ColorWanted.theme;
 using ColorWanted.update;

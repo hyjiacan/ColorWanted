@@ -69,13 +69,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="screen\DrawRecord.cs" />
-    <Compile Include="screen\DrawType.cs" />
-    <Compile Include="screen\ScreenShot.cs" />
-    <Compile Include="screen\ScreenForm.cs">
+    <Compile Include="screenshot\DrawRecord.cs" />
+    <Compile Include="screenshot\DrawType.cs" />
+    <Compile Include="screenshot\ScreenShot.cs" />
+    <Compile Include="screenshot\ScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="screen\ScreenForm.Designer.cs">
+    <Compile Include="screenshot\ScreenForm.Designer.cs">
       <DependentUpon>ScreenForm.cs</DependentUpon>
     </Compile>
     <Compile Include="setting\Settings.Theme.cs" />
@@ -184,7 +184,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="screen\ScreenForm.resx">
+    <EmbeddedResource Include="screenshot\ScreenForm.resx">
       <DependentUpon>ScreenForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

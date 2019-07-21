@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace ColorWanted.screen
+namespace ColorWanted.screenshot
 {
     internal class DrawRecord
     {
@@ -9,6 +9,7 @@ namespace ColorWanted.screen
         public Point End { get; set; }
         public string Text { get; set; }
         public Color Color { get; set; }
+        public int Width { get; set; }
 
         public bool HasOffset => Start != End;
         public Rectangle Rect
@@ -38,13 +39,31 @@ namespace ColorWanted.screen
 
         public static DrawRecord Make(DrawType type)
         {
-            return new DrawRecord { Type = type, Color = System.Drawing.Color.Red };
+            return new DrawRecord { Type = type, Color = System.Drawing.Color.Red, Width = 1 };
         }
 
         public void Reset()
         {
             Start = End = Point.Empty;
             Text = string.Empty;
+        }
+
+        public DrawRecord Copy(int offsetStartX = 0, int offsetStartY = 0, int offsetEndX = 0, int offsetEndY = 0)
+        {
+            var temp = new DrawRecord
+            {
+                Type = Type,
+                Start = Start,
+                End = End,
+                Text = Text,
+                Color = Color,
+                Width = Width
+            };
+
+            temp.Start.Offset(offsetStartX, offsetStartY);
+            temp.End.Offset(offsetEndX, offsetEndY);
+
+            return temp;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ColorWanted.ext;
-using ColorWanted.screen;
+using ColorWanted.screenshot;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -195,8 +195,6 @@ namespace ColorWanted
                 blurImage = image.Blur();
             }
             picturePreview.BackgroundImage = blurImage;
-            // 画个工作区
-            previewGraphics.Draw(current);
 
             pictureEditor.Bounds = current.Rect;
             pictureEditor.BackgroundImage = image.Cut(current.Rect);
@@ -204,6 +202,11 @@ namespace ColorWanted
             pictureEditor.BringToFront();
             toolbar.Show();
             toolbar.BringToFront();
+
+            var temp = current.Copy(-2, -2, 2, 2);
+            temp.Width = 2;
+            // 画个工作区
+            previewGraphics.Draw(temp);
         }
 
         private void HideEdit()

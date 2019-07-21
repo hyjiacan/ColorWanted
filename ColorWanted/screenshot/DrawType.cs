@@ -1,4 +1,4 @@
-﻿namespace ColorWanted.screen
+﻿namespace ColorWanted.screenshot
 {
     internal enum DrawType
     {

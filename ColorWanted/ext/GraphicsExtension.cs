@@ -1,4 +1,4 @@
-﻿using ColorWanted.screen;
+﻿using ColorWanted.screenshot;
 using System;
 using System.Drawing;
 
@@ -8,7 +8,8 @@ namespace ColorWanted.ext
     {
         public static void Draw(this Graphics graphics, DrawRecord record)
         {
-            var pen = new Pen(record.Color);
+            var width = record.Width;
+            var pen = new Pen(record.Color, width);
             switch (record.Type)
             {
                 case DrawType.Circle:

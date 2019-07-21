@@ -47,9 +47,11 @@
             this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.pictureMask = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.picturePreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEditor)).BeginInit();
             this.toolbar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMask)).BeginInit();
             this.SuspendLayout();
             // 
             // picturePreview
@@ -229,12 +231,23 @@
             this.toolStripButton10.Size = new System.Drawing.Size(50, 33);
             this.toolStripButton10.Text = "Cancel";
             // 
+            // pictureMask
+            // 
+            this.pictureMask.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureMask.Location = new System.Drawing.Point(0, 0);
+            this.pictureMask.Name = "pictureMask";
+            this.pictureMask.Size = new System.Drawing.Size(800, 450);
+            this.pictureMask.TabIndex = 6;
+            this.pictureMask.TabStop = false;
+            this.pictureMask.Visible = false;
+            // 
             // ScreenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureMask);
             this.Controls.Add(this.toolbar);
             this.Controls.Add(this.pictureEditor);
             this.Controls.Add(this.picturePreview);
@@ -251,6 +264,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureEditor)).EndInit();
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureMask)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -275,5 +289,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton8;
         private System.Windows.Forms.ToolStripButton toolStripButton9;
         private System.Windows.Forms.ToolStripButton toolStripButton10;
+        private System.Windows.Forms.PictureBox pictureMask;
     }
 }
