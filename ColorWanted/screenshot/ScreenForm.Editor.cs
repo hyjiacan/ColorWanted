@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 
@@ -41,6 +40,8 @@ namespace ColorWanted.screenshot
 
         private PictureBox pictureEditor;
 
+        private TextBox textInput;
+
         public void Show(Bitmap img)
         {
             history = new Stack<DrawRecord>();
@@ -61,7 +62,10 @@ namespace ColorWanted.screenshot
 
         private void ScreenForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            CloseForm();
+            if (e.KeyCode == Keys.Escape)
+            {
+                CloseForm();
+            }
         }
 
         private void CloseForm()
@@ -237,6 +241,11 @@ namespace ColorWanted.screenshot
             // 然后可以重新选择截图区域
             if (e.Button == MouseButtons.Right)
             {
+                if (current != null && current.Type == DrawTypes.Text)
+                {
+                    HideTextInput();
+                    return;
+                }
                 if (history.Count > 0)
                 {
                     history.Pop();
@@ -246,6 +255,14 @@ namespace ColorWanted.screenshot
                 {
                     HideEdit();
                 }
+                return;
+            }
+
+            // 输入文字
+            if (current != null && current.Type == DrawTypes.Text)
+            {
+                current.Start = e.Location;
+                ShowTextInput(e.Location);
                 return;
             }
 
@@ -276,7 +293,7 @@ namespace ColorWanted.screenshot
 
         private void PictureEditor_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
+            if (!mousedown || e.Button != MouseButtons.Left)
             {
                 return;
             }
@@ -338,6 +355,54 @@ namespace ColorWanted.screenshot
         private void ToolCancel_Click(object sender, System.EventArgs e)
         {
             CloseForm();
+        }
+
+        private void ShowTextInput(Point location)
+        {
+            if (textInput == null)
+            {
+                textInput = new TextBox
+                {
+                    Width = 200,
+                    Height = 60,
+                    Multiline = true,
+                    BorderStyle = BorderStyle.None
+                };
+                textInput.KeyDown += (sender, e) =>
+                {
+                    // 按ESC取消输入
+                    if (e.KeyCode == Keys.Escape)
+                    {
+                        e.Handled = true;
+                        HideTextInput();
+                        return;
+                    }
+                    // 按回车完成输入
+                    if (e.KeyCode == Keys.Enter)
+                    {
+                        current.Text = textInput.Text;
+                        history.Push(current);
+                        current = current.Copy();
+                        current.Reset();
+                        HideTextInput();
+                        Redraw();
+                    }
+                };
+                Controls.Add(textInput);
+            }
+            textInput.Text = string.Empty;
+            textInput.Location = new Point(pictureEditor.Location.X + location.X,
+                pictureEditor.Location.Y + location.Y);
+            textInput.Show();
+            textInput.BringToFront();
+            textInput.Focus();
+        }
+        private void HideTextInput()
+        {
+            if (textInput != null)
+            {
+                textInput.Hide();
+            }
         }
         #endregion
     }
