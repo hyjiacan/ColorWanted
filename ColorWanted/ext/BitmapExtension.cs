@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorWanted.screenshot;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -196,6 +197,36 @@ namespace ColorWanted.ext
         public static Bitmap Cut(this Bitmap image, Rectangle bounds)
         {
             return image.Cut(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+        }
+
+        /// <summary>
+        /// 修改图片的透明度，返回修改后的新图片
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="opacity"></param>
+        /// <returns>修改透明度后的新图片</returns>
+        public static Bitmap AsOpacity(this Bitmap image, float opacity = 0.3f, DrawRecord border = null)
+        {
+            var matrix = new ColorMatrix(new float[][]{
+                new float[] {1, 0, 0, 0, 0},
+                new float[] {0, 1, 0, 0, 0},
+                new float[] {0, 0, 1, 0, 0},
+                new float[] {0, 0, 0, opacity, 0},
+                new float[] {0, 0, 0, 0, 1}
+            });
+            var attributes = new ImageAttributes();
+            attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            Bitmap resultImage = new Bitmap(image.Width, image.Height);
+            Graphics g = Graphics.FromImage(resultImage);
+            g.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
+                0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
+            if (border != null)
+            {
+                g.Draw(border);
+            }
+            matrix = null;
+            GC.Collect();
+            return resultImage;
         }
     }
 }

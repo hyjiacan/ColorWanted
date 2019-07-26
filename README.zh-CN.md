@@ -108,3 +108,4 @@
 - [RGB转换到HSB/HSL](http://blog.csdn.net/jiangxinyu/article/details/8000999)    
 - [RGB转换到HSI](http://blog.csdn.net/yangleo1987/article/details/53171623)
 - [图片模糊算法](https://www.cnblogs.com/yeye518/p/4161067.html)
+- [修改图片透明度](https://zhidao.baidu.com/question/72707659.html)

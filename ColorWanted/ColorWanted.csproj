@@ -70,13 +70,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="screenshot\DrawRecord.cs" />
-    <Compile Include="screenshot\DrawType.cs" />
+    <Compile Include="screenshot\DrawTypes.cs" />
     <Compile Include="screenshot\ScreenShot.cs" />
     <Compile Include="screenshot\ScreenForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="screenshot\ScreenForm.Designer.cs">
       <DependentUpon>ScreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screenshot\ScreenForm.Editor.cs">
+      <DependentUpon>ScreenForm.cs</DependentUpon>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="setting\Settings.I18n.cs" />

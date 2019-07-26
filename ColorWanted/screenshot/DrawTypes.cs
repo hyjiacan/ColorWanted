@@ -1,9 +1,13 @@
 ﻿namespace ColorWanted.screenshot
 {
-    internal enum DrawType
+    internal enum DrawTypes
     {
         /// <summary>
-        /// 线条
+        /// 铅笔，自由绘制
+        /// </summary>
+        Pencil,
+        /// <summary>
+        /// 直线
         /// </summary>
         Line,
         /// <summary>
@@ -21,6 +25,10 @@
         /// <summary>
         /// 椭圆
         /// </summary>
-        Ellipse
+        Ellipse,
+        /// <summary>
+        /// 箭头
+        /// </summary>
+        Arrow
     }
 }

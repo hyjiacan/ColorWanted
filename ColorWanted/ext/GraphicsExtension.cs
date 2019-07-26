@@ -9,23 +9,35 @@ namespace ColorWanted.ext
         public static void Draw(this Graphics graphics, DrawRecord record)
         {
             var width = record.Width;
-            var pen = new Pen(record.Color, width);
-            switch (record.Type)
+            using (var pen = new Pen(record.Color, width))
             {
-                case DrawType.Circle:
-                    break;
-                case DrawType.Ellipse:
-                    break;
-                case DrawType.Line:
-                    graphics.DrawLine(pen, record.Start, record.End);
-                    break;
-                case DrawType.Rectangle:
-                    graphics.DrawRectangle(pen, record.Rect);
-                    break;
-                case DrawType.Text:
-                    graphics.DrawString(record.Text, SystemFonts.DefaultFont, new SolidBrush(record.Color), record.Start);
-                    break;
+                switch (record.Type)
+                {
+                    case DrawTypes.Pencil:
+                        graphics.DrawCurve(pen, record.PointSet.ToArray());
+                        break;
+                    case DrawTypes.Circle:
+                        graphics.DrawEllipse(pen, record.Start.X, record.Start.Y, record.Distance, record.Distance);
+                        break;
+                    case DrawTypes.Ellipse:
+                        graphics.DrawEllipse(pen, record.Rect);
+                        break;
+                    case DrawTypes.Line:
+                        graphics.DrawLine(pen, record.Start, record.End);
+                        break;
+                    case DrawTypes.Rectangle:
+                        graphics.DrawRectangle(pen, record.Rect);
+                        break;
+                    case DrawTypes.Text:
+                        graphics.DrawString(record.Text, SystemFonts.DefaultFont,
+                            new SolidBrush(record.Color), record.Start);
+                        break;
+                    case DrawTypes.Arrow:
+                        // TODO
+                        break;
+                }
             }
+            graphics.Flush();
             GC.Collect();
         }
     }
