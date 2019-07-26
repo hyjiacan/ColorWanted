@@ -209,6 +209,7 @@
             this.toolOK.Name = "toolOK";
             this.toolOK.Size = new System.Drawing.Size(30, 33);
             this.toolOK.Text = "OK";
+            this.toolOK.Click += new System.EventHandler(this.ToolOK_Click);
             // 
             // toolSave
             // 
@@ -218,6 +219,7 @@
             this.toolSave.Name = "toolSave";
             this.toolSave.Size = new System.Drawing.Size(39, 33);
             this.toolSave.Text = "Save";
+            this.toolSave.Click += new System.EventHandler(this.ToolSave_Click);
             // 
             // toolCancel
             // 
@@ -227,6 +229,7 @@
             this.toolCancel.Name = "toolCancel";
             this.toolCancel.Size = new System.Drawing.Size(50, 33);
             this.toolCancel.Text = "Cancel";
+            this.toolCancel.Click += new System.EventHandler(this.ToolCancel_Click);
             // 
             // pictureMask
             // 

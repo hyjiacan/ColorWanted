@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 
@@ -302,6 +303,41 @@ namespace ColorWanted.screenshot
             ((ToolStripButton)toolbar.Items.Find($"tool{current.Type.ToString()}", false)[0]).Checked = false;
             item.Checked = true;
             current.Type = (DrawTypes)Enum.Parse(typeof(DrawTypes), type.ToString());
+        }
+
+        private Bitmap GetResult()
+        {
+            var result = selectedImage ?? image;
+            var g = Graphics.FromImage(result);
+            foreach (var item in history)
+            {
+                g.Draw(item);
+            }
+            g.Flush();
+            return result;
+        }
+
+        private void ToolOK_Click(object sender, System.EventArgs e)
+        {
+            Clipboard.SetImage(GetResult());
+            CloseForm();
+        }
+
+        private void ToolSave_Click(object sender, System.EventArgs e)
+        {
+            var result = new SaveFileDialog();
+            if (result.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            var img = GetResult();
+            img.Save(result.FileName);
+            CloseForm();
+        }
+
+        private void ToolCancel_Click(object sender, System.EventArgs e)
+        {
+            CloseForm();
         }
         #endregion
     }

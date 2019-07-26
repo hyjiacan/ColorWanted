@@ -13,7 +13,7 @@ namespace ColorWanted.ext
             {
                 switch (record.Type)
                 {
-                    case DrawTypes.Pencil:
+                    case DrawTypes.Pen:
                         graphics.DrawCurve(pen, record.PointSet.ToArray());
                         break;
                     case DrawTypes.Circle:
