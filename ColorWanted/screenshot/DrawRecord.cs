@@ -7,7 +7,13 @@ namespace ColorWanted.screenshot
 {
     internal class DrawRecord
     {
+        /// <summary>
+        /// 绘制类型
+        /// </summary>
         public DrawTypes Type { get; set; }
+        /// <summary>
+        /// 起点坐标
+        /// </summary>
         public Point Start
         {
             get
@@ -20,6 +26,9 @@ namespace ColorWanted.screenshot
                 PointSet.Add(value);
             }
         }
+        /// <summary>
+        /// 终点坐标
+        /// </summary>
         public Point End
         {
             get
@@ -31,12 +40,29 @@ namespace ColorWanted.screenshot
                 PointSet.Add(value);
             }
         }
+        /// <summary>
+        /// 当 Type 为 Text ，输入的文本
+        /// </summary>
         public string Text { get; set; }
+        /// <summary>
+        /// 绘制颜色
+        /// </summary>
         public Color Color { get; set; }
+        /// <summary>
+        /// 绘制线宽
+        /// </summary>
         public int Width { get; set; }
+        /// <summary>
+        /// 鼠标移动的点集合
+        /// </summary>
         public List<Point> PointSet { get; set; }
-
+        /// <summary>
+        /// 是否偏移(起点终点是否相同)
+        /// </summary>
         public bool HasOffset => Start != End || PointSet.Any();
+        /// <summary>
+        /// 由起点终点形成的矩形
+        /// </summary>
         public Rectangle Rect
         {
             get
@@ -62,16 +88,20 @@ namespace ColorWanted.screenshot
             }
         }
 
+        /// <summary>
+        /// 起点与终点的距离
+        /// </summary>
         public int Distance => (int)Math.Sqrt(Math.Abs(Start.X - End.X) * Math.Abs(Start.X - End.X) + Math.Abs(Start.Y - End.Y) * Math.Abs(Start.Y - End.Y));
 
         public DrawRecord()
         {
             PointSet = new List<Point>();
+            Width = 1;
         }
 
         public static DrawRecord Make(DrawTypes type)
         {
-            return new DrawRecord { Type = type, Color = System.Drawing.Color.Red, Width = 1 };
+            return new DrawRecord { Type = type, Color = System.Drawing.Color.Red };
         }
 
         public void Reset()
@@ -85,8 +115,6 @@ namespace ColorWanted.screenshot
             var temp = new DrawRecord
             {
                 Type = Type,
-                End = End,
-                Text = Text,
                 Color = Color,
                 Width = Width
             };
@@ -95,7 +123,7 @@ namespace ColorWanted.screenshot
 
             if (temp.PointSet.Count > 0)
             {
-                temp.PointSet[0].Offset(offsetStartX, offsetStartY);
+                temp.PointSet.First().Offset(offsetStartX, offsetStartY);
             }
             if (temp.PointSet.Count > 1)
             {

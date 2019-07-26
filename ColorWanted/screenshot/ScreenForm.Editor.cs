@@ -37,9 +37,13 @@ namespace ColorWanted.screenshot
         /// 选中的图片区域
         /// </summary>
         private Bitmap selectedImage;
-
+        /// <summary>
+        /// 编辑区域
+        /// </summary>
         private PictureBox pictureEditor;
-
+        /// <summary>
+        /// 文字输入
+        /// </summary>
         private TextBox textInput;
 
         public void Show(Bitmap img)
@@ -52,7 +56,6 @@ namespace ColorWanted.screenshot
             };
             image = img;
             picturePreview.BackgroundImage = img;
-
             previewGraphics = picturePreview.CreateGraphics();
 
             Refresh();
@@ -73,7 +76,7 @@ namespace ColorWanted.screenshot
             image = null;
             mousedown = false;
             current = null;
-            Hide();
+            Close();
         }
 
         private void ScreenForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -114,16 +117,6 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
-
-            if (current.HasOffset)
-            {
-                if (e.Clicks > 1)
-                {
-                    // 开始编辑
-                    ShowEdit();
-                }
-                return;
-            }
             mousedown = true;
             // 刷新后再重绘
             DrawSelectBox();
@@ -147,6 +140,12 @@ namespace ColorWanted.screenshot
             current.End = e.Location;
             DrawSelectBox();
             mousedown = false;
+
+            if (current.HasOffset)
+            { 
+                // 开始编辑
+                ShowEdit();
+            }
         }
 
         private void PicturePreview_MouseMove(object sender, MouseEventArgs e)
@@ -180,7 +179,9 @@ namespace ColorWanted.screenshot
 
         private void ShowEdit()
         {
-            opacityImage = image.AsOpacity(border: current.Copy(-4, -4, 2, 2));
+            var rect = current.Copy();
+            rect.Width = 2;
+            opacityImage = image.AsOpacity(border: rect);
             pictureMask.BackgroundImage = opacityImage;
             pictureMask.Show();
             pictureMask.BringToFront();
@@ -342,7 +343,11 @@ namespace ColorWanted.screenshot
 
         private void ToolSave_Click(object sender, System.EventArgs e)
         {
-            var result = new SaveFileDialog();
+            var result = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = ".png"
+            };
             if (result.ShowDialog() != DialogResult.OK)
             {
                 return;
@@ -366,7 +371,8 @@ namespace ColorWanted.screenshot
                     Width = 200,
                     Height = 60,
                     Multiline = true,
-                    BorderStyle = BorderStyle.None
+                    BorderStyle = BorderStyle.None,
+                    ForeColor = current.Color
                 };
                 textInput.KeyDown += (sender, e) =>
                 {
