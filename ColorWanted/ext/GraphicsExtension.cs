@@ -11,6 +11,14 @@ namespace ColorWanted.ext
             var width = record.Width;
             using (var pen = new Pen(record.Color, width))
             {
+                if (record.LineStyle == LineStyles.Dashed)
+                {
+                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                }
+                else if (record.LineStyle == LineStyles.Dotted)
+                {
+                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                }
                 switch (record.Type)
                 {
                     case DrawTypes.Pen:

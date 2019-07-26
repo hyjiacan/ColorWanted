@@ -45,6 +45,10 @@ namespace ColorWanted.screenshot
         /// 文字输入
         /// </summary>
         private TextBox textInput;
+        private ToolStripButton activeToolType;
+        private ToolStripButton activeToolColor;
+        private ToolStripButton activeToolWidth;
+        private ToolStripButton activeToolStyle;
 
         public void Show(Bitmap img)
         {
@@ -57,6 +61,11 @@ namespace ColorWanted.screenshot
             image = img;
             picturePreview.BackgroundImage = img;
             previewGraphics = picturePreview.CreateGraphics();
+
+            activeToolType = toolRectangle;
+            activeToolColor = toolColorRed;
+            activeToolWidth = toolWidth1;
+            activeToolWidth = toolStyleSolid;
 
             Refresh();
             Show();
@@ -142,7 +151,7 @@ namespace ColorWanted.screenshot
             mousedown = false;
 
             if (current.HasOffset)
-            { 
+            {
                 // 开始编辑
                 ShowEdit();
             }
@@ -201,12 +210,15 @@ namespace ColorWanted.screenshot
             pictureEditor.BringToFront();
             editorGraphics = pictureEditor.CreateGraphics();
 
-            toolbar.Show();
-            toolbar.BringToFront();
+            toolPanel.Location = new Point(rect.End.X - toolPanel.Width, rect.End.Y + 2);
+            toolPanel.Show();
+            toolPanel.BringToFront();
         }
 
         private void HideEdit()
         {
+            toolPanel.Hide();
+
             selectedImage.Dispose();
             selectedImage = null;
             toolbar.Hide();
@@ -318,7 +330,11 @@ namespace ColorWanted.screenshot
                 // 为空表示绘制类型按钮
                 return;
             }
-            ((ToolStripButton)toolbar.Items.Find($"tool{current.Type.ToString()}", false)[0]).Checked = false;
+            if (activeToolType != null)
+            {
+                activeToolType.Checked = false;
+            }
+            activeToolType = item;
             item.Checked = true;
             current.Type = (DrawTypes)Enum.Parse(typeof(DrawTypes), type.ToString());
         }
@@ -409,6 +425,45 @@ namespace ColorWanted.screenshot
             {
                 textInput.Hide();
             }
+        }
+
+        private void ToolbarColor_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var item = (ToolStripButton)e.ClickedItem;
+
+            if (activeToolColor != null)
+            {
+                activeToolColor.Checked = false;
+            }
+            activeToolColor = item;
+            item.Checked = true;
+            current.Color = item.BackColor;
+        }
+
+        private void ToolbarWidth_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var item = (ToolStripButton)e.ClickedItem;
+
+            if (activeToolWidth != null)
+            {
+                activeToolWidth.Checked = false;
+            }
+            activeToolWidth = item;
+            item.Checked = true;
+            current.Width = int.Parse(item.Tag.ToString());
+        }
+
+        private void ToolbarStyle_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var item = (ToolStripButton)e.ClickedItem;
+
+            if (activeToolStyle != null)
+            {
+                activeToolStyle.Checked = false;
+            }
+            activeToolStyle = item;
+            item.Checked = true;
+            current.LineStyle = (LineStyles)Enum.Parse(typeof(LineStyles), item.Tag.ToString());
         }
         #endregion
     }

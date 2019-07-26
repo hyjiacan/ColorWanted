@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="screenshot\DrawRecord.cs" />
     <Compile Include="screenshot\DrawTypes.cs" />
+    <Compile Include="screenshot\LineStyles.cs" />
     <Compile Include="screenshot\ScreenShot.cs" />
     <Compile Include="screenshot\ScreenForm.cs">
       <SubType>Form</SubType>

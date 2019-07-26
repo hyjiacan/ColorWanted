@@ -49,6 +49,10 @@ namespace ColorWanted.screenshot
         /// </summary>
         public Color Color { get; set; }
         /// <summary>
+        /// 线样式
+        /// </summary>
+        public LineStyles LineStyle { get; set; }
+        /// <summary>
         /// 绘制线宽
         /// </summary>
         public int Width { get; set; }
@@ -97,11 +101,13 @@ namespace ColorWanted.screenshot
         {
             PointSet = new List<Point>();
             Width = 1;
+            Color = Color.Red;
+            LineStyle = LineStyles.Solid;
         }
 
         public static DrawRecord Make(DrawTypes type)
         {
-            return new DrawRecord { Type = type, Color = System.Drawing.Color.Red };
+            return new DrawRecord { Type = type };
         }
 
         public void Reset()
