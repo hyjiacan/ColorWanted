@@ -367,24 +367,26 @@
             // toolPanel
             // 
             this.toolPanel.AutoSize = true;
+            this.toolPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.toolPanel.Controls.Add(this.toolbarExtPanel);
             this.toolPanel.Controls.Add(this.toolbar);
             this.toolPanel.Location = new System.Drawing.Point(12, 197);
             this.toolPanel.Name = "toolPanel";
-            this.toolPanel.Size = new System.Drawing.Size(798, 67);
+            this.toolPanel.Size = new System.Drawing.Size(505, 67);
             this.toolPanel.TabIndex = 9;
             this.toolPanel.Visible = false;
             // 
             // toolbarExtPanel
             // 
             this.toolbarExtPanel.AutoSize = true;
+            this.toolbarExtPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.toolbarExtPanel.Controls.Add(this.toolbarStyle);
             this.toolbarExtPanel.Controls.Add(this.toolbarWidth);
             this.toolbarExtPanel.Controls.Add(this.toolbarColor);
             this.toolbarExtPanel.Controls.Add(this.toolbarTextStyle);
             this.toolbarExtPanel.Location = new System.Drawing.Point(3, 39);
             this.toolbarExtPanel.Name = "toolbarExtPanel";
-            this.toolbarExtPanel.Size = new System.Drawing.Size(792, 25);
+            this.toolbarExtPanel.Size = new System.Drawing.Size(499, 25);
             this.toolbarExtPanel.TabIndex = 10;
             // 
             // toolbarStyle
@@ -442,7 +444,7 @@
             this.toolTextStyle});
             this.toolbarTextStyle.Location = new System.Drawing.Point(427, 0);
             this.toolbarTextStyle.Name = "toolbarTextStyle";
-            this.toolbarTextStyle.Size = new System.Drawing.Size(103, 25);
+            this.toolbarTextStyle.Size = new System.Drawing.Size(72, 25);
             this.toolbarTextStyle.TabIndex = 10;
             // 
             // toolTextStyle

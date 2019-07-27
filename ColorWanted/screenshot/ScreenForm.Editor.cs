@@ -402,7 +402,7 @@ namespace ColorWanted.screenshot
                     Multiline = true,
                     BorderStyle = BorderStyle.None,
                     ForeColor = current.Color,
-                    Font = toolTextStyle.Font
+                    Font = toolTextStyle.Font,
                 };
                 textInput.KeyDown += (sender, e) =>
                 {
@@ -454,23 +454,24 @@ namespace ColorWanted.screenshot
             if (item.Tag == null)
             {
                 current.Color = item.BackColor;
-                return;
             }
-
-            // 选择颜色
-            var dialog = new ColorDialog
+            else
             {
-                Color = item.BackColor
-            };
+                // 选择颜色
+                var dialog = new ColorDialog
+                {
+                    Color = item.BackColor,
+                    AllowFullOpen = true
+                };
 
-            if (dialog.ShowDialog(this) != DialogResult.OK)
-            {
-                return;
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    current.Color = dialog.Color;
+                }
+                dialog.Dispose();
             }
-
-            item.BackColor = dialog.Color;
-            item.ForeColor = util.ColorUtil.GetContrastColor(dialog.Color);
-            dialog.Dispose();
+            toolTextStyle.ForeColor = item.BackColor = current.Color;
+            item.ForeColor = util.ColorUtil.GetContrastColor(current.Color);
         }
 
         private void ToolbarWidth_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
