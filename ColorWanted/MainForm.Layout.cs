@@ -140,6 +140,7 @@ namespace ColorWanted
             this.trayMenuAutoStart,
             this.trayMenuOpenConfigFile,
             this.trayMenuHistory,
+            this.trayMenuScreenShot,
             this.toolStripSeparator1,
             this.trayMenuLanguage,
             this.trayMenuCheckUpdate,

@@ -279,6 +279,7 @@ namespace ColorWanted.screenshot
                 }
                 else
                 {
+                    current.Reset();
                     HideEdit();
                 }
                 return;
