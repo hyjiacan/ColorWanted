@@ -37,8 +37,7 @@ namespace ColorWanted.ext
                         graphics.DrawRectangle(pen, record.Rect);
                         break;
                     case DrawTypes.Text:
-                        graphics.DrawString(record.Text, SystemFonts.DefaultFont,
-                            new SolidBrush(record.Color), record.Start);
+                        graphics.DrawString(record.Text, record.TextFont, new SolidBrush(record.Color), record.Start);
                         break;
                     case DrawTypes.Arrow:
                         // TODO

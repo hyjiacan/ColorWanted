@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -62,14 +64,25 @@ namespace ColorWanted.screenshot
             picturePreview.BackgroundImage = img;
             previewGraphics = picturePreview.CreateGraphics();
 
+            new Thread(InitEditorToolbar) { IsBackground = true }.Start();
+
+            Refresh();
+            Show();
+            BringToFront();
+        }
+
+        /// <summary>
+        /// 初始化编辑器的工具条
+        /// </summary>
+        private void InitEditorToolbar()
+        {
             activeToolType = toolRectangle;
             activeToolColor = toolColorRed;
             activeToolWidth = toolWidth1;
             activeToolWidth = toolStyleSolid;
 
-            Refresh();
-            Show();
-            BringToFront();
+            // 字体
+            toolTextStyle.ForeColor = activeToolColor.BackColor;
         }
 
         private void ScreenForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -388,7 +401,8 @@ namespace ColorWanted.screenshot
                     Height = 60,
                     Multiline = true,
                     BorderStyle = BorderStyle.None,
-                    ForeColor = current.Color
+                    ForeColor = current.Color,
+                    Font = toolTextStyle.Font
                 };
                 textInput.KeyDown += (sender, e) =>
                 {
@@ -437,7 +451,26 @@ namespace ColorWanted.screenshot
             }
             activeToolColor = item;
             item.Checked = true;
-            current.Color = item.BackColor;
+            if (item.Tag == null)
+            {
+                current.Color = item.BackColor;
+                return;
+            }
+
+            // 选择颜色
+            var dialog = new ColorDialog
+            {
+                Color = item.BackColor
+            };
+
+            if (dialog.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            item.BackColor = dialog.Color;
+            item.ForeColor = util.ColorUtil.GetContrastColor(dialog.Color);
+            dialog.Dispose();
         }
 
         private void ToolbarWidth_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -464,6 +497,30 @@ namespace ColorWanted.screenshot
             activeToolStyle = item;
             item.Checked = true;
             current.LineStyle = (LineStyles)Enum.Parse(typeof(LineStyles), item.Tag.ToString());
+        }
+
+        /// <summary>
+        /// 设置文字样式
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToolTextStyle_Click(object sender, System.EventArgs e)
+        {
+            var dialog = new FontDialog
+            {
+                MinSize = 8,
+                MaxSize = 16,
+                ShowApply = false,
+                ShowColor = false,
+                ShowEffects = true,
+                FontMustExist = true
+            };
+            if (dialog.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+
+            current.TextFont = toolTextStyle.Font = dialog.Font;
         }
         #endregion
     }

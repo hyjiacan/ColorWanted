@@ -57,6 +57,10 @@ namespace ColorWanted.screenshot
         /// </summary>
         public int Width { get; set; }
         /// <summary>
+        /// 文字样式
+        /// </summary>
+        public Font TextFont { get; set; }
+        /// <summary>
         /// 鼠标移动的点集合
         /// </summary>
         public List<Point> PointSet { get; set; }
@@ -103,6 +107,7 @@ namespace ColorWanted.screenshot
             Width = 1;
             Color = Color.Red;
             LineStyle = LineStyles.Solid;
+            TextFont = SystemFonts.DefaultFont;
         }
 
         public static DrawRecord Make(DrawTypes type)
