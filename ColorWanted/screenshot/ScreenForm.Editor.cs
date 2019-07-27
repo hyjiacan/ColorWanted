@@ -120,6 +120,10 @@ namespace ColorWanted.screenshot
         }
 
         #region 选区
+        private void ToolMaskEdit_Click(object sender, System.EventArgs e)
+        {
+            ShowEdit();
+        }
         private void PicturePreview_MouseDown(object sender, MouseEventArgs e)
         {
             if (selectedImage != null)
@@ -166,7 +170,7 @@ namespace ColorWanted.screenshot
             if (current.HasOffset)
             {
                 // 开始编辑
-                ShowEdit();
+                ShowMask();
             }
         }
 
@@ -199,7 +203,7 @@ namespace ColorWanted.screenshot
             previewGraphics.Draw(current);
         }
 
-        private void ShowEdit()
+        private void ShowMask()
         {
             var rect = current.Copy();
             rect.Width = 2;
@@ -223,7 +227,16 @@ namespace ColorWanted.screenshot
             pictureEditor.BringToFront();
             editorGraphics = pictureEditor.CreateGraphics();
 
-            toolPanel.Location = new Point(rect.End.X - toolPanel.Width, rect.End.Y + 2);
+            toolbarMask.Location = new Point(current.End.X - toolbarMask.Width, current.End.Y + 2);
+            toolbarMask.Show();
+            toolbarMask.BringToFront();
+        }
+
+        private void ShowEdit()
+        {
+            toolbarMask.Hide();
+
+            toolPanel.Location = new Point(current.End.X - toolPanel.Width, current.End.Y + 2);
             toolPanel.Show();
             toolPanel.BringToFront();
         }
@@ -242,6 +255,9 @@ namespace ColorWanted.screenshot
             opacityImage.Dispose();
             opacityImage = null;
             picturePreview.BringToFront();
+
+            toolbarMask.Show();
+            toolbarMask.BringToFront();
         }
         #endregion
 

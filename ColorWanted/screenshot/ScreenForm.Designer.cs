@@ -39,7 +39,6 @@
             this.toolCircle = new System.Windows.Forms.ToolStripButton();
             this.toolArrow = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolOK = new System.Windows.Forms.ToolStripButton();
             this.toolSave = new System.Windows.Forms.ToolStripButton();
             this.toolCancel = new System.Windows.Forms.ToolStripButton();
@@ -63,6 +62,12 @@
             this.toolStyleDashed = new System.Windows.Forms.ToolStripButton();
             this.toolbarTextStyle = new System.Windows.Forms.ToolStrip();
             this.toolTextStyle = new System.Windows.Forms.ToolStripButton();
+            this.toolbarMask = new System.Windows.Forms.ToolStrip();
+            this.toolMaskEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolMaskOK = new System.Windows.Forms.ToolStripButton();
+            this.toolMaskSave = new System.Windows.Forms.ToolStripButton();
+            this.toolMaskCancel = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.picturePreview)).BeginInit();
             this.toolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMask)).BeginInit();
@@ -72,6 +77,7 @@
             this.toolbarExtPanel.SuspendLayout();
             this.toolbarStyle.SuspendLayout();
             this.toolbarTextStyle.SuspendLayout();
+            this.toolbarMask.SuspendLayout();
             this.SuspendLayout();
             // 
             // picturePreview
@@ -89,7 +95,6 @@
             // 
             // toolbar
             // 
-            this.toolbar.AutoSize = false;
             this.toolbar.Dock = System.Windows.Forms.DockStyle.None;
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolText,
@@ -100,13 +105,12 @@
             this.toolCircle,
             this.toolArrow,
             this.toolStripSeparator2,
-            this.toolStripSeparator1,
             this.toolOK,
             this.toolSave,
             this.toolCancel});
             this.toolbar.Location = new System.Drawing.Point(0, 0);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(439, 36);
+            this.toolbar.Size = new System.Drawing.Size(378, 25);
             this.toolbar.TabIndex = 5;
             this.toolbar.Text = "toolStrip1";
             this.toolbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolbar_ItemClicked);
@@ -114,113 +118,98 @@
             // toolText
             // 
             this.toolText.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolText.Image = ((System.Drawing.Image)(resources.GetObject("toolText.Image")));
             this.toolText.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolText.Name = "toolText";
-            this.toolText.Size = new System.Drawing.Size(36, 33);
+            this.toolText.Size = new System.Drawing.Size(36, 22);
             this.toolText.Tag = "Text";
-            this.toolText.Text = "Text";
+            this.toolText.Text = "文字";
             // 
             // toolPen
             // 
             this.toolPen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolPen.Image = ((System.Drawing.Image)(resources.GetObject("toolPen.Image")));
             this.toolPen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolPen.Name = "toolPen";
-            this.toolPen.Size = new System.Drawing.Size(33, 33);
+            this.toolPen.Size = new System.Drawing.Size(36, 22);
             this.toolPen.Tag = "Pen";
-            this.toolPen.Text = "Pen";
+            this.toolPen.Text = "钢笔";
             // 
             // toolLine
             // 
             this.toolLine.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolLine.Image = ((System.Drawing.Image)(resources.GetObject("toolLine.Image")));
             this.toolLine.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolLine.Name = "toolLine";
-            this.toolLine.Size = new System.Drawing.Size(35, 33);
+            this.toolLine.Size = new System.Drawing.Size(36, 22);
             this.toolLine.Tag = "Line";
-            this.toolLine.Text = "Line";
+            this.toolLine.Text = "线条";
             // 
             // toolRectangle
             // 
             this.toolRectangle.Checked = true;
             this.toolRectangle.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolRectangle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolRectangle.Image = ((System.Drawing.Image)(resources.GetObject("toolRectangle.Image")));
             this.toolRectangle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolRectangle.Name = "toolRectangle";
-            this.toolRectangle.Size = new System.Drawing.Size(37, 33);
+            this.toolRectangle.Size = new System.Drawing.Size(36, 22);
             this.toolRectangle.Tag = "Rectangle";
-            this.toolRectangle.Text = "Rect";
+            this.toolRectangle.Text = "矩形";
             // 
             // toolEllipse
             // 
             this.toolEllipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolEllipse.Image = ((System.Drawing.Image)(resources.GetObject("toolEllipse.Image")));
             this.toolEllipse.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolEllipse.Name = "toolEllipse";
-            this.toolEllipse.Size = new System.Drawing.Size(49, 33);
+            this.toolEllipse.Size = new System.Drawing.Size(36, 22);
             this.toolEllipse.Tag = "Ellipse";
-            this.toolEllipse.Text = "Ellipse";
+            this.toolEllipse.Text = "椭圆";
             // 
             // toolCircle
             // 
             this.toolCircle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolCircle.Image = ((System.Drawing.Image)(resources.GetObject("toolCircle.Image")));
             this.toolCircle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolCircle.Name = "toolCircle";
-            this.toolCircle.Size = new System.Drawing.Size(44, 33);
+            this.toolCircle.Size = new System.Drawing.Size(36, 22);
             this.toolCircle.Tag = "Circle";
-            this.toolCircle.Text = "Circle";
+            this.toolCircle.Text = "圆形";
             // 
             // toolArrow
             // 
             this.toolArrow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolArrow.Image = ((System.Drawing.Image)(resources.GetObject("toolArrow.Image")));
             this.toolArrow.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolArrow.Name = "toolArrow";
-            this.toolArrow.Size = new System.Drawing.Size(47, 33);
+            this.toolArrow.Size = new System.Drawing.Size(36, 22);
             this.toolArrow.Tag = "Arrow";
-            this.toolArrow.Text = "Arrow";
+            this.toolArrow.Text = "箭头";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 36);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 36);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // toolOK
             // 
             this.toolOK.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolOK.Image = ((System.Drawing.Image)(resources.GetObject("toolOK.Image")));
             this.toolOK.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolOK.Name = "toolOK";
-            this.toolOK.Size = new System.Drawing.Size(30, 33);
-            this.toolOK.Text = "OK";
+            this.toolOK.Size = new System.Drawing.Size(36, 22);
+            this.toolOK.Text = "完成";
             this.toolOK.Click += new System.EventHandler(this.ToolOK_Click);
             // 
             // toolSave
             // 
             this.toolSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolSave.Image = ((System.Drawing.Image)(resources.GetObject("toolSave.Image")));
             this.toolSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolSave.Name = "toolSave";
-            this.toolSave.Size = new System.Drawing.Size(39, 33);
-            this.toolSave.Text = "Save";
+            this.toolSave.Size = new System.Drawing.Size(36, 22);
+            this.toolSave.Text = "保存";
             this.toolSave.Click += new System.EventHandler(this.ToolSave_Click);
             // 
             // toolCancel
             // 
             this.toolCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolCancel.Image = ((System.Drawing.Image)(resources.GetObject("toolCancel.Image")));
             this.toolCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolCancel.Name = "toolCancel";
-            this.toolCancel.Size = new System.Drawing.Size(50, 33);
-            this.toolCancel.Text = "Cancel";
+            this.toolCancel.Size = new System.Drawing.Size(36, 22);
+            this.toolCancel.Text = "取消";
             this.toolCancel.Click += new System.EventHandler(this.ToolCancel_Click);
             // 
             // pictureMask
@@ -257,7 +246,6 @@
             this.toolColorRed.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolColorRed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolColorRed.ForeColor = System.Drawing.Color.Red;
-            this.toolColorRed.Image = ((System.Drawing.Image)(resources.GetObject("toolColorRed.Image")));
             this.toolColorRed.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolColorRed.Name = "toolColorRed";
             this.toolColorRed.Size = new System.Drawing.Size(23, 22);
@@ -268,7 +256,6 @@
             this.toolColorGreen.BackColor = System.Drawing.Color.Green;
             this.toolColorGreen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolColorGreen.ForeColor = System.Drawing.Color.Green;
-            this.toolColorGreen.Image = ((System.Drawing.Image)(resources.GetObject("toolColorGreen.Image")));
             this.toolColorGreen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolColorGreen.Name = "toolColorGreen";
             this.toolColorGreen.Size = new System.Drawing.Size(23, 22);
@@ -279,7 +266,6 @@
             this.toolColorBlue.BackColor = System.Drawing.Color.Blue;
             this.toolColorBlue.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolColorBlue.ForeColor = System.Drawing.Color.Blue;
-            this.toolColorBlue.Image = ((System.Drawing.Image)(resources.GetObject("toolColorBlue.Image")));
             this.toolColorBlue.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolColorBlue.Name = "toolColorBlue";
             this.toolColorBlue.Size = new System.Drawing.Size(23, 22);
@@ -290,7 +276,6 @@
             this.toolColorPurple.BackColor = System.Drawing.Color.Purple;
             this.toolColorPurple.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolColorPurple.ForeColor = System.Drawing.Color.Purple;
-            this.toolColorPurple.Image = ((System.Drawing.Image)(resources.GetObject("toolColorPurple.Image")));
             this.toolColorPurple.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolColorPurple.Name = "toolColorPurple";
             this.toolColorPurple.Size = new System.Drawing.Size(23, 22);
@@ -301,7 +286,6 @@
             this.toolColorBlack.BackColor = System.Drawing.Color.Black;
             this.toolColorBlack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolColorBlack.ForeColor = System.Drawing.Color.Black;
-            this.toolColorBlack.Image = ((System.Drawing.Image)(resources.GetObject("toolColorBlack.Image")));
             this.toolColorBlack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolColorBlack.Name = "toolColorBlack";
             this.toolColorBlack.Size = new System.Drawing.Size(23, 22);
@@ -309,7 +293,6 @@
             // toolColorSelect
             // 
             this.toolColorSelect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolColorSelect.Image = ((System.Drawing.Image)(resources.GetObject("toolColorSelect.Image")));
             this.toolColorSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolColorSelect.Name = "toolColorSelect";
             this.toolColorSelect.Size = new System.Drawing.Size(36, 22);
@@ -335,7 +318,6 @@
             this.toolWidth1.Checked = true;
             this.toolWidth1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolWidth1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolWidth1.Image = ((System.Drawing.Image)(resources.GetObject("toolWidth1.Image")));
             this.toolWidth1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolWidth1.Name = "toolWidth1";
             this.toolWidth1.Size = new System.Drawing.Size(40, 22);
@@ -346,7 +328,6 @@
             // 
             this.toolWidth2.AutoSize = false;
             this.toolWidth2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolWidth2.Image = ((System.Drawing.Image)(resources.GetObject("toolWidth2.Image")));
             this.toolWidth2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolWidth2.Name = "toolWidth2";
             this.toolWidth2.Size = new System.Drawing.Size(40, 22);
@@ -357,7 +338,6 @@
             // 
             this.toolWidth4.AutoSize = false;
             this.toolWidth4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolWidth4.Image = ((System.Drawing.Image)(resources.GetObject("toolWidth4.Image")));
             this.toolWidth4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolWidth4.Name = "toolWidth4";
             this.toolWidth4.Size = new System.Drawing.Size(40, 22);
@@ -408,7 +388,6 @@
             this.toolStyleSolid.Checked = true;
             this.toolStyleSolid.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolStyleSolid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStyleSolid.Image = ((System.Drawing.Image)(resources.GetObject("toolStyleSolid.Image")));
             this.toolStyleSolid.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStyleSolid.Name = "toolStyleSolid";
             this.toolStyleSolid.Size = new System.Drawing.Size(40, 22);
@@ -419,7 +398,6 @@
             // 
             this.toolStyleDotted.AutoSize = false;
             this.toolStyleDotted.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStyleDotted.Image = ((System.Drawing.Image)(resources.GetObject("toolStyleDotted.Image")));
             this.toolStyleDotted.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStyleDotted.Name = "toolStyleDotted";
             this.toolStyleDotted.Size = new System.Drawing.Size(40, 22);
@@ -430,7 +408,6 @@
             // 
             this.toolStyleDashed.AutoSize = false;
             this.toolStyleDashed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStyleDashed.Image = ((System.Drawing.Image)(resources.GetObject("toolStyleDashed.Image")));
             this.toolStyleDashed.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStyleDashed.Name = "toolStyleDashed";
             this.toolStyleDashed.Size = new System.Drawing.Size(40, 22);
@@ -450,12 +427,68 @@
             // toolTextStyle
             // 
             this.toolTextStyle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolTextStyle.Image = ((System.Drawing.Image)(resources.GetObject("toolTextStyle.Image")));
             this.toolTextStyle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolTextStyle.Name = "toolTextStyle";
             this.toolTextStyle.Size = new System.Drawing.Size(60, 22);
             this.toolTextStyle.Text = "文字样式";
             this.toolTextStyle.Click += new System.EventHandler(this.ToolTextStyle_Click);
+            // 
+            // toolbarMask
+            // 
+            this.toolbarMask.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolbarMask.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolMaskEdit,
+            this.toolStripSeparator1,
+            this.toolMaskOK,
+            this.toolMaskSave,
+            this.toolMaskCancel});
+            this.toolbarMask.Location = new System.Drawing.Point(110, 301);
+            this.toolbarMask.Name = "toolbarMask";
+            this.toolbarMask.Size = new System.Drawing.Size(193, 25);
+            this.toolbarMask.TabIndex = 11;
+            this.toolbarMask.Visible = false;
+            // 
+            // toolMaskEdit
+            // 
+            this.toolMaskEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolMaskEdit.Image = ((System.Drawing.Image)(resources.GetObject("toolMaskEdit.Image")));
+            this.toolMaskEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolMaskEdit.Name = "toolMaskEdit";
+            this.toolMaskEdit.Size = new System.Drawing.Size(36, 22);
+            this.toolMaskEdit.Text = "编辑";
+            this.toolMaskEdit.Click += new System.EventHandler(this.ToolMaskEdit_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolMaskOK
+            // 
+            this.toolMaskOK.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolMaskOK.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolMaskOK.Name = "toolMaskOK";
+            this.toolMaskOK.Size = new System.Drawing.Size(36, 22);
+            this.toolMaskOK.Text = "完成";
+            this.toolMaskOK.Click += new System.EventHandler(this.ToolOK_Click);
+            // 
+            // toolMaskSave
+            // 
+            this.toolMaskSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolMaskSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolMaskSave.Name = "toolMaskSave";
+            this.toolMaskSave.Size = new System.Drawing.Size(36, 22);
+            this.toolMaskSave.Text = "保存";
+            this.toolMaskSave.Click += new System.EventHandler(this.ToolSave_Click);
+            // 
+            // toolMaskCancel
+            // 
+            this.toolMaskCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolMaskCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolMaskCancel.Name = "toolMaskCancel";
+            this.toolMaskCancel.Size = new System.Drawing.Size(36, 22);
+            this.toolMaskCancel.Text = "取消";
+            this.toolMaskCancel.Click += new System.EventHandler(this.ToolCancel_Click);
             // 
             // ScreenForm
             // 
@@ -463,6 +496,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.toolbarMask);
             this.Controls.Add(this.toolPanel);
             this.Controls.Add(this.pictureMask);
             this.Controls.Add(this.picturePreview);
@@ -492,6 +526,8 @@
             this.toolbarStyle.PerformLayout();
             this.toolbarTextStyle.ResumeLayout(false);
             this.toolbarTextStyle.PerformLayout();
+            this.toolbarMask.ResumeLayout(false);
+            this.toolbarMask.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -509,7 +545,6 @@
         private System.Windows.Forms.ToolStripButton toolCircle;
         private System.Windows.Forms.ToolStripButton toolArrow;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolOK;
         private System.Windows.Forms.ToolStripButton toolSave;
         private System.Windows.Forms.ToolStripButton toolCancel;
@@ -533,5 +568,11 @@
         private System.Windows.Forms.ToolStrip toolbarTextStyle;
         private System.Windows.Forms.ToolStripButton toolTextStyle;
         private System.Windows.Forms.ToolStripButton toolColorSelect;
+        private System.Windows.Forms.ToolStrip toolbarMask;
+        private System.Windows.Forms.ToolStripButton toolMaskEdit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolMaskOK;
+        private System.Windows.Forms.ToolStripButton toolMaskSave;
+        private System.Windows.Forms.ToolStripButton toolMaskCancel;
     }
 }
