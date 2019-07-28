@@ -301,6 +301,11 @@ namespace ColorWanted.screenshot
                 return;
             }
 
+            if (!toolPanel.Visible)
+            {
+                return;
+            }
+
             // 输入文字
             if (current != null && current.Type == DrawTypes.Text)
             {
@@ -308,7 +313,6 @@ namespace ColorWanted.screenshot
                 ShowTextInput(e.Location);
                 return;
             }
-
             current.Start = e.Location;
             mousedown = true;
             return;
@@ -326,6 +330,10 @@ namespace ColorWanted.screenshot
 
         private void PictureEditor_MouseMove(object sender, MouseEventArgs e)
         {
+            if (!toolPanel.Visible)
+            {
+                return;
+            }
             if (!mousedown)
             {
                 return;
@@ -336,6 +344,10 @@ namespace ColorWanted.screenshot
 
         private void PictureEditor_MouseUp(object sender, MouseEventArgs e)
         {
+            if (!toolPanel.Visible)
+            {
+                return;
+            }
             if (!mousedown || e.Button != MouseButtons.Left)
             {
                 return;
