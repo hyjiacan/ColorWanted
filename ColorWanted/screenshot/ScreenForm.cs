@@ -22,7 +22,6 @@ namespace ColorWanted.screenshot
             DoubleBuffered = true;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.UserPaint, true);
         }
 
         protected override CreateParams CreateParams

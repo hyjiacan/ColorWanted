@@ -49,16 +49,13 @@
             this.toolColorPurple = new System.Windows.Forms.ToolStripButton();
             this.toolColorBlack = new System.Windows.Forms.ToolStripButton();
             this.toolColorSelect = new System.Windows.Forms.ToolStripButton();
-            this.toolbarLineWidth = new System.Windows.Forms.ToolStrip();
-            this.toolWidth1 = new System.Windows.Forms.ToolStripButton();
-            this.toolWidth2 = new System.Windows.Forms.ToolStripButton();
-            this.toolWidth4 = new System.Windows.Forms.ToolStripButton();
             this.toolPanel = new System.Windows.Forms.Panel();
             this.toolbarExtPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.toolbarLineType = new System.Windows.Forms.ToolStrip();
             this.toolStyleSolid = new System.Windows.Forms.ToolStripButton();
             this.toolStyleDotted = new System.Windows.Forms.ToolStripButton();
             this.toolStyleDashed = new System.Windows.Forms.ToolStripButton();
+            this.toolLineWidth = new System.Windows.Forms.TrackBar();
             this.toolbarTextStyle = new System.Windows.Forms.ToolStrip();
             this.toolTextStyle = new System.Windows.Forms.ToolStripButton();
             this.toolbarMask = new System.Windows.Forms.ToolStrip();
@@ -71,10 +68,10 @@
             this.toolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureMask)).BeginInit();
             this.toolbarColor.SuspendLayout();
-            this.toolbarLineWidth.SuspendLayout();
             this.toolPanel.SuspendLayout();
             this.toolbarExtPanel.SuspendLayout();
             this.toolbarLineType.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toolLineWidth)).BeginInit();
             this.toolbarTextStyle.SuspendLayout();
             this.toolbarMask.SuspendLayout();
             this.SuspendLayout();
@@ -231,7 +228,7 @@
             this.toolColorPurple,
             this.toolColorBlack,
             this.toolColorSelect});
-            this.toolbarColor.Location = new System.Drawing.Point(264, 0);
+            this.toolbarColor.Location = new System.Drawing.Point(212, 0);
             this.toolbarColor.Name = "toolbarColor";
             this.toolbarColor.Size = new System.Drawing.Size(163, 25);
             this.toolbarColor.TabIndex = 7;
@@ -298,51 +295,6 @@
             this.toolColorSelect.Tag = "customize";
             this.toolColorSelect.Text = "选择";
             // 
-            // toolbarLineWidth
-            // 
-            this.toolbarLineWidth.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolbarLineWidth.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolWidth1,
-            this.toolWidth2,
-            this.toolWidth4});
-            this.toolbarLineWidth.Location = new System.Drawing.Point(132, 0);
-            this.toolbarLineWidth.Name = "toolbarLineWidth";
-            this.toolbarLineWidth.Size = new System.Drawing.Size(132, 25);
-            this.toolbarLineWidth.TabIndex = 8;
-            this.toolbarLineWidth.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolbarLineWidth_ItemClicked);
-            // 
-            // toolWidth1
-            // 
-            this.toolWidth1.AutoSize = false;
-            this.toolWidth1.Checked = true;
-            this.toolWidth1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolWidth1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolWidth1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolWidth1.Name = "toolWidth1";
-            this.toolWidth1.Size = new System.Drawing.Size(40, 22);
-            this.toolWidth1.Tag = "1";
-            this.toolWidth1.Text = "细";
-            // 
-            // toolWidth2
-            // 
-            this.toolWidth2.AutoSize = false;
-            this.toolWidth2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolWidth2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolWidth2.Name = "toolWidth2";
-            this.toolWidth2.Size = new System.Drawing.Size(40, 22);
-            this.toolWidth2.Tag = "2";
-            this.toolWidth2.Text = "中";
-            // 
-            // toolWidth4
-            // 
-            this.toolWidth4.AutoSize = false;
-            this.toolWidth4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolWidth4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolWidth4.Name = "toolWidth4";
-            this.toolWidth4.Size = new System.Drawing.Size(40, 22);
-            this.toolWidth4.Tag = "4";
-            this.toolWidth4.Text = "粗";
-            // 
             // toolPanel
             // 
             this.toolPanel.AutoSize = true;
@@ -357,10 +309,9 @@
             // 
             // toolbarExtPanel
             // 
-            this.toolbarExtPanel.AutoSize = true;
             this.toolbarExtPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.toolbarExtPanel.Controls.Add(this.toolbarLineType);
-            this.toolbarExtPanel.Controls.Add(this.toolbarLineWidth);
+            this.toolbarExtPanel.Controls.Add(this.toolLineWidth);
             this.toolbarExtPanel.Controls.Add(this.toolbarColor);
             this.toolbarExtPanel.Controls.Add(this.toolbarTextStyle);
             this.toolbarExtPanel.Location = new System.Drawing.Point(3, 39);
@@ -412,6 +363,21 @@
             this.toolStyleDashed.Size = new System.Drawing.Size(40, 22);
             this.toolStyleDashed.Tag = "Dashed";
             this.toolStyleDashed.Text = "虚线";
+            // 
+            // toolLineWidth
+            // 
+            this.toolLineWidth.AutoSize = false;
+            this.toolLineWidth.LargeChange = 2;
+            this.toolLineWidth.Location = new System.Drawing.Point(135, 3);
+            this.toolLineWidth.Maximum = 32;
+            this.toolLineWidth.Minimum = 1;
+            this.toolLineWidth.Name = "toolLineWidth";
+            this.toolLineWidth.Size = new System.Drawing.Size(74, 22);
+            this.toolLineWidth.TabIndex = 11;
+            this.toolLineWidth.TickFrequency = 4;
+            this.toolLineWidth.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.toolLineWidth.Value = 2;
+            this.toolLineWidth.Scroll += new System.EventHandler(this.ToolLineWidth_Scroll);
             // 
             // toolbarTextStyle
             // 
@@ -514,14 +480,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureMask)).EndInit();
             this.toolbarColor.ResumeLayout(false);
             this.toolbarColor.PerformLayout();
-            this.toolbarLineWidth.ResumeLayout(false);
-            this.toolbarLineWidth.PerformLayout();
             this.toolPanel.ResumeLayout(false);
             this.toolPanel.PerformLayout();
             this.toolbarExtPanel.ResumeLayout(false);
             this.toolbarExtPanel.PerformLayout();
             this.toolbarLineType.ResumeLayout(false);
             this.toolbarLineType.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.toolLineWidth)).EndInit();
             this.toolbarTextStyle.ResumeLayout(false);
             this.toolbarTextStyle.PerformLayout();
             this.toolbarMask.ResumeLayout(false);
@@ -553,10 +518,6 @@
         private System.Windows.Forms.ToolStripButton toolColorBlue;
         private System.Windows.Forms.ToolStripButton toolColorPurple;
         private System.Windows.Forms.ToolStripButton toolColorBlack;
-        private System.Windows.Forms.ToolStrip toolbarLineWidth;
-        private System.Windows.Forms.ToolStripButton toolWidth4;
-        private System.Windows.Forms.ToolStripButton toolWidth1;
-        private System.Windows.Forms.ToolStripButton toolWidth2;
         private System.Windows.Forms.Panel toolPanel;
         private System.Windows.Forms.ToolStrip toolbarLineType;
         private System.Windows.Forms.ToolStripButton toolStyleSolid;
@@ -572,5 +533,6 @@
         private System.Windows.Forms.ToolStripButton toolMaskOK;
         private System.Windows.Forms.ToolStripButton toolMaskSave;
         private System.Windows.Forms.ToolStripButton toolMaskCancel;
+        private System.Windows.Forms.TrackBar toolLineWidth;
     }
 }

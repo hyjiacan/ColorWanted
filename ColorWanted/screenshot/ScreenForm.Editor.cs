@@ -48,7 +48,6 @@ namespace ColorWanted.screenshot
         private TextBox textInput;
         private ToolStripButton activeToolShapeType;
         private ToolStripButton activeToolColor;
-        private ToolStripButton activeToolLineWidth;
         private ToolStripButton activeToolLineStyle;
 
         public void Show(Bitmap img)
@@ -78,8 +77,7 @@ namespace ColorWanted.screenshot
         {
             activeToolShapeType = toolRectangle;
             activeToolColor = toolColorRed;
-            activeToolLineWidth = toolWidth1;
-            activeToolLineWidth = toolStyleSolid;
+            activeToolLineStyle = toolStyleSolid;
 
             // 字体
             toolTextStyle.ForeColor = activeToolColor.BackColor;
@@ -217,6 +215,10 @@ namespace ColorWanted.screenshot
                 Bounds = current.Rect,
                 BackgroundImage = selectedImage = image.Cut(current.Rect)
             };
+
+            // 处理闪烁问题
+            pictureEditor.EnableDoubleBuffered();
+
             pictureEditor.MouseDown += PictureEditor_MouseDown;
             pictureEditor.MouseUp += PictureEditor_MouseUp;
             pictureEditor.MouseMove += PictureEditor_MouseMove;
@@ -363,6 +365,7 @@ namespace ColorWanted.screenshot
 
         private void Toolbar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            HideTextInput();
             if (!(e.ClickedItem is ToolStripButton item))
             {
                 return;
@@ -383,12 +386,14 @@ namespace ColorWanted.screenshot
             if (current.Type == DrawTypes.Text)
             {
                 toolbarLineType.Hide();
+                toolLineWidth.Hide();
                 toolbarTextStyle.Show();
             }
             else
             {
                 toolbarTextStyle.Hide();
                 toolbarLineType.Show();
+                toolLineWidth.Show();
             }
         }
 
@@ -510,17 +515,9 @@ namespace ColorWanted.screenshot
             item.ForeColor = util.ColorUtil.GetContrastColor(current.Color);
         }
 
-        private void ToolbarLineWidth_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void ToolLineWidth_Scroll(object sender, System.EventArgs e)
         {
-            var item = (ToolStripButton)e.ClickedItem;
-
-            if (activeToolLineWidth != null)
-            {
-                activeToolLineWidth.Checked = false;
-            }
-            activeToolLineWidth = item;
-            item.Checked = true;
-            current.Width = int.Parse(item.Tag.ToString());
+            current.Width = toolLineWidth.Value;
         }
 
         private void ToolbarLineType_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

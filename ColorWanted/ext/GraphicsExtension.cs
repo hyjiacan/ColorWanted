@@ -1,6 +1,7 @@
 ﻿using ColorWanted.screenshot;
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace ColorWanted.ext
 {
@@ -11,13 +12,15 @@ namespace ColorWanted.ext
             var width = record.Width;
             using (var pen = new Pen(record.Color, width))
             {
+                pen.StartCap = LineCap.Round;
+                pen.MiterLimit = 0.1f;
                 if (record.LineStyle == LineStyles.Dashed)
                 {
-                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+                    pen.DashStyle = DashStyle.Dash;
                 }
                 else if (record.LineStyle == LineStyles.Dotted)
                 {
-                    pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
+                    pen.DashStyle = DashStyle.Dot;
                 }
                 switch (record.Type)
                 {
@@ -40,7 +43,9 @@ namespace ColorWanted.ext
                         graphics.DrawString(record.Text, record.TextFont, new SolidBrush(record.Color), record.Start);
                         break;
                     case DrawTypes.Arrow:
-                        // TODO
+                        var cap = new AdjustableArrowCap(5, 5, false);
+                        pen.CustomEndCap = cap;
+                        graphics.DrawLine(pen, record.Start, record.End);
                         break;
                 }
             }

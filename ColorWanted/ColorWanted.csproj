@@ -60,6 +60,7 @@
     <Compile Include="colors\HSL.cs" />
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\GraphicsExtension.cs" />
+    <Compile Include="ext\PictureBoxExtension.cs" />
     <Compile Include="i18n\Author.cs" />
     <Compile Include="i18n\I18nManager.cs" />
     <Compile Include="i18n\Language.cs" />
