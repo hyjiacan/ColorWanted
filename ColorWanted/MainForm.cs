@@ -1177,7 +1177,7 @@ namespace ColorWanted
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
                     Height = 20;
-                    Width = 88;
+                    Width = 108;
                     break;
                 case FormatMode.Standard:
                     trayMenuFormatMini.Checked = false;
@@ -1359,6 +1359,11 @@ namespace ColorWanted
         public void ShowTip(int timeout, string msg)
         {
             tray.ShowBalloonTip(timeout, null, msg, ToolTipIcon.None);
+        }
+
+        private void BtnScreenshot_Click(object sender, EventArgs e)
+        {
+            ScreenShot.Capture();
         }
     }
 }

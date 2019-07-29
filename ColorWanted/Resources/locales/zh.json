@@ -183,157 +183,160 @@
                 "Text": "快捷键-ColorWanted"
             }
         },
-		"MainForm": {
-			"lbHex": {
-				"ToolTip": "十六进制颜色值，快速复制："
-			},
-			"lbRgb": {
-				"ToolTip": "RGB通道颜色值，快速复制：双击",
-				"Text": "RGB(0,0,0)"
-			},
-			"tray": {
-				"BalloonTipText": "屏幕取色器正在工作",
-				"Text": "ColorWanted-好用的Windows屏幕取色器",
-				"BalloonTipTitle": "ColorWanted"
-			},
-			"trayMenuDisplayMode": {
-				"Text": "窗口模式",
-				"ToolTipText": "切换不同的窗口模式"
-			},
-			"trayMenuFormatMode": {
-				"Text": "显示格式",
-				"ToolTipText": "设置是否显示RGB颜色值"
-			},
-			"trayMenuCopyPolicy": {
-				"Text": "复制策略",
-				"ToolTipText": "在复制颜色值时是否只复制值"
-			},
-			"trayMenuHsiAlgorithm": {
-				"Text": "HSI算法"
-			},
-			"trayMenuShowPreview": {
-				"Text": "显示预览窗口"
-			},
-			"trayMenuShowColorPicker": {
-				"Text": "打开调色板"
-			},
-			"trayMenuPixelScale": {
-				"Text": "像素放大算法",
-				"ToolTipText": "预览窗口使用像素放大算法预览图片"
-			},
-			"trayMenuAutoPin": {
-				"Text": "边缘自动吸附"
-			},
-			"trayMenuTheme": {
-				"Text": "主题配色"
-			},
-			"trayMenuHotkey": {
-				"Text": "快捷键"
-			},
-			"trayMenuRestoreLocation": {
-				"Text": "重置窗口位置"
-			},
-			"trayMenuAutoStart": {
-				"Text": "开机启动",
-				"ToolTipText": "设置或取消开机自动启动"
-			},
-			"trayMenuOpenConfigFile": {
-				"Text": "查看配置文件",
-				"ToolTipText": "打开配置文件"
-			},
-			"trayMenuHistory": {
-				"Text": "取色历史",
-				"ToolTipText": "查看取色历史记录"
-			},
-			"trayMenuCheckUpdate": {
-				"Text": "检查更新"
-			},
-			"trayMenuRestart": {
-				"Text": "重新启动"
-			},
-			"trayMenuShowAbout": {
-				"Text": "关于"
-			},
-			"trayMenuExit": {
-				"Text": "退出"
-			},
-			"trayMenuHideWindow": {
-				"Text": "隐藏窗口"
-			},
-			"trayMenuFollowCaret": {
-				"Text": "跟随模式"
-			},
-			"trayMenuFixed": {
-				"Text": "固定模式"
-			},
-			"trayMenuFormatMini": {
-				"Text": "迷你模式",
-				"ToolTipText": "只显示HEX格式"
-			},
-			"trayMenuFormatStandard": {
-				"Text": "标准模式",
-				"ToolTipText": "显示HEX格式和GRB格式"
-			},
-			"trayMenuFormatExtention": {
-				"Text": "扩展模式",
-				"ToolTipText": "显示HEX格式和GRB格式以及HSVB信息"
-			},
-			"trayMenuCopyPolicyHexValueOnly": {
-				"Text": "仅HEX值",
-				"ToolTipText": "只复制HEX值，此时不包含前面的#符号"
-			},
-			"trayMenuCopyPolicyRgbValueOnly": {
-				"Text": "仅RGB值",
-				"ToolTipText": "只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255"
-			},
-			"trayMenuCopyPolicyUpperCase": {
-				"Text": "大写值",
-				"ToolTipText": "选中时，复制大写值；否则复制小写值"
-			},
-			"trayMenuHsiAlgorithmGeometry": {
-				"Text": "几何推导法"
-			},
-			"trayMenuHsiAlgorithmAxis": {
-				"Text": "坐标变换法"
-			},
-			"trayMenuHsiAlgorithmSegment": {
-				"Text": "分段定义法"
-			},
-			"trayMenuHsiAlgorithmBajon": {
-				"Text": "Bajon近似算法"
-			},
-			"trayMenuHsiAlgorithmStandard": {
-				"Text": "标准模型法"
-			},
-			"trayMenuCheckUpdateOnStartup": {
-				"Text": "启动时检查",
-				"ToolTipText": "每天首次启动时检查更新"
-			},
-			"trayMenuLanguage": {
-				"Text": "选择语言",
-				"ToolTipText": "切换显示语言，重启软件后生效"
-			},
-			"trayMenuScreenShot": {
-				"Text": "截图",
-				"ToolTipText": "屏幕截图"
-			},
-			"trayMenuLanguageOther": {
-				"Text": "其它",
-				"ToolTipText": "选择其它语言"
-			},
-			"$this": {
-				"Text": "ColorWanted-屏幕取色器"
-			},
-			"lbHsl": {
-				"Text": "HSL(0,0,0)"
-			},
-			"lbHsi": {
-				"Text": "HSI(0,0,0)"
-			},
-			"lbHsb": {
-				"Text": "HSB(0,0,0)"
-			}
-		},
+        "MainForm": {
+            "btnScreenshot": {
+                "ToolTip": "点击截图"
+            },
+            "lbHex": {
+                "ToolTip": "十六进制颜色值，快速复制："
+            },
+            "lbRgb": {
+                "ToolTip": "RGB通道颜色值，快速复制：双击",
+                "Text": "RGB(0,0,0)"
+            },
+            "tray": {
+                "BalloonTipText": "屏幕取色器正在工作",
+                "Text": "ColorWanted-好用的Windows屏幕取色器",
+                "BalloonTipTitle": "ColorWanted"
+            },
+            "trayMenuDisplayMode": {
+                "Text": "窗口模式",
+                "ToolTipText": "切换不同的窗口模式"
+            },
+            "trayMenuFormatMode": {
+                "Text": "显示格式",
+                "ToolTipText": "设置是否显示RGB颜色值"
+            },
+            "trayMenuCopyPolicy": {
+                "Text": "复制策略",
+                "ToolTipText": "在复制颜色值时是否只复制值"
+            },
+            "trayMenuHsiAlgorithm": {
+                "Text": "HSI算法"
+            },
+            "trayMenuShowPreview": {
+                "Text": "显示预览窗口"
+            },
+            "trayMenuShowColorPicker": {
+                "Text": "打开调色板"
+            },
+            "trayMenuPixelScale": {
+                "Text": "像素放大算法",
+                "ToolTipText": "预览窗口使用像素放大算法预览图片"
+            },
+            "trayMenuAutoPin": {
+                "Text": "边缘自动吸附"
+            },
+            "trayMenuTheme": {
+                "Text": "主题配色"
+            },
+            "trayMenuHotkey": {
+                "Text": "快捷键"
+            },
+            "trayMenuRestoreLocation": {
+                "Text": "重置窗口位置"
+            },
+            "trayMenuAutoStart": {
+                "Text": "开机启动",
+                "ToolTipText": "设置或取消开机自动启动"
+            },
+            "trayMenuOpenConfigFile": {
+                "Text": "查看配置文件",
+                "ToolTipText": "打开配置文件"
+            },
+            "trayMenuHistory": {
+                "Text": "取色历史",
+                "ToolTipText": "查看取色历史记录"
+            },
+            "trayMenuCheckUpdate": {
+                "Text": "检查更新"
+            },
+            "trayMenuRestart": {
+                "Text": "重新启动"
+            },
+            "trayMenuShowAbout": {
+                "Text": "关于"
+            },
+            "trayMenuExit": {
+                "Text": "退出"
+            },
+            "trayMenuHideWindow": {
+                "Text": "隐藏窗口"
+            },
+            "trayMenuFollowCaret": {
+                "Text": "跟随模式"
+            },
+            "trayMenuFixed": {
+                "Text": "固定模式"
+            },
+            "trayMenuFormatMini": {
+                "Text": "迷你模式",
+                "ToolTipText": "只显示HEX格式"
+            },
+            "trayMenuFormatStandard": {
+                "Text": "标准模式",
+                "ToolTipText": "显示HEX格式和GRB格式"
+            },
+            "trayMenuFormatExtention": {
+                "Text": "扩展模式",
+                "ToolTipText": "显示HEX格式和GRB格式以及HSVB信息"
+            },
+            "trayMenuCopyPolicyHexValueOnly": {
+                "Text": "仅HEX值",
+                "ToolTipText": "只复制HEX值，此时不包含前面的#符号"
+            },
+            "trayMenuCopyPolicyRgbValueOnly": {
+                "Text": "仅RGB值",
+                "ToolTipText": "只复制RGB值，此时不包含RGBA()，只有值，如: 255,255,255"
+            },
+            "trayMenuCopyPolicyUpperCase": {
+                "Text": "大写值",
+                "ToolTipText": "选中时，复制大写值；否则复制小写值"
+            },
+            "trayMenuHsiAlgorithmGeometry": {
+                "Text": "几何推导法"
+            },
+            "trayMenuHsiAlgorithmAxis": {
+                "Text": "坐标变换法"
+            },
+            "trayMenuHsiAlgorithmSegment": {
+                "Text": "分段定义法"
+            },
+            "trayMenuHsiAlgorithmBajon": {
+                "Text": "Bajon近似算法"
+            },
+            "trayMenuHsiAlgorithmStandard": {
+                "Text": "标准模型法"
+            },
+            "trayMenuCheckUpdateOnStartup": {
+                "Text": "启动时检查",
+                "ToolTipText": "每天首次启动时检查更新"
+            },
+            "trayMenuLanguage": {
+                "Text": "选择语言",
+                "ToolTipText": "切换显示语言，重启软件后生效"
+            },
+            "trayMenuScreenShot": {
+                "Text": "截图",
+                "ToolTipText": "屏幕截图"
+            },
+            "trayMenuLanguageOther": {
+                "Text": "其它",
+                "ToolTipText": "选择其它语言"
+            },
+            "$this": {
+                "Text": "ColorWanted-屏幕取色器"
+            },
+            "lbHsl": {
+                "Text": "HSL(0,0,0)"
+            },
+            "lbHsi": {
+                "Text": "HSI(0,0,0)"
+            },
+            "lbHsb": {
+                "Text": "HSB(0,0,0)"
+            }
+        },
         "PreviewForm": {
             "$this": {
                 "Text": "ColorWanted-预览"

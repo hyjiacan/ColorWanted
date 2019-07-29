@@ -31,6 +31,7 @@ namespace ColorWanted
         {
             this.componentsSet = new System.ComponentModel.Container();
             i18n.I18nManager resources = new i18n.I18nManager(typeof(MainForm));
+            this.btnScreenshot = new System.Windows.Forms.Button();
             this.lbHex = new System.Windows.Forms.Label();
             this.lbRgb = new System.Windows.Forms.Label();
             this.tray = new System.Windows.Forms.NotifyIcon(this.componentsSet);
@@ -85,11 +86,28 @@ namespace ColorWanted
             this.pnExt.SuspendLayout();
             this.SuspendLayout();
             // 
+            // btnScreenshot
+            // 
+            resources.ApplyResources(this.btnScreenshot, "btnScreenshot");
+            this.btnScreenshot.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnScreenshot.Location = new System.Drawing.Point(0, 0);
+            this.btnScreenshot.Name = "lbHex";
+            this.btnScreenshot.Padding = new System.Windows.Forms.Padding(0);
+            this.btnScreenshot.Size = new System.Drawing.Size(20, 20);
+            this.btnScreenshot.TabIndex = 0;
+            this.btnScreenshot.Text = "X";
+            this.btnScreenshot.AutoSize = false;
+            this.btnScreenshot.FlatAppearance.BorderSize = 1;
+            this.btnScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.tooltip.SetToolTip(this.lbHex, resources.GetString("btnScreenshot.ToolTip"));
+            this.btnScreenshot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnScreenshot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnScreenshot_Click);
+            // 
             // lbHex
             // 
             resources.ApplyResources(this.lbHex, "lbHex");
             this.lbHex.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbHex.Location = new System.Drawing.Point(0, 0);
+            this.lbHex.Location = new System.Drawing.Point(20, 0);
             this.lbHex.Name = "lbHex";
             this.lbHex.Padding = new System.Windows.Forms.Padding(2);
             this.lbHex.Size = new System.Drawing.Size(68, 20);
@@ -461,7 +479,7 @@ namespace ColorWanted
             // 
             // lbColorPreview
             // 
-            this.lbColorPreview.Location = new System.Drawing.Point(69, 0);
+            this.lbColorPreview.Location = new System.Drawing.Point(89, 0);
             resources.ApplyResources(this.lbColorPreview, "lbColorPreview");
             this.lbColorPreview.Name = "lbColorPreview";
             this.lbColorPreview.Size = new System.Drawing.Size(20, 20);
@@ -529,6 +547,7 @@ namespace ColorWanted
             this.ContextMenuStrip = this.menu;
             this.ControlBox = false;
             this.Controls.Add(this.pnExt);
+            this.Controls.Add(this.btnScreenshot);
             this.Controls.Add(this.lbHex);
             this.Controls.Add(this.lbRgb);
             this.Controls.Add(this.lbColorPreview);
@@ -554,6 +573,7 @@ namespace ColorWanted
 
         #endregion
 
+        public System.Windows.Forms.Button btnScreenshot;
         public System.Windows.Forms.Label lbRgb;
         public System.Windows.Forms.Label lbHex;
         public System.Windows.Forms.NotifyIcon tray;

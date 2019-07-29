@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -47,10 +46,10 @@ namespace ColorWanted.screenshot
         /// 文字输入
         /// </summary>
         private TextBox textInput;
-        private ToolStripButton activeToolType;
+        private ToolStripButton activeToolShapeType;
         private ToolStripButton activeToolColor;
-        private ToolStripButton activeToolWidth;
-        private ToolStripButton activeToolStyle;
+        private ToolStripButton activeToolLineWidth;
+        private ToolStripButton activeToolLineStyle;
 
         public void Show(Bitmap img)
         {
@@ -61,7 +60,7 @@ namespace ColorWanted.screenshot
                 Color = Color.Blue
             };
             image = img;
-            picturePreview.BackgroundImage = img;
+            picturePreview.BackgroundImage = img.AsOpacity(0.7f);
             previewGraphics = picturePreview.CreateGraphics();
 
             new Thread(InitEditorToolbar) { IsBackground = true }.Start();
@@ -69,6 +68,7 @@ namespace ColorWanted.screenshot
             Refresh();
             Show();
             BringToFront();
+            TopMost = false;
         }
 
         /// <summary>
@@ -76,10 +76,10 @@ namespace ColorWanted.screenshot
         /// </summary>
         private void InitEditorToolbar()
         {
-            activeToolType = toolRectangle;
+            activeToolShapeType = toolRectangle;
             activeToolColor = toolColorRed;
-            activeToolWidth = toolWidth1;
-            activeToolWidth = toolStyleSolid;
+            activeToolLineWidth = toolWidth1;
+            activeToolLineWidth = toolStyleSolid;
 
             // 字体
             toolTextStyle.ForeColor = activeToolColor.BackColor;
@@ -283,7 +283,7 @@ namespace ColorWanted.screenshot
             // 然后可以重新选择截图区域
             if (e.Button == MouseButtons.Right)
             {
-                if (current != null && current.Type == DrawTypes.Text)
+                if (textInput != null && textInput.Visible)
                 {
                     HideTextInput();
                     return;
@@ -309,6 +309,7 @@ namespace ColorWanted.screenshot
             // 输入文字
             if (current != null && current.Type == DrawTypes.Text)
             {
+                CommitTextInput();
                 current.Start = e.Location;
                 ShowTextInput(e.Location);
                 return;
@@ -372,13 +373,23 @@ namespace ColorWanted.screenshot
                 // 为空表示绘制类型按钮
                 return;
             }
-            if (activeToolType != null)
+            if (activeToolShapeType != null)
             {
-                activeToolType.Checked = false;
+                activeToolShapeType.Checked = false;
             }
-            activeToolType = item;
+            activeToolShapeType = item;
             item.Checked = true;
             current.Type = (DrawTypes)Enum.Parse(typeof(DrawTypes), type.ToString());
+            if (current.Type == DrawTypes.Text)
+            {
+                toolbarLineType.Hide();
+                toolbarTextStyle.Show();
+            }
+            else
+            {
+                toolbarTextStyle.Hide();
+                toolbarLineType.Show();
+            }
         }
 
         private Bitmap GetResult()
@@ -432,6 +443,7 @@ namespace ColorWanted.screenshot
                     BorderStyle = BorderStyle.None,
                     ForeColor = current.Color,
                     Font = toolTextStyle.Font,
+                    //AcceptsReturn = true
                 };
                 textInput.KeyDown += (sender, e) =>
                 {
@@ -445,12 +457,7 @@ namespace ColorWanted.screenshot
                     // 按回车完成输入
                     if (e.KeyCode == Keys.Enter)
                     {
-                        current.Text = textInput.Text;
-                        history.Push(current);
-                        current = current.Copy();
-                        current.Reset();
-                        HideTextInput();
-                        Redraw();
+                        CommitTextInput();
                     }
                 };
                 Controls.Add(textInput);
@@ -503,28 +510,28 @@ namespace ColorWanted.screenshot
             item.ForeColor = util.ColorUtil.GetContrastColor(current.Color);
         }
 
-        private void ToolbarWidth_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void ToolbarLineWidth_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             var item = (ToolStripButton)e.ClickedItem;
 
-            if (activeToolWidth != null)
+            if (activeToolLineWidth != null)
             {
-                activeToolWidth.Checked = false;
+                activeToolLineWidth.Checked = false;
             }
-            activeToolWidth = item;
+            activeToolLineWidth = item;
             item.Checked = true;
             current.Width = int.Parse(item.Tag.ToString());
         }
 
-        private void ToolbarStyle_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void ToolbarLineType_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             var item = (ToolStripButton)e.ClickedItem;
 
-            if (activeToolStyle != null)
+            if (activeToolLineStyle != null)
             {
-                activeToolStyle.Checked = false;
+                activeToolLineStyle.Checked = false;
             }
-            activeToolStyle = item;
+            activeToolLineStyle = item;
             item.Checked = true;
             current.LineStyle = (LineStyles)Enum.Parse(typeof(LineStyles), item.Tag.ToString());
         }
@@ -551,6 +558,21 @@ namespace ColorWanted.screenshot
             }
 
             current.TextFont = toolTextStyle.Font = dialog.Font;
+        }
+
+        private void CommitTextInput()
+        {
+            if (textInput == null || string.IsNullOrWhiteSpace(textInput.Text))
+            {
+                return;
+            }
+            var text = textInput.Text.Trim();
+            current.Text = text;
+            history.Push(current);
+            current = current.Copy();
+            current.Reset();
+            HideTextInput();
+            Redraw();
         }
         #endregion
     }

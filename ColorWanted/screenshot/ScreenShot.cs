@@ -35,7 +35,18 @@ namespace ColorWanted.screenshot
             {
                 g.CopyFromScreen(0, 0, 0, 0, new Size(screenWidth, screenHeight));
             }
-            screenForm.Show(image);
+            try
+            {
+                screenForm.Show(image);
+            }
+            catch (System.Exception e)
+            {
+                if (screenForm != null)
+                {
+                    screenForm.Close();
+                }
+                throw e;
+            }
         }
     }
 }

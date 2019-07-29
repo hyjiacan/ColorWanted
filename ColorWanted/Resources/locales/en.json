@@ -189,156 +189,159 @@
                 "Text": "ColorWanted - Hotkeys"
             }
         },
-		"MainForm": {
-			"lbHex": {
-				"ToolTip": "Copy HEX value:"
-			},
-			"lbRgb": {
-				"ToolTip": "Copy RGB value: double press"
-			},
-			"tray": {
-				"BalloonTipText": "ColorWanted is running",
-				"Text": "ColorWanted-Screen color picker",
-				"BalloonTipTitle": "ColorWanted"
-			},
-			"trayMenuDisplayMode": {
-				"Text": "Window Mode",
-				"ToolTipText": "Switch window mode"
-			},
-			"trayMenuFormatMode": {
-				"Text": "Display Form",
-				"ToolTipText": "Show RGB or not"
-			},
-			"trayMenuCopyPolicy": {
-				"Text": "Copy Policy",
-				"ToolTipText": "Copy color value only (no addition symbols)"
-			},
-			"trayMenuHsiAlgorithm": {
-				"Text": "HSI Algorithm"
-			},
-			"trayMenuShowPreview": {
-				"Text": "Show Preview"
-			},
-			"trayMenuShowColorPicker": {
-				"Text": "Open Color picker"
-			},
-			"trayMenuPixelScale": {
-				"Text": "Pixel Scale",
-				"ToolTipText": "Use pixel scale to preview"
-			},
-			"trayMenuAutoPin": {
-				"Text": "Auto Adsorbent"
-			},
-			"trayMenuTheme": {
-				"Text": "Theme"
-			},
-			"trayMenuHotkey": {
-				"Text": "Hotkeys"
-			},
-			"trayMenuRestoreLocation": {
-				"Text": "Reset Position"
-			},
-			"trayMenuAutoStart": {
-				"Text": "Autorun",
-				"ToolTipText": "Toggle autorun ColorWanted at system startup or not"
-			},
-			"trayMenuOpenConfigFile": {
-				"Text": "Open Config",
-				"ToolTipText": "Open configuration file"
-			},
-			"trayMenuHistory": {
-				"Text": "Color History",
-				"ToolTipText": "Show color history (copied)"
-			},
-			"trayMenuCheckUpdate": {
-				"Text": "Check Update"
-			},
-			"trayMenuRestart": {
-				"Text": "Restart"
-			},
-			"trayMenuShowAbout": {
-				"Text": "About"
-			},
-			"trayMenuExit": {
-				"Text": "Exit"
-			},
-			"trayMenuHideWindow": {
-				"Text": "Hidden"
-			},
-			"trayMenuFollowCaret": {
-				"Text": "Follow"
-			},
-			"trayMenuFixed": {
-				"Text": "Fixed"
-			},
-			"trayMenuFormatMini": {
-				"Text": "Mini",
-				"ToolTipText": "Show HEX only"
-			},
-			"trayMenuFormatStandard": {
-				"Text": "Standard",
-				"ToolTipText": "Show HEX and RGB"
-			},
-			"trayMenuFormatExtention": {
-				"Text": "Extended",
-				"ToolTipText": "Show HEX, RGB, and HSVB"
-			},
-			"trayMenuCopyPolicyHexValueOnly": {
-				"Text": "HEX only",
-				"ToolTipText": "Copy HEX only, without symbol #"
-			},
-			"trayMenuCopyPolicyRgbValueOnly": {
-				"Text": "RGB only",
-				"ToolTipText": "Copy RGB only, without RGB(), e.g. 255,255,255"
-			},
-			"trayMenuCopyPolicyUpperCase": {
-				"Text": "Uppercase",
-				"ToolTipText": "Copy uppercase if checked, otherwise copy lowercase"
-			},
-			"trayMenuHsiAlgorithmGeometry": {
-				"Text": "Geometry"
-			},
-			"trayMenuHsiAlgorithmAxis": {
-				"Text": "Axis"
-			},
-			"trayMenuHsiAlgorithmSegment": {
-				"Text": "Segment"
-			},
-			"trayMenuHsiAlgorithmBajon": {
-				"Text": "Bajon"
-			},
-			"trayMenuHsiAlgorithmStandard": {
-				"Text": "Standard"
-			},
-			"trayMenuCheckUpdateOnStartup": {
-				"Text": "Check update at Startup",
-				"ToolTipText": "Check update at system startup per day"
-			},
-			"trayMenuLanguage": {
-				"Text": "Languages",
-				"ToolTipText": "Choose language, take affected after restart"
-			},
-			"trayMenuScreenShot": {
-				"Text": "Screenshot",
-				"ToolTipText": "Take screenshot"
-			},
-			"trayMenuLanguageOther": {
-				"Text": "Others",
-				"ToolTipText": "Choose other language"
-			},
-			"$this": {
-				"Text": "ColorWanted-Screen color picker"
-			},
-			"lbHsl": {
-				"Text": "HSL(0,0,0)"
-			},
-			"lbHsi": {
-				"Text": "HSI(0,0,0)"
-			},
-			"lbHsb": {
-				"Text": "HSB(0,0,0)"
-			}
-		},
+        "MainForm": {
+            "btnScreenshot": {
+                "ToolTip": "Click to take screenshot"
+            },
+            "lbHex": {
+                "ToolTip": "Copy HEX value:"
+            },
+            "lbRgb": {
+                "ToolTip": "Copy RGB value: double press"
+            },
+            "tray": {
+                "BalloonTipText": "ColorWanted is running",
+                "Text": "ColorWanted-Screen color picker",
+                "BalloonTipTitle": "ColorWanted"
+            },
+            "trayMenuDisplayMode": {
+                "Text": "Window Mode",
+                "ToolTipText": "Switch window mode"
+            },
+            "trayMenuFormatMode": {
+                "Text": "Display Form",
+                "ToolTipText": "Show RGB or not"
+            },
+            "trayMenuCopyPolicy": {
+                "Text": "Copy Policy",
+                "ToolTipText": "Copy color value only (no addition symbols)"
+            },
+            "trayMenuHsiAlgorithm": {
+                "Text": "HSI Algorithm"
+            },
+            "trayMenuShowPreview": {
+                "Text": "Show Preview"
+            },
+            "trayMenuShowColorPicker": {
+                "Text": "Open Color picker"
+            },
+            "trayMenuPixelScale": {
+                "Text": "Pixel Scale",
+                "ToolTipText": "Use pixel scale to preview"
+            },
+            "trayMenuAutoPin": {
+                "Text": "Auto Adsorbent"
+            },
+            "trayMenuTheme": {
+                "Text": "Theme"
+            },
+            "trayMenuHotkey": {
+                "Text": "Hotkeys"
+            },
+            "trayMenuRestoreLocation": {
+                "Text": "Reset Position"
+            },
+            "trayMenuAutoStart": {
+                "Text": "Autorun",
+                "ToolTipText": "Toggle autorun ColorWanted at system startup or not"
+            },
+            "trayMenuOpenConfigFile": {
+                "Text": "Open Config",
+                "ToolTipText": "Open configuration file"
+            },
+            "trayMenuHistory": {
+                "Text": "Color History",
+                "ToolTipText": "Show color history (copied)"
+            },
+            "trayMenuCheckUpdate": {
+                "Text": "Check Update"
+            },
+            "trayMenuRestart": {
+                "Text": "Restart"
+            },
+            "trayMenuShowAbout": {
+                "Text": "About"
+            },
+            "trayMenuExit": {
+                "Text": "Exit"
+            },
+            "trayMenuHideWindow": {
+                "Text": "Hidden"
+            },
+            "trayMenuFollowCaret": {
+                "Text": "Follow"
+            },
+            "trayMenuFixed": {
+                "Text": "Fixed"
+            },
+            "trayMenuFormatMini": {
+                "Text": "Mini",
+                "ToolTipText": "Show HEX only"
+            },
+            "trayMenuFormatStandard": {
+                "Text": "Standard",
+                "ToolTipText": "Show HEX and RGB"
+            },
+            "trayMenuFormatExtention": {
+                "Text": "Extended",
+                "ToolTipText": "Show HEX, RGB, and HSVB"
+            },
+            "trayMenuCopyPolicyHexValueOnly": {
+                "Text": "HEX only",
+                "ToolTipText": "Copy HEX only, without symbol #"
+            },
+            "trayMenuCopyPolicyRgbValueOnly": {
+                "Text": "RGB only",
+                "ToolTipText": "Copy RGB only, without RGB(), e.g. 255,255,255"
+            },
+            "trayMenuCopyPolicyUpperCase": {
+                "Text": "Uppercase",
+                "ToolTipText": "Copy uppercase if checked, otherwise copy lowercase"
+            },
+            "trayMenuHsiAlgorithmGeometry": {
+                "Text": "Geometry"
+            },
+            "trayMenuHsiAlgorithmAxis": {
+                "Text": "Axis"
+            },
+            "trayMenuHsiAlgorithmSegment": {
+                "Text": "Segment"
+            },
+            "trayMenuHsiAlgorithmBajon": {
+                "Text": "Bajon"
+            },
+            "trayMenuHsiAlgorithmStandard": {
+                "Text": "Standard"
+            },
+            "trayMenuCheckUpdateOnStartup": {
+                "Text": "Check update at Startup",
+                "ToolTipText": "Check update at system startup per day"
+            },
+            "trayMenuLanguage": {
+                "Text": "Languages",
+                "ToolTipText": "Choose language, take affected after restart"
+            },
+            "trayMenuScreenShot": {
+                "Text": "Screenshot",
+                "ToolTipText": "Take screenshot"
+            },
+            "trayMenuLanguageOther": {
+                "Text": "Others",
+                "ToolTipText": "Choose other language"
+            },
+            "$this": {
+                "Text": "ColorWanted-Screen color picker"
+            },
+            "lbHsl": {
+                "Text": "HSL(0,0,0)"
+            },
+            "lbHsi": {
+                "Text": "HSI(0,0,0)"
+            },
+            "lbHsb": {
+                "Text": "HSB(0,0,0)"
+            }
+        },
         "PreviewForm": {
             "$this": {
                 "Text": "ColorWanted-Preview"
