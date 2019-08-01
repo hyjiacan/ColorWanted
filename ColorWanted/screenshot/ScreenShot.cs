@@ -7,6 +7,7 @@ namespace ColorWanted.screenshot
     {
         private static int screenWidth;
         private static int screenHeight;
+        private static ScreenForm screenForm;
 
         /// <summary>
         /// 标记是否正在截图
@@ -22,8 +23,16 @@ namespace ColorWanted.screenshot
 
         public static void Capture()
         {
+            if (Busy)
+            {
+                return;
+            }
             Busy = true;
-            var screenForm = new ScreenForm();
+            if (screenForm != null)
+            {
+                screenForm = null;
+            }
+            screenForm = new ScreenForm();
             screenForm.FormClosed += (sender, e) =>
             {
                 Busy = false;
@@ -37,10 +46,11 @@ namespace ColorWanted.screenshot
             }
             try
             {
-                screenForm.Show(image);
+                screenForm.Show(image, screenWidth, screenHeight);
             }
             catch (System.Exception e)
             {
+                Busy = false;
                 if (screenForm != null)
                 {
                     screenForm.Close();

@@ -19,10 +19,6 @@
         /// </summary>
         Rectangle,
         /// <summary>
-        /// 圆形
-        /// </summary>
-        Circle,
-        /// <summary>
         /// 椭圆
         /// </summary>
         Ellipse,

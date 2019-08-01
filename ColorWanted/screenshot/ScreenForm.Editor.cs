@@ -39,6 +39,10 @@ namespace ColorWanted.screenshot
         /// </summary>
         private Bitmap selectedImage;
         /// <summary>
+        /// TODO 是否正在移动选区
+        /// </summary>
+        private bool movingSelection;
+        /// <summary>
         /// 编辑区域
         /// </summary>
         private PictureBox pictureEditor;
@@ -49,14 +53,22 @@ namespace ColorWanted.screenshot
         private ToolStripButton activeToolShapeType;
         private ToolStripButton activeToolColor;
         private ToolStripButton activeToolLineStyle;
+        private int screenWidth;
+        private int screenHeight;
 
-        public void Show(Bitmap img)
+        public void Show(Bitmap img, int screenWidth, int screenHeight)
         {
+            this.screenWidth = screenWidth;
+            this.screenHeight = screenHeight;
+
             history = new Stack<DrawRecord>();
             current = new DrawRecord
             {
                 Type = DrawTypes.Rectangle,
-                Color = Color.Blue
+                Color = Color.Blue,
+                //// 默认的全屏选区
+                //Start = new Point(0, 0),
+                //End = new Point(screenWidth - 1, screenHeight - 1)
             };
             image = img;
             picturePreview.BackgroundImage = img.AsOpacity(0.7f);
@@ -117,6 +129,28 @@ namespace ColorWanted.screenshot
             }
         }
 
+        private Point GetToolbarLocation(Control toolbar)
+        {
+            var location = new Point(current.End.X - toolbarMask.Width, current.End.Y + 2);
+            if (location.X < 0)
+            {
+                location.X = 0;
+            }
+            if (location.X + toolbar.Width > screenWidth)
+            {
+                location.X = screenWidth - toolbar.Width;
+            }
+            if (location.Y < 0)
+            {
+                location.Y = 0;
+            }
+            if (location.Y + toolbar.Height > screenHeight)
+            {
+                location.Y = screenHeight - toolbar.Height;
+            }
+            return location;
+        }
+
         #region 选区
         private void ToolMaskEdit_Click(object sender, System.EventArgs e)
         {
@@ -126,12 +160,14 @@ namespace ColorWanted.screenshot
         {
             if (selectedImage != null)
             {
+                // TODO 移动选区
                 return;
             }
 
             if (e.Button == MouseButtons.Right)
             {
                 // 重新选择
+                toolbarMask.Hide();
                 current.Reset();
                 picturePreview.Refresh();
                 return;
@@ -229,7 +265,7 @@ namespace ColorWanted.screenshot
             pictureEditor.BringToFront();
             editorGraphics = pictureEditor.CreateGraphics();
 
-            toolbarMask.Location = new Point(current.End.X - toolbarMask.Width, current.End.Y + 2);
+            toolbarMask.Location = GetToolbarLocation(toolbarMask);
             toolbarMask.Show();
             toolbarMask.BringToFront();
         }
@@ -238,13 +274,16 @@ namespace ColorWanted.screenshot
         {
             toolbarMask.Hide();
 
-            toolPanel.Location = new Point(current.End.X - toolPanel.Width, current.End.Y + 2);
+            toolPanel.Location = GetToolbarLocation(toolPanel);
             toolPanel.Show();
             toolPanel.BringToFront();
         }
 
         private void HideEdit()
         {
+            current.Reset();
+            current.Type = DrawTypes.Rectangle;
+
             toolPanel.Hide();
 
             selectedImage.Dispose();
@@ -305,6 +344,12 @@ namespace ColorWanted.screenshot
 
             if (!toolPanel.Visible)
             {
+                // 此时双击就直接复制
+                if (e.Clicks > 1)
+                {
+                    ToolOK_Click(null, null);
+                    return;
+                }
                 return;
             }
 
@@ -417,17 +462,19 @@ namespace ColorWanted.screenshot
 
         private void ToolSave_Click(object sender, System.EventArgs e)
         {
-            var result = new SaveFileDialog
+            using (var result = new SaveFileDialog
             {
                 AddExtension = true,
                 DefaultExt = ".png"
-            };
-            if (result.ShowDialog() != DialogResult.OK)
+            })
             {
-                return;
+                if (result.ShowDialog() != DialogResult.OK)
+                {
+                    return;
+                }
+                var img = GetResult();
+                img.Save(result.FileName);
             }
-            var img = GetResult();
-            img.Save(result.FileName);
             CloseForm();
         }
 
@@ -479,6 +526,7 @@ namespace ColorWanted.screenshot
             if (textInput != null)
             {
                 textInput.Hide();
+                Redraw();
             }
         }
 

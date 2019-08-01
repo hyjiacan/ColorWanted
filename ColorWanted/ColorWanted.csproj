@@ -187,15 +187,34 @@
     <Compile Include="util\Util.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screenshot\ScreenForm.resx">
+      <DependentUpon>ScreenForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
+    <None Include="Resources\picker.png" />
+    <None Include="Resources\solid-line.png" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\rect.png" />
+    <None Include="Resources\pen.png" />
+    <None Include="Resources\ok.png" />
+    <None Include="Resources\logo.jpg" />
+    <None Include="Resources\line.png" />
+    <None Include="Resources\font.png" />
+    <None Include="Resources\ellipse.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\dot-line.png" />
+    <None Include="Resources\dash-line.png" />
+    <None Include="Resources\curve.png" />
+    <None Include="Resources\circle.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\arrow.png" />
+    <None Include="Resources\text.png" />
     <None Include="Resources\locales\en.json" />
     <None Include="Resources\locales\zh.json" />
-    <None Include="Resources\logo.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

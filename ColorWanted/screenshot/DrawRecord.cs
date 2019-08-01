@@ -67,7 +67,7 @@ namespace ColorWanted.screenshot
         /// <summary>
         /// 是否偏移(起点终点是否相同)
         /// </summary>
-        public bool HasOffset => Start != End || PointSet.Any();
+        public bool HasOffset => Start != End || (Type == DrawTypes.Pen && PointSet.Any());
         /// <summary>
         /// 由起点终点形成的矩形
         /// </summary>

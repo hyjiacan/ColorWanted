@@ -95,10 +95,17 @@ namespace ColorWanted
             this.btnScreenshot.Padding = new System.Windows.Forms.Padding(0);
             this.btnScreenshot.Size = new System.Drawing.Size(20, 20);
             this.btnScreenshot.TabIndex = 0;
-            this.btnScreenshot.Text = "X";
+            this.btnScreenshot.Cursor = System.Windows.Forms.Cursors.Hand;
+            var img = new System.Drawing.Bitmap(20, 20);
+            using (var g = System.Drawing.Graphics.FromImage(img))
+            {
+                g.DrawEllipse(new System.Drawing.Pen(theme.ThemeUtil.GetCurrent().ForeColor),
+                    3, 3, 10, 10);
+            }
+            this.btnScreenshot.Image = img;
             this.btnScreenshot.AutoSize = false;
-            this.btnScreenshot.FlatAppearance.BorderSize = 1;
             this.btnScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnScreenshot.FlatAppearance.BorderSize = 0;
             this.tooltip.SetToolTip(this.lbHex, resources.GetString("btnScreenshot.ToolTip"));
             this.btnScreenshot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnScreenshot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnScreenshot_Click);

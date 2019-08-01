@@ -176,6 +176,22 @@ namespace ColorWanted.ext
         /// <returns></returns>
         public static Bitmap Cut(this Bitmap image, int x, int y, int width, int height)
         {
+            if (x < 0)
+            {
+                x = 0;
+            }
+            if (y < 0)
+            {
+                y = 0;
+            }
+            if (x + width > image.Width)
+            {
+                width = image.Width - x;
+            }
+            if (y + height > image.Height)
+            {
+                height = image.Height - y;
+            }
             using (var bitmap = new Bitmap(width, height))
             {
                 using (var graphic = Graphics.FromImage(bitmap))

@@ -25,21 +25,24 @@ namespace ColorWanted.ext
                 switch (record.Type)
                 {
                     case DrawTypes.Pen:
+                        pen.EndCap = LineCap.Round;
                         graphics.DrawCurve(pen, record.PointSet.ToArray());
-                        break;
-                    case DrawTypes.Circle:
-                        graphics.DrawEllipse(pen, record.Start.X, record.Start.Y, record.Distance, record.Distance);
                         break;
                     case DrawTypes.Ellipse:
                         graphics.DrawEllipse(pen, record.Rect);
                         break;
                     case DrawTypes.Line:
+                        pen.EndCap = LineCap.Round;
                         graphics.DrawLine(pen, record.Start, record.End);
                         break;
                     case DrawTypes.Rectangle:
                         graphics.DrawRectangle(pen, record.Rect);
                         break;
                     case DrawTypes.Text:
+                        if (string.IsNullOrWhiteSpace(record.Text))
+                        {
+                            return;
+                        }
                         graphics.DrawString(record.Text, record.TextFont, new SolidBrush(record.Color), record.Start);
                         break;
                     case DrawTypes.Arrow:

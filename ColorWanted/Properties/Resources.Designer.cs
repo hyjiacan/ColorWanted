@@ -61,35 +61,111 @@ namespace ColorWanted.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap arrow {
+            get {
+                object obj = ResourceManager.GetObject("arrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap cancel {
+            get {
+                object obj = ResourceManager.GetObject("cancel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap curve {
+            get {
+                object obj = ResourceManager.GetObject("curve", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap dash_line {
+            get {
+                object obj = ResourceManager.GetObject("dash_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap dot_line {
+            get {
+                object obj = ResourceManager.GetObject("dot_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap edit {
+            get {
+                object obj = ResourceManager.GetObject("edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap ellipse {
+            get {
+                object obj = ResourceManager.GetObject("ellipse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {
-        ///  &quot;locale&quot;: &quot;en-US&quot;,
-        ///  &quot;name&quot;: &quot;English&quot;,
-        ///  &quot;authors&quot;: [{
-        ///      &quot;name&quot;: &quot;hyjiacan&quot;,
-        ///      &quot;mail&quot;: &quot;hyjiacan@163.com&quot;,
-        ///      &quot;homepage&quot;: &quot;&quot;
-        ///    }
-        ///  ],
-        ///  &quot;resource&quot;: {
-        ///    &quot;AboutForm&quot;: {
-        ///      &quot;label2&quot;: {
-        ///        &quot;Text&quot;: &quot;About ColorWanted&quot;
-        ///      },
-        ///      &quot;label1&quot;: {
-        ///        &quot;Text&quot;: &quot;Open source Color picker&quot;
-        ///      },
-        ///      &quot;lkLicense&quot;: {
-        ///        &quot;ToolTip&quot;: &quot;Please follow the license&quot;,
-        ///        &quot;Text&quot;: &quot;&quot;
-        ///      },
-        ///      &quot;label4&quot;: {
-        ///        &quot;Text&quot;: &quot;Website&quot;
-        ///      },
-        ///      &quot;lkQQGroup&quot;: [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///    &quot;locale&quot;: &quot;en-US&quot;,
+        ///    &quot;name&quot;: &quot;English&quot;,
+        ///    &quot;version&quot;: &quot;1.0.0&quot;,
+        ///    &quot;authors&quot;: [
+        ///        {
+        ///            &quot;name&quot;: &quot;hyjiacan&quot;,
+        ///            &quot;mail&quot;: &quot;hyjiacan@163.com&quot;,
+        ///            &quot;homepage&quot;: &quot;&quot;
+        ///        }
+        ///    ],
+        ///    &quot;resource&quot;: {
+        ///        &quot;AboutForm&quot;: {
+        ///            &quot;label2&quot;: {
+        ///                &quot;Text&quot;: &quot;About ColorWanted&quot;
+        ///            },
+        ///            &quot;label1&quot;: {
+        ///                &quot;Text&quot;: &quot;Open source Color picker&quot;
+        ///            },
+        ///            &quot;lkLicense&quot;: {
+        ///                &quot;ToolTip&quot;: &quot;Please f [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string en {
             get {
                 return ResourceManager.GetString("en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap font {
+            get {
+                object obj = ResourceManager.GetObject("font", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -106,6 +182,16 @@ namespace ColorWanted.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap line {
+            get {
+                object obj = ResourceManager.GetObject("line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap logo {
             get {
                 object obj = ResourceManager.GetObject("logo", resourceCulture);
@@ -114,9 +200,80 @@ namespace ColorWanted.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap ok {
+            get {
+                object obj = ResourceManager.GetObject("ok", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap pen {
+            get {
+                object obj = ResourceManager.GetObject("pen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap picker {
+            get {
+                object obj = ResourceManager.GetObject("picker", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap rect {
+            get {
+                object obj = ResourceManager.GetObject("rect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap save {
+            get {
+                object obj = ResourceManager.GetObject("save", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap solid_line {
+            get {
+                object obj = ResourceManager.GetObject("solid_line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap text {
+            get {
+                object obj = ResourceManager.GetObject("text", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 {
         ///    &quot;locale&quot;: &quot;zh-CN&quot;,
         ///    &quot;name&quot;: &quot;简体中文&quot;,
+        ///    &quot;version&quot;: &quot;1.0.0&quot;,
         ///    &quot;authors&quot;: [
         ///        {
         ///            &quot;name&quot;: &quot;hyjiacan&quot;,
@@ -134,8 +291,7 @@ namespace ColorWanted.Properties {
         ///            },
         ///            &quot;lkLicense&quot;: {
         ///                &quot;ToolTip&quot;: &quot;使用本程序源码请遵守此开源协议&quot;
-        ///            },
-        ///            &quot;label4&quot;:  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///            } [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string zh {
             get {
