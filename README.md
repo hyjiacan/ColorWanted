@@ -48,9 +48,12 @@ A **HEX** color value will be copy after button **OK** clicked.
 - **Copy policy**
 You can just copy the color value by check **HEX only**/**RGB only** under **Copy policy**.
 - **HEX ony**: copy **FFFFFF** only, without symbol **#**
-- **RGB only**: copy **255,255,255* only, without **RGB()**.
+- **RGB only**: copy **255,255,255** only, without **RGB()**.
 
 Hotkey: `Alt+V`
+
+- **Screenshot**
+Click the **circle button** front of main window to take screenshot (via tray context menu or hotkey **Alt+X**).
 
 ## Hotkey
 
@@ -73,18 +76,30 @@ You can pause/resume preview by right click on preview window
 
 ## Screenshoot
 
+### Pick color
+
 ![Pick color](docs/img/1.png)
 
 > Pick the color of pixel which cursor on, color windows show HEX value and RGB value. The cross point show the scaled pixel.
 
+### Pixel scale
+
 ![Pixel scale](docs/img/2.png)
 > If you want to get color from a exactly pixel, you can just press **Alt+`** to pause preview, then move your cursor on preview window, then pick the color you want.
+
+### Customize hotkeys
 
 ![Customize hotkeys](docs/img/hotkey.png)
 
 > You can find all hotkey definitions here.
 
+### History
+
 ![history](docs/img/history.png)
+
+### Take screenshot
+
+![take screenshot](docs/img/screenshot.png)
 
 ## Open source license
 
