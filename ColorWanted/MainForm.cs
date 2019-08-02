@@ -115,6 +115,9 @@ namespace ColorWanted
             ThemeUtil.Apply(this);
             MainForm_ForeColorChanged(null, null);
 
+            // 干掉按钮边框
+            btnScreenshot.NoBorder();
+
             Height = 20;
             Width = 88;
             Init();

@@ -24,6 +24,27 @@ namespace ColorWanted.screenshot
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         }
 
+        private void ScreenForm_Load(object sender, System.EventArgs e)
+        {
+            // 设置工具按钮的背景为图片
+            // 以防止选中状态时，背景色不可用
+            SetToolstripButtonImage(toolColorBlack);
+            SetToolstripButtonImage(toolColorBlue);
+            SetToolstripButtonImage(toolColorGreen);
+            SetToolstripButtonImage(toolColorPurple);
+            SetToolstripButtonImage(toolColorRed);
+        }
+
+        private void SetToolstripButtonImage(ToolStripButton button)
+        {
+            var img = new Bitmap(20, 20);
+            var g = Graphics.FromImage(img);
+            g.Clear(button.BackColor);
+            button.Image = img;
+            button.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            button.ImageScaling = ToolStripItemImageScaling.None;
+        }
+
         //protected override CreateParams CreateParams
         //{
         //    get

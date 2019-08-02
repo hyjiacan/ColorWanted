@@ -59,6 +59,7 @@
     <Compile Include="colors\HsiAlgorithm.cs" />
     <Compile Include="colors\HSL.cs" />
     <Compile Include="ext\BitmapExtension.cs" />
+    <Compile Include="ext\ButtonExtension.cs" />
     <Compile Include="ext\GraphicsExtension.cs" />
     <Compile Include="ext\PictureBoxExtension.cs" />
     <Compile Include="i18n\Author.cs" />

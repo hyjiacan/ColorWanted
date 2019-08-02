@@ -549,8 +549,7 @@ namespace ColorWanted.screenshot
                 }
                 dialog.Dispose();
             }
-            toolTextStyle.ForeColor = item.BackColor = current.Color;
-            item.ForeColor = util.ColorUtil.GetContrastColor(current.Color);
+            toolTextStyle.ForeColor = current.Color;
         }
 
         private void ToolLineWidth_Scroll(object sender, System.EventArgs e)
