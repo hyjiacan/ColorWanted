@@ -96,19 +96,12 @@ namespace ColorWanted
             this.btnScreenshot.Size = new System.Drawing.Size(20, 20);
             this.btnScreenshot.TabIndex = 0;
             this.btnScreenshot.Cursor = System.Windows.Forms.Cursors.Hand;
-            var img = new System.Drawing.Bitmap(20, 20);
-            using (var g = System.Drawing.Graphics.FromImage(img))
-            {
-                g.DrawEllipse(new System.Drawing.Pen(theme.ThemeUtil.GetCurrent().ForeColor),
-                    3, 3, 10, 10);
-            }
-            this.btnScreenshot.Image = img;
             this.btnScreenshot.AutoSize = false;
             this.btnScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreenshot.FlatAppearance.BorderSize = 0;
             this.tooltip.SetToolTip(this.lbHex, resources.GetString("btnScreenshot.ToolTip"));
             this.btnScreenshot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnScreenshot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnScreenshot_Click);
+            this.btnScreenshot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnScreenshot_MouseDown);
             // 
             // lbHex
             // 
@@ -559,6 +552,7 @@ namespace ColorWanted
             this.Controls.Add(this.lbRgb);
             this.Controls.Add(this.lbColorPreview);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ForeColorChanged += MainForm_ForeColorChanged;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -577,7 +571,6 @@ namespace ColorWanted
             this.ResumeLayout(false);
 
         }
-
         #endregion
 
         public System.Windows.Forms.Button btnScreenshot;

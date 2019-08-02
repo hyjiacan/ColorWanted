@@ -39,10 +39,6 @@ namespace ColorWanted.screenshot
         /// </summary>
         private Bitmap selectedImage;
         /// <summary>
-        /// TODO 是否正在移动选区
-        /// </summary>
-        private bool movingSelection;
-        /// <summary>
         /// 编辑区域
         /// </summary>
         private PictureBox pictureEditor;
@@ -158,12 +154,6 @@ namespace ColorWanted.screenshot
         }
         private void PicturePreview_MouseDown(object sender, MouseEventArgs e)
         {
-            if (selectedImage != null)
-            {
-                // TODO 移动选区
-                return;
-            }
-
             if (e.Button == MouseButtons.Right)
             {
                 // 重新选择

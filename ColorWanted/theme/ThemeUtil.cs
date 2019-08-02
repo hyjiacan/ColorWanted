@@ -119,8 +119,8 @@ namespace ColorWanted.theme
             SetTheme(theme, form);
 
             // 设置阴影
-            NativeMethods.SetClassLong(form.Handle, NativeMethods.GCL_STYLE,
-               NativeMethods.GetClassLong(form.Handle, NativeMethods.GCL_STYLE) | NativeMethods.CS_DropSHADOW);
+            //NativeMethods.SetClassLong(form.Handle, NativeMethods.GCL_STYLE,
+            //   NativeMethods.GetClassLong(form.Handle, NativeMethods.GCL_STYLE) | NativeMethods.CS_DropSHADOW);
         }
     }
 }

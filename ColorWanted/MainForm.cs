@@ -95,7 +95,6 @@ namespace ColorWanted
         public MainForm()
         {
             componentsLayout();
-            ThemeUtil.Apply(this);
         }
 
         protected override CreateParams CreateParams
@@ -113,6 +112,9 @@ namespace ColorWanted
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            ThemeUtil.Apply(this);
+            MainForm_ForeColorChanged(null, null);
+
             Height = 20;
             Width = 88;
             Init();
@@ -274,6 +276,29 @@ namespace ColorWanted
             {
                 UpdateForm.ShowWindow(true);
             }
+        }
+
+        private void MainForm_ForeColorChanged(object sender, EventArgs e)
+        {
+            var img = new Bitmap(20, 20);
+            using (var g = Graphics.FromImage(img))
+            {
+                using (var brush = new SolidBrush(ForeColor))
+                {
+                    using (var pen = new Pen(brush))
+                    {
+                        g.DrawRectangle(pen, 0, 0, 18, 18);
+                        g.FillPolygon(brush, new[] {
+                            new Point(4, 8),
+                            new Point(8, 3),
+                            new Point(14, 8),
+                            new Point(8, 13)
+                        });
+                        g.DrawEllipse(pen, 2, 2, 13, 13);
+                    }
+                }
+            }
+            btnScreenshot.Image = img;
         }
 
         public void UpdateTooltip()
@@ -957,6 +982,10 @@ namespace ColorWanted
 
         private void trayMenuScreenShot_Click(object sender, EventArgs e)
         {
+            if (ScreenShot.Busy)
+            {
+                return;
+            }
             var mainVisible = this.Visible;
             var previewVisible = previewForm.Visible;
             if (mainVisible)
@@ -1360,9 +1389,20 @@ namespace ColorWanted
             tray.ShowBalloonTip(timeout, null, msg, ToolTipIcon.None);
         }
 
-        private void BtnScreenshot_Click(object sender, EventArgs e)
+        private void BtnScreenshot_MouseDown(object sender, MouseEventArgs e)
         {
-            ScreenShot.Capture();
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
+            if (e.Clicks > 1)
+            {
+                // 双击截图
+                trayMenuScreenShot_Click(null, null);
+                return;
+            }
+            // 直接按住拖动窗口
+            MouseDownEventHandler(sender, e);
         }
     }
 }

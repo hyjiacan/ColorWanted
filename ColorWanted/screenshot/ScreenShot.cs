@@ -23,10 +23,6 @@ namespace ColorWanted.screenshot
 
         public static void Capture()
         {
-            if (Busy)
-            {
-                return;
-            }
             Busy = true;
             if (screenForm != null)
             {
