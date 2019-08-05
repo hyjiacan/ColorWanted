@@ -290,7 +290,7 @@ namespace ColorWanted
                 {
                     using (var pen = new Pen(brush))
                     {
-                        g.DrawRectangle(pen, 0, 0, 18, 18);
+                        g.DrawRectangle(pen, 0, 0, 17, 17);
                         g.FillPolygon(brush, new[] {
                             new Point(4, 8),
                             new Point(8, 3),

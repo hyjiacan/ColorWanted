@@ -91,7 +91,7 @@ namespace ColorWanted
             resources.ApplyResources(this.btnScreenshot, "btnScreenshot");
             this.btnScreenshot.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnScreenshot.Location = new System.Drawing.Point(0, 0);
-            this.btnScreenshot.Name = "lbHex";
+            this.btnScreenshot.Name = "btnScreenshot";
             this.btnScreenshot.Padding = new System.Windows.Forms.Padding(0);
             this.btnScreenshot.Size = new System.Drawing.Size(20, 20);
             this.btnScreenshot.TabIndex = 0;
@@ -99,7 +99,7 @@ namespace ColorWanted
             this.btnScreenshot.AutoSize = false;
             this.btnScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreenshot.FlatAppearance.BorderSize = 0;
-            this.tooltip.SetToolTip(this.lbHex, resources.GetString("btnScreenshot.ToolTip"));
+            this.tooltip.SetToolTip(this.btnScreenshot, resources.GetString("btnScreenshot.ToolTip"));
             this.btnScreenshot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnScreenshot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnScreenshot_MouseDown);
             // 

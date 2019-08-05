@@ -185,7 +185,7 @@
         },
         "MainForm": {
             "btnScreenshot": {
-                "ToolTip": "点击截图"
+                "ToolTip": "双击截图"
             },
             "lbHex": {
                 "ToolTip": "十六进制颜色值，快速复制："

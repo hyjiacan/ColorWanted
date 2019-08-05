@@ -191,7 +191,7 @@
         },
         "MainForm": {
             "btnScreenshot": {
-                "ToolTip": "Click to take screenshot"
+                "ToolTip": "Double click to take screenshot"
             },
             "lbHex": {
                 "ToolTip": "Copy HEX value:"
