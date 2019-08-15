@@ -45,7 +45,9 @@ namespace ColorWanted
         /// 取色窗口移动周期
         /// </summary>
         private const int caretInterval = 50;
-
+        /// <summary>
+        /// 配置是否加载完成
+        /// </summary>
         private bool settingLoaded;
         private PreviewForm previewForm;
         private ThemeForm themeForm;
@@ -357,10 +359,16 @@ namespace ColorWanted
                 settingLoaded = true;
             }
 
+            // 如果光标位置不变，就不绘制了
+            if (MousePosition.Equals(lastPosition))
+            {
+                return;
+            }
+
             var color = ColorUtil.GetColor(MousePosition);
 
-            // 如果光标位置不变，颜色也不变，就不绘制了
-            if (MousePosition.Equals(lastPosition) && color.Equals(lastColor))
+            // 如果颜色不变，就不绘制了
+            if (color.Equals(lastColor))
             {
                 return;
             }

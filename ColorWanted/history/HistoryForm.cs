@@ -33,7 +33,6 @@ namespace ColorWanted.history
         private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
-            Dispose();
         }
 
         private void linkFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
