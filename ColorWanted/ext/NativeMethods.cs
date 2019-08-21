@@ -84,7 +84,7 @@ namespace ColorWanted.ext
         public static extern bool CloseClipboard();
 
         [DllImport("kernel32.dll")]
-        public static extern IntPtr GlobalAlloc(uint uFlags, long dwBytes);
+        public static extern IntPtr GlobalAlloc(uint uFlags, int dwBytes);
         [DllImport("kernel32.dll")]
         public static extern IntPtr GlobalLock(IntPtr hMem);
         [DllImport("kernel32.dll")]

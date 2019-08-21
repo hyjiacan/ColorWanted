@@ -17,6 +17,14 @@
             {
                 componentsSet.Dispose();
             }
+            if (disposing && (image != null))
+            {
+                image.Dispose();
+            }
+            if (disposing && (image != null))
+            {
+                image.Dispose();
+            }
             base.Dispose(disposing);
         }
 

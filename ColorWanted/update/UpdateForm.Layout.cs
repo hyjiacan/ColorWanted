@@ -17,6 +17,14 @@
             {
                 componentsSet.Dispose();
             }
+            if (disposing && (hideTimer != null))
+            {
+                hideTimer.Dispose();
+            }
+            if (disposing && (reverseLogo != null))
+            {
+                reverseLogo.Dispose();
+            }
             base.Dispose(disposing);
         }
 
