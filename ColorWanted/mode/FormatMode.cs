@@ -16,6 +16,10 @@
         /// <summary>
         /// 扩展模式，显示HEX和RGB格式以及HSVB信息
         /// </summary>
-        Extention
+        Extention,
+        /// <summary>
+        /// 截图模式，只显示截图按钮
+        /// </summary>
+        Shot
     }
 }

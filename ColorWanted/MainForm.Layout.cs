@@ -44,6 +44,7 @@ namespace ColorWanted
             this.trayMenuFormatMini = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFormatStandard = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuFormatExtention = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuFormatShot = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCopyPolicy = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCopyPolicyHexValueOnly = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuCopyPolicyRgbValueOnly = new System.Windows.Forms.ToolStripMenuItem();
@@ -209,7 +210,8 @@ namespace ColorWanted
             this.trayMenuFormatMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trayMenuFormatMini,
             this.trayMenuFormatStandard,
-            this.trayMenuFormatExtention});
+            this.trayMenuFormatExtention,
+            this.trayMenuFormatShot});
             this.trayMenuFormatMode.Name = "trayMenuFormatMode";
             this.trayMenuFormatMode.Size = new System.Drawing.Size(148, 22);
             // 
@@ -234,7 +236,14 @@ namespace ColorWanted
             resources.ApplyResources(this.trayMenuFormatExtention, "trayMenuFormatExtention");
             this.trayMenuFormatExtention.Name = "trayMenuFormatExtention";
             this.trayMenuFormatExtention.Size = new System.Drawing.Size(124, 22);
-            this.trayMenuFormatExtention.Click += new EventHandler(this.trayMenuFormatExtention_Click);
+            this.trayMenuFormatExtention.Click += new EventHandler(this.trayMenuFormatExtention_Click); 
+            // 
+            // trayMenuFormatShot
+            // 
+            resources.ApplyResources(this.trayMenuFormatShot, "trayMenuFormatShot");
+            this.trayMenuFormatShot.Name = "trayMenuFormatShot";
+            this.trayMenuFormatShot.Size = new System.Drawing.Size(124, 22);
+            this.trayMenuFormatShot.Click += new EventHandler(this.trayMenuFormatShot_Click);
             // 
             // trayMenuCopyPolicy
             // 
@@ -595,7 +604,9 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuOpenConfigFile;
         public System.Windows.Forms.ToolStripMenuItem trayMenuFormatMode;
         public System.Windows.Forms.ToolStripMenuItem trayMenuFormatMini;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFormatStandard;
         public System.Windows.Forms.ToolStripMenuItem trayMenuFormatExtention;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuFormatShot;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicy;
         public System.Windows.Forms.ToolStripMenuItem trayMenuCopyPolicyHexValueOnly;
@@ -612,7 +623,6 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuTheme;
         public System.Windows.Forms.Label lbColorPreview;
         public System.Windows.Forms.ToolStripMenuItem trayMenuPixelScale;
-        public System.Windows.Forms.ToolStripMenuItem trayMenuFormatStandard;
         public System.Windows.Forms.Label lbHsl;
         public System.Windows.Forms.Label lbHsb;
         public System.Windows.Forms.Panel pnExt;

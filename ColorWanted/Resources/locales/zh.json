@@ -133,7 +133,7 @@
                 "": "切换窗口模式(隐藏/固定/跟随)"
             },
             "SwitchDisplayMode": {
-                "": "切换显示模式(迷你/标准/扩展)"
+                "": "切换显示模式(迷你/标准/扩展/截图)"
             },
             "CopyColor": {
                 "": "复制颜色值，单击复制十六进制格式,双击复制RGB格式"
@@ -280,6 +280,10 @@
             "trayMenuFormatExtention": {
                 "Text": "扩展模式",
                 "ToolTipText": "显示HEX格式和GRB格式以及HSVB信息"
+            },
+            "trayMenuFormatShot": {
+                "Text": "截图模式",
+                "ToolTipText": "只显示截图按钮"
             },
             "trayMenuCopyPolicyHexValueOnly": {
                 "Text": "仅HEX值",

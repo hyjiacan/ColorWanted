@@ -796,6 +796,11 @@ namespace ColorWanted
         {
             SwitchFormatMode(FormatMode.Extention);
         }
+        
+        private void trayMenuFormatShot_Click(object sender, EventArgs e)
+        {
+            SwitchFormatMode(FormatMode.Shot);
+        }
 
         private void trayMenuCopyPolicyHexValueOnly_Click(object sender, EventArgs e)
         {
@@ -1211,8 +1216,10 @@ namespace ColorWanted
                     trayMenuFormatMini.Checked = true;
                     trayMenuFormatStandard.Checked = false;
                     trayMenuFormatExtention.Checked = false;
+                    trayMenuFormatShot.Checked = false;
 
                     lbHex.Width = 68;
+                    lbHex.Visible = true;
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
                     Height = 20;
@@ -1222,11 +1229,13 @@ namespace ColorWanted
                     trayMenuFormatMini.Checked = false;
                     trayMenuFormatStandard.Checked = true;
                     trayMenuFormatExtention.Checked = false;
+                    trayMenuFormatShot.Checked = false;
 
                     lbHex.Width = 68;
                     lbRgb.Width = 140;
                     lbRgb.Left = 68;
                     lbRgb.Top = 0;
+                    lbHex.Visible = true;
                     lbRgb.Visible = true;
                     pnExt.Visible = false;
                     Height = 20;
@@ -1236,15 +1245,29 @@ namespace ColorWanted
                     trayMenuFormatMini.Checked = false;
                     trayMenuFormatStandard.Checked = false;
                     trayMenuFormatExtention.Checked = true;
+                    trayMenuFormatShot.Checked = false;
 
                     lbHex.Width = 180;
                     lbRgb.Width = 180;
                     lbRgb.Left = 0;
                     lbRgb.Top = 20;
+                    lbHex.Visible = true;
                     lbRgb.Visible = true;
                     pnExt.Visible = true;
                     Height = 100;
                     Width = 180;
+                    break;
+                case FormatMode.Shot:
+                    trayMenuFormatMini.Checked = false;
+                    trayMenuFormatStandard.Checked = false;
+                    trayMenuFormatExtention.Checked = false;
+                    trayMenuFormatShot.Checked = true;
+
+                    lbHex.Visible = false;
+                    lbRgb.Visible = false;
+                    pnExt.Visible = false;
+                    Height = 20;
+                    Width = 20;
                     break;
             }
             currentFormatMode = mode;

@@ -139,7 +139,7 @@
                 "": "Switch window mode(hidden/fixed/follow)"
             },
             "SwitchDisplayMode": {
-                "": "Switch display mode(mini/standard/extended)"
+                "": "Switch display mode(mini/standard/extended/shot)"
             },
             "CopyColor": {
                 "": "Copy value, press to copy HEX, double for RGB"
@@ -285,6 +285,10 @@
             "trayMenuFormatExtention": {
                 "Text": "Extended",
                 "ToolTipText": "Show HEX, RGB, and HSVB"
+            },
+            "trayMenuFormatShot": {
+                "Text": "Shot",
+                "ToolTipText": "Show screenshot button only"
             },
             "trayMenuCopyPolicyHexValueOnly": {
                 "Text": "HEX only",
