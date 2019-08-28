@@ -796,7 +796,7 @@ namespace ColorWanted
         {
             SwitchFormatMode(FormatMode.Extention);
         }
-        
+
         private void trayMenuFormatShot_Click(object sender, EventArgs e)
         {
             SwitchFormatMode(FormatMode.Shot);
@@ -1233,13 +1233,13 @@ namespace ColorWanted
 
                     lbHex.Width = 68;
                     lbRgb.Width = 140;
-                    lbRgb.Left = 68;
+                    lbRgb.Left = 88;
                     lbRgb.Top = 0;
                     lbHex.Visible = true;
                     lbRgb.Visible = true;
                     pnExt.Visible = false;
                     Height = 20;
-                    Width = 208;
+                    Width = 228;
                     break;
                 case FormatMode.Extention:
                     trayMenuFormatMini.Checked = false;
@@ -1247,7 +1247,8 @@ namespace ColorWanted
                     trayMenuFormatExtention.Checked = true;
                     trayMenuFormatShot.Checked = false;
 
-                    lbHex.Width = 180;
+                    // 让两边都留下20宽度，以使显示居中
+                    lbHex.Width = 140;
                     lbRgb.Width = 180;
                     lbRgb.Left = 0;
                     lbRgb.Top = 20;
@@ -1275,6 +1276,11 @@ namespace ColorWanted
             if (settingLoaded)
             {
                 Settings.Main.Format = mode;
+            }
+            // 切换了显示格式后，自动重算预览窗口位置
+            if (previewForm.Visible && Settings.Preview.PinPosition != PinPosition.None)
+            {
+                UpdatePreviewPosition();
             }
         }
 
