@@ -4,8 +4,20 @@ using ColorWanted.ext;
 
 namespace ColorWanted.util
 {
-    internal class ColorUtil
+    internal static class ColorUtil
     {
+        private readonly static IntPtr displayDC;
+
+        static ColorUtil()
+        {
+            displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
+        }
+
+        public static void DeleteDC()
+        {
+            NativeMethods.DeleteDC(displayDC);
+        }
+
         public static byte GetRValue(uint color)
         {
             return (byte)color;
@@ -23,10 +35,7 @@ namespace ColorWanted.util
 
         public static Color GetColor(Point screenPoint)
         {
-            var displayDC = NativeMethods.CreateDC("DISPLAY", null, null, IntPtr.Zero);
             var colorref = NativeMethods.GetPixel(displayDC, screenPoint.X, screenPoint.Y);
-            NativeMethods.DeleteDC(displayDC);
-            // return ColorTranslator.FromWin32((int)colorref);
             return Color.FromArgb(GetRValue(colorref), GetGValue(colorref), GetBValue(colorref));
         }
 
