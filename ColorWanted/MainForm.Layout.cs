@@ -101,7 +101,6 @@ namespace ColorWanted
             this.btnScreenshot.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreenshot.FlatAppearance.BorderSize = 0;
             this.tooltip.SetToolTip(this.btnScreenshot, resources.GetString("btnScreenshot.ToolTip"));
-            this.btnScreenshot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnScreenshot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnScreenshot_MouseDown);
             // 
             // lbHex
@@ -114,22 +113,82 @@ namespace ColorWanted
             this.lbHex.Size = new System.Drawing.Size(68, 20);
             this.lbHex.TabIndex = 0;
             this.tooltip.SetToolTip(this.lbHex, resources.GetString("lbHex.ToolTip"));
-            this.lbHex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbHex.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbHex.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // lbRgb
             // 
             resources.ApplyResources(this.lbRgb, "lbRgb");
-            this.lbRgb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbRgb.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRgb.Location = new System.Drawing.Point(0, 20);
             this.lbRgb.Name = "lbRgb";
             this.lbRgb.Padding = new System.Windows.Forms.Padding(2);
             this.lbRgb.Size = new System.Drawing.Size(140, 20);
             this.lbRgb.TabIndex = 0;
             this.tooltip.SetToolTip(this.lbRgb, resources.GetString("lbRgb.ToolTip"));
-            this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbRgb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbRgb.Visible = false;
             this.lbRgb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
+            // 
+            // lbColorPreview
+            // 
+            this.lbColorPreview.Location = new System.Drawing.Point(89, 0);
+            resources.ApplyResources(this.lbColorPreview, "lbColorPreview");
+            this.lbColorPreview.Name = "lbColorPreview";
+            this.lbColorPreview.Size = new System.Drawing.Size(20, 20);
+            this.lbColorPreview.TabIndex = 1;
+            this.tooltip.SetToolTip(this.lbColorPreview, resources.GetString("lbColorPreview.ToolTip"));
+            // 
+            // lbHsl
+            // 
+            this.lbHsl.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            resources.ApplyResources(this.lbHsl, "lbHsl");
+            this.lbHsl.Location = new System.Drawing.Point(0, 0);
+            this.lbHsl.Name = "lbHsl";
+            this.lbHsl.Padding = new System.Windows.Forms.Padding(2);
+            this.tooltip.SetToolTip(this.lbHsl, resources.GetString("lbHsl.ToolTip"));
+            this.lbHsl.Size = new System.Drawing.Size(180, 20);
+            this.lbHsl.TabIndex = 2;
+            this.lbHsl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbHsl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
+            // 
+            // lbHsb
+            // 
+            this.lbHsb.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHsb.Location = new System.Drawing.Point(0, 20);
+            resources.ApplyResources(this.lbHsb, "lbHsb");
+            this.lbHsb.Name = "lbHsb";
+            this.lbHsb.Padding = new System.Windows.Forms.Padding(2);
+            this.lbHsb.Size = new System.Drawing.Size(180, 20);
+            this.lbHsb.TabIndex = 3;
+            this.tooltip.SetToolTip(this.lbHsb, resources.GetString("lbHsb.ToolTip"));
+            this.lbHsb.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbHsb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
+            // 
+            // pnExt
+            // 
+            resources.ApplyResources(this.pnExt, "pnExt");
+            this.pnExt.Controls.Add(this.lbHsb);
+            this.pnExt.Controls.Add(this.lbHsi);
+            this.pnExt.Controls.Add(this.lbHsl);
+            this.pnExt.Location = new System.Drawing.Point(0, 40);
+            this.pnExt.Name = "pnExt";
+            this.pnExt.Size = new System.Drawing.Size(180, 60);
+            this.pnExt.TabIndex = 4;
+            this.tooltip.SetToolTip(this.pnExt, resources.GetString("pnExt.ToolTip"));
+            // 
+            // lbHsi
+            // 
+            this.lbHsi.Font = new System.Drawing.Font("宋体", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHsi.Location = new System.Drawing.Point(0, 40);
+            resources.ApplyResources(this.lbHsi, "lbHsi");
+            this.lbHsi.Name = "lbHsi";
+            this.lbHsi.Padding = new System.Windows.Forms.Padding(2);
+            this.lbHsi.Size = new System.Drawing.Size(180, 20);
+            this.lbHsi.TabIndex = 5;
+            this.tooltip.SetToolTip(this.lbHsi, resources.GetString("lbHsi.ToolTip"));
+            this.lbHsi.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbHsi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // tray
             // 
@@ -485,66 +544,6 @@ namespace ColorWanted
             this.trayMenuExit.Name = "trayMenuExit";
             this.trayMenuExit.Size = new System.Drawing.Size(148, 22);
             this.trayMenuExit.Click += new EventHandler(this.trayMenuExit_Click);
-            // 
-            // lbColorPreview
-            // 
-            this.lbColorPreview.Location = new System.Drawing.Point(89, 0);
-            resources.ApplyResources(this.lbColorPreview, "lbColorPreview");
-            this.lbColorPreview.Name = "lbColorPreview";
-            this.lbColorPreview.Size = new System.Drawing.Size(20, 20);
-            this.lbColorPreview.TabIndex = 1;
-            this.tooltip.SetToolTip(this.lbColorPreview, resources.GetString("lbColorPreview.ToolTip"));
-            // 
-            // lbHsl
-            // 
-            this.lbHsl.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            resources.ApplyResources(this.lbHsl, "lbHsl");
-            this.lbHsl.Location = new System.Drawing.Point(0, 0);
-            this.lbHsl.Name = "lbHsl";
-            this.lbHsl.Padding = new System.Windows.Forms.Padding(2);
-            this.tooltip.SetToolTip(this.lbHsl, resources.GetString("lbHsl.ToolTip"));
-            this.lbHsl.Size = new System.Drawing.Size(180, 20);
-            this.lbHsl.TabIndex = 2;
-            this.lbHsl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbHsl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            // 
-            // lbHsb
-            // 
-            this.lbHsb.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbHsb.Location = new System.Drawing.Point(0, 20);
-            resources.ApplyResources(this.lbHsb, "lbHsb");
-            this.lbHsb.Name = "lbHsb";
-            this.lbHsb.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHsb.Size = new System.Drawing.Size(180, 20);
-            this.lbHsb.TabIndex = 3;
-            this.tooltip.SetToolTip(this.lbHsb, resources.GetString("lbHsb.ToolTip"));
-            this.lbHsb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbHsb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
-            // 
-            // pnExt
-            // 
-            resources.ApplyResources(this.pnExt, "pnExt");
-            this.pnExt.Controls.Add(this.lbHsb);
-            this.pnExt.Controls.Add(this.lbHsi);
-            this.pnExt.Controls.Add(this.lbHsl);
-            this.pnExt.Location = new System.Drawing.Point(0, 40);
-            this.pnExt.Name = "pnExt";
-            this.pnExt.Size = new System.Drawing.Size(180, 60);
-            this.pnExt.TabIndex = 4;
-            this.tooltip.SetToolTip(this.pnExt, resources.GetString("pnExt.ToolTip"));
-            // 
-            // lbHsi
-            // 
-            this.lbHsi.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lbHsi.Location = new System.Drawing.Point(0, 40);
-            resources.ApplyResources(this.lbHsi, "lbHsi");
-            this.lbHsi.Name = "lbHsi";
-            this.lbHsi.Padding = new System.Windows.Forms.Padding(2);
-            this.lbHsi.Size = new System.Drawing.Size(180, 20);
-            this.lbHsi.TabIndex = 5;
-            this.tooltip.SetToolTip(this.lbHsi, resources.GetString("lbHsi.ToolTip"));
-            this.lbHsi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbHsi.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             // 
             // MainForm
             // 

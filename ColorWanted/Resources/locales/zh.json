@@ -195,8 +195,8 @@
                 "Text": "RGB(0,0,0)"
             },
             "tray": {
-                "BalloonTipText": "屏幕取色器正在工作",
-                "Text": "ColorWanted-好用的Windows屏幕取色器",
+                "BalloonTipText": "ColorWanted正在工作",
+                "Text": "ColorWanted-屏幕取色器",
                 "BalloonTipTitle": "ColorWanted"
             },
             "trayMenuDisplayMode": {
