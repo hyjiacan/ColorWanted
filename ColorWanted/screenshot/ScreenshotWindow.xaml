@@ -1,0 +1,17 @@
+﻿<Window x:Class="ColorWanted.screenshot.ScreenshotWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ColorWanted.screenshot"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Grid>
+        <Canvas x:Name="canvasMask" MouseLeftButtonDown="CanvasMask_MouseLeftButtonDown" MouseLeftButtonUp="CanvasMask_MouseLeftButtonUp" MouseMove="CanvasMask_MouseMove">
+            <Canvas.Background>
+                <ImageBrush x:Name="maskBackground"></ImageBrush>
+            </Canvas.Background>
+            <Canvas x:Name="canvasEdit" Height="100" Canvas.Left="345" Canvas.Top="229" Width="100" Visibility="Hidden"/>
+        </Canvas>
+    </Grid>
+</Window>

@@ -7,7 +7,7 @@ namespace ColorWanted.screenshot
     {
         private static int screenWidth;
         private static int screenHeight;
-        private static ScreenForm screenForm;
+        private static ScreenshotWindow screenshotWindow;
 
         /// <summary>
         /// 标记是否正在截图
@@ -24,15 +24,15 @@ namespace ColorWanted.screenshot
         public static void Capture()
         {
             Busy = true;
-            if (screenForm != null)
+            if (screenshotWindow != null)
             {
-                screenForm = null;
+                screenshotWindow = null;
             }
-            screenForm = new ScreenForm();
-            screenForm.FormClosed += (sender, e) =>
+            screenshotWindow = new ScreenshotWindow();
+            screenshotWindow.Closed += (sender, e) =>
             {
                 Busy = false;
-                screenForm = null;
+                screenshotWindow = null;
                 System.GC.Collect();
             };
             var image = new Bitmap(screenWidth, screenHeight);
@@ -42,14 +42,14 @@ namespace ColorWanted.screenshot
             }
             try
             {
-                screenForm.Show(image, screenWidth, screenHeight);
+                screenshotWindow.Show(image, screenWidth, screenHeight);
             }
             catch (System.Exception e)
             {
                 Busy = false;
-                if (screenForm != null)
+                if (screenshotWindow != null)
                 {
-                    screenForm.Close();
+                    screenshotWindow.Close();
                 }
                 throw e;
             }

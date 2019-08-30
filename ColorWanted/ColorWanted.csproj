@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2075F17B-819D-4D7E-BB02-FB7E3F618551}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ColorWanted</RootNamespace>
     <AssemblyName>ColorWanted</AssemblyName>
@@ -45,6 +45,7 @@
     <StartupObject>ColorWanted.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +53,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Presentation" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="colors\HSI.cs" />
@@ -60,7 +64,7 @@
     <Compile Include="colors\HSL.cs" />
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\ButtonExtension.cs" />
-    <Compile Include="ext\GraphicsExtension.cs" />
+    <Compile Include="ext\CanvasExtension.cs" />
     <Compile Include="ext\PictureBoxExtension.cs" />
     <Compile Include="i18n\Author.cs" />
     <Compile Include="i18n\I18nManager.cs" />
@@ -75,15 +79,8 @@
     <Compile Include="screenshot\DrawTypes.cs" />
     <Compile Include="screenshot\LineStyles.cs" />
     <Compile Include="screenshot\ScreenShot.cs" />
-    <Compile Include="screenshot\ScreenForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="screenshot\ScreenForm.Designer.cs">
-      <DependentUpon>ScreenForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="screenshot\ScreenForm.Editor.cs">
-      <DependentUpon>ScreenForm.cs</DependentUpon>
-      <SubType>Form</SubType>
+    <Compile Include="screenshot\ScreenshotWindow.xaml.cs">
+      <DependentUpon>ScreenshotWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="setting\Settings.I18n.cs" />
@@ -189,9 +186,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="screenshot\ScreenForm.resx">
-      <DependentUpon>ScreenForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="logo.ico" />
@@ -216,7 +210,12 @@
     <None Include="Resources\locales\en.json" />
     <None Include="Resources\locales\zh.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="screenshot\ScreenshotWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

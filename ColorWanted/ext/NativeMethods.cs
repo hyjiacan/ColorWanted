@@ -100,5 +100,10 @@ namespace ColorWanted.ext
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern int GetClassLong(IntPtr hwnd, int nIndex);
         #endregion
+
+        #region GDI
+        [DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr o);
+        #endregion
     }
 }

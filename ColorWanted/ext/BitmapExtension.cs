@@ -2,6 +2,9 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace ColorWanted.ext
 {
@@ -221,7 +224,7 @@ namespace ColorWanted.ext
         /// <param name="image"></param>
         /// <param name="opacity"></param>
         /// <returns>修改透明度后的新图片</returns>
-        public static Bitmap AsOpacity(this Bitmap image, float opacity = 0.3f, DrawRecord border = null)
+        public static Bitmap AsOpacity(this Bitmap image, float opacity = 0.3f)
         {
             var matrix = new ColorMatrix(new float[][]{
                 new float[] {1, 0, 0, 0, 0},
@@ -236,13 +239,18 @@ namespace ColorWanted.ext
             Graphics g = Graphics.FromImage(resultImage);
             g.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
                 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
-            if (border != null)
-            {
-                g.Draw(border);
-            }
             matrix = null;
             GC.Collect();
             return resultImage;
+        }
+
+        public static BitmapSource AsResource(this Bitmap image)
+        {
+            var handle = image.GetHbitmap();
+            var resource = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            // 解决可能导致内存占用高的问题
+            NativeMethods.DeleteObject(handle);
+            return resource;
         }
     }
 }

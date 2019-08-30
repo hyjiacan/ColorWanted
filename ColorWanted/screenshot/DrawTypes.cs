@@ -1,6 +1,6 @@
 ﻿namespace ColorWanted.screenshot
 {
-    internal enum DrawTypes
+    public enum DrawTypes
     {
         /// <summary>
         /// 自由绘制
