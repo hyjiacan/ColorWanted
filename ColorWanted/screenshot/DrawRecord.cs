@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -87,6 +87,89 @@ namespace ColorWanted.screenshot
 
                 return size;
             }
+        }
+
+        public Rect Rect
+        {
+            get
+            {
+                var size = Size;
+                return new Rect(Math.Min(Start.X, End.X),
+                    Math.Min(Start.Y, End.Y), size.Width, size.Height);
+            }
+        }
+
+        /// <summary>
+        /// 获取绘制的图形/文本控件
+        /// </summary>
+        /// <returns></returns>
+        public FrameworkElement GetDrawElement()
+        {
+            Shape shape = null;
+            switch (Type)
+            {
+                case DrawTypes.Pen:
+                    shape = new Polyline
+                    {
+                        Points = Points
+                    };
+                    Canvas.SetLeft(shape, Start.X);
+                    Canvas.SetTop(shape, Start.Y);
+                    break;
+                case DrawTypes.Ellipse:
+                    shape = new Ellipse
+                    {
+                        Width = Size.Width,
+                        Height = Size.Height
+                    };
+                    Canvas.SetLeft(shape, Rect.X);
+                    Canvas.SetTop(shape, Rect.Y);
+                    break;
+                case DrawTypes.Line:
+                    shape = new Line
+                    {
+                        X1 = Start.X,
+                        Y1 = Start.Y,
+                        X2 = End.Y,
+                        Y2 = End.Y
+                    };
+                    Canvas.SetLeft(shape, Start.X);
+                    Canvas.SetTop(shape, Start.Y);
+                    break;
+                case DrawTypes.Rectangle:
+                    shape = new Rectangle
+                    {
+                        Width = Size.Width,
+                        Height = Size.Height
+                    };
+                    Canvas.SetLeft(shape, Rect.X);
+                    Canvas.SetTop(shape, Rect.Y);
+                    break;
+                //case DrawTypes.Arrow:
+                //    var cap = new AdjustableArrowCap(5, 5, false);
+                //    pen.CustomEndCap = cap;
+                //    graphics.DrawLine(pen, Start, End);
+                //    break;
+                case DrawTypes.Text:
+                    if (string.IsNullOrWhiteSpace(Text))
+                    {
+                        return null;
+                    }
+                    var text = new TextBlock
+                    {
+                        Text = Text
+                    };
+                    Canvas.SetLeft(shape, Start.X);
+                    Canvas.SetTop(shape, Start.Y);
+                    // TODO 设置文本样式
+                    GC.Collect();
+                    return text;
+                default:
+                    return null;
+            }
+            shape.StrokeThickness = Width;
+            shape.Stroke = new SolidColorBrush(Color);
+            return shape;
         }
 
         /// <summary>

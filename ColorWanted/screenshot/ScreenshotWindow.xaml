@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ColorWanted.screenshot"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+             d:DesignHeight="450" d:DesignWidth="800" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="Manual" WindowStyle="None">
     <Grid>
         <Canvas x:Name="canvasMask" MouseLeftButtonDown="CanvasMask_MouseLeftButtonDown" MouseLeftButtonUp="CanvasMask_MouseLeftButtonUp" MouseMove="CanvasMask_MouseMove">
             <Canvas.Background>

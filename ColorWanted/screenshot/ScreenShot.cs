@@ -16,9 +16,8 @@ namespace ColorWanted.screenshot
 
         static ScreenShot()
         {
-            var screen = Screen.PrimaryScreen.Bounds;
-            screenWidth = screen.Width;
-            screenHeight = screen.Height;
+            screenWidth = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+            screenHeight = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
         }
 
         public static void Capture()

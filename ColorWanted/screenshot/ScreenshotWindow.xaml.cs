@@ -1,9 +1,7 @@
 ﻿using ColorWanted.ext;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ColorWanted.screenshot
 {
@@ -22,11 +20,6 @@ namespace ColorWanted.screenshot
         private bool mousedown;
 
         /// <summary>
-        /// 编辑历史
-        /// </summary>
-        private Stack<DrawRecord> history;
-
-        /// <summary>
         /// 当前的绘制
         /// </summary>
         private DrawRecord current;
@@ -42,10 +35,12 @@ namespace ColorWanted.screenshot
         }
         public void Show(Bitmap img, int screenWidth, int screenHeight)
         {
+            Left = 0;
+            Top = 0;
             Width = screenWidth;
             Height = screenHeight;
+            //Topmost = true;
 
-            history = new Stack<DrawRecord>();
             image = img;
 
             maskBackground.ImageSource = img.AsOpacity(0.7f).AsResource();
@@ -69,7 +64,6 @@ namespace ColorWanted.screenshot
                 Color = Colors.Blue,
                 Start = e.GetPosition(e.Source as FrameworkElement)
             };
-            System.Console.WriteLine("开始位置:" + current.Start);
         }
 
         private void CanvasMask_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -80,7 +74,6 @@ namespace ColorWanted.screenshot
             }
             mousedown = false;
             current.End = e.GetPosition(e.Source as FrameworkElement);
-            System.Console.WriteLine("结束位置:" + current.End);
             DrawMask();
         }
 
@@ -92,7 +85,6 @@ namespace ColorWanted.screenshot
             }
 
             current.End = e.GetPosition(e.Source as FrameworkElement);
-            System.Console.WriteLine("当前位置:" + current.End);
             DrawMask();
         }
 
@@ -102,7 +94,7 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
-            canvasMask.Children.Clear();
+            canvasMask.Undo();
             canvasMask.Draw(current);
         }
     }
