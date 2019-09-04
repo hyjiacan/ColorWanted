@@ -11,7 +11,7 @@
             <Canvas.Background>
                 <ImageBrush x:Name="maskBackground"></ImageBrush>
             </Canvas.Background>
-            <Canvas x:Name="canvasEdit" Height="100" Canvas.Left="345" Canvas.Top="229" Width="100" Visibility="Hidden"/>
         </Canvas>
+        <Canvas x:Name="canvasEdit" Height="100" Canvas.Left="345" Canvas.Top="229" Width="100" Visibility="Hidden"/>
     </Grid>
 </Window>

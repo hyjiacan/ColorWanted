@@ -1,6 +1,7 @@
 ﻿using ColorWanted.ext;
 using System.Drawing;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ColorWanted.screenshot
@@ -14,6 +15,7 @@ namespace ColorWanted.screenshot
         /// 截图得到的图片对象
         /// </summary>
         private Bitmap image;
+
         /// <summary>
         /// 标记鼠标是否按下
         /// </summary>
@@ -23,6 +25,8 @@ namespace ColorWanted.screenshot
         /// 当前的绘制
         /// </summary>
         private DrawRecord current;
+
+        private FrameworkElement selectArea;
 
         /// <summary>
         /// 是否正在编辑，根据编辑层是否可见
@@ -57,13 +61,13 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
-            mousedown = true;
             current = new DrawRecord
             {
                 Type = DrawTypes.Rectangle,
                 Color = Colors.Blue,
-                Start = e.GetPosition(e.Source as FrameworkElement)
+                Start = e.GetPosition(canvasMask)
             };
+            mousedown = true;
         }
 
         private void CanvasMask_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -73,7 +77,7 @@ namespace ColorWanted.screenshot
                 return;
             }
             mousedown = false;
-            current.End = e.GetPosition(e.Source as FrameworkElement);
+            current.End = e.GetPosition(canvasMask);
             DrawMask();
         }
 
@@ -84,18 +88,38 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            current.End = e.GetPosition(e.Source as FrameworkElement);
+            current.End = e.GetPosition(canvasMask);
             DrawMask();
         }
-
+        bool a = false;
         private void DrawMask()
         {
+            if (a)
+            {
+                a = false;
+                return;
+            }
+            a = true;
             if (current == null)
             {
                 return;
             }
-            canvasMask.Undo();
-            canvasMask.Draw(current);
+
+            System.Console.WriteLine(current.ToString());
+            if (selectArea == null)
+            {
+                selectArea = current.GetDrawElement();
+                canvasMask.Children.Add(selectArea);
+                return;
+            }
+            //canvasMask.Undo();
+            //canvasMask.Draw(current);
+
+            selectArea.SetValue(Canvas.LeftProperty, current.Rect.X);
+            selectArea.SetValue(Canvas.TopProperty, current.Rect.Y);
+            selectArea.Width = current.Size.Width;
+            selectArea.Height = current.Size.Height;
+            //System.Console.WriteLine("Children:" + canvasMask.Children.Count);
         }
     }
 }

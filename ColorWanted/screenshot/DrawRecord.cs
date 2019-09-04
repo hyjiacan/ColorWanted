@@ -218,5 +218,10 @@ namespace ColorWanted.screenshot
             }
             return temp;
         }
+
+        public override string ToString()
+        {
+            return $"X={Rect.X}, Y={Rect.Y}, Width={Rect.Width}, Height={Rect.Height}";
+        }
     }
 }

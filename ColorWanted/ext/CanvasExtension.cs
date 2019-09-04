@@ -26,6 +26,7 @@ namespace ColorWanted.ext
             var index = history.Pop();
             canvas.Children.RemoveAt(index);
         }
+
         public static void Draw(this Canvas canvas, DrawRecord record)
         {
             if (History == null)
@@ -35,6 +36,7 @@ namespace ColorWanted.ext
             Stack<int> history = null;
             if (History.ContainsKey(canvas))
             {
+
                 history = History[canvas];
             }
             else
