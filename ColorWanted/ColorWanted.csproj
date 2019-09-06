@@ -65,6 +65,8 @@
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\ButtonExtension.cs" />
     <Compile Include="ext\CanvasExtension.cs" />
+    <Compile Include="ext\ElementExtension.cs" />
+    <Compile Include="ext\ExtendedCanvas.cs" />
     <Compile Include="ext\PictureBoxExtension.cs" />
     <Compile Include="i18n\Author.cs" />
     <Compile Include="i18n\I18nManager.cs" />
@@ -185,6 +187,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

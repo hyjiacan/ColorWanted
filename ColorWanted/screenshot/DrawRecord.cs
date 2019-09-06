@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorWanted.ext;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,10 +10,12 @@ namespace ColorWanted.screenshot
 {
     public class DrawRecord
     {
+        public Guid Id { get; private set; }
         /// <summary>
         /// 绘制类型
         /// </summary>
         public DrawTypes Type { get; set; }
+
         /// <summary>
         /// 起点坐标
         /// </summary>
@@ -28,6 +31,7 @@ namespace ColorWanted.screenshot
                 Points.Add(value);
             }
         }
+
         /// <summary>
         /// 终点坐标
         /// </summary>
@@ -40,8 +44,10 @@ namespace ColorWanted.screenshot
             set
             {
                 Points.Add(value);
+                GetElement();
             }
         }
+
         /// <summary>
         /// 当 Type 为 Text ，输入的文本
         /// </summary>
@@ -99,51 +105,55 @@ namespace ColorWanted.screenshot
             }
         }
 
+        private Shape shape;
+        private TextBlock textBlock;
+
         /// <summary>
         /// 获取绘制的图形/文本控件
         /// </summary>
         /// <returns></returns>
-        public FrameworkElement GetDrawElement()
+        public FrameworkElement GetElement()
         {
-            Shape shape = null;
             switch (Type)
             {
                 case DrawTypes.Pen:
-                    shape = new Polyline
+                    if (shape == null)
                     {
-                        Points = Points
-                    };
-                    Canvas.SetLeft(shape, Start.X);
-                    Canvas.SetTop(shape, Start.Y);
+                        shape = new Polyline();
+                    }
+                    ((Polyline)shape).Points = Points;
+                    shape.SetLocation(Start);
                     break;
                 case DrawTypes.Ellipse:
-                    shape = new Ellipse
+                    if (shape == null)
                     {
-                        Width = Size.Width,
-                        Height = Size.Height
-                    };
-                    Canvas.SetLeft(shape, Rect.X);
-                    Canvas.SetTop(shape, Rect.Y);
+                        shape = new Ellipse();
+                    }
+
+                    shape.Width = Size.Width;
+                    shape.Height = Size.Height;
+                    shape.SetLocation(Rect.X, Rect.Y);
                     break;
                 case DrawTypes.Line:
-                    shape = new Line
+                    if (shape == null)
                     {
-                        X1 = Start.X,
-                        Y1 = Start.Y,
-                        X2 = End.Y,
-                        Y2 = End.Y
-                    };
-                    Canvas.SetLeft(shape, Start.X);
-                    Canvas.SetTop(shape, Start.Y);
+                        shape = new Line();
+                    }
+                    var l = (Line)shape;
+                    l.X1 = Start.X;
+                    l.Y1 = Start.Y;
+                    l.X2 = End.Y;
+                    l.Y2 = End.Y;
+                    shape.SetLocation(Start);
                     break;
                 case DrawTypes.Rectangle:
-                    shape = new Rectangle
+                    if (shape == null)
                     {
-                        Width = Size.Width,
-                        Height = Size.Height
-                    };
-                    Canvas.SetLeft(shape, Rect.X);
-                    Canvas.SetTop(shape, Rect.Y);
+                        shape = new Rectangle();
+                    }
+                    shape.Width = Size.Width;
+                    shape.Height = Size.Height;
+                    shape.SetLocation(Rect.X, Rect.Y);
                     break;
                 //case DrawTypes.Arrow:
                 //    var cap = new AdjustableArrowCap(5, 5, false);
@@ -155,21 +165,92 @@ namespace ColorWanted.screenshot
                     {
                         return null;
                     }
-                    var text = new TextBlock
+                    if (textBlock == null)
                     {
-                        Text = Text
-                    };
-                    Canvas.SetLeft(shape, Start.X);
-                    Canvas.SetTop(shape, Start.Y);
+                        textBlock = new TextBlock();
+                    }
+                    textBlock.Text = Text;
+                    shape.SetLocation(Start);
                     // TODO 设置文本样式
                     GC.Collect();
-                    return text;
+                    return textBlock;
                 default:
                     return null;
             }
             shape.StrokeThickness = Width;
             shape.Stroke = new SolidColorBrush(Color);
             return shape;
+        }
+
+        public FrameworkElement Element
+        {
+            get
+            {
+                FrameworkElement element = null;
+                if (shape != null)
+                {
+                    element = shape;
+                }
+                else if (textBlock != null)
+                {
+                    element = textBlock;
+                }
+                return element;
+            }
+        }
+
+        public void Move(Point from, Point to)
+        {
+            var offset = to - from;
+
+            FrameworkElement element = Element;
+            if (element == null)
+            {
+                return;
+            }
+
+            var l = Canvas.GetLeft(shape) + offset.X;
+            var t = Canvas.GetTop(shape) + offset.Y;
+
+            // 边界限制
+            if (l < 0)
+            {
+                l = 0;
+            }
+            if (t < 0)
+            {
+                t = 0;
+            }
+            var maxAllowWidth = ScreenShot.SCREEN_WIDTH - element.Width;
+            if (l > maxAllowWidth)
+            {
+                l = maxAllowWidth;
+            }
+            var maxAllowHeight = ScreenShot.SCREEN_HEIGHT - element.Height;
+            if (t > maxAllowHeight)
+            {
+                t = maxAllowHeight;
+            }
+
+            shape.SetLocation(l, t);
+        }
+
+        public Rect ElementRect
+        {
+            get
+            {
+                var element = Element;
+                if (element == null)
+                {
+                    return Rect.Empty;
+                }
+                var l = Canvas.GetLeft(element);
+                var t = Canvas.GetTop(element);
+                var w = element.Width;
+                var h = element.Height;
+
+                return new Rect(l, t, w, h);
+            }
         }
 
         /// <summary>
@@ -179,6 +260,7 @@ namespace ColorWanted.screenshot
 
         public DrawRecord()
         {
+            Id = Guid.NewGuid();
             Points = new PointCollection();
             Width = 1;
             Color = Colors.Red;
@@ -195,6 +277,8 @@ namespace ColorWanted.screenshot
         {
             Points.Clear();
             Text = string.Empty;
+            shape = null;
+            textBlock = null;
         }
 
         public DrawRecord Copy(int offsetStartX = 0, int offsetStartY = 0, int offsetEndX = 0, int offsetEndY = 0)
@@ -203,10 +287,9 @@ namespace ColorWanted.screenshot
             {
                 Type = Type,
                 Color = Color,
-                Width = Width
+                Width = Width,
+                Points = Points.Clone()
             };
-
-            temp.Points = Points.Clone();
 
             if (temp.Points.Count > 0)
             {
@@ -222,6 +305,20 @@ namespace ColorWanted.screenshot
         public override string ToString()
         {
             return $"X={Rect.X}, Y={Rect.Y}, Width={Rect.Width}, Height={Rect.Height}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DrawRecord other))
+            {
+                return false;
+            }
+            return Id.Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

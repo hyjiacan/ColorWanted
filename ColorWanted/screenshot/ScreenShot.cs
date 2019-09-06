@@ -1,12 +1,11 @@
 ﻿using System.Drawing;
-using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
 {
     internal static class ScreenShot
     {
-        private static int screenWidth;
-        private static int screenHeight;
+        public static readonly int SCREEN_WIDTH;
+        public static readonly int SCREEN_HEIGHT;
         private static ScreenshotWindow screenshotWindow;
 
         /// <summary>
@@ -16,8 +15,8 @@ namespace ColorWanted.screenshot
 
         static ScreenShot()
         {
-            screenWidth = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-            screenHeight = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+            SCREEN_WIDTH = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
+            SCREEN_HEIGHT = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
         }
 
         public static void Capture()
@@ -34,14 +33,14 @@ namespace ColorWanted.screenshot
                 screenshotWindow = null;
                 System.GC.Collect();
             };
-            var image = new Bitmap(screenWidth, screenHeight);
+            var image = new Bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
             using (Graphics g = Graphics.FromImage(image))
             {
-                g.CopyFromScreen(0, 0, 0, 0, new Size(screenWidth, screenHeight));
+                g.CopyFromScreen(0, 0, 0, 0, new Size(SCREEN_WIDTH, SCREEN_HEIGHT));
             }
             try
             {
-                screenshotWindow.Show(image, screenWidth, screenHeight);
+                screenshotWindow.Show(image, SCREEN_WIDTH, SCREEN_HEIGHT);
             }
             catch (System.Exception e)
             {

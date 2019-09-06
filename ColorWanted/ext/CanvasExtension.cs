@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+
 namespace ColorWanted.ext
 {
     public static class CanvasExtension
@@ -45,7 +46,7 @@ namespace ColorWanted.ext
                 History.Add(canvas, history);
             }
 
-            var element = record.GetDrawElement();
+            var element = record.GetElement();
             if (element == null)
             {
                 return;

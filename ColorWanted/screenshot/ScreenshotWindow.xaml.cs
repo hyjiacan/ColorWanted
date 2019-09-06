@@ -1,8 +1,6 @@
 ﻿using ColorWanted.ext;
 using System.Drawing;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace ColorWanted.screenshot
 {
@@ -17,21 +15,24 @@ namespace ColorWanted.screenshot
         private Bitmap image;
 
         /// <summary>
-        /// 标记鼠标是否按下
+        /// 记录上次的选区
         /// </summary>
-        private bool mousedown;
+        private Rect lastSelectedRect;
 
         /// <summary>
-        /// 当前的绘制
+        /// 渲染计数，用于降低选区大小或位置变化时的渲染频次
         /// </summary>
-        private DrawRecord current;
+        private int counter = 0;
 
-        private FrameworkElement selectArea;
+        /// <summary>
+        /// 渲染频次，每5次请求渲染一次
+        /// </summary>
+        private const int RENDER_TICK = 3;
 
         /// <summary>
         /// 是否正在编辑，根据编辑层是否可见
         /// </summary>
-        private bool Editing => canvasEdit.Visibility == Visibility.Visible;
+        public bool Editing => canvasEdit.Visibility == Visibility.Visible;
 
         public ScreenshotWindow()
         {
@@ -54,72 +55,58 @@ namespace ColorWanted.screenshot
             //Refresh();
             Show();
         }
-
-        private void CanvasMask_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void CanvasMask_OnDraw(object sender, DrawEventArgs e)
         {
-            if (Editing)
+            if (e.IsEmpty)
+            {
+                selectArea.Visibility = Visibility.Hidden;
+                return;
+            }
+
+            if (e.State == DrawState.Start)
             {
                 return;
             }
-            current = new DrawRecord
+            var area = e.Area;
+            if (area.IsEmpty || area.Width == 0 || area.Height == 0)
             {
-                Type = DrawTypes.Rectangle,
-                Color = Colors.Blue,
-                Start = e.GetPosition(canvasMask)
-            };
-            mousedown = true;
+                selectArea.Visibility = Visibility.Hidden;
+                return;
+            }
+
+            if (e.State == DrawState.Move)
+            {
+                counter++;
+                if (counter % RENDER_TICK == 0)
+                {
+                    UpdateSelectArea(area);
+                }
+                return;
+            }
+
+            // 肯定是 DrawState.End
+            counter = 0;
+            // 立即执行
+            UpdateSelectArea(area);
         }
 
-        private void CanvasMask_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Editing)
-            {
-                return;
-            }
-            mousedown = false;
-            current.End = e.GetPosition(canvasMask);
-            DrawMask();
         }
 
-        private void CanvasMask_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void UpdateSelectArea(Rect selectedRect)
         {
-            if (Editing || !mousedown)
+            if (lastSelectedRect == selectedRect)
             {
                 return;
             }
+            lastSelectedRect = selectedRect;
 
-            current.End = e.GetPosition(canvasMask);
-            DrawMask();
-        }
-        bool a = false;
-        private void DrawMask()
-        {
-            if (a)
-            {
-                a = false;
-                return;
-            }
-            a = true;
-            if (current == null)
-            {
-                return;
-            }
+            var img = image.Cut(selectedRect).AsResource();
 
-            System.Console.WriteLine(current.ToString());
-            if (selectArea == null)
-            {
-                selectArea = current.GetDrawElement();
-                canvasMask.Children.Add(selectArea);
-                return;
-            }
-            //canvasMask.Undo();
-            //canvasMask.Draw(current);
-
-            selectArea.SetValue(Canvas.LeftProperty, current.Rect.X);
-            selectArea.SetValue(Canvas.TopProperty, current.Rect.Y);
-            selectArea.Width = current.Size.Width;
-            selectArea.Height = current.Size.Height;
-            //System.Console.WriteLine("Children:" + canvasMask.Children.Count);
+            selectArea.Source = img;
+            selectArea.SetLocation(selectedRect.X, selectedRect.Y);
+            selectArea.Visibility = Visibility.Visible;
         }
     }
 }
