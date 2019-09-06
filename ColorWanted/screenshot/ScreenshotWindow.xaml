@@ -4,7 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:ext="clr-namespace:ColorWanted.ext"
-        mc:Ignorable="d" 
+        mc:Ignorable="d"
+        xmlns:res="clr-namespace:ColorWanted.Properties"
         d:DesignHeight="450" d:DesignWidth="800" ShowInTaskbar="False" 
         ResizeMode="NoResize" WindowStartupLocation="Manual" WindowStyle="None" Loaded="Window_Loaded">
     <Grid>
@@ -21,5 +22,17 @@
                 <ImageBrush x:Name="editBackground"></ImageBrush>
             </ext:ExtendedCanvas.Background>
         </ext:ExtendedCanvas>
+        <ToolBarTray x:Name="menuShot" Orientation="Horizontal">
+            <ToolBar>
+                <Button x:Name="btnEdit" Width="40" Height="40">
+                    <Image Source="{x:Reference res:Resources.edit}"></Image>
+                </Button>
+                <Separator></Separator>
+                <Button x:Name="btnOk" Width="40" Height="40" Content="Y" />
+                <Button x:Name="btnSave" Width="40" Height="40" Content="S" />
+                <Button x:Name="btnCancel" Width="40" Height="40" Content="N" />
+            </ToolBar>
+        </ToolBarTray>
+        <ToolBarPanel x:Name="menuEdit"></ToolBarPanel>
     </Grid>
 </Window>
