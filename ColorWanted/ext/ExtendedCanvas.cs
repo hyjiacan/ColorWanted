@@ -30,7 +30,7 @@ namespace ColorWanted.ext
         /// <summary>
         /// 绘制的图形类型
         /// </summary>
-        public DrawTypes DefaultDrawType { get; set; }
+        public DrawShapes DefaultDrawType { get; set; }
 
         /// <summary>
         /// 当前的绘制
@@ -59,7 +59,7 @@ namespace ColorWanted.ext
         {
             OnDraw.Invoke(this, new DrawEventArgs()
             {
-                DrawType = current.Type,
+                DrawType = current.Shape,
                 Shape = current.Element as Shape,
                 IsEmpty = isEmpty,
                 Area = current.ElementRect,
@@ -141,7 +141,7 @@ namespace ColorWanted.ext
 
             current = new DrawRecord
             {
-                Type = DefaultDrawType,
+                Shape = DefaultDrawType,
                 Color = Colors.Blue
             };
             current.Start = point;
@@ -200,7 +200,7 @@ namespace ColorWanted.ext
     public class DrawEventArgs : EventArgs
     {
         public bool IsEmpty { get; set; }
-        public DrawTypes DrawType { get; set; }
+        public DrawShapes DrawType { get; set; }
         public Shape Shape { get; set; }
         public Rect Area { get; set; }
         public DrawState State { get; set; }

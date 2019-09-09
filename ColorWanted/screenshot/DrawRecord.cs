@@ -14,7 +14,7 @@ namespace ColorWanted.screenshot
         /// <summary>
         /// 绘制类型
         /// </summary>
-        public DrawTypes Type { get; set; }
+        public DrawShapes Shape { get; set; }
 
         /// <summary>
         /// 起点坐标
@@ -75,7 +75,7 @@ namespace ColorWanted.screenshot
         /// <summary>
         /// 是否偏移(起点终点是否相同)
         /// </summary>
-        public bool HasOffset => Start != End || (Type == DrawTypes.Pen && Points.Any());
+        public bool HasOffset => Start != End || (Shape == DrawShapes.Curve && Points.Any());
 
         /// <summary>
         /// 区域大小
@@ -114,9 +114,9 @@ namespace ColorWanted.screenshot
         /// <returns></returns>
         public FrameworkElement GetElement()
         {
-            switch (Type)
+            switch (Shape)
             {
-                case DrawTypes.Pen:
+                case DrawShapes.Curve:
                     if (shape == null)
                     {
                         shape = new Polyline();
@@ -124,7 +124,7 @@ namespace ColorWanted.screenshot
                     ((Polyline)shape).Points = Points;
                     shape.SetLocation(Start);
                     break;
-                case DrawTypes.Ellipse:
+                case DrawShapes.Ellipse:
                     if (shape == null)
                     {
                         shape = new Ellipse();
@@ -134,7 +134,7 @@ namespace ColorWanted.screenshot
                     shape.Height = Size.Height;
                     shape.SetLocation(Rect.X, Rect.Y);
                     break;
-                case DrawTypes.Line:
+                case DrawShapes.Line:
                     if (shape == null)
                     {
                         shape = new Line();
@@ -146,7 +146,7 @@ namespace ColorWanted.screenshot
                     l.Y2 = End.Y;
                     shape.SetLocation(Start);
                     break;
-                case DrawTypes.Rectangle:
+                case DrawShapes.Rectangle:
                     if (shape == null)
                     {
                         shape = new Rectangle();
@@ -160,7 +160,7 @@ namespace ColorWanted.screenshot
                 //    pen.CustomEndCap = cap;
                 //    graphics.DrawLine(pen, Start, End);
                 //    break;
-                case DrawTypes.Text:
+                case DrawShapes.Text:
                     if (string.IsNullOrWhiteSpace(Text))
                     {
                         return null;
@@ -268,9 +268,9 @@ namespace ColorWanted.screenshot
             TextFont = System.Drawing.SystemFonts.DefaultFont;
         }
 
-        public static DrawRecord Make(DrawTypes type)
+        public static DrawRecord Make(DrawShapes type)
         {
-            return new DrawRecord { Type = type };
+            return new DrawRecord { Shape = type };
         }
 
         public void Reset()
@@ -285,7 +285,7 @@ namespace ColorWanted.screenshot
         {
             var temp = new DrawRecord
             {
-                Type = Type,
+                Shape = Shape,
                 Color = Color,
                 Width = Width,
                 Points = Points.Clone()

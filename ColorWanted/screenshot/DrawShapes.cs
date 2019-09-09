@@ -1,11 +1,11 @@
 ﻿namespace ColorWanted.screenshot
 {
-    public enum DrawTypes
+    public enum DrawShapes
     {
         /// <summary>
         /// 自由绘制
         /// </summary>
-        Pen,
+        Curve,
         /// <summary>
         /// 直线
         /// </summary>

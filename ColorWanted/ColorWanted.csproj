@@ -64,6 +64,7 @@
     <Compile Include="colors\HSL.cs" />
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\ButtonExtension.cs" />
+    <Compile Include="ext\ButtonGroup.cs" />
     <Compile Include="ext\CanvasExtension.cs" />
     <Compile Include="ext\ElementExtension.cs" />
     <Compile Include="ext\ExtendedCanvas.cs" />
@@ -78,7 +79,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="screenshot\DrawRecord.cs" />
-    <Compile Include="screenshot\DrawTypes.cs" />
+    <Compile Include="screenshot\DrawShapes.cs" />
     <Compile Include="screenshot\LineStyles.cs" />
     <Compile Include="screenshot\ScreenShot.cs" />
     <Compile Include="screenshot\ScreenshotWindow.xaml.cs">
