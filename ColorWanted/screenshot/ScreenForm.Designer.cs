@@ -61,8 +61,8 @@
             this.toolMaskSave = new System.Windows.Forms.ToolStripButton();
             this.toolMaskOK = new System.Windows.Forms.ToolStripButton();
             this.toolMaskCancel = new System.Windows.Forms.ToolStripButton();
-            this.pictureMask = new System.Windows.Forms.PictureBox();
-            this.picturePreview = new System.Windows.Forms.PictureBox();
+            this.editorContainer = new System.Windows.Forms.Integration.ElementHost();
+            this.editor = new ColorWanted.screenshot.ImageEditor();
             this.toolbar.SuspendLayout();
             this.toolbarColor.SuspendLayout();
             this.toolPanel.SuspendLayout();
@@ -71,8 +71,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.toolLineWidth)).BeginInit();
             this.toolbarTextStyle.SuspendLayout();
             this.toolbarMask.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMask)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picturePreview)).BeginInit();
             this.SuspendLayout();
             // 
             // toolbar
@@ -420,28 +418,14 @@
             this.toolMaskCancel.Size = new System.Drawing.Size(23, 22);
             this.toolMaskCancel.Click += new System.EventHandler(this.ToolCancel_Click);
             // 
-            // pictureMask
+            // editorContainer
             // 
-            this.pictureMask.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureMask.Location = new System.Drawing.Point(0, 0);
-            this.pictureMask.Name = "pictureMask";
-            this.pictureMask.Size = new System.Drawing.Size(800, 450);
-            this.pictureMask.TabIndex = 6;
-            this.pictureMask.TabStop = false;
-            this.pictureMask.Visible = false;
-            // 
-            // picturePreview
-            // 
-            this.picturePreview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.picturePreview.Location = new System.Drawing.Point(0, 0);
-            this.picturePreview.Name = "picturePreview";
-            this.picturePreview.Size = new System.Drawing.Size(800, 450);
-            this.picturePreview.TabIndex = 0;
-            this.picturePreview.TabStop = false;
-            this.picturePreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PicturePreview_MouseDown);
-            this.picturePreview.MouseLeave += new System.EventHandler(this.PicturePreview_MouseLeave);
-            this.picturePreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PicturePreview_MouseMove);
-            this.picturePreview.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PicturePreview_MouseUp);
+            this.editorContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editorContainer.Location = new System.Drawing.Point(0, 0);
+            this.editorContainer.Name = "editorContainer";
+            this.editorContainer.Size = new System.Drawing.Size(800, 450);
+            this.editorContainer.TabIndex = 12;
+            this.editorContainer.Child = this.editor;
             // 
             // ScreenForm
             // 
@@ -451,8 +435,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.toolbarMask);
             this.Controls.Add(this.toolPanel);
-            this.Controls.Add(this.pictureMask);
-            this.Controls.Add(this.picturePreview);
+            this.Controls.Add(this.editorContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.Name = "ScreenForm";
@@ -479,16 +462,12 @@
             this.toolbarTextStyle.PerformLayout();
             this.toolbarMask.ResumeLayout(false);
             this.toolbarMask.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureMask)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picturePreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox picturePreview;
         private System.Windows.Forms.ToolStrip toolbar;
         private System.Windows.Forms.ToolStripButton toolText;
         private System.Windows.Forms.ToolStripButton toolPen;
@@ -500,7 +479,6 @@
         private System.Windows.Forms.ToolStripButton toolOK;
         private System.Windows.Forms.ToolStripButton toolSave;
         private System.Windows.Forms.ToolStripButton toolCancel;
-        private System.Windows.Forms.PictureBox pictureMask;
         private System.Windows.Forms.ToolStrip toolbarColor;
         private System.Windows.Forms.ToolStripButton toolColorRed;
         private System.Windows.Forms.ToolStripButton toolColorGreen;
@@ -523,5 +501,7 @@
         private System.Windows.Forms.ToolStripButton toolMaskSave;
         private System.Windows.Forms.ToolStripButton toolMaskCancel;
         private System.Windows.Forms.TrackBar toolLineWidth;
+        private System.Windows.Forms.Integration.ElementHost editorContainer;
+        private ImageEditor editor;
     }
 }

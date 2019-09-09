@@ -5,10 +5,6 @@ namespace ColorWanted.screenshot
 {
     public partial class ScreenForm : Form
     {
-        /// <summary>
-        /// 截图得到的图片对象
-        /// </summary>
-        private Bitmap image;
         public ScreenForm()
         {
             InitializeComponent();

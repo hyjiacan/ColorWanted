@@ -1,7 +1,9 @@
-﻿using ColorWanted.screenshot;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
 
 namespace ColorWanted.ext
 {
@@ -131,9 +133,9 @@ namespace ColorWanted.ext
                                 g9 = pTemp[1];
                                 b9 = pTemp[0];
 
-                                fR = (float)(r1 + r2 + r3 + r4 + r5 + r6 + r7 + r8 + r9);
-                                fG = (float)(g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9);
-                                fB = (float)(b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9);
+                                fR = r1 + r2 + r3 + r4 + r5 + r6 + r7 + r8 + r9;
+                                fG = g1 + g2 + g3 + g4 + g5 + g6 + g7 + g8 + g9;
+                                fB = b1 + b2 + b3 + b4 + b5 + b6 + b7 + b8 + b9;
 
                                 fR /= 9;
                                 fG /= 9;
@@ -199,7 +201,10 @@ namespace ColorWanted.ext
                     //截取原图相应区域写入作图区
                     graphic.DrawImage(image, 0, 0, new Rectangle(x, y, width, height),
                         GraphicsUnit.Pixel);
-                    return Image.FromHbitmap(bitmap.GetHbitmap());
+                    var handle = bitmap.GetHbitmap();
+                    var temp = Image.FromHbitmap(handle);
+                    NativeMethods.DeleteObject(handle);
+                    return temp;
                 }
             }
         }
@@ -210,9 +215,9 @@ namespace ColorWanted.ext
         /// <param name="image"></param>
         /// <param name="bounds"></param>
         /// <returns></returns>
-        public static Bitmap Cut(this Bitmap image, Rectangle bounds)
+        public static Bitmap Cut(this Bitmap image, Rect bounds)
         {
-            return image.Cut(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            return image.Cut((int)bounds.X, (int)bounds.Y, (int)bounds.Width, (int)bounds.Height);
         }
 
         /// <summary>
@@ -221,7 +226,7 @@ namespace ColorWanted.ext
         /// <param name="image"></param>
         /// <param name="opacity"></param>
         /// <returns>修改透明度后的新图片</returns>
-        public static Bitmap AsOpacity(this Bitmap image, float opacity = 0.3f, DrawRecord border = null)
+        public static Bitmap AsOpacity(this Bitmap image, float opacity = 0.3f)
         {
             var matrix = new ColorMatrix(new float[][]{
                 new float[] {1, 0, 0, 0, 0},
@@ -236,13 +241,18 @@ namespace ColorWanted.ext
             Graphics g = Graphics.FromImage(resultImage);
             g.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height),
                 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, attributes);
-            if (border != null)
-            {
-                g.Draw(border);
-            }
             matrix = null;
             GC.Collect();
             return resultImage;
+        }
+
+        public static BitmapSource AsResource(this Bitmap image)
+        {
+            var handle = image.GetHbitmap();
+            var resource = Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            // 解决可能导致内存占用高的问题
+            NativeMethods.DeleteObject(handle);
+            return resource;
         }
     }
 }

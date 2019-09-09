@@ -5,8 +5,8 @@ namespace ColorWanted.screenshot
 {
     internal static class ScreenShot
     {
-        private static int screenWidth;
-        private static int screenHeight;
+        public static readonly int SCREEN_WIDTH;
+        public static readonly int SCREEN_HEIGHT;
         private static ScreenForm screenForm;
 
         /// <summary>
@@ -17,8 +17,8 @@ namespace ColorWanted.screenshot
         static ScreenShot()
         {
             var screen = Screen.PrimaryScreen.Bounds;
-            screenWidth = screen.Width;
-            screenHeight = screen.Height;
+            SCREEN_WIDTH = screen.Width;
+            SCREEN_HEIGHT = screen.Height;
         }
 
         public static void Capture()
@@ -35,14 +35,14 @@ namespace ColorWanted.screenshot
                 screenForm = null;
                 System.GC.Collect();
             };
-            var image = new Bitmap(screenWidth, screenHeight);
+            var image = new Bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
             using (Graphics g = Graphics.FromImage(image))
             {
-                g.CopyFromScreen(0, 0, 0, 0, new Size(screenWidth, screenHeight));
+                g.CopyFromScreen(0, 0, 0, 0, new Size(SCREEN_WIDTH, SCREEN_HEIGHT));
             }
             try
             {
-                screenForm.Show(image, screenWidth, screenHeight);
+                screenForm.Show(image);
             }
             catch (System.Exception e)
             {
