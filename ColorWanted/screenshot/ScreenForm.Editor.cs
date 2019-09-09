@@ -10,8 +10,6 @@ namespace ColorWanted.screenshot
         private ToolStripButton activeToolColor;
         private ToolStripButton activeToolLineStyle;
 
-        public DrawRecord current => editor.GetCurrentRecord();
-
         public void Show(Bitmap img)
         {
             editor.SetImage(img);
@@ -29,13 +27,16 @@ namespace ColorWanted.screenshot
 
         private void Editor_AreaCleared(object sender, EventArgs e)
         {
-            // 选区被清除时，隐藏工具条
-            toolbarMask.Hide();
+            // 选区被清除或移动选区时，隐藏工具条
+            if (toolbarMask.Visible)
+            {
+                toolbarMask.Hide();
+            }
         }
 
         private void Editor_AreaSelected(object sender, events.AreaSelectedEventArgs e)
         {
-            // 这个事件会在创建选区或移动选区时触发
+            // 这个事件会在创建选区时触发
             if (toolPanel.Visible)
             {
                 toolPanel.Hide();
@@ -88,13 +89,12 @@ namespace ColorWanted.screenshot
             toolPanel.Location = toolbarMask.Location;
             toolPanel.Show();
             toolPanel.BringToFront();
+
+            editor.SetEditEnabled(true);
         }
 
         private void HideEdit()
         {
-            current.Reset();
-            current.Shape = DrawShapes.Rectangle;
-
             toolPanel.Hide();
 
             toolbar.Hide();
@@ -121,8 +121,8 @@ namespace ColorWanted.screenshot
             }
             activeToolShapeType = item;
             item.Checked = true;
-            current.Shape = (DrawShapes)Enum.Parse(typeof(DrawShapes), type.ToString());
-            if (current.Shape == DrawShapes.Text)
+            editor.DrawShape = (DrawShapes)Enum.Parse(typeof(DrawShapes), type.ToString());
+            if (editor.DrawShape == DrawShapes.Text)
             {
                 toolbarLineType.Hide();
                 toolLineWidth.Hide();
@@ -204,7 +204,7 @@ namespace ColorWanted.screenshot
 
         private void ToolLineWidth_Scroll(object sender, System.EventArgs e)
         {
-            current.Width = toolLineWidth.Value;
+            editor.DrawWidth = toolLineWidth.Value;
         }
 
         private void ToolbarLineType_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -217,7 +217,7 @@ namespace ColorWanted.screenshot
             }
             activeToolLineStyle = item;
             item.Checked = true;
-            current.LineStyle = (LineStyles)Enum.Parse(typeof(LineStyles), item.Tag.ToString());
+            editor.LineStyle = (LineStyles)Enum.Parse(typeof(LineStyles), item.Tag.ToString());
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            current.TextFont = toolTextStyle.Font = dialog.Font;
+            editor.TextFont = toolTextStyle.Font = dialog.Font;
         }
     }
 }

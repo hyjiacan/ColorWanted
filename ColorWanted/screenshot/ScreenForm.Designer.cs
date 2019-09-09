@@ -30,7 +30,7 @@
         {
             this.toolbar = new System.Windows.Forms.ToolStrip();
             this.toolText = new System.Windows.Forms.ToolStripButton();
-            this.toolPen = new System.Windows.Forms.ToolStripButton();
+            this.toolCurve = new System.Windows.Forms.ToolStripButton();
             this.toolLine = new System.Windows.Forms.ToolStripButton();
             this.toolRectangle = new System.Windows.Forms.ToolStripButton();
             this.toolEllipse = new System.Windows.Forms.ToolStripButton();
@@ -78,7 +78,7 @@
             this.toolbar.Dock = System.Windows.Forms.DockStyle.None;
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolText,
-            this.toolPen,
+            this.toolCurve,
             this.toolLine,
             this.toolRectangle,
             this.toolEllipse,
@@ -89,7 +89,7 @@
             this.toolCancel});
             this.toolbar.Location = new System.Drawing.Point(0, 0);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(225, 25);
+            this.toolbar.Size = new System.Drawing.Size(256, 25);
             this.toolbar.TabIndex = 5;
             this.toolbar.Text = "toolStrip1";
             this.toolbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolbar_ItemClicked);
@@ -103,14 +103,14 @@
             this.toolText.Size = new System.Drawing.Size(23, 22);
             this.toolText.Tag = "Text";
             // 
-            // toolPen
+            // toolCurve
             // 
-            this.toolPen.AutoSize = false;
-            this.toolPen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolPen.Image = global::ColorWanted.Properties.Resources.curve;
-            this.toolPen.Name = "toolPen";
-            this.toolPen.Size = new System.Drawing.Size(23, 22);
-            this.toolPen.Tag = "Pen";
+            this.toolCurve.AutoSize = false;
+            this.toolCurve.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolCurve.Image = global::ColorWanted.Properties.Resources.curve;
+            this.toolCurve.Name = "toolCurve";
+            this.toolCurve.Size = new System.Drawing.Size(23, 22);
+            this.toolCurve.Tag = "Curve";
             // 
             // toolLine
             // 
@@ -470,7 +470,7 @@
         #endregion
         private System.Windows.Forms.ToolStrip toolbar;
         private System.Windows.Forms.ToolStripButton toolText;
-        private System.Windows.Forms.ToolStripButton toolPen;
+        private System.Windows.Forms.ToolStripButton toolCurve;
         private System.Windows.Forms.ToolStripButton toolLine;
         private System.Windows.Forms.ToolStripButton toolRectangle;
         private System.Windows.Forms.ToolStripButton toolEllipse;

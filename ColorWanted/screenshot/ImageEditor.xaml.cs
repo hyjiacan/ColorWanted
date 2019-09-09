@@ -42,6 +42,12 @@ namespace ColorWanted.screenshot
         /// </summary>
         public event EventHandler AreaCleared;
 
+        public DrawShapes DrawShape { get; set; }
+
+        public LineStyles LineStyle { get; set; }
+        public double DrawWidth { get; set; }
+        public Font TextFont { get; set; }
+
         public ImageEditor()
         {
             InitializeComponent();
@@ -58,15 +64,14 @@ namespace ColorWanted.screenshot
             maskBackground.ImageSource = image.AsOpacity(0.7f).AsResource();
         }
 
-        /// <summary>
-        /// 获取当前的编辑
-        /// </summary>
-        /// <returns></returns>
-        public DrawRecord GetCurrentRecord()
+        public void SetEditEnabled(bool enabled)
         {
-            throw new NotImplementedException();
+            if (enabled)
+            {
+                canvasEdit.Visibility = Visibility.Visible;
+            }
         }
-        
+
         /// <summary>
         /// 获取编辑结果
         /// </summary>
