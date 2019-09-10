@@ -2,8 +2,11 @@
 using ColorWanted.screenshot.events;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ColorWanted.screenshot
 {
@@ -33,20 +36,50 @@ namespace ColorWanted.screenshot
         private const int RENDER_TICK = 3;
 
         /// <summary>
+        /// 选区内的截图（剪裁后的图片）
+        /// </summary>
+        private Bitmap SelectedImage;
+
+        /// <summary>
         /// 编辑状态改变时的事件
         /// </summary>
-        public event EventHandler<AreaSelectedEventArgs> AreaSelected;
+        public event EventHandler<AreaEventArgs> AreaSelected;
+
+        /// <summary>
+        /// 双击mask层的选区时，表示截图完成，触发此事件
+        /// </summary>
+        public event EventHandler<DoubleClickEventArgs> Compeleted;
 
         /// <summary>
         /// 选区被清除时的事件
         /// </summary>
         public event EventHandler AreaCleared;
 
-        public DrawShapes DrawShape { get; set; }
-
-        public LineStyles LineStyle { get; set; }
-        public double DrawWidth { get; set; }
-        public Font TextFont { get; set; }
+        public DrawShapes DrawShape
+        {
+            get => canvasEdit.DrawShape;
+            set => canvasEdit.DrawShape = value;
+        }
+        public LineStyles LineStyle
+        {
+            get => canvasEdit.LineStyle;
+            set => canvasEdit.LineStyle = value;
+        }
+        public int DrawWidth
+        {
+            get => canvasEdit.DrawWidth;
+            set => canvasEdit.DrawWidth = value;
+        }
+        public System.Windows.Media.Color DrawColor
+        {
+            get => canvasEdit.DrawColor;
+            set => canvasEdit.DrawColor = value;
+        }
+        public Font TextFont
+        {
+            get => canvasEdit.TextFont;
+            set => canvasEdit.TextFont = value;
+        }
 
         public ImageEditor()
         {
@@ -57,28 +90,52 @@ namespace ColorWanted.screenshot
         {
             this.image = image;
 
-            canvasEdit.Width = canvasMask.Width = Width;
-            canvasEdit.Height = canvasMask.Height = Height;
+            container.SetLocation(0, 0);
+            container.Width = ScreenShot.SCREEN_WIDTH;
+            container.Height = ScreenShot.SCREEN_HEIGHT;
+
+            canvasMask.SetLocation(0, 0);
+            canvasMask.Width = ScreenShot.SCREEN_WIDTH;
+            canvasMask.Height = ScreenShot.SCREEN_HEIGHT;
 
             //Topmost = true;
             maskBackground.ImageSource = image.AsOpacity(0.7f).AsResource();
         }
 
-        public void SetEditEnabled(bool enabled)
+        public void BeginEdit()
         {
-            if (enabled)
-            {
-                canvasEdit.Visibility = Visibility.Visible;
-            }
+            canvasMask.EditEnabled = false;
+            editBackground.ImageSource = selectArea.Source;
+            // 先设置位置，然后再显示出来
+            canvasEdit.Width = lastSelectedRect.Width;
+            canvasEdit.Height = lastSelectedRect.Height;
+            canvasEdit.SetLocation(lastSelectedRect.Location);
+            canvasEdit.Visibility = Visibility.Visible;
         }
 
         /// <summary>
-        /// 获取编辑结果
+        /// 编辑完成
+        /// <returns>返回编辑后的图形</return>
         /// </summary>
-        /// <returns></returns>
-        public Bitmap GetResult()
+        public Bitmap EndEdit()
         {
-            throw new NotImplementedException();
+            canvasMask.EditEnabled = true;
+            var renderer = new RenderTargetBitmap(
+                (int)canvasEdit.Width,
+                (int)canvasEdit.Height,
+                96,
+                96,
+                PixelFormats.Pbgra32
+                );
+            renderer.Render(canvasEdit);
+            var encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create((BitmapSource)selectArea.Source));
+            encoder.Frames.Add(BitmapFrame.Create(renderer));
+            using (var stream = new MemoryStream())
+            {
+                encoder.Save(stream);
+                return new Bitmap(stream);
+            }
         }
 
         private void CanvasMask_OnDraw(object sender, DrawEventArgs e)
@@ -118,7 +175,7 @@ namespace ColorWanted.screenshot
             // 立即执行
             UpdateSelectArea(area);
 
-            AreaSelected.Invoke(this, new AreaSelectedEventArgs(area));
+            AreaSelected.Invoke(this, new AreaEventArgs(area));
         }
         private void UpdateSelectArea(Rect selectedRect)
         {
@@ -126,13 +183,20 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
+
             lastSelectedRect = selectedRect;
+            // 剪裁
+            SelectedImage = image.Cut(selectedRect);
 
-            var img = image.Cut(selectedRect).AsResource();
-
-            selectArea.Source = img;
+            selectArea.Source = SelectedImage.AsResource();
             selectArea.SetLocation(selectedRect.X, selectedRect.Y);
             selectArea.Visibility = Visibility.Visible;
+        }
+
+        private void CanvasMask_AreaDoubleClicked(object sender, AreaEventArgs e)
+        {
+            // 截图完成
+            Compeleted.Invoke(this, new DoubleClickEventArgs(SelectedImage));
         }
     }
 }

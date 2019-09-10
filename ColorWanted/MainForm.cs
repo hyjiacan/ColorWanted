@@ -39,7 +39,7 @@ namespace ColorWanted
         /// <summary>
         /// 取色周期
         /// </summary>
-        private const int colorInterval = 200;
+        private const int colorInterval = 100;
 
         /// <summary>
         /// 取色窗口移动周期
@@ -534,6 +534,7 @@ namespace ColorWanted
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ColorUtil.DeleteDC();
             this.InvokeMethod(() => HotKey.Unbind(Handle));
         }
 

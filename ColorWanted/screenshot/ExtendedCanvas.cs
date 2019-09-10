@@ -1,15 +1,13 @@
-﻿using ColorWanted.screenshot;
+﻿using ColorWanted.screenshot.events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace ColorWanted.ext
+namespace ColorWanted.screenshot
 {
     /// <summary>
     /// 扩展的 Canvas 组件
@@ -23,14 +21,16 @@ namespace ColorWanted.ext
         public bool EditEnabled { get; set; }
 
         /// <summary>
-        /// 允许的最大图形数量，为0时表示不限制
+        /// 是否仅用于创建选区
         /// </summary>
-        public int MaxChildren { get; set; }
+        public bool MakeSelectionOnly { get; set; }
 
-        /// <summary>
-        /// 绘制的图形类型
-        /// </summary>
-        public DrawShapes DefaultDrawType { get; set; }
+        public DrawShapes DrawShape { get; set; }
+        public Color DrawColor { get; set; }
+
+        public LineStyles LineStyle { get; set; }
+        public int DrawWidth { get; set; }
+        public System.Drawing.Font TextFont { get; set; }
 
         /// <summary>
         /// 当前的绘制
@@ -49,6 +49,11 @@ namespace ColorWanted.ext
         /// </summary>
         public event EventHandler<DrawEventArgs> OnDraw;
 
+        /// <summary>
+        /// 选区被双击时的事件
+        /// </summary>
+        public event EventHandler<AreaEventArgs> AreaDoubleClicked;
+
         public ExtendedCanvas()
         {
             History = new Stack<FrameworkElement>();
@@ -57,6 +62,10 @@ namespace ColorWanted.ext
 
         private void EmitDrawEvent(DrawState state, bool isEmpty = false)
         {
+            if (OnDraw == null)
+            {
+                return;
+            }
             OnDraw.Invoke(this, new DrawEventArgs()
             {
                 DrawType = current.Shape,
@@ -100,7 +109,7 @@ namespace ColorWanted.ext
         /// </summary>
         public void Redo()
         {
-
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -125,11 +134,17 @@ namespace ColorWanted.ext
                 return;
             }
             var point = e.GetPosition(this);
-            if (MaxChildren > 0 && History.Count >= MaxChildren)
+            if (current != null && MakeSelectionOnly && History.Count >= 0)
             {
                 // 不在框内按下鼠标，不处理拖动
                 if (!current.ElementRect.Contains(point))
                 {
+                    return;
+                }
+                if (e.ClickCount == 2)
+                {
+                    // 双击图形，触发双击事件
+                    AreaDoubleClicked.Invoke(this, new AreaEventArgs(current.Rect));
                     return;
                 }
                 MouseDownPoint = point;
@@ -141,8 +156,10 @@ namespace ColorWanted.ext
 
             current = new DrawRecord
             {
-                Shape = DefaultDrawType,
-                Color = Colors.Blue
+                Shape = DrawShape,
+                Color = DrawColor,
+                Width = DrawWidth,
+                TextFont = TextFont
             };
             current.Start = point;
             IsMouseDown = true;
@@ -158,7 +175,7 @@ namespace ColorWanted.ext
             IsMouseDown = false;
             if (MoveMode)
             {
-                current.Move(MouseDownPoint, e.GetPosition(this));
+                current.Move(this, MouseDownPoint, e.GetPosition(this));
                 MoveMode = false;
                 EmitDrawEvent(DrawState.End);
                 return;
@@ -178,7 +195,7 @@ namespace ColorWanted.ext
             var point = e.GetPosition(this);
             if (MoveMode)
             {
-                current.Move(MouseDownPoint, point);
+                current.Move(this, MouseDownPoint, point);
                 EmitDrawEvent(DrawState.Move);
                 MouseDownPoint = point;
                 return;

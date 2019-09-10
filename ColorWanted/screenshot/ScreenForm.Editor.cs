@@ -2,6 +2,9 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using ColorWanted.ext;
+using ColorWanted.screenshot.events;
+
 namespace ColorWanted.screenshot
 {
     partial class ScreenForm
@@ -16,6 +19,7 @@ namespace ColorWanted.screenshot
 
             editor.AreaSelected += Editor_AreaSelected;
             editor.AreaCleared += Editor_AreaCleared;
+            editor.Compeleted += Editor_Compeleted;
 
             new Thread(InitEditorToolbar) { IsBackground = true }.Start();
 
@@ -23,6 +27,13 @@ namespace ColorWanted.screenshot
             Show();
             BringToFront();
             TopMost = false;
+        }
+
+        private void Editor_Compeleted(object sender, DoubleClickEventArgs e)
+        {
+            // 双击完成时触发
+            Clipboard.SetImage(e.Image);
+            CloseForm();
         }
 
         private void Editor_AreaCleared(object sender, EventArgs e)
@@ -34,7 +45,7 @@ namespace ColorWanted.screenshot
             }
         }
 
-        private void Editor_AreaSelected(object sender, events.AreaSelectedEventArgs e)
+        private void Editor_AreaSelected(object sender, events.AreaEventArgs e)
         {
             // 这个事件会在创建选区时触发
             if (toolPanel.Visible)
@@ -90,7 +101,11 @@ namespace ColorWanted.screenshot
             toolPanel.Show();
             toolPanel.BringToFront();
 
-            editor.SetEditEnabled(true);
+            editor.DrawColor = Color.Red.ToMediaColor();
+            editor.DrawShape = DrawShapes.Rectangle;
+            editor.DrawWidth = 1;
+
+            editor.BeginEdit();
         }
 
         private void HideEdit()
@@ -136,14 +151,9 @@ namespace ColorWanted.screenshot
             }
         }
 
-        private Bitmap GetResult()
-        {
-            return editor.GetResult();
-        }
-
         private void ToolOK_Click(object sender, System.EventArgs e)
         {
-            Clipboard.SetImage(GetResult());
+            Clipboard.SetImage(editor.EndEdit());
             CloseForm();
         }
 
@@ -159,7 +169,7 @@ namespace ColorWanted.screenshot
                 {
                     return;
                 }
-                var img = GetResult();
+                var img = editor.EndEdit();
                 img.Save(result.FileName);
             }
             CloseForm();
@@ -180,11 +190,9 @@ namespace ColorWanted.screenshot
             }
             activeToolColor = item;
             item.Checked = true;
-            if (item.Tag == null)
-            {
-                //current.Color = item.BackColor;
-            }
-            else
+
+            Color color = item.BackColor;
+            if (item.Tag != null)
             {
                 // 选择颜色
                 var dialog = new ColorDialog
@@ -195,11 +203,12 @@ namespace ColorWanted.screenshot
 
                 if (dialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    //current.Color = dialog.Color;
+                    color = dialog.Color;
                 }
                 dialog.Dispose();
             }
-            //toolTextStyle.ForeColor = current.Color;
+            editor.DrawColor = color.ToMediaColor();
+            item.BackColor = toolTextStyle.ForeColor = color;
         }
 
         private void ToolLineWidth_Scroll(object sender, System.EventArgs e)

@@ -199,15 +199,15 @@ namespace ColorWanted.screenshot
             }
         }
 
-        public void Move(Point from, Point to)
+        public void Move(Canvas canvas, Point from, Point to)
         {
-            var offset = to - from;
-
             FrameworkElement element = Element;
             if (element == null)
             {
                 return;
             }
+
+            var offset = to - from;
 
             var l = Canvas.GetLeft(shape) + offset.X;
             var t = Canvas.GetTop(shape) + offset.Y;
@@ -221,12 +221,12 @@ namespace ColorWanted.screenshot
             {
                 t = 0;
             }
-            var maxAllowWidth = ScreenShot.SCREEN_WIDTH - element.Width;
+            var maxAllowWidth = canvas.Width - element.Width;
             if (l > maxAllowWidth)
             {
                 l = maxAllowWidth;
             }
-            var maxAllowHeight = ScreenShot.SCREEN_HEIGHT - element.Height;
+            var maxAllowHeight = canvas.Height - element.Height;
             if (t > maxAllowHeight)
             {
                 t = maxAllowHeight;

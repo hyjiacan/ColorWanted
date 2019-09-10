@@ -68,8 +68,10 @@
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\ButtonExtension.cs" />
     <Compile Include="ext\CanvasExtension.cs" />
+    <Compile Include="ext\ColorExtension.cs" />
     <Compile Include="ext\ElementExtension.cs" />
-    <Compile Include="ext\ExtendedCanvas.cs" />
+    <Compile Include="screenshot\events\DoubleClickEventArgs.cs" />
+    <Compile Include="screenshot\ExtendedCanvas.cs" />
     <Compile Include="ext\PictureBoxExtension.cs" />
     <Compile Include="i18n\Author.cs" />
     <Compile Include="i18n\I18nManager.cs" />
@@ -80,7 +82,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="screenshot\events\AreaSelectedEventArgs.cs" />
+    <Compile Include="screenshot\events\AreaEventArgs.cs" />
     <Compile Include="screenshot\ImageEditor.xaml.cs">
       <DependentUpon>ImageEditor.xaml</DependentUpon>
     </Compile>
