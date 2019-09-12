@@ -122,7 +122,6 @@ namespace ColorWanted.screenshot
                         shape = new Polyline();
                     }
                     ((Polyline)shape).Points = Points;
-                    shape.SetLocation(Start);
                     break;
                 case DrawShapes.Ellipse:
                     if (shape == null)
@@ -142,9 +141,8 @@ namespace ColorWanted.screenshot
                     var l = (Line)shape;
                     l.X1 = Start.X;
                     l.Y1 = Start.Y;
-                    l.X2 = End.Y;
+                    l.X2 = End.X;
                     l.Y2 = End.Y;
-                    shape.SetLocation(Start);
                     break;
                 case DrawShapes.Rectangle:
                     if (shape == null)
@@ -178,7 +176,9 @@ namespace ColorWanted.screenshot
                     return null;
             }
             shape.StrokeThickness = Width;
+
             shape.Stroke = new SolidColorBrush(Color);
+            shape.StrokeDashOffset = 3;
             return shape;
         }
 
