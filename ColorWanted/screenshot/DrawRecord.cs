@@ -182,7 +182,6 @@ namespace ColorWanted.screenshot
             shape.StrokeThickness = Width;
 
             shape.Stroke = new SolidColorBrush(Color);
-            shape.StrokeDashOffset = 3;
             return shape;
         }
 

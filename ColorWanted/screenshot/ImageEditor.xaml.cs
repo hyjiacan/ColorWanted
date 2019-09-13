@@ -38,6 +38,11 @@ namespace ColorWanted.screenshot
         private Bitmap SelectedImage;
 
         /// <summary>
+        /// 选区的边框 
+        /// </summary>
+        private System.Windows.Shapes.Rectangle SelectionBorder;
+
+        /// <summary>
         /// 编辑状态改变时的事件
         /// </summary>
         public event EventHandler<AreaEventArgs> AreaSelected;
@@ -102,10 +107,12 @@ namespace ColorWanted.screenshot
         public void BeginEdit()
         {
             canvasMask.EditEnabled = false;
+
             editBackground.ImageSource = selectArea.Source;
             // 先设置位置，然后再显示出来
             canvasEdit.Width = lastSelectedRect.Width;
             canvasEdit.Height = lastSelectedRect.Height;
+
             canvasEdit.SetLocation(lastSelectedRect.Location);
             canvasEdit.Visibility = Visibility.Visible;
 
@@ -127,6 +134,46 @@ namespace ColorWanted.screenshot
             }
 
             return SelectedImage;
+        }
+
+        private void SetBorder()
+        {
+            const int BORDER_WIDTH = 2;
+
+            if (SelectionBorder == null)
+            {
+                // 添加边框
+                SelectionBorder = new System.Windows.Shapes.Rectangle
+                {
+                    StrokeThickness = BORDER_WIDTH,
+                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue)
+                };
+
+                canvasMask.Children.Add(SelectionBorder);
+            }
+            var x = lastSelectedRect.X - BORDER_WIDTH;
+            if (x < 0)
+            {
+                x = 0;
+            }
+            var y = lastSelectedRect.Y - BORDER_WIDTH;
+            if (y < 0)
+            {
+                y = 0;
+            }
+            var w = lastSelectedRect.Width + BORDER_WIDTH * 2;
+            if (w + x > ScreenShot.SCREEN_WIDTH)
+            {
+                w = ScreenShot.SCREEN_WIDTH - x;
+            }
+            var h = lastSelectedRect.Height + BORDER_WIDTH * 2;
+            if (h + y > ScreenShot.SCREEN_HEIGHT)
+            {
+                h = ScreenShot.SCREEN_HEIGHT - y;
+            }
+            SelectionBorder.SetLocation(x, y);
+            SelectionBorder.Width = w;
+            SelectionBorder.Height = h;
         }
 
         private void CanvasMask_OnDraw(object sender, DrawEventArgs e)
@@ -181,7 +228,11 @@ namespace ColorWanted.screenshot
 
             selectArea.Source = SelectedImage.AsResource();
             selectArea.SetLocation(selectedRect.X, selectedRect.Y);
-            selectArea.Visibility = Visibility.Visible;
+            if (selectArea.Visibility != Visibility.Visible)
+            {
+                selectArea.Visibility = Visibility.Visible;
+            }
+            SetBorder();
         }
 
         private void CanvasMask_AreaDoubleClicked(object sender, AreaEventArgs e)
