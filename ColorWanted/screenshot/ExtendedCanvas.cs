@@ -1,4 +1,5 @@
-﻿using ColorWanted.screenshot.events;
+﻿using ColorWanted.ext;
+using ColorWanted.screenshot.events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace ColorWanted.screenshot
         private bool MoveMode;
 
         private Point MouseDownPoint;
+        private TextBox TextBox;
 
         /// <summary>
         /// 绘图事件
@@ -130,6 +132,42 @@ namespace ColorWanted.screenshot
             EmitDrawEvent(DrawState.End, true);
         }
 
+        private void CreateTextBox()
+        {
+            if (TextBox == null)
+            {
+                TextBox = new TextBox
+                {
+                    AcceptsReturn = true,
+                    AcceptsTab = true,
+                    Width = 160,
+                    Height = 60,
+                    Background = Brushes.Transparent,
+                    Visibility = Visibility.Hidden
+                };
+                Children.Add(TextBox);
+            }
+
+            TextBox.FontFamily = new FontFamily(TextFont.FontFamily.Name);
+            TextBox.FontSize = TextFont.SizeInPoints;
+            TextBox.FontStyle = TextFont.Italic ? FontStyles.Italic : FontStyles.Normal;
+            TextBox.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
+            TextBox.Foreground = new SolidColorBrush(DrawColor);
+        }
+
+        private void CommitTextInput()
+        {
+            TextBox.Visibility = Visibility.Hidden;
+            var text = TextBox.Text;
+            TextBox.Clear();
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return;
+            }
+            current.Text = text;
+            Draw(current);
+        }
+
         #region 事件
         private void OnMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -156,6 +194,18 @@ namespace ColorWanted.screenshot
                 IsMouseDown = true;
                 EmitDrawEvent(DrawState.Start);
                 return;
+            }
+            if (DrawShape == DrawShapes.Text)
+            {
+                CreateTextBox();
+                if (TextBox.Visibility == Visibility.Visible)
+                {
+                    // 已经显示起了，此时提交输入
+                    CommitTextInput();
+                    return;
+                }
+                TextBox.SetLocation(point);
+                TextBox.Visibility = Visibility.Visible;
             }
 
             current = new DrawRecord
@@ -185,6 +235,12 @@ namespace ColorWanted.screenshot
                 return;
             }
             current.End = e.GetPosition(this);
+            if (DrawShape == DrawShapes.Text)
+            {
+                TextBox.Width = current.Size.Width;
+                TextBox.Height = current.Size.Height;
+                return;
+            }
             Draw(current);
             EmitDrawEvent(DrawState.End);
         }
@@ -206,6 +262,13 @@ namespace ColorWanted.screenshot
             }
 
             current.End = point;
+
+            if (DrawShape == DrawShapes.Text)
+            {
+                TextBox.Width = current.Size.Width;
+                TextBox.Height = current.Size.Height;
+                return;
+            }
             Draw(current);
             EmitDrawEvent(DrawState.Move);
         }

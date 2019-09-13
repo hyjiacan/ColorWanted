@@ -168,8 +168,12 @@ namespace ColorWanted.screenshot
                         textBlock = new TextBlock();
                     }
                     textBlock.Text = Text;
-                    shape.SetLocation(Start);
-                    // TODO 设置文本样式
+                    textBlock.FontFamily = new FontFamily(TextFont.FontFamily.Name);
+                    textBlock.FontSize = TextFont.SizeInPoints;
+                    textBlock.FontStyle = TextFont.Italic ? FontStyles.Italic : FontStyles.Normal;
+                    textBlock.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
+                    textBlock.Foreground = new SolidColorBrush(Color);
+                    textBlock.SetLocation(Start);
                     GC.Collect();
                     return textBlock;
                 default:

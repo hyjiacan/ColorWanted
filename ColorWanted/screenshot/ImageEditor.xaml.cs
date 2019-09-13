@@ -108,6 +108,8 @@ namespace ColorWanted.screenshot
             canvasEdit.Height = lastSelectedRect.Height;
             canvasEdit.SetLocation(lastSelectedRect.Location);
             canvasEdit.Visibility = Visibility.Visible;
+
+            canvasEdit.TextFont = new Font("Arail", 14);
         }
 
         /// <summary>
