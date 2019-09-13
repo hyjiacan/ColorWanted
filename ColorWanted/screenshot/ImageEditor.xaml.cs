@@ -2,11 +2,8 @@
 using ColorWanted.screenshot.events;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ColorWanted.screenshot
 {
@@ -120,22 +117,14 @@ namespace ColorWanted.screenshot
         public Bitmap EndEdit()
         {
             canvasMask.EditEnabled = true;
-            var renderer = new RenderTargetBitmap(
-                (int)canvasEdit.Width,
-                (int)canvasEdit.Height,
-                96,
-                96,
-                PixelFormats.Pbgra32
-                );
-            renderer.Render(canvasEdit);
-            var encoder = new JpegBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create((BitmapSource)selectArea.Source));
-            encoder.Frames.Add(BitmapFrame.Create(renderer));
-            using (var stream = new MemoryStream())
+
+            var graphics = Graphics.FromImage(SelectedImage);
+            foreach (var item in canvasEdit.History)
             {
-                encoder.Save(stream);
-                return new Bitmap(stream);
+                graphics.Draw(item.Record);
             }
+
+            return SelectedImage;
         }
 
         private void CanvasMask_OnDraw(object sender, DrawEventArgs e)

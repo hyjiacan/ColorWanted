@@ -14,7 +14,7 @@ namespace ColorWanted.screenshot
     /// </summary>
     public class ExtendedCanvas : Canvas
     {
-        private Stack<FrameworkElement> History { get; set; }
+        public Stack<DrawHistoryItem> History { get; private set; }
 
         private bool IsMouseDown;
 
@@ -56,7 +56,7 @@ namespace ColorWanted.screenshot
 
         public ExtendedCanvas()
         {
-            History = new Stack<FrameworkElement>();
+            History = new Stack<DrawHistoryItem>();
             BindEvent();
         }
 
@@ -95,12 +95,16 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
-            if (History.Any(item => item.Equals(element)))
+            if (History.Any(item => item.Element.Equals(element)))
             {
                 return;
             }
             Children.Add(element);
-            History.Push(element);
+            History.Push(new DrawHistoryItem
+            {
+                Element = element,
+                Record = record
+            });
             GC.Collect();
         }
 
@@ -122,7 +126,7 @@ namespace ColorWanted.screenshot
                 return;
             }
             var element = History.Pop();
-            Children.Remove(element);
+            Children.Remove(element.Element);
             EmitDrawEvent(DrawState.End, true);
         }
 

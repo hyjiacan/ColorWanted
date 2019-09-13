@@ -68,8 +68,12 @@
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\ButtonExtension.cs" />
     <Compile Include="ext\CanvasExtension.cs" />
+    <Compile Include="ext\RectangleExtension.cs" />
+    <Compile Include="ext\PointExtension.cs" />
     <Compile Include="ext\ColorExtension.cs" />
     <Compile Include="ext\ElementExtension.cs" />
+    <Compile Include="ext\GraphicsExtension.cs" />
+    <Compile Include="screenshot\DrawHistoryItem.cs" />
     <Compile Include="screenshot\events\DoubleClickEventArgs.cs" />
     <Compile Include="screenshot\ExtendedCanvas.cs" />
     <Compile Include="ext\PictureBoxExtension.cs" />
