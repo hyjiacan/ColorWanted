@@ -140,23 +140,38 @@ namespace ColorWanted.screenshot
                 {
                     AcceptsReturn = true,
                     AcceptsTab = true,
-                    Width = 160,
-                    Height = 60,
+                    TextWrapping = TextWrapping.Wrap,
                     Background = Brushes.Transparent,
                     Visibility = Visibility.Hidden
                 };
+                TextBox.KeyDown += (sender, e) =>
+                  {
+                      // 在输入框内按下 ESC 时，取消输入
+                      if (e.Key == System.Windows.Input.Key.Escape)
+                      {
+                          TextBox.Visibility = Visibility.Hidden;
+                          TextBox.Clear();
+                      }
+                  };
                 Children.Add(TextBox);
             }
-
+            TextBox.Width = 160;
+            TextBox.Height = 60;
             TextBox.FontFamily = new FontFamily(TextFont.FontFamily.Name);
             TextBox.FontSize = TextFont.SizeInPoints;
             TextBox.FontStyle = TextFont.Italic ? FontStyles.Italic : FontStyles.Normal;
             TextBox.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
             TextBox.Foreground = new SolidColorBrush(DrawColor);
+
+            current.End = new Point(current.Start.X + 160, current.Start.Y + 60);
         }
 
-        private void CommitTextInput()
+        public void CommitTextInput()
         {
+            if (TextBox == null)
+            {
+                return;
+            }
             TextBox.Visibility = Visibility.Hidden;
             var text = TextBox.Text;
             TextBox.Clear();
@@ -176,6 +191,7 @@ namespace ColorWanted.screenshot
                 return;
             }
             var point = e.GetPosition(this);
+            MouseDownPoint = point;
             if (current != null && MakeSelectionOnly && History.Count >= 0)
             {
                 // 不在框内按下鼠标，不处理拖动
@@ -189,7 +205,6 @@ namespace ColorWanted.screenshot
                     AreaDoubleClicked.Invoke(this, new AreaEventArgs(current.Rect));
                     return;
                 }
-                MouseDownPoint = point;
                 MoveMode = true;
                 IsMouseDown = true;
                 EmitDrawEvent(DrawState.Start);
@@ -197,15 +212,38 @@ namespace ColorWanted.screenshot
             }
             if (DrawShape == DrawShapes.Text)
             {
-                CreateTextBox();
-                if (TextBox.Visibility == Visibility.Visible)
+                if (current == null)
+                {
+                    current = new DrawRecord
+                    {
+                        Shape = DrawShape,
+                        Color = DrawColor,
+                        Width = DrawWidth,
+                        TextFont = TextFont
+                    };
+                }
+                if (TextBox != null && TextBox.Visibility == Visibility.Visible)
                 {
                     // 已经显示起了，此时提交输入
                     CommitTextInput();
-                    return;
+                    current = new DrawRecord
+                    {
+                        Shape = DrawShape,
+                        Color = DrawColor,
+                        Width = DrawWidth,
+                        TextFont = TextFont
+                    };
                 }
+
+                current.Start = point;
+                IsMouseDown = true;
+
+                CreateTextBox();
+
                 TextBox.SetLocation(point);
                 TextBox.Visibility = Visibility.Visible;
+                TextBox.Focus();
+                return;
             }
 
             current = new DrawRecord
@@ -227,20 +265,23 @@ namespace ColorWanted.screenshot
                 return;
             }
             IsMouseDown = false;
+            var point = e.GetPosition(this);
             if (MoveMode)
             {
-                current.Move(this, MouseDownPoint, e.GetPosition(this));
+                current.Move(this, MouseDownPoint, point);
                 MoveMode = false;
                 EmitDrawEvent(DrawState.End);
                 return;
             }
-            current.End = e.GetPosition(this);
             if (DrawShape == DrawShapes.Text)
             {
-                TextBox.Width = current.Size.Width;
-                TextBox.Height = current.Size.Height;
+                if (MouseDownPoint != point)
+                {
+                    current.End = e.GetPosition(this);
+                }
                 return;
             }
+            current.End = point;
             Draw(current);
             EmitDrawEvent(DrawState.End);
         }
@@ -253,6 +294,10 @@ namespace ColorWanted.screenshot
             }
 
             var point = e.GetPosition(this);
+            if (MouseDownPoint == point)
+            {
+                return;
+            }
             if (MoveMode)
             {
                 current.Move(this, MouseDownPoint, point);

@@ -167,12 +167,14 @@ namespace ColorWanted.screenshot
                     {
                         textBlock = new TextBlock();
                     }
+                    textBlock.TextWrapping = TextWrapping.Wrap;
                     textBlock.Text = Text;
                     textBlock.FontFamily = new FontFamily(TextFont.FontFamily.Name);
                     textBlock.FontSize = TextFont.SizeInPoints;
                     textBlock.FontStyle = TextFont.Italic ? FontStyles.Italic : FontStyles.Normal;
                     textBlock.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
                     textBlock.Foreground = new SolidColorBrush(Color);
+                    textBlock.Width = Size.Width;
                     textBlock.SetLocation(Start);
                     GC.Collect();
                     return textBlock;

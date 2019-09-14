@@ -54,7 +54,8 @@ namespace ColorWanted.screenshot
             }
 
             toolbarMask.Left = e.Rect.X;
-            toolbarMask.Top = e.Rect.Y + e.Rect.Height;
+            // 2: 边框大小
+            toolbarMask.Top = e.Rect.Y + e.Rect.Height + 2;
 
             if (!toolbarMask.Visible)
             {
@@ -234,23 +235,25 @@ namespace ColorWanted.screenshot
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ToolTextStyle_Click(object sender, System.EventArgs e)
+        private void ToolTextStyle_Click(object sender, EventArgs e)
         {
             var dialog = new FontDialog
             {
                 MinSize = 8,
-                MaxSize = 16,
+                MaxSize = 64,
                 ShowApply = false,
                 ShowColor = false,
-                ShowEffects = true,
+                ShowEffects = false,
                 FontMustExist = true
             };
             if (dialog.ShowDialog(this) != DialogResult.OK)
             {
+                dialog.Dispose();
                 return;
             }
 
             editor.TextFont = toolTextStyle.Font = dialog.Font;
+            dialog.Dispose();
         }
     }
 }

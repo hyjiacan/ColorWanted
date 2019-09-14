@@ -126,7 +126,7 @@ namespace ColorWanted.screenshot
         public Bitmap EndEdit()
         {
             canvasMask.EditEnabled = true;
-
+            canvasEdit.CommitTextInput();
             var graphics = Graphics.FromImage(SelectedImage);
             foreach (var item in canvasEdit.History)
             {
