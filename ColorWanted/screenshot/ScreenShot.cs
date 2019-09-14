@@ -21,20 +21,29 @@ namespace ColorWanted.screenshot
             SCREEN_HEIGHT = screen.Height;
         }
 
-        public static void Capture()
+        public static void Init()
         {
-            Busy = true;
-            if (screenForm != null)
-            {
-                screenForm = null;
-            }
             screenForm = new ScreenForm();
-            screenForm.FormClosed += (sender, e) =>
+
+            screenForm.FormClosing += (sender, e) =>
             {
                 Busy = false;
-                screenForm = null;
                 System.GC.Collect();
             };
+        }
+
+        public static void Capture()
+        {
+            if (screenForm == null)
+            {
+                return;
+            }
+            if (Busy)
+            {
+                return;
+            }
+            Busy = true;
+
             var image = new Bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
             using (Graphics g = Graphics.FromImage(image))
             {
@@ -47,10 +56,6 @@ namespace ColorWanted.screenshot
             catch (System.Exception e)
             {
                 Busy = false;
-                if (screenForm != null)
-                {
-                    screenForm.Close();
-                }
                 throw e;
             }
         }

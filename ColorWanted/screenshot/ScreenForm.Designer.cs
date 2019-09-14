@@ -89,7 +89,7 @@
             this.toolCancel});
             this.toolbar.Location = new System.Drawing.Point(0, 0);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(256, 25);
+            this.toolbar.Size = new System.Drawing.Size(225, 25);
             this.toolbar.TabIndex = 5;
             this.toolbar.Text = "toolStrip1";
             this.toolbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolbar_ItemClicked);
@@ -266,7 +266,7 @@
             this.toolPanel.Controls.Add(this.toolbar);
             this.toolPanel.Location = new System.Drawing.Point(12, 197);
             this.toolPanel.Name = "toolPanel";
-            this.toolPanel.Size = new System.Drawing.Size(509, 67);
+            this.toolPanel.Size = new System.Drawing.Size(372, 67);
             this.toolPanel.TabIndex = 9;
             this.toolPanel.Visible = false;
             // 
@@ -279,7 +279,7 @@
             this.toolbarExtPanel.Controls.Add(this.toolbarTextStyle);
             this.toolbarExtPanel.Location = new System.Drawing.Point(3, 39);
             this.toolbarExtPanel.Name = "toolbarExtPanel";
-            this.toolbarExtPanel.Size = new System.Drawing.Size(503, 25);
+            this.toolbarExtPanel.Size = new System.Drawing.Size(366, 25);
             this.toolbarExtPanel.TabIndex = 10;
             // 
             // toolbarLineType

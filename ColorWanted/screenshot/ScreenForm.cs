@@ -18,6 +18,8 @@ namespace ColorWanted.screenshot
             DoubleBuffered = true;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+
+            BindEditorEvents();
         }
 
         private void ScreenForm_Load(object sender, System.EventArgs e)

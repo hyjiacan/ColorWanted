@@ -13,20 +13,24 @@ namespace ColorWanted.screenshot
         private ToolStripButton activeToolColor;
         private ToolStripButton activeToolLineStyle;
 
-        public void Show(Bitmap img)
+        public void BindEditorEvents()
         {
-            editor.SetImage(img);
-
             editor.AreaSelected += Editor_AreaSelected;
             editor.AreaCleared += Editor_AreaCleared;
             editor.Compeleted += Editor_Compeleted;
 
             new Thread(InitEditorToolbar) { IsBackground = true }.Start();
+        }
+
+        public void Show(Bitmap img)
+        {
+            editor.SetImage(img);
 
             Refresh();
             Show();
             BringToFront();
-            TopMost = false;
+
+            // TopMost = true;
         }
 
         private void Editor_Compeleted(object sender, DoubleClickEventArgs e)
@@ -91,7 +95,14 @@ namespace ColorWanted.screenshot
 
         private void ScreenForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            // 内存回收
+            editor.Reset();
 
+            e.Cancel = true;
+            toolbar.Hide();
+            toolbarMask.Hide();
+            toolPanel.Hide();
+            Hide();
         }
 
         private void ToolMaskEdit_Click(object sender, EventArgs e)
@@ -104,7 +115,8 @@ namespace ColorWanted.screenshot
 
             editor.DrawColor = Color.Red.ToMediaColor();
             editor.DrawShape = DrawShapes.Rectangle;
-            editor.DrawWidth = 1;
+            editor.DrawWidth = 2;
+            editor.TextFont = toolText.Font;
 
             editor.BeginEdit();
         }

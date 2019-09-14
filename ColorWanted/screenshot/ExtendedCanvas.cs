@@ -46,6 +46,18 @@ namespace ColorWanted.screenshot
         private Point MouseDownPoint;
         private TextBox TextBox;
 
+        public void Reset()
+        {
+            foreach (var item in History)
+            {
+                Children.Remove(item.Element);
+            }
+            History.Clear();
+            IsMouseDown = false;
+            current = null;
+            MoveMode = false;
+        }
+
         /// <summary>
         /// 绘图事件
         /// </summary>

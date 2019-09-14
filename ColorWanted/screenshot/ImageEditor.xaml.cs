@@ -115,8 +115,6 @@ namespace ColorWanted.screenshot
 
             canvasEdit.SetLocation(lastSelectedRect.Location);
             canvasEdit.Visibility = Visibility.Visible;
-
-            canvasEdit.TextFont = new Font("Arail", 14);
         }
 
         /// <summary>
@@ -174,6 +172,7 @@ namespace ColorWanted.screenshot
             SelectionBorder.SetLocation(x, y);
             SelectionBorder.Width = w;
             SelectionBorder.Height = h;
+            SelectionBorder.Visibility = Visibility.Visible;
         }
 
         private void CanvasMask_OnDraw(object sender, DrawEventArgs e)
@@ -239,6 +238,53 @@ namespace ColorWanted.screenshot
         {
             // 截图完成
             Compeleted.Invoke(this, new DoubleClickEventArgs(SelectedImage));
+        }
+
+        public void Reset()
+        {
+            if (image != null)
+            {
+                try
+                {
+                    image.Dispose();
+                }
+                finally
+                {
+                    image = null;
+                }
+            }
+            counter = 0;
+            if (SelectedImage != null)
+            {
+                try
+                {
+                    SelectedImage.Dispose();
+                }
+                finally
+                {
+                    SelectedImage = null;
+                }
+            }
+            maskBackground.ImageSource = null;
+            selectArea.Source = null;
+            editBackground.ImageSource = null;
+            if (SelectionBorder != null)
+            {
+                SelectionBorder.Visibility = Visibility.Hidden;
+            }
+            try
+            {
+                canvasMask.Reset();
+            }
+            catch { }
+
+            try
+            {
+                canvasEdit.Reset();
+            }
+            catch { }
+            canvasEdit.Visibility = Visibility.Hidden;
+            canvasMask.EditEnabled = true;
         }
     }
 }
