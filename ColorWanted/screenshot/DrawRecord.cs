@@ -153,11 +153,17 @@ namespace ColorWanted.screenshot
                     shape.Height = Size.Height;
                     shape.SetLocation(Rect.X, Rect.Y);
                     break;
-                //case DrawShapes.Arrow:
-                //    var cap = new AdjustableArrowCap(5, 5, false);
-                //    pen.CustomEndCap = cap;
-                //    graphics.DrawLine(pen, Start, End);
-                //    break;
+                case DrawShapes.Arrow:
+                    if (shape == null)
+                    {
+                        shape = new Polygon
+                        {
+                            StrokeLineJoin = PenLineJoin.Bevel
+                        };
+                    }
+                    ((Polygon)shape).Points = new PointCollection(MakePolygon(Start.X, Start.Y, End.X, End.Y));
+                    shape.Fill = new SolidColorBrush(Color);
+                    break;
                 case DrawShapes.Text:
                     if (string.IsNullOrWhiteSpace(Text))
                     {
@@ -181,10 +187,42 @@ namespace ColorWanted.screenshot
                 default:
                     return null;
             }
-            shape.StrokeThickness = Width;
+            if (LineStyle == LineStyles.Dashed)
+            {
+                shape.StrokeDashArray = new DoubleCollection() { 2, 3 };
+                shape.StrokeDashCap = PenLineCap.Square;
+            }
+            else if (LineStyle == LineStyles.Dotted)
+            {
 
+                shape.StrokeDashArray = new DoubleCollection() { 0.5, 3 };
+                shape.StrokeDashCap = PenLineCap.Round;
+            }
+            else
+            {
+                shape.StrokeDashArray.Clear();
+                shape.StrokeDashCap = PenLineCap.Flat;
+            }
+            shape.StrokeThickness = Width;
             shape.Stroke = new SolidColorBrush(Color);
             return shape;
+        }
+
+        private Point[] MakePolygon(double x1, double y1, double x2, double y2, double arrowAngle = Math.PI / 12, double arrowLength = 20)
+        {
+            Point point1 = new Point(x1, y1);     // 箭头起点
+            Point point2 = new Point(x2, y2);     // 箭头终点
+            double angleOri = Math.Atan((y2 - y1) / (x2 - x1));      // 起始点线段夹角
+            double angleDown = angleOri - arrowAngle;   // 箭头扩张角度
+            double angleUp = angleOri + arrowAngle;     // 箭头扩张角度
+            int directionFlag = (x2 > x1) ? -1 : 1;     // 方向标识
+            double x3 = x2 + ((directionFlag * arrowLength) * Math.Cos(angleDown));   // 箭头第三个点的坐标
+            double y3 = y2 + ((directionFlag * arrowLength) * Math.Sin(angleDown));
+            double x4 = x2 + ((directionFlag * arrowLength) * Math.Cos(angleUp));     // 箭头第四个点的坐标
+            double y4 = y2 + ((directionFlag * arrowLength) * Math.Sin(angleUp));
+            Point point3 = new Point(x3, y3);   // 箭头第三个点
+            Point point4 = new Point(x4, y4);   // 箭头第四个点
+            return new Point[] { point1, point2, point3, point4, point2 };   // 多边形，起点 --> 终点 --> 第三点 --> 第四点 --> 终点
         }
 
         public FrameworkElement Element

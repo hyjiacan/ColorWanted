@@ -347,7 +347,7 @@
             this.toolbarTextStyle.Dock = System.Windows.Forms.DockStyle.None;
             this.toolbarTextStyle.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolTextStyle});
-            this.toolbarTextStyle.Location = new System.Drawing.Point(362, 0);
+            this.toolbarTextStyle.Location = new System.Drawing.Point(0, 28);
             this.toolbarTextStyle.Name = "toolbarTextStyle";
             this.toolbarTextStyle.Size = new System.Drawing.Size(66, 25);
             this.toolbarTextStyle.TabIndex = 10;
@@ -357,6 +357,7 @@
             // 
             this.toolTextStyle.AutoSize = false;
             this.toolTextStyle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolTextStyle.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F);
             this.toolTextStyle.Image = global::ColorWanted.Properties.Resources.font;
             this.toolTextStyle.Name = "toolTextStyle";
             this.toolTextStyle.Size = new System.Drawing.Size(23, 22);
@@ -446,7 +447,7 @@
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenForm_FormClosing);
             this.Load += new System.EventHandler(this.ScreenForm_Load);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.ScreenForm_PreviewKeyDown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ScreenForm_KeyDown);
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
             this.toolbarColor.ResumeLayout(false);

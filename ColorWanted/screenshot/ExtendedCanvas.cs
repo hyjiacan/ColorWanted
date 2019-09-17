@@ -26,7 +26,17 @@ namespace ColorWanted.screenshot
         /// </summary>
         public bool MakeSelectionOnly { get; set; }
 
-        public DrawShapes DrawShape { get; set; }
+        private DrawShapes drawShape;
+
+        public DrawShapes DrawShape
+        {
+            get => drawShape;
+            set
+            {
+                CommitTextInput();
+                drawShape = value;
+            }
+        }
         public Color DrawColor { get; set; }
 
         public LineStyles LineStyle { get; set; }
@@ -93,7 +103,8 @@ namespace ColorWanted.screenshot
         private void BindEvent()
         {
             MouseLeftButtonDown += OnMouseLeftButtonDown;
-            MouseLeftButtonUp += OnMouseLeftButtonUp;
+            MouseLeftButtonUp += ExtendedCanvas_MouseLeaveOrUp;
+            MouseLeave += ExtendedCanvas_MouseLeaveOrUp; ;
             MouseMove += OnMouseMove;
             MouseRightButtonDown += On_MouseRightButtonDown;
         }
@@ -187,12 +198,24 @@ namespace ColorWanted.screenshot
             TextBox.Visibility = Visibility.Hidden;
             var text = TextBox.Text;
             TextBox.Clear();
-            if (string.IsNullOrWhiteSpace(text))
+            if (!string.IsNullOrWhiteSpace(text))
             {
-                return;
+                current.Text = text;
+                Draw(current);
             }
-            current.Text = text;
-            Draw(current);
+            current = MakeNewRecord();
+        }
+
+        private DrawRecord MakeNewRecord()
+        {
+            return new DrawRecord
+            {
+                Shape = DrawShape,
+                Color = DrawColor,
+                Width = DrawWidth,
+                LineStyle = LineStyle,
+                TextFont = TextFont
+            };
         }
 
         #region 事件
@@ -224,28 +247,13 @@ namespace ColorWanted.screenshot
             }
             if (DrawShape == DrawShapes.Text)
             {
-                if (current == null)
-                {
-                    current = new DrawRecord
-                    {
-                        Shape = DrawShape,
-                        Color = DrawColor,
-                        Width = DrawWidth,
-                        TextFont = TextFont
-                    };
-                }
                 if (TextBox != null && TextBox.Visibility == Visibility.Visible)
                 {
                     // 已经显示起了，此时提交输入
                     CommitTextInput();
-                    current = new DrawRecord
-                    {
-                        Shape = DrawShape,
-                        Color = DrawColor,
-                        Width = DrawWidth,
-                        TextFont = TextFont
-                    };
                 }
+
+                current = MakeNewRecord();
 
                 current.Start = point;
                 IsMouseDown = true;
@@ -258,19 +266,13 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            current = new DrawRecord
-            {
-                Shape = DrawShape,
-                Color = DrawColor,
-                Width = DrawWidth,
-                TextFont = TextFont
-            };
+            current = MakeNewRecord();
             current.Start = point;
             IsMouseDown = true;
             EmitDrawEvent(DrawState.Start);
         }
 
-        private void OnMouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void ExtendedCanvas_MouseLeaveOrUp(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (!EditEnabled || !IsMouseDown)
             {
@@ -278,6 +280,24 @@ namespace ColorWanted.screenshot
             }
             IsMouseDown = false;
             var point = e.GetPosition(this);
+
+            // 保证线不会画出界
+            if (point.X < 0)
+            {
+                point.X = 0;
+            }
+            else if (point.X > Width)
+            {
+                point.X = Width;
+            }
+            if (point.Y < 0)
+            {
+                point.Y = 0;
+            }
+            else if (point.Y > Height)
+            {
+                point.Y = Height;
+            }
             if (MoveMode)
             {
                 current.Move(this, MouseDownPoint, point);

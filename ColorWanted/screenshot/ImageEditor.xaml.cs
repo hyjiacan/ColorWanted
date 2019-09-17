@@ -134,6 +134,11 @@ namespace ColorWanted.screenshot
             return SelectedImage;
         }
 
+        public void Undo()
+        {
+            canvasEdit.Undo();
+        }
+
         private void SetBorder()
         {
             const int BORDER_WIDTH = 2;

@@ -30,7 +30,7 @@ namespace ColorWanted.screenshot
             Show();
             BringToFront();
 
-            // TopMost = true;
+            TopMost = false;
         }
 
         private void Editor_Compeleted(object sender, DoubleClickEventArgs e)
@@ -82,9 +82,22 @@ namespace ColorWanted.screenshot
 
         private void ScreenForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+
+        }
+
+        private void ScreenForm_KeyDown(object sender, KeyEventArgs e)
+        {
             if (e.KeyCode == Keys.Escape)
             {
                 CloseForm();
+                return;
+            }
+
+            if (e.KeyCode == Keys.Z && e.Control == e.Control)
+            {
+                // 撤消
+                editor.Undo();
+                return;
             }
         }
 
@@ -99,7 +112,6 @@ namespace ColorWanted.screenshot
             editor.Reset();
 
             e.Cancel = true;
-            toolbar.Hide();
             toolbarMask.Hide();
             toolPanel.Hide();
             Hide();
@@ -116,19 +128,9 @@ namespace ColorWanted.screenshot
             editor.DrawColor = Color.Red.ToMediaColor();
             editor.DrawShape = DrawShapes.Rectangle;
             editor.DrawWidth = 2;
-            editor.TextFont = toolText.Font;
+            editor.TextFont = toolTextStyle.Font;
 
             editor.BeginEdit();
-        }
-
-        private void HideEdit()
-        {
-            toolPanel.Hide();
-
-            toolbar.Hide();
-
-            toolbarMask.Show();
-            toolbarMask.BringToFront();
         }
 
         private void Toolbar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
