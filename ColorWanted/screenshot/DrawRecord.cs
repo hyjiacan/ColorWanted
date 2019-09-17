@@ -122,7 +122,6 @@ namespace ColorWanted.screenshot
                         shape = new Polyline();
                     }
                     ((Polyline)shape).Points = Points;
-                    shape.SetLocation(Start);
                     break;
                 case DrawShapes.Ellipse:
                     if (shape == null)
@@ -142,9 +141,8 @@ namespace ColorWanted.screenshot
                     var l = (Line)shape;
                     l.X1 = Start.X;
                     l.Y1 = Start.Y;
-                    l.X2 = End.Y;
+                    l.X2 = End.X;
                     l.Y2 = End.Y;
-                    shape.SetLocation(Start);
                     break;
                 case DrawShapes.Rectangle:
                     if (shape == null)
@@ -155,11 +153,17 @@ namespace ColorWanted.screenshot
                     shape.Height = Size.Height;
                     shape.SetLocation(Rect.X, Rect.Y);
                     break;
-                //case DrawTypes.Arrow:
-                //    var cap = new AdjustableArrowCap(5, 5, false);
-                //    pen.CustomEndCap = cap;
-                //    graphics.DrawLine(pen, Start, End);
-                //    break;
+                case DrawShapes.Arrow:
+                    if (shape == null)
+                    {
+                        shape = new Polygon
+                        {
+                            StrokeLineJoin = PenLineJoin.Bevel
+                        };
+                    }
+                    ((Polygon)shape).Points = new PointCollection(MakePolygon(Start.X, Start.Y, End.X, End.Y));
+                    shape.Fill = new SolidColorBrush(Color);
+                    break;
                 case DrawShapes.Text:
                     if (string.IsNullOrWhiteSpace(Text))
                     {
@@ -169,17 +173,56 @@ namespace ColorWanted.screenshot
                     {
                         textBlock = new TextBlock();
                     }
+                    textBlock.TextWrapping = TextWrapping.Wrap;
                     textBlock.Text = Text;
-                    shape.SetLocation(Start);
-                    // TODO 设置文本样式
+                    textBlock.FontFamily = new FontFamily(TextFont.FontFamily.Name);
+                    textBlock.FontSize = TextFont.SizeInPoints;
+                    textBlock.FontStyle = TextFont.Italic ? FontStyles.Italic : FontStyles.Normal;
+                    textBlock.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
+                    textBlock.Foreground = new SolidColorBrush(Color);
+                    textBlock.Width = Size.Width;
+                    textBlock.SetLocation(Start);
                     GC.Collect();
                     return textBlock;
                 default:
                     return null;
             }
+            if (LineStyle == LineStyles.Dashed)
+            {
+                shape.StrokeDashArray = new DoubleCollection() { 2, 3 };
+                shape.StrokeDashCap = PenLineCap.Square;
+            }
+            else if (LineStyle == LineStyles.Dotted)
+            {
+
+                shape.StrokeDashArray = new DoubleCollection() { 0.5, 3 };
+                shape.StrokeDashCap = PenLineCap.Round;
+            }
+            else
+            {
+                shape.StrokeDashArray.Clear();
+                shape.StrokeDashCap = PenLineCap.Flat;
+            }
             shape.StrokeThickness = Width;
             shape.Stroke = new SolidColorBrush(Color);
             return shape;
+        }
+
+        private Point[] MakePolygon(double x1, double y1, double x2, double y2, double arrowAngle = Math.PI / 12, double arrowLength = 20)
+        {
+            Point point1 = new Point(x1, y1);     // 箭头起点
+            Point point2 = new Point(x2, y2);     // 箭头终点
+            double angleOri = Math.Atan((y2 - y1) / (x2 - x1));      // 起始点线段夹角
+            double angleDown = angleOri - arrowAngle;   // 箭头扩张角度
+            double angleUp = angleOri + arrowAngle;     // 箭头扩张角度
+            int directionFlag = (x2 > x1) ? -1 : 1;     // 方向标识
+            double x3 = x2 + ((directionFlag * arrowLength) * Math.Cos(angleDown));   // 箭头第三个点的坐标
+            double y3 = y2 + ((directionFlag * arrowLength) * Math.Sin(angleDown));
+            double x4 = x2 + ((directionFlag * arrowLength) * Math.Cos(angleUp));     // 箭头第四个点的坐标
+            double y4 = y2 + ((directionFlag * arrowLength) * Math.Sin(angleUp));
+            Point point3 = new Point(x3, y3);   // 箭头第三个点
+            Point point4 = new Point(x4, y4);   // 箭头第四个点
+            return new Point[] { point1, point2, point3, point4, point2 };   // 多边形，起点 --> 终点 --> 第三点 --> 第四点 --> 终点
         }
 
         public FrameworkElement Element
@@ -199,15 +242,15 @@ namespace ColorWanted.screenshot
             }
         }
 
-        public void Move(Point from, Point to)
+        public void Move(Canvas canvas, Point from, Point to)
         {
-            var offset = to - from;
-
             FrameworkElement element = Element;
             if (element == null)
             {
                 return;
             }
+
+            var offset = to - from;
 
             var l = Canvas.GetLeft(shape) + offset.X;
             var t = Canvas.GetTop(shape) + offset.Y;
@@ -221,12 +264,12 @@ namespace ColorWanted.screenshot
             {
                 t = 0;
             }
-            var maxAllowWidth = ScreenShot.SCREEN_WIDTH - element.Width;
+            var maxAllowWidth = canvas.Width - element.Width;
             if (l > maxAllowWidth)
             {
                 l = maxAllowWidth;
             }
-            var maxAllowHeight = ScreenShot.SCREEN_HEIGHT - element.Height;
+            var maxAllowHeight = canvas.Height - element.Height;
             if (t > maxAllowHeight)
             {
                 t = maxAllowHeight;

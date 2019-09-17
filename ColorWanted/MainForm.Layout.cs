@@ -295,7 +295,7 @@ namespace ColorWanted
             resources.ApplyResources(this.trayMenuFormatExtention, "trayMenuFormatExtention");
             this.trayMenuFormatExtention.Name = "trayMenuFormatExtention";
             this.trayMenuFormatExtention.Size = new System.Drawing.Size(124, 22);
-            this.trayMenuFormatExtention.Click += new EventHandler(this.trayMenuFormatExtention_Click); 
+            this.trayMenuFormatExtention.Click += new EventHandler(this.trayMenuFormatExtention_Click);
             // 
             // trayMenuFormatShot
             // 

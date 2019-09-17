@@ -123,6 +123,9 @@ namespace ColorWanted
             Height = 20;
             Width = 88;
             Init();
+
+            // 初始化截图窗口
+            ScreenShot.Init();
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
 {
@@ -6,7 +7,7 @@ namespace ColorWanted.screenshot
     {
         public static readonly int SCREEN_WIDTH;
         public static readonly int SCREEN_HEIGHT;
-        private static ScreenshotWindow screenshotWindow;
+        private static ScreenForm screenForm;
 
         /// <summary>
         /// 标记是否正在截图
@@ -15,24 +16,34 @@ namespace ColorWanted.screenshot
 
         static ScreenShot()
         {
-            SCREEN_WIDTH = (int)System.Windows.SystemParameters.PrimaryScreenWidth;
-            SCREEN_HEIGHT = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+            var screen = Screen.PrimaryScreen.Bounds;
+            SCREEN_WIDTH = screen.Width;
+            SCREEN_HEIGHT = screen.Height;
+        }
+
+        public static void Init()
+        {
+            screenForm = new ScreenForm();
+
+            screenForm.FormClosing += (sender, e) =>
+            {
+                Busy = false;
+                System.GC.Collect();
+            };
         }
 
         public static void Capture()
         {
-            Busy = true;
-            if (screenshotWindow != null)
+            if (screenForm == null)
             {
-                screenshotWindow = null;
+                return;
             }
-            screenshotWindow = new ScreenshotWindow();
-            screenshotWindow.Closed += (sender, e) =>
+            if (Busy)
             {
-                Busy = false;
-                screenshotWindow = null;
-                System.GC.Collect();
-            };
+                return;
+            }
+            Busy = true;
+
             var image = new Bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
             using (Graphics g = Graphics.FromImage(image))
             {
@@ -40,15 +51,11 @@ namespace ColorWanted.screenshot
             }
             try
             {
-                screenshotWindow.Show(image, SCREEN_WIDTH, SCREEN_HEIGHT);
+                screenForm.Show(image);
             }
             catch (System.Exception e)
             {
                 Busy = false;
-                if (screenshotWindow != null)
-                {
-                    screenshotWindow.Close();
-                }
                 throw e;
             }
         }
