@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
@@ -8,6 +10,7 @@ namespace ColorWanted.screenshot
         public static readonly int SCREEN_WIDTH;
         public static readonly int SCREEN_HEIGHT;
         private static ScreenForm screenForm;
+        private static ScreenRecordForm recordForm;
 
         /// <summary>
         /// 标记是否正在截图
@@ -28,8 +31,26 @@ namespace ColorWanted.screenshot
             screenForm.FormClosing += (sender, e) =>
             {
                 Busy = false;
-                System.GC.Collect();
+                GC.Collect();
             };
+        }
+
+        /// <summary>
+        /// 获取屏幕指定位置和大小的部分
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        public static Bitmap GetScreen(int x1, int y1, int width, int height)
+        {
+            var image = new Bitmap(width, height);
+            using (Graphics g = Graphics.FromImage(image))
+            {
+                g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height));
+            }
+            return image;
         }
 
         public static void Capture()
@@ -44,20 +65,72 @@ namespace ColorWanted.screenshot
             }
             Busy = true;
 
-            var image = new Bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
-            using (Graphics g = Graphics.FromImage(image))
-            {
-                g.CopyFromScreen(0, 0, 0, 0, new Size(SCREEN_WIDTH, SCREEN_HEIGHT));
-            }
+            var image = GetScreen(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             try
             {
                 screenForm.Show(image);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Busy = false;
                 throw e;
             }
+        }
+
+        /// <summary>
+        /// 录制工作流程
+        /// 1. 绑定快捷键 Alt+R
+        /// 2. 打开录制窗口后，显示选项工具条
+        /// 3. 设置好选项后，点击【开始】以开始录制
+        /// 4. 点击后隐藏工具条，再次按下快捷键停止录制，并显示保存位置选择对话框
+        /// 5. 选择保存文件后，合成GIF文件，关闭录制窗口
+        /// </summary>
+        public static void Record()
+        {
+            if (Busy)
+            {
+                if (recordForm != null)
+                {
+                    // 关闭窗口，此时会停止录制
+                    recordForm.Close();
+                }
+                return;
+            }
+            Busy = true;
+            try
+            {
+                recordForm = new ScreenRecordForm();
+                recordForm.FormClosed += RecordForm_FormClosed;
+                recordForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.StackTrace, ex.Message);
+            }
+            finally
+            {
+                Busy = false;
+                if (recordForm != null)
+                {
+                    recordForm.Close();
+                    recordForm.Dispose();
+                }
+            }
+        }
+
+        private static void RecordForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var f = new ScreenRecordSaveForm();
+            f.FormClosed += (s, e1) =>
+            {
+                Busy = false;
+                if (Directory.Exists(ScreenRecordOption.CachePath))
+                {
+                    Directory.Delete(ScreenRecordOption.CachePath, true);
+                }
+            };
+            f.ShowDialog();
+            f.Dispose();
         }
     }
 }

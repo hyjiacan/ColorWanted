@@ -28,9 +28,8 @@ namespace ColorWanted.screenshot
 
             Refresh();
             Show();
+            TopMost = true;
             BringToFront();
-
-            TopMost = false;
         }
 
         private void Editor_Compeleted(object sender, DoubleClickEventArgs e)

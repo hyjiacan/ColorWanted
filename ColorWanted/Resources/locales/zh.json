@@ -324,6 +324,10 @@
                 "Text": "截图",
                 "ToolTipText": "屏幕截图"
             },
+            "trayMenuScreenRecord": {
+                "Text": "录屏",
+                "ToolTipText": "录制屏幕GIF"
+            },
             "trayMenuLanguageOther": {
                 "Text": "其它",
                 "ToolTipText": "选择其它语言"

@@ -176,10 +176,13 @@ namespace ColorWanted
                 UpdateTooltip();
 
                 // 读取开机启动的注册表
-                trayMenuAutoStart.Checked = Settings.Base.Autostart;
-                trayMenuAutoPin.Checked = Settings.Base.AutoPin;
+                this.InvokeMethod(() =>
+                {
+                    trayMenuAutoStart.Checked = Settings.Base.Autostart;
+                    trayMenuAutoPin.Checked = Settings.Base.AutoPin;
 
-                trayMenuPixelScale.Checked = Settings.Preview.PixelScale;
+                    trayMenuPixelScale.Checked = Settings.Preview.PixelScale;
+                });
             })
             {
                 IsBackground = true
@@ -613,6 +616,10 @@ namespace ColorWanted
                 case HotKeyType.ScreenShot:
                     trayMenuScreenShot_Click(null, null);
                     break;
+                // 录屏
+                case HotKeyType.ScreenRecord:
+                    trayMenuScreenRecord_Click(null, null);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -1000,31 +1007,24 @@ namespace ColorWanted
             }
         }
 
+        /// <summary>
+        /// 开始截图
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void trayMenuScreenShot_Click(object sender, EventArgs e)
         {
-            if (ScreenShot.Busy)
-            {
-                return;
-            }
-            var mainVisible = this.Visible;
-            var previewVisible = previewForm.Visible;
-            if (mainVisible)
-            {
-                this.Hide();
-            }
-            if (previewVisible)
-            {
-                previewForm.Hide();
-            }
             ScreenShot.Capture();
-            if (mainVisible)
-            {
-                this.Show();
-            }
-            if (previewVisible)
-            {
-                previewForm.Show();
-            }
+        }
+
+        /// <summary>
+        /// 开始录制
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayMenuScreenRecord_Click(object sender, EventArgs e)
+        {
+            ScreenShot.Record();
         }
 
         private void ToggleCopyPolicy()

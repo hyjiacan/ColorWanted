@@ -329,6 +329,10 @@
                 "Text": "Screenshot",
                 "ToolTipText": "Take screenshot"
             },
+            "trayMenuScreenRecord": {
+                "Text": "Screenrecord",
+                "ToolTipText": "Record screen as GIF"
+            },
             "trayMenuLanguageOther": {
                 "Text": "Others",
                 "ToolTipText": "Choose other language"

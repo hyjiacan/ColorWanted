@@ -93,6 +93,19 @@
     <Compile Include="screenshot\DrawRecord.cs" />
     <Compile Include="screenshot\DrawShapes.cs" />
     <Compile Include="screenshot\LineStyles.cs" />
+    <Compile Include="screenshot\ScreenRecordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screenshot\ScreenRecordForm.Designer.cs">
+      <DependentUpon>ScreenRecordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="screenshot\ScreenRecordOption.cs" />
+    <Compile Include="screenshot\ScreenRecordSaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screenshot\ScreenRecordSaveForm.Designer.cs">
+      <DependentUpon>ScreenRecordSaveForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="screenshot\ScreenShot.cs" />
     <Compile Include="screenshot\ScreenForm.cs">
       <SubType>Form</SubType>
@@ -207,6 +220,12 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screenshot\ScreenRecordForm.resx">
+      <DependentUpon>ScreenRecordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screenshot\ScreenRecordSaveForm.resx">
+      <DependentUpon>ScreenRecordSaveForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

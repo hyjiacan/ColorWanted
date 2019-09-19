@@ -77,6 +77,7 @@ namespace ColorWanted
             this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenShot = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuScreenRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.componentsSet);
             this.lbColorPreview = new System.Windows.Forms.Label();
             this.lbHsl = new System.Windows.Forms.Label();
@@ -219,6 +220,7 @@ namespace ColorWanted
             this.trayMenuOpenConfigFile,
             this.trayMenuHistory,
             this.trayMenuScreenShot,
+            this.trayMenuScreenRecord,
             this.toolStripSeparator1,
             this.trayMenuLanguage,
             this.trayMenuCheckUpdate,
@@ -490,6 +492,13 @@ namespace ColorWanted
             this.trayMenuScreenShot.Size = new System.Drawing.Size(148, 22);
             this.trayMenuScreenShot.Click += new EventHandler(this.trayMenuScreenShot_Click);
             // 
+            // trayMenuScreenShot
+            // 
+            resources.ApplyResources(this.trayMenuScreenRecord, "trayMenuScreenRecord");
+            this.trayMenuScreenRecord.Name = "trayMenuScreenRecord";
+            this.trayMenuScreenRecord.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuScreenRecord.Click += new EventHandler(this.trayMenuScreenRecord_Click);
+            // 
             // trayMenuLanguageZH
             // 
             resources.ApplyResources(this.trayMenuLanguageZH, "trayMenuLanguageZH");
@@ -633,5 +642,6 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuHsiAlgorithmStandard;
         public System.Windows.Forms.Label lbHsi;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenShot;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuScreenRecord;
     }
 }

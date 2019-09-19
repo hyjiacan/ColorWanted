@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -253,6 +254,60 @@ namespace ColorWanted.ext
             // 解决可能导致内存占用高的问题
             NativeMethods.DeleteObject(handle);
             return resource;
+        }
+
+        /// <summary>
+        /// 读取图片的所有像素
+        /// </summary>
+        /// <param name="bitmap"></param>
+        /// <returns></returns>
+        public static byte[] GetPixels(this Bitmap bitmap)
+        {
+            int height = bitmap.Height;
+            int width = bitmap.Width;
+            //byte tempB, tempG, tempR;
+            BitmapData data = bitmap.LockBits(new Rectangle(0, 0, width, height),
+                ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+
+            //int offset = data.Stride - data.Width * 3;
+
+            byte[] buffer = new byte[data.Stride * data.Height];
+
+            Marshal.Copy(data.Scan0, buffer, 0, buffer.Length);
+            bitmap.UnlockBits(data);
+
+            //unsafe
+            //{
+            //    byte* ptr = (byte*)(data.Scan0);
+            //    for (int i = 0; i < data.Height; i++)
+            //    {
+            //        for (int j = 0; j < data.Width; j++)
+            //        {
+            //            // write the logic implementation here
+            //            ptr += 3;
+            //        }
+            //        ptr += data.Stride - data.Width * 3;
+            //    }
+            //    int* pointer = (int*)(data.Scan0.ToPointer());
+            //    for (int i = 0; i < buffer.Length; i++)
+            //    {
+            //        tempB = (byte)pointer[0];
+            //        tempG = (byte)pointer[1];
+            //        tempR = (byte)pointer[2];
+            //        double temp = 0.31 * tempR + 0.59 * tempG + 0.11 * tempB;
+            //        if (temp > 255)
+            //            buffer[i] = 255;
+            //        else
+            //        if (temp < 0)
+            //            buffer[i] = 0;
+            //        else
+            //            buffer[i] = (byte)temp;
+
+            //        pointer += 3;
+            //    }
+            //    bitmap.UnlockBits(data);
+            //}
+            return buffer;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -99,6 +100,31 @@ namespace ColorWanted.ext
         public static extern int SetClassLong(IntPtr hwnd, int nIndex, int dwNewLong);
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         public static extern int GetClassLong(IntPtr hwnd, int nIndex);
+        #endregion
+
+        #region 鼠标光标
+        public const int WH_MOUSE_LL = 14;
+        public const int WM_MOUSEMOVE = 0x200;
+        public const int WM_LBUTTONDOWN = 0x201;
+        public const int WM_RBUTTONDOWN = 0x204;
+        public const int WM_MBUTTONDOWN = 0x207;
+        public const int WM_LBUTTONUP = 0x202;
+        public const int WM_RBUTTONUP = 0x205;
+        public const int WM_MBUTTONUP = 0x208;
+        public const int WM_LBUTTONDBLCLK = 0x203;
+        public const int WM_RBUTTONDBLCLK = 0x206;
+        public const int WM_MBUTTONDBLCLK = 0x209;
+
+        public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+        //安装钩子
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int SetWindowsHookEx(int idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+        //卸载钩子
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool UnhookWindowsHookEx(int idHook);
+        //调用下一个钩子
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
         #endregion
 
         #region GDI
