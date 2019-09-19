@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using ColorWanted.ext;
@@ -32,35 +33,24 @@ namespace ColorWanted.screenshot
             var img = ScreenShot.GetScreen(recordArea.X, recordArea.Y, recordArea.Width, recordArea.Height);
 
             var p = PointToClient(MousePosition);
-            if (p.X >= 0 && img.Width > p.X && p.Y >= 0 && img.Height > p.Y)
-            {
-                // 光标位置使用反色绘制
-                var color = img.GetPixel(p.X, p.Y);
-                var cursorColor = util.ColorUtil.GetContrastColor(color);
-                using (var graphics = Graphics.FromImage(img))
-                {
-                    var brush = new SolidBrush(cursorColor);
-                    if (mouseDown)
-                    {
-                        graphics.DrawEllipse(new Pen(cursorColor, 3), p.X - 3, p.Y - 3, 7, 7);
-                        graphics.DrawEllipse(new Pen(cursorColor, 2), p.X - 7, p.Y - 7, 15, 15);
-                        graphics.DrawEllipse(new Pen(cursorColor, 1), p.X - 9, p.Y - 9, 19, 19);
-                    }
-                    else
-                    {
-                        graphics.FillEllipse(brush, p.X - 1, p.Y - 1, 3, 3);
-                    }
-                    graphics.Flush();
-                    brush.Dispose();
-                }
-            }
-            img.Save(Path.Combine(ScreenRecordOption.CachePath, DateTime.Now.ToFileTime().ToString() + ".bmp"));
+            img.Save(Path.Combine(ScreenRecordOption.CachePath,
+                string.Format("{0}#{1},{2},{3}", DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0")),
+                ImageFormat.Jpeg);
             img.Dispose();
             GC.Collect();
         }
 
         private void ScreenRecordForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            try
+            {
+                // 卸载勾子
+                NativeMethods.UnhookWindowsHookEx(hook);
+            }
+            catch
+            {
+                // ignore
+            }
             if (timer == null)
             {
                 return;
@@ -147,6 +137,13 @@ namespace ColorWanted.screenshot
                 Top = 0;
                 Width = ScreenShot.SCREEN_WIDTH;
                 Height = ScreenShot.SCREEN_HEIGHT;
+            }
+            else
+            {
+                // 禁用改变窗口大小
+                FormBorderStyle = FormBorderStyle.Fixed3D;
+                // 禁用最大化
+                MaximizeBox = false;
             }
 
             // 隐藏工具条

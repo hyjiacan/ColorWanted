@@ -103,10 +103,6 @@ namespace ColorWanted.screenshot
                 recordForm.FormClosed += RecordForm_FormClosed;
                 recordForm.ShowDialog();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.StackTrace, ex.Message);
-            }
             finally
             {
                 Busy = false;
