@@ -620,10 +620,6 @@ namespace ColorWanted
                 case HotKeyType.ScreenRecord:
                     trayMenuScreenRecord_Click(null, null);
                     break;
-                // 取消截图
-                case HotKeyType.CancelScreenshot:
-                    ScreenShot.Cancel();
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

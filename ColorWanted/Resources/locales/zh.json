@@ -158,9 +158,6 @@
             },
             "ScreenShot": {
                 "": "屏幕截图"
-            },
-            "CancelScreenShot": {
-                "": "取消屏幕截图"
             }
         },
         "HotkeyForm": {

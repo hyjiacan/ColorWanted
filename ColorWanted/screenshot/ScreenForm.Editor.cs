@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using ColorWanted.ext;
+using ColorWanted.hotkey;
 using ColorWanted.screenshot.events;
 
 namespace ColorWanted.screenshot
@@ -12,6 +13,7 @@ namespace ColorWanted.screenshot
         private ToolStripButton activeToolShapeType;
         private ToolStripButton activeToolColor;
         private ToolStripButton activeToolLineStyle;
+        private const int HOTKEY_ID_BASE = 0xF10000;
 
         public void BindEditorEvents()
         {
@@ -26,10 +28,12 @@ namespace ColorWanted.screenshot
         {
             editor.SetImage(img);
 
+            BindHotKeys();
+
             Refresh();
             Show();
-            TopMost = false;
-            //BringToFront();
+            TopMost = true;
+            BringToFront();
         }
 
         private void Editor_Compeleted(object sender, DoubleClickEventArgs e)
@@ -86,6 +90,8 @@ namespace ColorWanted.screenshot
 
         private void ScreenForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            UnbindHotKeys();
+
             // 内存回收
             editor.Reset();
 
@@ -251,6 +257,65 @@ namespace ColorWanted.screenshot
 
             editor.TextFont = toolTextStyle.Font = dialog.Font;
             dialog.Dispose();
+        }
+
+        /// <summary>
+        /// 接收消息，响应快捷键
+        /// </summary>
+        /// <param name="m"></param>
+        protected override void WndProc(ref Message m)
+        {
+            // 收到的不是快捷键消息，不作任何处理
+            if (m.Msg != 0x312)
+            {
+                base.WndProc(ref m);
+                return;
+            }
+
+            // 收到的快捷键的值
+            var keyValue = m.WParam.ToInt32();
+
+            switch (keyValue)
+            {
+                // 关闭窗口
+                case 0xF10001:
+                    Close();
+                    break;
+                // 撤消编辑
+                case 0xF10002:
+                    editor.Undo();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            base.WndProc(ref m);
+        }
+
+        private void BindHotKeys()
+        {
+            // ESC 关闭窗口
+            NativeMethods.RegisterHotKey(Handle,
+                    HOTKEY_ID_BASE + 1,
+                    KeyModifier.None,
+                    Keys.Escape);
+
+            // Ctrl Z 撤消编辑
+            NativeMethods.RegisterHotKey(Handle,
+                    HOTKEY_ID_BASE + 2,
+                    KeyModifier.Ctrl,
+                    Keys.Z);
+        }
+
+        private void UnbindHotKeys()
+        {
+            // ESC 关闭窗口
+            NativeMethods.UnregisterHotKey(Handle,
+                    HOTKEY_ID_BASE + 1);
+
+            // Ctrl Z 撤消编辑
+            NativeMethods.UnregisterHotKey(Handle,
+                    HOTKEY_ID_BASE + 2);
         }
     }
 }
