@@ -28,8 +28,8 @@ namespace ColorWanted.screenshot
 
             Refresh();
             Show();
-            TopMost = true;
-            BringToFront();
+            TopMost = false;
+            //BringToFront();
         }
 
         private void Editor_Compeleted(object sender, DoubleClickEventArgs e)
@@ -77,27 +77,6 @@ namespace ColorWanted.screenshot
 
             // 字体
             toolTextStyle.ForeColor = activeToolColor.BackColor;
-        }
-
-        private void ScreenForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-
-        }
-
-        private void ScreenForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                CloseForm();
-                return;
-            }
-
-            if (e.KeyCode == Keys.Z && e.Control == e.Control)
-            {
-                // 撤消
-                editor.Undo();
-                return;
-            }
         }
 
         private void CloseForm()

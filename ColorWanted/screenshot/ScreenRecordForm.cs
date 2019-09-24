@@ -34,8 +34,9 @@ namespace ColorWanted.screenshot
 
             var p = PointToClient(MousePosition);
             img.Save(Path.Combine(ScreenRecordOption.CachePath,
-                string.Format("{0}#{1},{2},{3}", DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0")),
-                ImageFormat.Jpeg);
+                string.Format("{0}#{1}#{2}#{3}",
+                    DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0")),
+                ScreenRecordOption.CodecInfo, ScreenRecordOption.EncoderParameters);
             img.Dispose();
             GC.Collect();
         }
@@ -125,6 +126,10 @@ namespace ColorWanted.screenshot
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
+            // 设置图片质量
+            ScreenRecordOption.EncoderParameters.Param[0] =
+                new EncoderParameter(Encoder.Quality, tbQuality.Value);
+
             timer = new Timer
             {
                 Interval = INTERVAL
@@ -144,6 +149,8 @@ namespace ColorWanted.screenshot
                 FormBorderStyle = FormBorderStyle.Fixed3D;
                 // 禁用最大化
                 MaximizeBox = false;
+                // 禁用最小化
+                MinimizeBox = false;
             }
 
             // 隐藏工具条

@@ -53,6 +53,15 @@ namespace ColorWanted.screenshot
             return image;
         }
 
+        public static void Cancel()
+        {
+            if (screenForm == null)
+            {
+                return;
+            }
+            screenForm.Close();
+        }
+
         public static void Capture()
         {
             if (screenForm == null)
@@ -116,14 +125,19 @@ namespace ColorWanted.screenshot
 
         private static void RecordForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (!Directory.Exists(ScreenRecordOption.CachePath) ||
+                Directory.GetFiles(ScreenRecordOption.CachePath).Length == 0)
+            {
+                return;
+            }
             var f = new ScreenRecordSaveForm();
             f.FormClosed += (s, e1) =>
             {
                 Busy = false;
-                if (Directory.Exists(ScreenRecordOption.CachePath))
-                {
-                    Directory.Delete(ScreenRecordOption.CachePath, true);
-                }
+                //if (Directory.Exists(ScreenRecordOption.CachePath))
+                //{
+                //    Directory.Delete(ScreenRecordOption.CachePath, true);
+                //}
             };
             f.ShowDialog();
             f.Dispose();

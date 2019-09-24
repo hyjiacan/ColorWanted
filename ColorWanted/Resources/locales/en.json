@@ -164,6 +164,9 @@
             },
             "ScreenShot": {
                 "": "Take Screenshot"
+            },
+            "CancelScreenShot": {
+                "": "Cancel Screenshot"
             }
         },
         "HotkeyForm": {

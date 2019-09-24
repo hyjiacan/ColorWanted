@@ -19,9 +19,9 @@ namespace ColorWanted.screenshot
 
         private static FileStream LoadImage(string file)
         {
-            var temp = Path.GetFileNameWithoutExtension(file).Split('#')[1].Split(',');
-            var x = int.Parse(temp[0]);
-            var y = int.Parse(temp[1]);
+            var temp = Path.GetFileNameWithoutExtension(file).Split('#');
+            var x = int.Parse(temp[1]);
+            var y = int.Parse(temp[2]);
 
             var stream = new MemoryStream(File.ReadAllBytes(file));
 
@@ -29,10 +29,10 @@ namespace ColorWanted.screenshot
             {
                 if (x >= 0 && img.Width > x && y >= 0 && img.Height > y)
                 {
-                    DrawCursor(img, x, y, temp[2] == "1");
+                    DrawCursor(img, x, y, temp[3] == "1");
                 }
                 // 重新写入磁盘，以减少内存占用
-                img.Save(file, ImageFormat.Jpeg);
+                img.Save(file, ScreenRecordOption.CodecInfo, ScreenRecordOption.EncoderParameters);
                 img.Dispose();
             }
 

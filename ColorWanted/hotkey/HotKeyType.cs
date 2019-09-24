@@ -83,6 +83,13 @@ namespace ColorWanted.hotkey
         [HotKey("屏幕录制",
             Key = Keys.R,
             Modifiers = KeyModifier.Alt)]
-        ScreenRecord
+        ScreenRecord,
+        /// <summary>
+        /// 取消截图
+        /// </summary>   
+        [HotKey("取消截图",
+            Key = Keys.Escape,
+            Modifiers = KeyModifier.None)]
+        CancelScreenshot
     }
 }

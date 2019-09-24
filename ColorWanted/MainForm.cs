@@ -535,7 +535,7 @@ namespace ColorWanted
         private void trayMenuExit_Click(object sender, EventArgs e)
         {
             colorTimer.Stop();
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -619,6 +619,10 @@ namespace ColorWanted
                 // 录屏
                 case HotKeyType.ScreenRecord:
                     trayMenuScreenRecord_Click(null, null);
+                    break;
+                // 取消截图
+                case HotKeyType.CancelScreenshot:
+                    ScreenShot.Cancel();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -1106,7 +1110,9 @@ namespace ColorWanted
             {
                 var cl = colorPicker.Color;
                 ColorHistory.Record(cl);
-                Util.SetClipboard(Handle, string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B));
+
+                var text = string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B);
+                Util.SetClipboard(Handle, trayMenuCopyPolicyUpperCase.Checked ? text : text.ToLower());
 
                 // 保存自定义颜色
                 Settings.Base.CustomColors = colorPicker.CustomColors;

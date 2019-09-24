@@ -438,7 +438,6 @@
             this.Controls.Add(this.toolPanel);
             this.Controls.Add(this.editorContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.KeyPreview = true;
             this.Name = "ScreenForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -447,7 +446,6 @@
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenForm_FormClosing);
             this.Load += new System.EventHandler(this.ScreenForm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ScreenForm_KeyDown);
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
             this.toolbarColor.ResumeLayout(false);
