@@ -26,6 +26,7 @@ namespace ColorWanted.screenshot
 
         public void Show(Bitmap img)
         {
+            toolbarMask.Hide();
             editor.SetImage(img);
 
             BindHotKeys();

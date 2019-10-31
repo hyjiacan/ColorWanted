@@ -255,5 +255,50 @@ namespace ColorWanted.ext
             NativeMethods.DeleteObject(handle);
             return resource;
         }
+        /// <summary>
+        /// 无损压缩图片
+        /// </summary>
+        /// <param name="quality">压缩质量（数字越小压缩率越高）1-100</param>
+        /// <returns></returns>
+        public static Bitmap Compress(this Bitmap image, int quality = 90)
+        {
+            var format = image.RawFormat;
+
+            //以下代码为保存图片时，设置压缩质量
+            var ep = new EncoderParameters();
+            var qualityValue = new long[1];
+            //设置压缩的比例1-100
+            qualityValue[0] = quality;
+            var eParam = new EncoderParameter(Encoder.Quality, qualityValue);
+            ep.Param[0] = eParam;
+
+            try
+            {
+                var encoder = ImageCodecInfo.GetImageEncoders();
+                ImageCodecInfo codeInfo = null;
+                for (int x = 0; x < encoder.Length; x++)
+                {
+                    if (encoder[x].FormatDescription.Equals("JPEG"))
+                    {
+                        codeInfo = encoder[x];
+                        break;
+                    }
+                }
+                var stream = new System.IO.MemoryStream();
+                if (codeInfo != null)
+                {
+                    image.Save(stream, codeInfo, ep);
+                }
+                else
+                {
+                    image.Save(stream, format);
+                }
+                return new Bitmap(stream);
+            }
+            finally
+            {
+                image.Dispose();
+            }
+        }
     }
 }

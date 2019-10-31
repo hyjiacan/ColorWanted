@@ -221,9 +221,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="screenshot\ScreenForm.resx">
-      <DependentUpon>ScreenForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="screenshot\ScreenRecordForm.resx">
       <DependentUpon>ScreenRecordForm.cs</DependentUpon>
     </EmbeddedResource>
