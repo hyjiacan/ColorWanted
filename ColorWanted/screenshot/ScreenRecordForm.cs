@@ -14,12 +14,6 @@ namespace ColorWanted.screenshot
         private int hook;
         private bool mouseDown;
         private Rectangle customizeWindowBounds;
-        /// <summary>
-        /// 每秒10帧，以和默认的gif帧时长100ms匹配
-        /// </summary>
-        private const int FRAME_RATE = 10;
-        // GIF 默认的帧时长为100ms
-        private const int INTERVAL = 100;
 
         public ScreenRecordForm()
         {
@@ -34,9 +28,7 @@ namespace ColorWanted.screenshot
 
             var p = PointToClient(MousePosition);
             img.Save(Path.Combine(ScreenRecordOption.CachePath,
-                string.Format("{0}#{1}#{2}#{3}",
-                    DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0")),
-                ScreenRecordOption.CodecInfo, ScreenRecordOption.EncoderParameters);
+                string.Format("{0}#{1}#{2}#{3}", DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0")));
             img.Dispose();
             GC.Collect();
         }
@@ -66,7 +58,7 @@ namespace ColorWanted.screenshot
             // 创建缓存目录
             var cachePath = Path.Combine(Environment
                        .GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                   Application.ProductName, "record-cache", DateTime.Now.ToString("yyyyMMddHHmmss"));
+                   Application.ProductName, "record-temp", DateTime.Now.ToString("yyyyMMddHHmmss"));
 
             Directory.CreateDirectory(cachePath);
 
@@ -126,13 +118,11 @@ namespace ColorWanted.screenshot
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            // 设置图片质量
-            ScreenRecordOption.EncoderParameters.Param[0] =
-                new EncoderParameter(Encoder.Quality, tbQuality.Value);
-
+            ScreenRecordOption.Fps = tbFps.Value;
+            ScreenRecordOption.RepeatCount = (int)numRepeatCount.Value;
             timer = new Timer
             {
-                Interval = INTERVAL
+                Interval = 1000 / tbFps.Value
             };
             timer.Tick += Timer_Tick;
             if (cbFullscreen.Checked)

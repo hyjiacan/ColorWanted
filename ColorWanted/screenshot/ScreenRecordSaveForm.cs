@@ -1,4 +1,5 @@
-﻿using ColorWanted.ext;
+﻿using AnimatedGif;
+using ColorWanted.ext;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +12,6 @@ namespace ColorWanted.screenshot
 {
     public partial class ScreenRecordSaveForm : Form
     {
-        private static readonly byte[] ApplicationExtention = { 33, 255, 11, 78, 69, 84, 83, 67, 65, 80, 69, 50, 46, 48, 3, 1, 0, 0, 0 };
         public ScreenRecordSaveForm()
         {
             InitializeComponent();
@@ -32,8 +32,7 @@ namespace ColorWanted.screenshot
                     DrawCursor(img, x, y, temp[3] == "1");
                 }
                 // 重新写入磁盘，以减少内存占用
-                img.Save(file, ScreenRecordOption.CodecInfo, ScreenRecordOption.EncoderParameters);
-                img.Dispose();
+                img.Save(file);
             }
 
             stream.Close();
@@ -67,31 +66,47 @@ namespace ColorWanted.screenshot
             }
         }
 
-        private static void MakeGIF(string saveTo)
+        private void MakeGIF(string saveTo, Action<int, int> callback)
         {
             var files = Directory.GetFiles(ScreenRecordOption.CachePath);
 
             // 保存每个文件流，以方便在后面关闭文件
             var temp = new List<FileStream>(files.Length);
 
-            var encoder = new GifBitmapEncoder();
+            int qualityValue = 3;
+            this.InvokeMethod(() =>
+            {
+                qualityValue = tbQuality.Value;
+            });
+            GifQuality quality;
+            switch (qualityValue)
+            {
+                case 1:
+                    quality = GifQuality.Grayscale;
+                    break;
+                case 2:
+                    quality = GifQuality.Bit4;
+                    break;
+                case 3:
+                    quality = GifQuality.Bit8;
+                    break;
+                default:
+                    quality = GifQuality.Default;
+                    break;
+            }
+            var gifStream = new FileStream(saveTo, FileMode.Create);
+            var gif = new AnimatedGifCreator(gifStream,
+                1000 / ScreenRecordOption.Fps, ScreenRecordOption.RepeatCount);
+
             for (int i = 0; i < files.Length; i++)
             {
+                callback(i, files.Length);
                 var stream = LoadImage(files[i]);
                 temp.Add(stream);
-                var frame = BitmapFrame.Create(stream);
-                encoder.Frames.Add(frame);
+                gif.AddFrame(Image.FromStream(stream), quality: quality);
             }
-
-            byte[] gifData;
-            using (var stream = new MemoryStream())
-            {
-                encoder.Save(stream);
-                encoder.Frames.Clear();
-                encoder = null;
-                gifData = stream.ToArray();
-                stream.Close();
-            }
+            callback(files.Length, files.Length);
+            gif.Dispose();
 
             foreach (var item in temp)
             {
@@ -99,20 +114,15 @@ namespace ColorWanted.screenshot
                 item.Dispose();
             }
             temp.Clear();
-            temp = null;
 
-            using (FileStream fs = new FileStream(saveTo, FileMode.Create))
-            {
-                fs.Write(gifData, 0, 13);
-                fs.Write(ApplicationExtention, 0, ApplicationExtention.Length);
-                fs.Write(gifData, 13, gifData.Length - 13);
-                fs.Close();
-            }
-            gifData = null;
             GC.Collect();
         }
 
         private void ScreenRecordSaveForm_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
         {
             var dialog = new SaveFileDialog
             {
@@ -124,18 +134,46 @@ namespace ColorWanted.screenshot
             if (dialog.ShowDialog() != DialogResult.OK)
             {
                 dialog.Dispose();
-                Close();
                 return;
             }
             var filename = dialog.FileName;
             dialog.Dispose();
 
+            btnOk.Enabled = false;
+            tbQuality.Enabled = false;
+            this.UseWaitCursor = true;
+            lbMsg.Text = "正在生成GIF文件...";
+            lbMsg.Visible = true;
             new System.Threading.Thread(() =>
             {
-                MakeGIF(filename);
+                try
+                {
+                    MakeGIF(filename, (value, total) =>
+                    {
+                        this.InvokeMethod(() =>
+                        {
+                            lbMsg.Text = "正在生成GIF文件... (" + (value * 1f / total).ToString("P") + ")";
+                        });
+                    });
+
+                    this.InvokeMethod(() =>
+                    {
+                        lbMsg.Text = "生成GIF文件完成";
+                    });
+                }
+                catch (Exception ex)
+                {
+                    this.InvokeMethod(() =>
+                    {
+                        lbMsg.Text = "生成GIF文件出错";
+                    });
+                    MessageBox.Show(ex.Message, "出错了", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 this.InvokeMethod(() =>
                 {
-                    Close();
+                    this.UseWaitCursor = false;
+                    btnOk.Enabled = true;
+                    tbQuality.Enabled = true;
                 });
             })
             { IsBackground = true }.Start();

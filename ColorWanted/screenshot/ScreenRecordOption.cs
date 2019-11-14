@@ -1,21 +1,18 @@
-﻿using System.Drawing.Imaging;
-using System.Linq;
-
-namespace ColorWanted.screenshot
+﻿namespace ColorWanted.screenshot
 {
     public static class ScreenRecordOption
     {
-        public static int Interval { get; set; }
-        public static int FrameRate { get; set; }
+        /// <summary>
+        /// 帧速率
+        /// </summary>
+        public static int Fps { get; set; }
+        /// <summary>
+        /// 重复次数
+        /// </summary>
+        public static int RepeatCount { get; set; }
+        /// <summary>
+        /// 图片的缓存路径
+        /// </summary>
         public static string CachePath { get; set; }
-
-        public static readonly ImageCodecInfo CodecInfo;
-        public static readonly EncoderParameters EncoderParameters;
-
-        static ScreenRecordOption()
-        {
-            CodecInfo = ImageCodecInfo.GetImageEncoders().First(item => item.FormatID == ImageFormat.Jpeg.Guid);
-            EncoderParameters = new EncoderParameters(1);
-        }
     }
 }

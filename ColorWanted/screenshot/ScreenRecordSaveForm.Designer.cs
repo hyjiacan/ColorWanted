@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreenRecordSaveForm));
             this.lbMsg = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbQuality = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnOk = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tbQuality)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,6 +49,7 @@
             this.lbMsg.TabIndex = 0;
             this.lbMsg.Text = "正在生成GIF文件...";
             this.lbMsg.UseWaitCursor = true;
+            this.lbMsg.Visible = false;
             // 
             // label3
             // 
@@ -63,57 +66,70 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(119, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(17, 12);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 22;
-            this.label2.Text = "低";
+            this.label2.Text = "灰度";
             this.label2.UseWaitCursor = true;
             // 
             // tbQuality
             // 
+            this.tbQuality.LargeChange = 1;
             this.tbQuality.Location = new System.Drawing.Point(112, 12);
-            this.tbQuality.Maximum = 100;
+            this.tbQuality.Maximum = 3;
             this.tbQuality.Minimum = 1;
             this.tbQuality.Name = "tbQuality";
             this.tbQuality.Size = new System.Drawing.Size(173, 45);
             this.tbQuality.TabIndex = 21;
-            this.tbQuality.UseWaitCursor = true;
-            this.tbQuality.Value = 50;
+            this.tbQuality.Value = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(32, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.Size = new System.Drawing.Size(47, 12);
             this.label1.TabIndex = 24;
-            this.label1.Text = "设置清晰度";
+            this.label1.Text = "GIF质量";
             this.label1.UseWaitCursor = true;
             // 
-            // button1
+            // btnOk
             // 
-            this.button1.Location = new System.Drawing.Point(307, 76);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 25;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnOk.Location = new System.Drawing.Point(327, 67);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(75, 32);
+            this.btnOk.TabIndex = 25;
+            this.btnOk.Text = "保存";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(192, 47);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "低";
+            this.label4.UseWaitCursor = true;
             // 
             // ScreenRecordSaveForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 118);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnOk);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbQuality);
             this.Controls.Add(this.lbMsg);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "ScreenRecordSaveForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ScreenRecordSaveForm";
-            this.UseWaitCursor = true;
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.ScreenRecordSaveForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tbQuality)).EndInit();
             this.ResumeLayout(false);
@@ -128,6 +144,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TrackBar tbQuality;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Label label4;
     }
 }

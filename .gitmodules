@@ -1,0 +1,3 @@
+[submodule "ColorWanted/external/AnimatedGif"]
+	path = ColorWanted/external/AnimatedGif
+	url = https://github.com/mrousavy/AnimatedGif.git

@@ -125,10 +125,10 @@ namespace ColorWanted.screenshot
             f.FormClosed += (s, e1) =>
             {
                 Busy = false;
-                //if (Directory.Exists(ScreenRecordOption.CachePath))
-                //{
-                //    Directory.Delete(ScreenRecordOption.CachePath, true);
-                //}
+                if (Directory.Exists(ScreenRecordOption.CachePath))
+                {
+                    Directory.Delete(ScreenRecordOption.CachePath, true);
+                }
             };
             f.ShowDialog();
             f.Dispose();

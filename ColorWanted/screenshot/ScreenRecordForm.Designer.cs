@@ -31,15 +31,21 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreenRecordForm));
             this.pnTarget = new System.Windows.Forms.Panel();
             this.pnToolOption = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbQuality = new System.Windows.Forms.TrackBar();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numRepeatCount = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbFps = new System.Windows.Forms.TrackBar();
+            this.label10 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFullscreen = new System.Windows.Forms.CheckBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.pnTarget.SuspendLayout();
             this.pnToolOption.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbQuality)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRepeatCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbFps)).BeginInit();
             this.SuspendLayout();
             // 
             // pnTarget
@@ -54,58 +60,113 @@
             // pnToolOption
             // 
             this.pnToolOption.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pnToolOption.Controls.Add(this.label3);
-            this.pnToolOption.Controls.Add(this.label2);
-            this.pnToolOption.Controls.Add(this.tbQuality);
+            this.pnToolOption.Controls.Add(this.label9);
+            this.pnToolOption.Controls.Add(this.numRepeatCount);
+            this.pnToolOption.Controls.Add(this.label7);
+            this.pnToolOption.Controls.Add(this.label6);
+            this.pnToolOption.Controls.Add(this.label5);
+            this.pnToolOption.Controls.Add(this.label4);
+            this.pnToolOption.Controls.Add(this.tbFps);
+            this.pnToolOption.Controls.Add(this.label10);
             this.pnToolOption.Controls.Add(this.label1);
             this.pnToolOption.Controls.Add(this.cbFullscreen);
             this.pnToolOption.Controls.Add(this.btnStart);
-            this.pnToolOption.Location = new System.Drawing.Point(142, 72);
+            this.pnToolOption.Location = new System.Drawing.Point(68, 40);
             this.pnToolOption.Name = "pnToolOption";
-            this.pnToolOption.Size = new System.Drawing.Size(293, 129);
+            this.pnToolOption.Size = new System.Drawing.Size(447, 194);
             this.pnToolOption.TabIndex = 0;
             // 
-            // label3
+            // label9
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(240, 56);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 12);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "高质量";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(77, 12);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "重复播放次数";
             // 
-            // label2
+            // numRepeatCount
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(106, 56);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 20;
-            this.label2.Text = "低质量";
+            this.numRepeatCount.Location = new System.Drawing.Point(110, 28);
+            this.numRepeatCount.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.numRepeatCount.Name = "numRepeatCount";
+            this.numRepeatCount.Size = new System.Drawing.Size(63, 21);
+            this.numRepeatCount.TabIndex = 26;
             // 
-            // tbQuality
+            // label7
             // 
-            this.tbQuality.Location = new System.Drawing.Point(108, 21);
-            this.tbQuality.Maximum = 100;
-            this.tbQuality.Minimum = 1;
-            this.tbQuality.Name = "tbQuality";
-            this.tbQuality.Size = new System.Drawing.Size(173, 45);
-            this.tbQuality.TabIndex = 19;
-            this.tbQuality.Value = 50;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(289, 83);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(23, 12);
+            this.label7.TabIndex = 24;
+            this.label7.Text = "FPS";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(255, 99);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(17, 12);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "40";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(117, 99);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(11, 12);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "8";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(39, 83);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "帧速率";
+            // 
+            // tbFps
+            // 
+            this.tbFps.Location = new System.Drawing.Point(110, 66);
+            this.tbFps.Maximum = 40;
+            this.tbFps.Minimum = 8;
+            this.tbFps.Name = "tbFps";
+            this.tbFps.Size = new System.Drawing.Size(173, 45);
+            this.tbFps.TabIndex = 21;
+            this.tbFps.Value = 24;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label10.Location = new System.Drawing.Point(179, 33);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(89, 12);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "0 表示无限循环";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 103);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label1.Location = new System.Drawing.Point(12, 166);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 12);
+            this.label1.Size = new System.Drawing.Size(293, 12);
             this.label1.TabIndex = 18;
-            this.label1.Text = "提示:窗口边界即为录制边界";
+            this.label1.Text = "提示:窗口边界即为录制边界，按下 Alt + R 结束录屏";
             // 
             // cbFullscreen
             // 
             this.cbFullscreen.AutoSize = true;
-            this.cbFullscreen.Location = new System.Drawing.Point(14, 21);
+            this.cbFullscreen.Location = new System.Drawing.Point(110, 129);
             this.cbFullscreen.Name = "cbFullscreen";
             this.cbFullscreen.Size = new System.Drawing.Size(72, 16);
             this.cbFullscreen.TabIndex = 17;
@@ -115,7 +176,7 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(206, 77);
+            this.btnStart.Location = new System.Drawing.Point(359, 153);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 38);
             this.btnStart.TabIndex = 16;
@@ -141,7 +202,8 @@
             this.pnTarget.ResumeLayout(false);
             this.pnToolOption.ResumeLayout(false);
             this.pnToolOption.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbQuality)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRepeatCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbFps)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -153,8 +215,13 @@
         private System.Windows.Forms.CheckBox cbFullscreen;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TrackBar tbQuality;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TrackBar tbFps;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown numRepeatCount;
+        private System.Windows.Forms.Label label10;
     }
 }
