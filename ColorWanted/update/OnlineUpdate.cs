@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Windows.Forms;
@@ -34,6 +35,11 @@ namespace ColorWanted.update
         /// 根据commit的sha来决定下载地址
         /// </summary>
         private const string downloadUrl = "https://github.com/hyjiacan/ColorWanted/raw/{0}/ColorWanted/bin/Release/ColorWanted.exe";
+
+        /// <summary>
+        /// 获取文件树（以列表方式返回）
+        /// </summary>
+        private const string treeUrl = "https://api.github.com/repos/hyjiacan/ColorWanted/git/trees/{0}?recursive=5";
 
         /// <summary>
         /// 检查更新
@@ -84,7 +90,7 @@ namespace ColorWanted.update
                 info.Link = string.Format(downloadUrl, tag.commit.sha);
 
                 LoadUpdateDetail(info);
-
+                LoadFileInfo(info, tag.commit.sha);
                 return info;
             }
             catch
@@ -96,13 +102,12 @@ namespace ColorWanted.update
         /// <summary>
         /// 下载更新包并且更新文件
         /// </summary>
-        /// <param name="fileurl"></param>
-        /// <param name="version"></param>
+        /// <param name="updateInfo"></param>
         /// <param name="callback"></param>
-        public static void Update(string fileurl, string version, UpdateProcessChangedHandler callback)
+        public static void Update(UpdateInfo updateInfo, UpdateProcessChangedHandler callback)
         {
             var filename = Path.Combine(Application.StartupPath,
-                string.Format("ColorWanted-{0}.tmp.exe", version));
+                string.Format("ColorWanted-{0}.tmp.exe", updateInfo.Version));
 
             var data = new UpdateProcessChangedData();
 
@@ -113,8 +118,16 @@ namespace ColorWanted.update
                     data.Success = true;
                     web.DownloadFileCompleted += (sender, e) =>
                     {
+                        if (data.TotalBytesToReceive != updateInfo.FileSize)
+                        {
+                            data.Success = false;
+                            callback.Invoke(data);
+                            return;
+                        }
+
                         Thread.Sleep(2000);
-                        Process.Start(filename, string.Format(@"-update 1 ""{0}""", Application.ExecutablePath));
+                        Process.Start(filename,
+                            string.Format(@"-update 1 ""{0}""", Application.ExecutablePath));
 
                         Application.Exit();
                     };
@@ -125,7 +138,7 @@ namespace ColorWanted.update
                         data.Percentage = e.ProgressPercentage;
                         callback.Invoke(data);
                     };
-                    web.DownloadFileAsync(new Uri(fileurl), filename);
+                    web.DownloadFileAsync(new Uri(updateInfo.Link), filename);
                 }
             }
             catch
@@ -226,6 +239,27 @@ namespace ColorWanted.update
 
             info.Date = tag.tagger.date;
             info.Message = tag.message;
+        }
+
+        private static void LoadFileInfo(UpdateInfo info, string sha)
+        {
+            var data = Http.Get(string.Format(treeUrl, sha));
+            if (data == null)
+            {
+                return;
+            }
+            // 获取文件对象信息
+            var treeInfo = Json.Deserialize<TreeInfo>(data);
+            if (treeInfo == null)
+            {
+                return;
+            }
+            var node = treeInfo.tree.FirstOrDefault(n => n.path == "ColorWanted/bin/Release/ColorWanted.exe");
+            if (node == null)
+            {
+                return;
+            }
+            info.FileSize = node.size;
         }
     }
 }

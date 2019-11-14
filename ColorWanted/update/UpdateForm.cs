@@ -29,7 +29,7 @@ namespace ColorWanted.update
         /// </summary>
         private static bool FromAutoUpdate;
 
-        private UpdateInfo update;
+        private UpdateInfo updateInfo;
 
         /// <summary>
         /// 是否正在检查更新
@@ -141,7 +141,7 @@ namespace ColorWanted.update
                 lbMsg.Text = resources.GetString("checking");
             });
 
-            update = OnlineUpdate.Check();
+            updateInfo = OnlineUpdate.Check();
 
             Settings.Update.LastUpdate = DateTime.Now;
 
@@ -151,7 +151,7 @@ namespace ColorWanted.update
             this.InvokeMethod(() =>
             {
                 // 没有更新
-                if (update == null)
+                if (updateInfo == null)
                 {
                     lbMsg.Text = resources.GetString("noupdate");
                     DelayHide();
@@ -159,7 +159,7 @@ namespace ColorWanted.update
                 }
 
                 // 检查更新失败
-                if (!update.Status)
+                if (!updateInfo.Status)
                 {
                     lbMsg.Text = resources.GetString("checkFailed");
                     DelayHide();
@@ -167,20 +167,20 @@ namespace ColorWanted.update
                 }
 
                 // 检查到更新，但是已经被忽略
-                if (update.Version == Settings.Update.IgnoreVersion)
+                if (updateInfo.Version == Settings.Update.IgnoreVersion)
                 {
-                    lbMsg.Text = string.Format(resources.GetString("newVersionIgnored"), update.Version);
+                    lbMsg.Text = string.Format(resources.GetString("newVersionIgnored"), updateInfo.Version);
                     DelayHide();
                     return;
                 }
 
                 // 检查到可用的更新
-                lbMsg.Text = $"{resources.GetString("newVersion")} " + update.Version;
+                lbMsg.Text = $"{resources.GetString("newVersion")} " + updateInfo.Version;
 
 
-                lbUpdateDate.Text = update.Date.ToLongDateString();
+                lbUpdateDate.Text = updateInfo.Date.ToLongDateString();
 
-                lbLog.Text = update.Message;
+                lbLog.Text = updateInfo.Message;
 
                 Top = Screen.PrimaryScreen.WorkingArea.Height - 240;
                 Height = 240;
@@ -267,7 +267,7 @@ namespace ColorWanted.update
         {
             CancelHide();
             linkNow.Visible = linkIgnore.Visible = linkNext.Visible = false;
-            lbMsg.Text = string.Format(resources.GetString("downloading") + "({0})...", update.Version);
+            lbMsg.Text = string.Format(resources.GetString("downloading") + "({0})...", updateInfo.Version);
 
             lbPercentage.Text = "0K / 0K    0%";
             if (!lbPercentage.Visible)
@@ -278,7 +278,7 @@ namespace ColorWanted.update
             Application.DoEvents();
             new Thread(() =>
             {
-                OnlineUpdate.Update(update.Link, update.Version, result =>
+                OnlineUpdate.Update(updateInfo, result =>
                 {
                     if (!result.Success)
                     {
@@ -315,7 +315,7 @@ namespace ColorWanted.update
         /// <param name="e"></param>
         private void linkIgnore_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Settings.Update.IgnoreVersion = update.Version;
+            Settings.Update.IgnoreVersion = updateInfo.Version;
             CancelHide();
             DelayHide(0);
         }

@@ -12,6 +12,11 @@ namespace ColorWanted.update
         /// 更新的下载地址
         /// </summary>
         public string Link { get; set; }
+
+        /// <summary>
+        /// 下载文件的大小
+        /// </summary>
+        public long FileSize { get; set; }
         /// <summary>
         /// 更新的状态(true: 成功，false: 失败)
         /// </summary>

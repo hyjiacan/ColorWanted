@@ -1,5 +1,4 @@
-﻿
-namespace ColorWanted.update.git
+﻿namespace ColorWanted.update.git
 {
     internal class FileItem
     {
