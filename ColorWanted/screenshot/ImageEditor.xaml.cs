@@ -82,6 +82,12 @@ namespace ColorWanted.screenshot
             get => canvasEdit.TextFont;
             set => canvasEdit.TextFont = value;
         }
+        public Rectangle Bounds
+        {
+            get => SelectionBorder == null ? new Rectangle() :
+                new Rectangle(SelectionBorder.GetLocation().ToDrawingPoint(),
+                    SelectionBorder.GetSize().ToDrawingSize());
+        }
 
         public ImageEditor()
         {
@@ -100,7 +106,6 @@ namespace ColorWanted.screenshot
             canvasMask.Width = ScreenShot.SCREEN_WIDTH;
             canvasMask.Height = ScreenShot.SCREEN_HEIGHT;
 
-            //Topmost = true;
             maskBackground.ImageSource = image.AsOpacity(0.7f).AsResource();
         }
 
@@ -182,9 +187,10 @@ namespace ColorWanted.screenshot
 
         private void CanvasMask_OnDraw(object sender, DrawEventArgs e)
         {
-            if (e.IsEmpty)
+            if (e.State == DrawState.Cancel || e.IsEmpty)
             {
                 selectArea.Visibility = Visibility.Hidden;
+                SelectionBorder.Visibility = Visibility.Hidden;
                 AreaCleared.Invoke(this, null);
                 return;
             }

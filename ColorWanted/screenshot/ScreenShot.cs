@@ -64,7 +64,7 @@ namespace ColorWanted.screenshot
                 return;
             }
             Busy = true;
-
+            // 获取当前整个屏幕的截图
             var image = GetScreen(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
             try
             {

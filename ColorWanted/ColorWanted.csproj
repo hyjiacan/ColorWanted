@@ -67,7 +67,7 @@
     <Compile Include="colors\HSL.cs" />
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\ButtonExtension.cs" />
-    <Compile Include="ext\CanvasExtension.cs" />
+    <Compile Include="ext\SizeExtension.cs" />
     <Compile Include="ext\RectangleExtension.cs" />
     <Compile Include="ext\PointExtension.cs" />
     <Compile Include="ext\ColorExtension.cs" />
@@ -220,6 +220,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screenshot\ScreenForm.resx">
+      <DependentUpon>ScreenForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="screenshot\ScreenRecordForm.resx">
       <DependentUpon>ScreenRecordForm.cs</DependentUpon>

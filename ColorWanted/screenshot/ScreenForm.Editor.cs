@@ -20,22 +20,22 @@ namespace ColorWanted.screenshot
             editor.AreaSelected += Editor_AreaSelected;
             editor.AreaCleared += Editor_AreaCleared;
             editor.Compeleted += Editor_Compeleted;
-
-            new Thread(InitEditorToolbar) { IsBackground = true }.Start();
         }
 
         public void Show(Bitmap img)
         {
-            toolbarMask.Hide();
+            new Thread(InitEditorToolbar) { IsBackground = true }.Start();
+
             editor.SetImage(img);
 
             BindHotKeys();
 
             Refresh();
             Show();
-            TopMost = true;
+            //TopMost = true;
             BringToFront();
         }
+
 
         private void Editor_Compeleted(object sender, DoubleClickEventArgs e)
         {
@@ -60,15 +60,56 @@ namespace ColorWanted.screenshot
             {
                 toolPanel.Hide();
             }
-
-            toolbarMask.Left = e.Rect.X;
-            // 2: 边框大小
-            toolbarMask.Top = e.Rect.Y + e.Rect.Height + 2;
+            FixToolbarPosition(e.Rect, toolbarMask);
 
             if (!toolbarMask.Visible)
             {
                 toolbarMask.Show();
             }
+        }
+
+        private void FixToolbarPosition(Rectangle rect, Control tb)
+        {
+            var w = rect.Width;
+            var h = rect.Height;
+            var x = rect.X;
+            var y = rect.Y;
+
+            // 默认放在右下角
+            var left = x + w - tb.Width;
+            var top = y + h + 2;
+
+            // 如果下方高度不合适，放到右侧
+            if (top + tb.Height > ScreenShot.SCREEN_HEIGHT)
+            {
+                top -= tb.Height + 2;
+                left += 2;
+            }
+
+            // 如果右侧宽度不合适，放到上方
+            if (left + tb.Width > ScreenShot.SCREEN_WIDTH)
+            {
+                top = y - tb.Height - 2;
+                left = x + w - tb.Width;
+            }
+
+            // 如果上方宽度不合适，放到左侧
+            if (top < 0)
+            {
+                top = y + h - tb.Height;
+                left = x - tb.Width - 2;
+            }
+
+            if (left < 0)
+            {
+                // 放到内部（右下角）
+                top = y + h - tb.Height - 2;
+                left = x + w - tb.Width - 2;
+            }
+
+            tb.Left = left;
+            // 2: 边框大小
+            tb.Top = top;
         }
 
         /// <summary>
@@ -80,8 +121,15 @@ namespace ColorWanted.screenshot
             activeToolColor = toolColorRed;
             activeToolLineStyle = toolStyleSolid;
 
-            // 字体
-            toolTextStyle.ForeColor = activeToolColor.BackColor;
+            this.InvokeMethod(() =>
+            {
+                activeToolShapeType.Checked = true;
+                activeToolColor.Checked = true;
+                activeToolLineStyle.Checked = true;
+
+                // 字体
+                toolTextStyle.ForeColor = activeToolColor.BackColor;
+            });
         }
 
         private void CloseForm()
@@ -115,6 +163,7 @@ namespace ColorWanted.screenshot
             editor.DrawWidth = 2;
             editor.TextFont = toolTextStyle.Font;
 
+            FixToolbarPosition(editor.Bounds, toolPanel);
             editor.BeginEdit();
         }
 

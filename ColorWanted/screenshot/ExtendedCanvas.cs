@@ -227,7 +227,7 @@ namespace ColorWanted.screenshot
             }
             var point = e.GetPosition(this);
             MouseDownPoint = point;
-            if (current != null && MakeSelectionOnly && History.Count >= 0)
+            if (current != null && MakeSelectionOnly && History.Count > 0)
             {
                 // 不在框内按下鼠标，不处理拖动
                 if (!current.ElementRect.Contains(point))
@@ -354,6 +354,7 @@ namespace ColorWanted.screenshot
         {
             // 取消图形
             Undo();
+            EmitDrawEvent(DrawState.Cancel, true);
         }
         #endregion
     }
@@ -372,6 +373,7 @@ namespace ColorWanted.screenshot
     {
         Start,
         Move,
-        End
+        End,
+        Cancel
     }
 }

@@ -38,5 +38,15 @@ namespace ColorWanted.ext
         {
             return new Point(Canvas.GetLeft(element), Canvas.GetTop(element));
         }
+
+        /// <summary>
+        /// 获取元素的大小
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public static Size GetSize(this FrameworkElement element)
+        {
+            return new Size(element.Width, element.Height);
+        }
     }
 }

@@ -374,7 +374,7 @@
             this.toolMaskCancel});
             this.toolbarMask.Location = new System.Drawing.Point(110, 301);
             this.toolbarMask.Name = "toolbarMask";
-            this.toolbarMask.Size = new System.Drawing.Size(110, 25);
+            this.toolbarMask.Size = new System.Drawing.Size(141, 25);
             this.toolbarMask.TabIndex = 11;
             this.toolbarMask.Visible = false;
             // 
@@ -443,7 +443,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ScreenForm";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenForm_FormClosing);
             this.Load += new System.EventHandler(this.ScreenForm_Load);
             this.toolbar.ResumeLayout(false);
