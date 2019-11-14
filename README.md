@@ -16,7 +16,18 @@ Note: Because of [Github upgrade SSL as Tls12](https://blog.github.com/2018-02-2
 
 # Source & Download
 
-- [Source Code](https://github.com/hyjiacan/ColorWanted)
+## Source Code
+
+```bash
+git clone https://github.com/hyjiacan/ColorWanted.git --recursive
+```
+or
+```bash
+git clone https://gitee.com/hyjiacan/ColorWanted.git --recursive
+```
+
+## Binary
+
 - [Stable](https://github.com/hyjiacan/ColorWanted/releases)
 - [Develpment](https://github.com/hyjiacan/ColorWanted/blob/master/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
 - [2.6.1.3](https://github.com/hyjiacan/ColorWanted/blob/2.6.1.3/ColorWanted/bin/Release/ColorWanted.exe?raw=true)

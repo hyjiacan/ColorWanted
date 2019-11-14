@@ -16,7 +16,18 @@
 
 # 源码&下载
 
-- [源码](https://github.com/hyjiacan/ColorWanted)
+## 源码
+
+```bash
+git clone https://github.com/hyjiacan/ColorWanted.git --recursive
+```
+或
+```bash
+git clone https://gitee.com/hyjiacan/ColorWanted.git --recursive
+```
+
+## 二进制
+
 - [稳定版](https://github.com/hyjiacan/ColorWanted/releases)
 - [开发版](https://github.com/hyjiacan/ColorWanted/blob/master/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
 - [2.6.1.3](https://github.com/hyjiacan/ColorWanted/blob/2.6.1.3/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
