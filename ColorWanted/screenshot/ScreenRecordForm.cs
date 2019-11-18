@@ -44,12 +44,11 @@ namespace ColorWanted.screenshot
             {
                 // ignore
             }
-            if (timer == null)
+            if (timer != null)
             {
-                return;
+                timer.Stop();
+                timer.Dispose();
             }
-            timer.Stop();
-            timer.Dispose();
             Hide();
         }
 

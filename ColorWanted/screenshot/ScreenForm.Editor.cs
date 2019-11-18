@@ -22,18 +22,24 @@ namespace ColorWanted.screenshot
             editor.Compeleted += Editor_Compeleted;
         }
 
-        public void Show(Bitmap img)
+        public void ShowWindow()
         {
-            new Thread(InitEditorToolbar) { IsBackground = true }.Start();
-
-            editor.SetImage(img);
-
-            BindHotKeys();
-
-            Refresh();
             Show();
             //TopMost = true;
             BringToFront();
+
+            new Thread(InitEditorToolbar) { IsBackground = true }.Start();
+        }
+
+        public void SetImage(Bitmap img)
+        {
+            this.InvokeMethod(() =>
+            {
+                editor.SetImage(img);
+                BindHotKeys();
+
+                Refresh();
+            });
         }
 
 

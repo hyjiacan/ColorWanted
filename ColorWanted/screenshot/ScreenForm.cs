@@ -19,11 +19,6 @@ namespace ColorWanted.screenshot
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
-            BindEditorEvents();
-        }
-
-        private void ScreenForm_Load(object sender, System.EventArgs e)
-        {
             // 设置工具按钮的背景为图片
             // 以防止选中状态时，背景色不可用
             SetToolstripButtonImage(toolColorBlack);
@@ -31,6 +26,12 @@ namespace ColorWanted.screenshot
             SetToolstripButtonImage(toolColorGreen);
             SetToolstripButtonImage(toolColorPurple);
             SetToolstripButtonImage(toolColorRed);
+
+            BindEditorEvents();
+        }
+
+        private void ScreenForm_Load(object sender, System.EventArgs e)
+        {
         }
 
         private void SetToolstripButtonImage(ToolStripButton button)
