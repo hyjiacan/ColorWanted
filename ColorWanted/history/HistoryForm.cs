@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ColorWanted.history
@@ -17,7 +18,7 @@ namespace ColorWanted.history
         {
             componentsLayout();
             ThemeUtil.Apply(this);
-            
+
         }
 
         private void MouseDownEventHandler(object sender, MouseEventArgs e)
@@ -53,39 +54,111 @@ namespace ColorWanted.history
             }
 
             File.WriteAllText(ColorHistory.FullName, "");
-            LoadHistory();
+            HistoryForm_Load(null, null);
         }
 
         private void linkReload_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            LoadHistory();
+            HistoryForm_Load(null, null);
+        }
+
+        private void LoadTree()
+        {
+            tree.Nodes.Clear();
+            new Thread(() =>
+            {
+                var years = ColorHistory.GetDateTree().OrderByDescending(i => i.Name);
+                foreach (var year in years)
+                {
+                    var yearNode = new TreeNode(year.Name)
+                    {
+                        Tag = year
+                    };
+                    this.InvokeMethod(() =>
+                    {
+                        tree.Nodes.Add(yearNode);
+                    });
+
+                    foreach (var month in ColorHistory.GetDateTree(int.Parse(year.Name))
+                        .OrderByDescending(i => i.Name))
+                    {
+                        var monthNode = new TreeNode(month.Name)
+                        {
+                            Tag = month
+                        };
+                        this.InvokeMethod(() =>
+                        {
+                            yearNode.Nodes.Add(monthNode);
+                        });
+                    }
+                }
+                this.InvokeMethod(() =>
+                {
+                    if (tree.Nodes.Count == 0)
+                    {
+                        return;
+                    }
+                    var temp = tree.Nodes[0];
+                    temp.ExpandAll();
+                    if (temp.Nodes.Count == 0)
+                    {
+                        return;
+                    }
+                    temp = temp.Nodes[0];
+                    temp.ExpandAll();
+
+                    LoadHistory(temp);
+                });
+            })
+            { IsBackground = true }.Start();
         }
 
         /// <summary>
         /// 加载历史
         /// </summary>
-        private void LoadHistory()
+        private void LoadHistory(TreeNode treeNode)
         {
+            if (treeNode == null)
+            {
+                return;
+            }
+
+            var node = (DateTreeNode)treeNode.Tag;
+            if (node.ParentYear == 0)
+            {
+                return;
+            }
+
             list.Clear();
 
-            var history = ColorHistory.Get();
+            var history = ColorHistory.Get(node.Path);
             if (history == null || history.Length == 0)
             {
                 return;
             }
 
-            ListViewGroup group = null;
-            var groupTime = DateTime.MinValue;
-            foreach (var item in history.OrderByDescending(item => item.DateTime))
+            new Thread(() =>
             {
-                if (group == null || groupTime != item.DateTime.Date)
+                ListViewGroup group = null;
+                var groupTime = DateTime.MinValue;
+                foreach (var item in history.OrderByDescending(item => item.DateTime))
                 {
-                    group = new ListViewGroup(item.DateTime.ToString("yyyy-MM-dd"));
-                    list.Groups.Add(group);
-                    groupTime = item.DateTime.Date;
+                    if (group == null || groupTime != item.DateTime.Date)
+                    {
+                        group = new ListViewGroup(item.DateTime.ToString("yyyy-MM-dd"));
+                        this.InvokeMethod(() =>
+                        {
+                            list.Groups.Add(group);
+                        });
+                        groupTime = item.DateTime.Date;
+                    }
+                    this.InvokeMethod(() =>
+                    {
+                        list.Items.Add(RenderItem(item, group));
+                    });
                 }
-                list.Items.Add(RenderItem(item, group));
-            }
+            })
+            { IsBackground = true }.Start();
         }
 
         private ListViewItem RenderItem(ColorHistory history, ListViewGroup group)
@@ -107,7 +180,7 @@ namespace ColorWanted.history
 
         private void HistoryForm_Load(object sender, EventArgs e)
         {
-            LoadHistory();
+            LoadTree();
         }
 
         private void linkHex_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -122,6 +195,11 @@ namespace ColorWanted.history
             var item = sender as LinkLabel;
             // ReSharper disable once PossibleNullReferenceException
             Util.SetClipboard(Handle, item.Text);
+        }
+
+        private void tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            LoadHistory(e.Node);
         }
 
         private void list_SelectedIndexChanged(object sender, EventArgs e)

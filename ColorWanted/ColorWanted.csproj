@@ -84,6 +84,7 @@
     <Compile Include="ext\ColorExtension.cs" />
     <Compile Include="ext\ElementExtension.cs" />
     <Compile Include="ext\GraphicsExtension.cs" />
+    <Compile Include="history\DateTreeNode.cs" />
     <Compile Include="screenshot\DrawHistoryItem.cs" />
     <Compile Include="screenshot\events\DoubleClickEventArgs.cs" />
     <Compile Include="screenshot\ExtendedCanvas.cs" />

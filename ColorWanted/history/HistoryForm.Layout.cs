@@ -1,4 +1,6 @@
-﻿namespace ColorWanted.history
+﻿using System;
+
+namespace ColorWanted.history
 {
     partial class HistoryForm
     {
@@ -6,7 +8,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer componentsSet = null;
-        
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -33,6 +35,8 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.picLOGO = new System.Windows.Forms.PictureBox();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.tree = new System.Windows.Forms.TreeView();
             this.list = new System.Windows.Forms.ListView();
             this.linkFile = new System.Windows.Forms.LinkLabel();
             this.linkClear = new System.Windows.Forms.LinkLabel();
@@ -81,11 +85,27 @@
             this.picLOGO.TabIndex = 12;
             this.picLOGO.TabStop = false;
             // 
+            // tree
+            // 
+            this.tree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tree.BackColor = System.Drawing.Color.White;
+            this.tree.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tree.ForeColor = System.Drawing.Color.Black;
+            this.tree.HideSelection = false;
+            this.tree.Location = new System.Drawing.Point(12, 32);
+            this.tree.Name = "list";
+            this.tree.Size = new System.Drawing.Size(176, 291);
+            this.tree.TabIndex = 0;
+            this.tree.HideSelection = false;
+            this.tree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tree_NodeMouseClick);
+            // 
             // list
             // 
             this.list.Alignment = System.Windows.Forms.ListViewAlignment.SnapToGrid;
-            this.list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             resources.ApplyResources(this.list, "list");
             this.list.AutoArrange = false;
@@ -99,7 +119,7 @@
             this.list.MultiSelect = false;
             this.list.Name = "list";
             this.list.ShowItemToolTips = true;
-            this.list.Size = new System.Drawing.Size(579, 291);
+            this.list.Size = new System.Drawing.Size(396, 291);
             this.list.TabIndex = 0;
             this.list.TileSize = new System.Drawing.Size(80, 32);
             this.list.UseCompatibleStateImageBehavior = false;
@@ -191,6 +211,18 @@
             this.label3.Name = "label3";
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 337);
+            //
+            // splitContainer
+            //
+            this.splitContainer.Name = "splitContainer";
+            this.list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer.Size = new System.Drawing.Size(579, 291);
+            this.splitContainer.Location = new System.Drawing.Point(12, 32);
+            this.splitContainer.SplitterDistance = 179;
+            this.splitContainer.Panel1.Controls.Add(this.tree);
+            this.splitContainer.Panel2.Controls.Add(this.list);
             // 
             // HistoryForm
             // 
@@ -207,7 +239,7 @@
             this.Controls.Add(this.linkReload);
             this.Controls.Add(this.linkClear);
             this.Controls.Add(this.linkFile);
-            this.Controls.Add(this.list);
+            this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.picLOGO);
@@ -233,6 +265,8 @@
         public System.Windows.Forms.PictureBox picLOGO;
         public System.Windows.Forms.Button btnExit;
         public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.SplitContainer splitContainer;
+        public System.Windows.Forms.TreeView tree;
         public System.Windows.Forms.ListView list;
         public System.Windows.Forms.LinkLabel linkFile;
         public System.Windows.Forms.LinkLabel linkClear;
