@@ -333,6 +333,14 @@
                 "Text": "Screenrecord",
                 "ToolTipText": "Record screen as GIF"
             },
+            "trayMenuEnableClipboard": {
+                "Text": "Watch Clipboard",
+                "ToolTipText": "Enable watching clipboard"
+            },
+            "trayMenuShowClipboard": {
+                "Text": "Clipboard History",
+                "ToolTipText": "Open clipboard history window"
+            },
             "trayMenuLanguageOther": {
                 "Text": "Others",
                 "ToolTipText": "Choose other language"

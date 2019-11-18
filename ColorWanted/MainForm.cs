@@ -1,4 +1,5 @@
-﻿using ColorWanted.colors;
+﻿using ColorWanted.clipboard;
+using ColorWanted.colors;
 using ColorWanted.ext;
 using ColorWanted.history;
 using ColorWanted.hotkey;
@@ -209,6 +210,13 @@ namespace ColorWanted
                     // 然后打开快捷键设置窗口
                     trayMenuHotkey_Click(null, null);
                 }
+            }
+
+            // 是否监听剪贴板
+            trayMenuEnableClipboard.Checked = Settings.Clipboard.Enabled;
+            if (trayMenuEnableClipboard.Checked)
+            {
+                NativeMethods.AddClipboardFormatListener(Handle);
             }
 
             // 加载语言并选中使用的项
@@ -540,8 +548,30 @@ namespace ColorWanted
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ColorUtil.DeleteDC();
-            this.InvokeMethod(() => HotKey.Unbind(Handle));
+            try
+            {
+                NativeMethods.RemoveClipboardFormatListener(Handle);
+            }
+            catch
+            {
+                // ignore
+            }
+            try
+            {
+                ColorUtil.DeleteDC();
+            }
+            catch
+            {
+                // ignore
+            }
+            try
+            {
+                this.InvokeMethod(() => HotKey.Unbind(Handle));
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         /// <summary>
@@ -1025,6 +1055,34 @@ namespace ColorWanted
         private void trayMenuScreenRecord_Click(object sender, EventArgs e)
         {
             ScreenShot.Record();
+        }
+
+        /// <summary>
+        /// 打开剪贴板历史窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayMenuShowClipboard_Click(object sender, EventArgs e)
+        {
+            ClipboardListForm.Open();
+        }
+
+        /// <summary>
+        /// 打开设置窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayMenuEnableClipboard_Click(object sender, EventArgs e)
+        {
+            Settings.Clipboard.Enabled = trayMenuEnableClipboard.Checked = !trayMenuEnableClipboard.Checked;
+            if (trayMenuEnableClipboard.Checked)
+            {
+                NativeMethods.AddClipboardFormatListener(Handle);
+            }
+            else
+            {
+                NativeMethods.RemoveClipboardFormatListener(Handle);
+            }
         }
 
         private void ToggleCopyPolicy()

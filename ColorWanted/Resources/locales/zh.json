@@ -328,6 +328,14 @@
                 "Text": "录屏",
                 "ToolTipText": "录制屏幕GIF"
             },
+            "trayMenuEnableClipboard": {
+                "Text": "监视剪贴板",
+                "ToolTipText": "启用监视剪贴板"
+            },
+            "trayMenuShowClipboard": {
+                "Text": "剪贴板历史",
+                "ToolTipText": "打开剪贴板历史窗口"
+            },
             "trayMenuLanguageOther": {
                 "Text": "其它",
                 "ToolTipText": "选择其它语言"

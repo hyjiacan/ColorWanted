@@ -62,6 +62,21 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clipboard\ClipboardCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="clipboard\ClipboardCtrl.Designer.cs">
+      <DependentUpon>ClipboardCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clipboard\ClipboardData.cs" />
+    <Compile Include="clipboard\ClipboardListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clipboard\ClipboardListForm.Designer.cs">
+      <DependentUpon>ClipboardListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clipboard\ClipboardManager.cs" />
+    <Compile Include="clipboard\ClipboardTreeNode.cs" />
     <Compile Include="colors\HSI.cs" />
     <Compile Include="colors\HsiAlgorithm.cs" />
     <Compile Include="colors\HSL.cs" />
@@ -129,6 +144,7 @@
       <DependentUpon>ScreenForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="setting\Settings.Clipboard.cs" />
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="setting\Settings.I18n.cs" />
     <Compile Include="theme\ThemeDescription.cs" />
@@ -231,6 +247,12 @@
     <Compile Include="util\Http.cs" />
     <Compile Include="util\Json.cs" />
     <Compile Include="util\Util.cs" />
+    <EmbeddedResource Include="clipboard\ClipboardCtrl.resx">
+      <DependentUpon>ClipboardCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clipboard\ClipboardListForm.resx">
+      <DependentUpon>ClipboardListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -249,6 +271,8 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\remove.png" />
     <None Include="Resources\picker.png" />
     <None Include="Resources\solid-line.png" />
     <None Include="Resources\save.png" />

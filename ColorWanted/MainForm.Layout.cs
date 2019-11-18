@@ -78,6 +78,9 @@ namespace ColorWanted
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenShot = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.trayMenuEnableClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuShowClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.componentsSet);
             this.lbColorPreview = new System.Windows.Forms.Label();
             this.lbHsl = new System.Windows.Forms.Label();
@@ -221,6 +224,9 @@ namespace ColorWanted
             this.trayMenuHistory,
             this.trayMenuScreenShot,
             this.trayMenuScreenRecord,
+            this.toolStripSeparator4,
+            this.trayMenuEnableClipboard,
+            this.trayMenuShowClipboard,
             this.toolStripSeparator1,
             this.trayMenuLanguage,
             this.trayMenuCheckUpdate,
@@ -499,6 +505,26 @@ namespace ColorWanted
             this.trayMenuScreenRecord.Size = new System.Drawing.Size(148, 22);
             this.trayMenuScreenRecord.Click += new EventHandler(this.trayMenuScreenRecord_Click);
             // 
+            // toolStripSeparator4
+            // 
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(145, 6);
+            // 
+            // trayMenuEnableClipboard
+            // 
+            resources.ApplyResources(this.trayMenuEnableClipboard, "trayMenuEnableClipboard");
+            this.trayMenuEnableClipboard.Name = "trayMenuEnableClipboard";
+            this.trayMenuEnableClipboard.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuEnableClipboard.Click += new EventHandler(this.trayMenuEnableClipboard_Click);
+            // 
+            // trayMenuClipboard
+            // 
+            resources.ApplyResources(this.trayMenuShowClipboard, "trayMenuShowClipboard");
+            this.trayMenuShowClipboard.Name = "trayMenuShowClipboard";
+            this.trayMenuShowClipboard.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuShowClipboard.Click += new EventHandler(this.trayMenuShowClipboard_Click);
+            // 
             // trayMenuLanguageZH
             // 
             resources.ApplyResources(this.trayMenuLanguageZH, "trayMenuLanguageZH");
@@ -643,5 +669,8 @@ namespace ColorWanted
         public System.Windows.Forms.Label lbHsi;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenShot;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenRecord;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuEnableClipboard;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuShowClipboard;
     }
 }
