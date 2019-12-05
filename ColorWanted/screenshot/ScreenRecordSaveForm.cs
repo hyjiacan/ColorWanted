@@ -124,20 +124,11 @@ namespace ColorWanted.screenshot
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            var dialog = new SaveFileDialog
+            var filename = ScreenShot.SaveRecord();
+            if (filename == null)
             {
-                AddExtension = true,
-                DefaultExt = "gif",
-                FileName = string.Format("record-{0:yyyyMMddHHmmss}.gif", DateTime.Now)
-            };
-
-            if (dialog.ShowDialog() != DialogResult.OK)
-            {
-                dialog.Dispose();
                 return;
             }
-            var filename = dialog.FileName;
-            dialog.Dispose();
 
             btnOk.Enabled = false;
             tbQuality.Enabled = false;

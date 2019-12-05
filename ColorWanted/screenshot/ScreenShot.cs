@@ -11,6 +11,8 @@ namespace ColorWanted.screenshot
         public static readonly int SCREEN_HEIGHT;
         private static ScreenForm screenForm;
         private static ScreenRecordForm recordForm;
+        private static SaveFileDialog saveImageDialog;
+        private static SaveFileDialog saveRecordDialog;
 
         /// <summary>
         /// 标记是否正在截图
@@ -32,6 +34,22 @@ namespace ColorWanted.screenshot
             {
                 Busy = false;
                 GC.Collect();
+            };
+
+            saveImageDialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "png",
+                SupportMultiDottedExtensions = true,
+                Filter = "PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif"
+            };
+
+            saveRecordDialog = new SaveFileDialog
+            {
+                AddExtension = true,
+                DefaultExt = "gif",
+                SupportMultiDottedExtensions = true,
+                Filter = "Gif Image|*.gif"
             };
         }
 
@@ -80,6 +98,26 @@ namespace ColorWanted.screenshot
                 Busy = false;
                 throw e;
             }
+        }
+
+        public static void SaveImage(Bitmap img)
+        {
+            saveImageDialog.FileName = string.Format("screenshot-{0:yyyyMMddHHmmss}", DateTime.Now);
+            if (saveImageDialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            img.Save(saveImageDialog.FileName);
+        }
+
+        public static string SaveRecord()
+        {
+            saveRecordDialog.FileName = string.Format("record-{0:yyyyMMddHHmmss}", DateTime.Now);
+            if (saveRecordDialog.ShowDialog() != DialogResult.OK)
+            {
+                return null;
+            }
+            return saveRecordDialog.FileName;
         }
 
         /// <summary>

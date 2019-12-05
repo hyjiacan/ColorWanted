@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClipboardListForm));
             this.btnMore = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeDate = new System.Windows.Forms.TreeView();
-            this.clipboardTreeNodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.list = new System.Windows.Forms.FlowLayoutPanel();
+            this.clipboardTreeNodeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -90,10 +91,6 @@
             this.treeDate.TabIndex = 0;
             this.treeDate.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeDate_NodeMouseClick);
             // 
-            // clipboardTreeNodeBindingSource
-            // 
-            this.clipboardTreeNodeBindingSource.DataSource = typeof(ColorWanted.clipboard.ClipboardTreeNode);
-            // 
             // list
             // 
             this.list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -106,12 +103,17 @@
             this.list.Size = new System.Drawing.Size(635, 512);
             this.list.TabIndex = 0;
             // 
+            // clipboardTreeNodeBindingSource
+            // 
+            this.clipboardTreeNodeBindingSource.DataSource = typeof(ColorWanted.clipboard.ClipboardTreeNode);
+            // 
             // ClipboardListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 561);
             this.Controls.Add(this.splitContainer1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "ClipboardListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

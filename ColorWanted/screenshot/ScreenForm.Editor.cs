@@ -214,24 +214,8 @@ namespace ColorWanted.screenshot
 
         private void ToolSave_Click(object sender, EventArgs e)
         {
-            using (var result = new SaveFileDialog
-            {
-                AddExtension = true,
-                DefaultExt = "png",
-                SupportMultiDottedExtensions = true,
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                FileName = string.Format("Screenshot-{0:yyyyMMddHHmmss}", DateTime.Now),
-                RestoreDirectory = true,
-                Filter = "PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif"
-            })
-            {
-                if (result.ShowDialog() != DialogResult.OK)
-                {
-                    return;
-                }
-                var img = editor.EndEdit();
-                img.Save(result.FileName);
-            }
+            var img = editor.EndEdit();
+            ScreenShot.SaveImage(img);
             CloseForm();
         }
 
