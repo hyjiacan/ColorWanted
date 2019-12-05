@@ -29,6 +29,10 @@ namespace ColorWanted.ext
                     invoker.Invoke();
                 }
             }
+            catch (ThreadAbortException)
+            {
+                // ignore
+            }
             catch (ObjectDisposedException)
             {
                 // ignore
@@ -42,7 +46,7 @@ namespace ColorWanted.ext
         {
             if (!form.Visible)
             {
-              form.Show();
+                form.Show();
             }
             form.BringToFront();
             new Thread(() =>
