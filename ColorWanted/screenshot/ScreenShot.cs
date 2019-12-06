@@ -41,7 +41,8 @@ namespace ColorWanted.screenshot
                 AddExtension = true,
                 DefaultExt = "png",
                 SupportMultiDottedExtensions = true,
-                Filter = "PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif"
+                Filter = "PNG Image|*.png|JPEG Image|*.jpg|Bitmap Image|*.bmp|Gif Image|*.gif",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
 
             saveRecordDialog = new SaveFileDialog
@@ -49,7 +50,8 @@ namespace ColorWanted.screenshot
                 AddExtension = true,
                 DefaultExt = "gif",
                 SupportMultiDottedExtensions = true,
-                Filter = "Gif Image|*.gif"
+                Filter = "Gif Image|*.gif",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
         }
 
