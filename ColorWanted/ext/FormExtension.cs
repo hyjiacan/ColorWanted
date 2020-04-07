@@ -18,6 +18,7 @@ namespace ColorWanted.ext
             {
                 return;
             }
+            // fix #3 #4
             try
             {
                 if (form.InvokeRequired)
@@ -53,17 +54,29 @@ namespace ColorWanted.ext
             {
                 var step = 8;
                 var offset = 0;
-                while (offset < form.Width)
+                // fix #3 #4
+                try
                 {
-                    var step1 = step;
-                    form.InvokeMethod(() =>
+                    while (offset < form.Width)
                     {
-                        form.Left -= step1;
-                        Application.DoEvents();
-                    });
-                    offset += step1;
-                    step = (int)(step * 1.5);
-                    Thread.Sleep(50);
+                        var step1 = step;
+                        form.InvokeMethod(() =>
+                        {
+                            form.Left -= step1;
+                            Application.DoEvents();
+                        });
+                        offset += step1;
+                        step = (int)(step * 1.5);
+                        Thread.Sleep(50);
+                    }
+                }
+                catch (ThreadAbortException)
+                {
+                    // ignore
+                }
+                catch (ObjectDisposedException)
+                {
+                    // ignore
                 }
                 if (callback != null)
                 {
@@ -78,23 +91,35 @@ namespace ColorWanted.ext
             new Thread(() =>
             {
                 var step = 8;
-                while (form.Width > 0)
+                // fix #3 #4
+                try
                 {
-                    var step1 = step;
+                    while (form.Width > 0)
+                    {
+                        var step1 = step;
+                        form.InvokeMethod(() =>
+                        {
+                            form.Width -= step1;
+                            form.Left += step1;
+                        });
+                        step = (int)(step * 1.5);
+                        Thread.Sleep(50);
+                    }
                     form.InvokeMethod(() =>
                     {
-                        form.Width -= step1;
-                        form.Left += step1;
+                        form.Width = 0;
+                        form.Left = Util.GetScreenSize().Width;
+                        form.Hide();
                     });
-                    step = (int)(step * 1.5);
-                    Thread.Sleep(50);
                 }
-                form.InvokeMethod(() =>
+                catch (ThreadAbortException)
                 {
-                    form.Width = 0;
-                    form.Left = Util.GetScreenSize().Width;
-                    form.Hide();
-                });
+                    // ignore
+                }
+                catch (ObjectDisposedException)
+                {
+                    // ignore
+                }
             })
             { IsBackground = true }.Start();
         }
