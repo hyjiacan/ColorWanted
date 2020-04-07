@@ -72,20 +72,24 @@ namespace ColorWanted.update
 
             Instance.Left = Util.GetScreenSize().Width;
 
+            var updateThread = new Thread(Instance.RunCheck) { IsBackground = true };
+
             // 如果不是来自自动更新，就先显示窗口
-            if (!FromAutoUpdate)
+            if (FromAutoUpdate)
             {
-                Instance.SlideIn(() =>
-                {
-                    Instance.InvokeMethod(() =>
-                    {
-                        Instance.Left = Util.GetScreenSize().Width - Instance.Width;
-                        Instance.btnExit.Show();
-                    });
-                });
+                updateThread.Start();
+                return;
             }
             // 启动检查更新
-            new Thread(Instance.RunCheck) { IsBackground = true }.Start();
+
+            Instance.SlideIn(() =>
+            {
+                Instance.InvokeMethod(() =>
+                {
+                    Instance.btnExit.Show();
+                    updateThread.Start();
+                });
+            });
         }
 
         private UpdateForm()

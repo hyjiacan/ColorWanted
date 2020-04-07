@@ -54,6 +54,7 @@ namespace ColorWanted.ext
             {
                 var step = 8;
                 var offset = 0;
+                var left = Util.GetScreenSize().Width;
                 // fix #3 #4
                 try
                 {
@@ -62,13 +63,17 @@ namespace ColorWanted.ext
                         var step1 = step;
                         form.InvokeMethod(() =>
                         {
-                            form.Left -= step1;
+                            form.Left = left - step1;
                             Application.DoEvents();
                         });
                         offset += step1;
                         step = (int)(step * 1.5);
                         Thread.Sleep(50);
                     }
+                    form.InvokeMethod(() =>
+                    {
+                        form.Left = left - form.Width;
+                    });
                 }
                 catch (ThreadAbortException)
                 {
@@ -91,24 +96,26 @@ namespace ColorWanted.ext
             new Thread(() =>
             {
                 var step = 8;
+                var left = Util.GetScreenSize().Width;
+                var width = form.Width;
                 // fix #3 #4
                 try
                 {
-                    while (form.Width > 0)
+                    var offset = 0;
+                    while (left - offset < width)
                     {
                         var step1 = step;
                         form.InvokeMethod(() =>
                         {
-                            form.Width -= step1;
-                            form.Left += step1;
+                            form.Left = left + step1;
                         });
+                        offset += step1;
                         step = (int)(step * 1.5);
                         Thread.Sleep(50);
                     }
                     form.InvokeMethod(() =>
                     {
-                        form.Width = 0;
-                        form.Left = Util.GetScreenSize().Width;
+                        form.Left = left;
                         form.Hide();
                     });
                 }
