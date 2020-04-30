@@ -160,13 +160,24 @@ namespace ColorWanted.util
 
         private static Size ScreenSize;
 
-        public static Size GetScreenSize()
+        public static Size GetScreenSize(bool workingArea = false)
         {
             if (!ScreenSize.IsEmpty) return ScreenSize;
 
-            var screen = Screen.PrimaryScreen.WorkingArea;
-            ScreenSize = new Size(screen.Width, screen.Height);
+            int width = 0;
+            int height = 0;
 
+            if (workingArea)
+            {
+                width = Screen.AllScreens.Sum(screen => screen.WorkingArea.Width);
+                height = Screen.PrimaryScreen.WorkingArea.Height;
+            }
+            else
+            {
+                width = Screen.AllScreens.Sum(screen => screen.Bounds.Width);
+                height = Screen.PrimaryScreen.Bounds.Height;
+            }
+            ScreenSize = new Size(width, height);
             return ScreenSize;
         }
 

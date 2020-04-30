@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using ColorWanted.util;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
@@ -9,7 +10,7 @@ namespace ColorWanted.screenshot
         {
             InitializeComponent();
             // 全屏
-            var screen = Screen.PrimaryScreen.Bounds;
+            var screen = Util.GetScreenSize();
             Left = 0;
             Top = 0;
             Width = screen.Width;

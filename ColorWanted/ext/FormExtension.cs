@@ -54,7 +54,7 @@ namespace ColorWanted.ext
             {
                 var step = 8;
                 var offset = 0;
-                var left = Util.GetScreenSize().Width;
+                var left = Util.GetScreenSize(true).Width;
                 // fix #3 #4
                 try
                 {

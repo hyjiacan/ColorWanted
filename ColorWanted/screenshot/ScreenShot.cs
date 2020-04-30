@@ -21,7 +21,7 @@ namespace ColorWanted.screenshot
 
         static ScreenShot()
         {
-            var screen = Screen.PrimaryScreen.Bounds;
+            var screen = util.Util.GetScreenSize();
             SCREEN_WIDTH = screen.Width;
             SCREEN_HEIGHT = screen.Height;
         }

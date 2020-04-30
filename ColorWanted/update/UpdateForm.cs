@@ -5,6 +5,7 @@ using ColorWanted.util;
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -67,10 +68,10 @@ namespace ColorWanted.update
             }
 
             Instance.Height = 110;
-            Instance.Top = Screen.PrimaryScreen.WorkingArea.Height - 110;
+            Instance.Top = Util.GetScreenSize(true).Height - 110;
             Instance.pnDetail.Hide();
 
-            Instance.Left = Util.GetScreenSize().Width;
+            Instance.Left = Util.GetScreenSize(true).Width;
 
             var updateThread = new Thread(Instance.RunCheck) { IsBackground = true };
 
@@ -97,7 +98,7 @@ namespace ColorWanted.update
             componentsLayout();
             ThemeUtil.Apply(this);
 
-            var screen = Screen.PrimaryScreen.WorkingArea;
+            var screen = util.Util.GetScreenSize(true);
             Location = new Point(screen.Width - Width, screen.Height - Height);
         }
 
@@ -186,7 +187,7 @@ namespace ColorWanted.update
 
                 lbLog.Text = updateInfo.Message;
 
-                Top = Screen.PrimaryScreen.WorkingArea.Height - 240;
+                Top = Util.GetScreenSize(true).Height - 240;
                 Height = 240;
                 pnDetail.Show();
 
