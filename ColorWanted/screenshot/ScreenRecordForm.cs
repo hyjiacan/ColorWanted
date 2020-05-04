@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using ColorWanted.ext;
+using ColorWanted.util;
 
 namespace ColorWanted.screenshot
 {
@@ -101,12 +102,13 @@ namespace ColorWanted.screenshot
         {
             if (cbFullscreen.Checked)
             {
+                var size = Util.GetScreenSize();
                 customizeWindowBounds = Bounds;
                 FormBorderStyle = FormBorderStyle.None;
                 Left = 0;
                 Top = 0;
-                Width = ScreenShot.SCREEN_WIDTH;
-                Height = ScreenShot.SCREEN_HEIGHT;
+                Width = size.Width;
+                Height = size.Height;
             }
             else
             {
@@ -126,11 +128,12 @@ namespace ColorWanted.screenshot
             timer.Tick += Timer_Tick;
             if (cbFullscreen.Checked)
             {
+                var size = Util.GetScreenSize();
                 FormBorderStyle = FormBorderStyle.None;
                 Left = 0;
                 Top = 0;
-                Width = ScreenShot.SCREEN_WIDTH;
-                Height = ScreenShot.SCREEN_HEIGHT;
+                Width = size.Width;
+                Height = size.Height;
             }
             else
             {

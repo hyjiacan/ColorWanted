@@ -1,5 +1,6 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.screenshot.events;
+using ColorWanted.util;
 using System;
 using System.Drawing;
 using System.Windows;
@@ -99,12 +100,12 @@ namespace ColorWanted.screenshot
             this.image = image;
 
             container.SetLocation(0, 0);
-            container.Width = ScreenShot.SCREEN_WIDTH;
-            container.Height = ScreenShot.SCREEN_HEIGHT;
+            container.Width = image.Width;
+            container.Height = image.Height;
 
             canvasMask.SetLocation(0, 0);
-            canvasMask.Width = ScreenShot.SCREEN_WIDTH;
-            canvasMask.Height = ScreenShot.SCREEN_HEIGHT;
+            canvasMask.Width = image.Width;
+            canvasMask.Height = image.Height;
 
             maskBackground.ImageSource = image.AsOpacity(0.7f).AsResource();
         }
@@ -169,15 +170,18 @@ namespace ColorWanted.screenshot
             {
                 y = 0;
             }
+
+            var size = Util.GetScreenSize();
+
             var w = lastSelectedRect.Width + BORDER_WIDTH * 2;
-            if (w + x > ScreenShot.SCREEN_WIDTH)
+            if (w + x > size.Width)
             {
-                w = ScreenShot.SCREEN_WIDTH - x;
+                w = size.Width - x;
             }
             var h = lastSelectedRect.Height + BORDER_WIDTH * 2;
-            if (h + y > ScreenShot.SCREEN_HEIGHT)
+            if (h + y > size.Height)
             {
-                h = ScreenShot.SCREEN_HEIGHT - y;
+                h = size.Height - y;
             }
             SelectionBorder.SetLocation(x, y);
             SelectionBorder.Width = w;

@@ -158,12 +158,9 @@ namespace ColorWanted.util
 
         private static BugReportForm reportform;
 
-        private static Size ScreenSize;
 
         public static Size GetScreenSize(bool workingArea = false)
         {
-            if (!ScreenSize.IsEmpty) return ScreenSize;
-
             int width = 0;
             int height = 0;
 
@@ -177,8 +174,7 @@ namespace ColorWanted.util
                 width = Screen.AllScreens.Sum(screen => screen.Bounds.Width);
                 height = Screen.PrimaryScreen.Bounds.Height;
             }
-            ScreenSize = new Size(width, height);
-            return ScreenSize;
+            return new Size(width, height);
         }
 
         public static string Round(double value)

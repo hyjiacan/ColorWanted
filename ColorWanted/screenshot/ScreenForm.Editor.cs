@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using ColorWanted.ext;
 using ColorWanted.hotkey;
 using ColorWanted.screenshot.events;
+using ColorWanted.util;
 
 namespace ColorWanted.screenshot
 {
@@ -85,15 +86,17 @@ namespace ColorWanted.screenshot
             var left = x + w - tb.Width;
             var top = y + h + 2;
 
+            var size = Util.GetScreenSize(true);
+
             // 如果下方高度不合适，放到右侧
-            if (top + tb.Height > ScreenShot.SCREEN_HEIGHT)
+            if (top + tb.Height > size.Width)
             {
                 top -= tb.Height + 2;
                 left += 2;
             }
 
             // 如果右侧宽度不合适，放到上方
-            if (left + tb.Width > ScreenShot.SCREEN_WIDTH)
+            if (left + tb.Width > size.Height)
             {
                 top = y - tb.Height - 2;
                 left = x + w - tb.Width;

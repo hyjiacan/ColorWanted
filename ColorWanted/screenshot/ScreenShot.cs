@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorWanted.util;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -7,8 +8,6 @@ namespace ColorWanted.screenshot
 {
     internal static class ScreenShot
     {
-        public static readonly int SCREEN_WIDTH;
-        public static readonly int SCREEN_HEIGHT;
         private static ScreenForm screenForm;
         private static ScreenRecordForm recordForm;
         private static SaveFileDialog saveImageDialog;
@@ -18,13 +17,6 @@ namespace ColorWanted.screenshot
         /// 标记是否正在截图
         /// </summary>
         public static bool Busy { private set; get; }
-
-        static ScreenShot()
-        {
-            var screen = util.Util.GetScreenSize();
-            SCREEN_WIDTH = screen.Width;
-            SCREEN_HEIGHT = screen.Height;
-        }
 
         public static void Init()
         {
@@ -88,8 +80,9 @@ namespace ColorWanted.screenshot
             {
                 new System.Threading.Thread(() =>
                 {
+                    var size = Util.GetScreenSize();
                     // 获取当前整个屏幕的截图
-                    var image = GetScreen(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+                    var image = GetScreen(0, 0, size.Width, size.Height);
                     screenForm.SetImage(image);
                 })
                 { IsBackground = true }.Start();
