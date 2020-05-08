@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using ColorWanted.ext;
@@ -28,8 +27,11 @@ namespace ColorWanted.screenshot
             var img = ScreenShot.GetScreen(recordArea.X, recordArea.Y, recordArea.Width, recordArea.Height);
 
             var p = PointToClient(MousePosition);
-            img.Save(Path.Combine(ScreenRecordOption.CachePath,
-                string.Format("{0}#{1}#{2}#{3}", DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0")));
+
+            var imgPath = Path.Combine(ScreenRecordOption.CachePath,
+                string.Format("{0}#{1}#{2}#{3}", DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0"));
+
+            img.Save(imgPath);
             img.Dispose();
             GC.Collect();
         }
@@ -102,13 +104,9 @@ namespace ColorWanted.screenshot
         {
             if (cbFullscreen.Checked)
             {
-                var size = Util.GetScreenSize();
-                customizeWindowBounds = Bounds;
+                var bounds = Util.GetScreenBounds();
+                Bounds = customizeWindowBounds = bounds;
                 FormBorderStyle = FormBorderStyle.None;
-                Left = 0;
-                Top = 0;
-                Width = size.Width;
-                Height = size.Height;
             }
             else
             {
@@ -128,12 +126,8 @@ namespace ColorWanted.screenshot
             timer.Tick += Timer_Tick;
             if (cbFullscreen.Checked)
             {
-                var size = Util.GetScreenSize();
                 FormBorderStyle = FormBorderStyle.None;
-                Left = 0;
-                Top = 0;
-                Width = size.Width;
-                Height = size.Height;
+                Bounds = Util.GetScreenBounds();
             }
             else
             {

@@ -149,6 +149,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="setting\Settings.Clipboard.cs" />
+    <Compile Include="setting\Settings.Shoot.cs" />
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="setting\Settings.I18n.cs" />
     <Compile Include="theme\ThemeDescription.cs" />

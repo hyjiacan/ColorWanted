@@ -78,6 +78,7 @@ namespace ColorWanted
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenShot = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuShootOnCurrentScreen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuEnableClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -224,6 +225,7 @@ namespace ColorWanted
             this.trayMenuHistory,
             this.trayMenuScreenShot,
             this.trayMenuScreenRecord,
+            this.trayMenuShootOnCurrentScreen,
             this.toolStripSeparator4,
             this.trayMenuEnableClipboard,
             this.trayMenuShowClipboard,
@@ -505,6 +507,13 @@ namespace ColorWanted
             this.trayMenuScreenRecord.Size = new System.Drawing.Size(148, 22);
             this.trayMenuScreenRecord.Click += new EventHandler(this.trayMenuScreenRecord_Click);
             // 
+            // trayMenuShootOnCurrentScreen
+            // 
+            resources.ApplyResources(this.trayMenuShootOnCurrentScreen, "trayMenuShootOnCurrentScreen");
+            this.trayMenuShootOnCurrentScreen.Name = "trayMenuShootOnCurrentScreen";
+            this.trayMenuShootOnCurrentScreen.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuShootOnCurrentScreen.Click += new EventHandler(this.trayMenuShootOnCurrentScreen_Click);
+            // 
             // toolStripSeparator4
             // 
             resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
@@ -669,6 +678,7 @@ namespace ColorWanted
         public System.Windows.Forms.Label lbHsi;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenShot;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenRecord;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuShootOnCurrentScreen;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.ToolStripMenuItem trayMenuEnableClipboard;
         public System.Windows.Forms.ToolStripMenuItem trayMenuShowClipboard;

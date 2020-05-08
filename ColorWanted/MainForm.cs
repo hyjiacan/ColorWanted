@@ -918,6 +918,16 @@ namespace ColorWanted
         }
 
         /// <summary>
+        /// 是否仅在当前屏幕操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayMenuShootOnCurrentScreen_Click(object sender, EventArgs e)
+        {
+            Settings.Shoot.CurrentScreen = trayMenuShootOnCurrentScreen.Checked = !trayMenuShootOnCurrentScreen.Checked;
+        }
+
+        /// <summary>
         /// 打开剪贴板历史窗口
         /// </summary>
         /// <param name="sender"></param>

@@ -67,11 +67,13 @@ namespace ColorWanted.update
                 return;
             }
 
+            var size = Util.GetScreenSize(true);
+
             Instance.Height = 110;
-            Instance.Top = Util.GetScreenSize(true).Height - 110;
+            Instance.Top = size.Height - 110;
             Instance.pnDetail.Hide();
 
-            Instance.Left = Util.GetScreenSize(true).Width;
+            Instance.Left = size.Width;
 
             var updateThread = new Thread(Instance.RunCheck) { IsBackground = true };
 

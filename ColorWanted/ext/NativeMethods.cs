@@ -131,6 +131,9 @@ namespace ColorWanted.ext
         //调用下一个钩子
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
+        //获取鼠标所在位置
+        [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
+        public static extern bool GetCursorPos(ref Point lpPoint);
         #endregion
 
         #region GDI

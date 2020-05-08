@@ -147,7 +147,7 @@ namespace ColorWanted.screenshot
 
         private void SetBorder()
         {
-            const int BORDER_WIDTH = 2;
+            const int BORDER_WIDTH = 1;
 
             if (SelectionBorder == null)
             {
@@ -194,7 +194,10 @@ namespace ColorWanted.screenshot
             if (e.State == DrawState.Cancel || e.IsEmpty)
             {
                 selectArea.Visibility = Visibility.Hidden;
-                SelectionBorder.Visibility = Visibility.Hidden;
+                if (SelectionBorder != null)
+                {
+                    SelectionBorder.Visibility = Visibility.Hidden;
+                }
                 AreaCleared.Invoke(this, null);
                 return;
             }

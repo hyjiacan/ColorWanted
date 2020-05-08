@@ -43,7 +43,6 @@ namespace ColorWanted.screenshot
             });
         }
 
-
         private void Editor_Compeleted(object sender, DoubleClickEventArgs e)
         {
             // 双击完成时触发
@@ -89,14 +88,14 @@ namespace ColorWanted.screenshot
             var size = Util.GetScreenSize(true);
 
             // 如果下方高度不合适，放到右侧
-            if (top + tb.Height > size.Width)
+            if (top + tb.Height > size.Height)
             {
                 top -= tb.Height + 2;
                 left += 2;
             }
 
             // 如果右侧宽度不合适，放到上方
-            if (left + tb.Width > size.Height)
+            if (left + tb.Width > size.Width)
             {
                 top = y - tb.Height - 2;
                 left = x + w - tb.Width;
@@ -218,8 +217,12 @@ namespace ColorWanted.screenshot
         private void ToolSave_Click(object sender, EventArgs e)
         {
             var img = editor.EndEdit();
-            ScreenShot.SaveImage(img);
-            CloseForm();
+            IsActive = false;
+            if (ScreenShot.SaveImage(img))
+            {
+                CloseForm();
+            }
+            IsActive = true;
         }
 
         private void ToolCancel_Click(object sender, EventArgs e)
@@ -315,6 +318,13 @@ namespace ColorWanted.screenshot
                 return;
             }
 
+            // 窗口没有激活，不处理
+            if (!IsActive)
+            {
+                base.WndProc(ref m);
+                return;
+            }
+
             // 收到的快捷键的值
             var keyValue = m.WParam.ToInt32();
 
@@ -322,7 +332,7 @@ namespace ColorWanted.screenshot
             {
                 // 关闭窗口
                 case 0xF10001:
-                    Close();
+                    CloseForm();
                     break;
                 // 撤消编辑
                 case 0xF10002:

@@ -1,4 +1,5 @@
 ﻿using ColorWanted.ext;
+using ColorWanted.setting;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -175,6 +176,25 @@ namespace ColorWanted.util
                 height = Screen.PrimaryScreen.Bounds.Height;
             }
             return new Size(width, height);
+        }
+
+        public static Rectangle GetCurrentScreen(bool workingArea = false)
+        {
+            var mousePosition = new Point();
+
+            NativeMethods.GetCursorPos(ref mousePosition);
+
+            return workingArea ? Screen.GetWorkingArea(mousePosition) : Screen.GetBounds(mousePosition);
+        }
+
+        public static Rectangle GetScreenBounds(bool workingDir = false)
+        {
+            if (Settings.Shoot.CurrentScreen)
+            {
+                return GetCurrentScreen(workingDir);
+            }
+
+            return new Rectangle(new Point(0, 0), GetScreenSize(workingDir));
         }
 
         public static string Round(double value)

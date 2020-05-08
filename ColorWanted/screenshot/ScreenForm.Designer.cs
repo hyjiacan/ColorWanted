@@ -61,6 +61,7 @@
             this.toolMaskSave = new System.Windows.Forms.ToolStripButton();
             this.toolMaskOK = new System.Windows.Forms.ToolStripButton();
             this.toolMaskCancel = new System.Windows.Forms.ToolStripButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.editorContainer = new System.Windows.Forms.Integration.ElementHost();
             this.editor = new ColorWanted.screenshot.ImageEditor();
             this.toolbar.SuspendLayout();
@@ -93,6 +94,9 @@
             this.toolbar.TabIndex = 5;
             this.toolbar.Text = "toolStrip1";
             this.toolbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolbar_ItemClicked);
+            this.toolbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseDown);
+            this.toolbar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseMove);
+            this.toolbar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseUp);
             // 
             // toolText
             // 
@@ -262,13 +266,20 @@
             // 
             this.toolPanel.AutoSize = true;
             this.toolPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.toolPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.toolPanel.Controls.Add(this.label1);
             this.toolPanel.Controls.Add(this.toolbarExtPanel);
             this.toolPanel.Controls.Add(this.toolbar);
             this.toolPanel.Location = new System.Drawing.Point(12, 197);
             this.toolPanel.Name = "toolPanel";
-            this.toolPanel.Size = new System.Drawing.Size(372, 67);
+            this.toolPanel.Size = new System.Drawing.Size(374, 69);
             this.toolPanel.TabIndex = 9;
             this.toolPanel.Visible = false;
+            this.toolPanel.LocationChanged += new System.EventHandler(this.toolPanel_LocationChanged);
+            this.toolPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseDown);
+            this.toolPanel.MouseLeave += new System.EventHandler(this.toolPanel_MouseLeave);
+            this.toolPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseMove);
+            this.toolPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseUp);
             // 
             // toolbarExtPanel
             // 
@@ -419,6 +430,19 @@
             this.toolMaskCancel.Size = new System.Drawing.Size(23, 22);
             this.toolMaskCancel.Click += new System.EventHandler(this.ToolCancel_Click);
             // 
+            // label1
+            // 
+            this.label1.ForeColor = System.Drawing.Color.Green;
+            this.label1.Location = new System.Drawing.Point(239, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(126, 23);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "按住此处移动工具条";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseDown);
+            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseMove);
+            this.label1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseUp);
+            // 
             // editorContainer
             // 
             this.editorContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -438,6 +462,7 @@
             this.Controls.Add(this.toolPanel);
             this.Controls.Add(this.editorContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.KeyPreview = true;
             this.Name = "ScreenForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
@@ -446,6 +471,8 @@
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenForm_FormClosing);
             this.Load += new System.EventHandler(this.ScreenForm_Load);
+            this.Enter += new System.EventHandler(this.ScreenForm_Enter);
+            this.Leave += new System.EventHandler(this.ScreenForm_Leave);
             this.toolbar.ResumeLayout(false);
             this.toolbar.PerformLayout();
             this.toolbarColor.ResumeLayout(false);
@@ -502,5 +529,6 @@
         private System.Windows.Forms.TrackBar toolLineWidth;
         private System.Windows.Forms.Integration.ElementHost editorContainer;
         private ImageEditor editor;
+        private System.Windows.Forms.Label label1;
     }
 }

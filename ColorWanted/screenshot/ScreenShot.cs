@@ -1,4 +1,5 @@
-﻿using ColorWanted.util;
+﻿using ColorWanted.ext;
+using ColorWanted.util;
 using System;
 using System.Drawing;
 using System.IO;
@@ -80,10 +81,19 @@ namespace ColorWanted.screenshot
             {
                 new System.Threading.Thread(() =>
                 {
-                    var size = Util.GetScreenSize();
+                    // 根据配置判断是否使用全屏
+                    // 光标所在屏幕
+
+                    var bounds = Util.GetScreenBounds();
+
                     // 获取当前整个屏幕的截图
-                    var image = GetScreen(0, 0, size.Width, size.Height);
-                    screenForm.SetImage(image);
+                    var image = GetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
+
+                    screenForm.InvokeMethod(() =>
+                    {
+                        screenForm.Bounds = bounds;
+                        screenForm.SetImage(image);
+                    });
                 })
                 { IsBackground = true }.Start();
                 screenForm.ShowWindow();
@@ -95,19 +105,20 @@ namespace ColorWanted.screenshot
             }
         }
 
-        public static void SaveImage(Bitmap img)
+        public static bool SaveImage(Bitmap img)
         {
-            saveImageDialog.FileName = string.Format("screenshot-{0:yyyyMMddHHmmss}", DateTime.Now);
+            saveImageDialog.FileName = string.Format("截图-{0:yyyyMMddHHmmss}", DateTime.Now);
             if (saveImageDialog.ShowDialog() != DialogResult.OK)
             {
-                return;
+                return false;
             }
             img.Save(saveImageDialog.FileName);
+            return true;
         }
 
         public static string SaveRecord()
         {
-            saveRecordDialog.FileName = string.Format("record-{0:yyyyMMddHHmmss}", DateTime.Now);
+            saveRecordDialog.FileName = string.Format("录屏-{0:yyyyMMddHHmmss}", DateTime.Now);
             if (saveRecordDialog.ShowDialog() != DialogResult.OK)
             {
                 return null;
@@ -138,6 +149,13 @@ namespace ColorWanted.screenshot
             try
             {
                 recordForm = new ScreenRecordForm();
+                // 根据配置判断是否使用全屏
+                // 光标所在屏幕
+
+                var bounds = Util.GetScreenBounds();
+                recordForm.Left = bounds.X + bounds.Width / 2 - recordForm.Width / 2;
+                recordForm.Top = bounds.Y + bounds.Height / 2 - recordForm.Height / 2;
+
                 recordForm.FormClosed += RecordForm_FormClosed;
                 recordForm.ShowDialog();
             }

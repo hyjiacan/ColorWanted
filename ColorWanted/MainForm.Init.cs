@@ -69,6 +69,8 @@ namespace ColorWanted
                     trayMenuAutoPin.Checked = Settings.Base.AutoPin;
 
                     trayMenuPixelScale.Checked = Settings.Preview.PixelScale;
+
+                    trayMenuShootOnCurrentScreen.Checked = Settings.Shoot.CurrentScreen;
                 });
             })
             {
