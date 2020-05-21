@@ -31,19 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreenRecordForm));
             this.pnTarget = new System.Windows.Forms.Panel();
             this.pnToolOption = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numRepeatCount = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tbFps = new System.Windows.Forms.TrackBar();
-            this.label10 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFullscreen = new System.Windows.Forms.CheckBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.pnTarget.SuspendLayout();
             this.pnToolOption.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRepeatCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbFps)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,13 +57,10 @@
             // 
             this.pnToolOption.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pnToolOption.BackColor = System.Drawing.SystemColors.Control;
-            this.pnToolOption.Controls.Add(this.label9);
-            this.pnToolOption.Controls.Add(this.numRepeatCount);
             this.pnToolOption.Controls.Add(this.label6);
             this.pnToolOption.Controls.Add(this.label5);
             this.pnToolOption.Controls.Add(this.label4);
             this.pnToolOption.Controls.Add(this.tbFps);
-            this.pnToolOption.Controls.Add(this.label10);
             this.pnToolOption.Controls.Add(this.label1);
             this.pnToolOption.Controls.Add(this.cbFullscreen);
             this.pnToolOption.Controls.Add(this.btnStart);
@@ -75,27 +68,6 @@
             this.pnToolOption.Name = "pnToolOption";
             this.pnToolOption.Size = new System.Drawing.Size(360, 200);
             this.pnToolOption.TabIndex = 0;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(27, 30);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(77, 12);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "重复播放次数";
-            // 
-            // numRepeatCount
-            // 
-            this.numRepeatCount.Location = new System.Drawing.Point(110, 28);
-            this.numRepeatCount.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.numRepeatCount.Name = "numRepeatCount";
-            this.numRepeatCount.Size = new System.Drawing.Size(63, 21);
-            this.numRepeatCount.TabIndex = 1;
             // 
             // label6
             // 
@@ -133,16 +105,6 @@
             this.tbFps.Size = new System.Drawing.Size(173, 45);
             this.tbFps.TabIndex = 4;
             this.tbFps.Value = 24;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label10.Location = new System.Drawing.Point(179, 33);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(89, 12);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "0 表示无限循环";
             // 
             // label1
             // 
@@ -193,7 +155,6 @@
             this.pnTarget.ResumeLayout(false);
             this.pnToolOption.ResumeLayout(false);
             this.pnToolOption.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRepeatCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbFps)).EndInit();
             this.ResumeLayout(false);
 
@@ -210,8 +171,5 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TrackBar tbFps;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numRepeatCount;
-        private System.Windows.Forms.Label label10;
     }
 }

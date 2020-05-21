@@ -118,7 +118,6 @@ namespace ColorWanted.screenshot
         private void BtnStart_Click(object sender, EventArgs e)
         {
             ScreenRecordOption.Fps = tbFps.Value;
-            ScreenRecordOption.RepeatCount = (int)numRepeatCount.Value;
             timer = new Timer
             {
                 Interval = 1000 / tbFps.Value

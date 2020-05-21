@@ -94,7 +94,7 @@ namespace ColorWanted.screenshot
             }
             var gifStream = new FileStream(saveTo, FileMode.Create);
             var gif = new AnimatedGifCreator(gifStream,
-                1000 / ScreenRecordOption.Fps, ScreenRecordOption.RepeatCount);
+                1000 / ScreenRecordOption.Fps, (int)numRepeatCount.Value);
 
             for (int i = 0; i < files.Length; i++)
             {
