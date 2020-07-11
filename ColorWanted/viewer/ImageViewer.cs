@@ -1,4 +1,5 @@
 ﻿using ColorWanted.setting;
+using ColorWanted.util;
 using ColorWanted.viewer;
 using System;
 using System.ComponentModel;
@@ -75,8 +76,6 @@ namespace ColorWanted.viewer
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            BringToFront();
-
             if (filename == null)
             {
                 return;
@@ -92,20 +91,28 @@ namespace ColorWanted.viewer
         /// </summary>
         private void FixSize()
         {
-            var winWidth = Screen.PrimaryScreen.WorkingArea.Width;
-            var winHeight = Screen.PrimaryScreen.WorkingArea.Height;
+            var winBounds = Util.GetScreenBounds(true);
+            var winWidth = winBounds.Width;
+            var winHeight = winBounds.Height;
+            var winLeft = winBounds.Left;
+            var winTop = winBounds.Top;
+
             var img = pictureBox.Image;
+
+            // 图片为空时，设置大小为 800x600
             if (img == null)
             {
                 Width = 800;
                 Height = 600;
-                Left = (winWidth - winWidth) / 2;
-                Top = (winHeight - winHeight) / 2;
+                Left = winLeft + (winWidth - winWidth) / 2;
+                Top = winTop + (winHeight - winHeight) / 2;
                 return;
             }
+
             var imgWidth = ImageCache.Width;
             var imgHeight = ImageCache.Height;
 
+            // 当前图片与 PictureBox 大小一致时，不需要任何处理
             if (imgWidth == pictureBox.Width && imgHeight == pictureBox.Height)
             {
                 return;
@@ -119,32 +126,63 @@ namespace ColorWanted.viewer
             var borderWidth = SystemInformation.FrameBorderSize.Width;
             var borderHeight = SystemInformation.FrameBorderSize.Height;
 
+            // 区域内可用的尺寸 (除去标题栏，工具条和边框)
             var availableWidth = winWidth - borderWidth * 4;
             var availableHeight = winHeight - borderHeight * 4 - titleHeight - toolbarHeight;
 
+            // 图片小于或等于可用区域大小
             if (imgWidth <= availableWidth && imgHeight <= availableHeight)
             {
-                var w = imgWidth + borderWidth * 4;
-                var h = imgHeight + borderWidth * 4 + titleHeight + toolbarHeight;
+                var paddingLeft = (availableWidth - imgWidth) / 2;
+                var paddingTop = (availableHeight - imgHeight) / 2;
 
-                Width = w < 800 ? 800 : w;
-                Height = h < 600 ? 600 : h;
+                // 如果空白大于 40px ，就设置为 40px
+                if (paddingLeft > 40)
+                {
+                    paddingLeft = 40;
+                }
 
-                pictureBox.Left = w < 800 ? (800 - borderWidth * 4 - imgWidth) / 2 : 0;
-                pictureBox.Top = h < 600 ? (600 - borderWidth * 4 - imgHeight) / 2 : 0;
+                if (paddingTop > 40)
+                {
+                    paddingTop = 40;
+                }
 
+                // 窗口的尺寸
+                var width = imgWidth + paddingLeft * 2 + borderWidth * 4;
+                var height = imgHeight + paddingTop * 2 + borderHeight * 4 + titleHeight + toolbarHeight;
 
-                Left = (availableWidth - Width) / 2;
-                Top = (availableHeight - Height) / 2;
+                // 如果窗口大小与屏幕可用区域大小差小于 40，那么就让窗口与屏幕可用区域大小一致
+                if (winWidth - width < 40 || winHeight - height < 40)
+                {
+                    width = winWidth;
+                    height = winHeight;
+
+                    paddingLeft = (availableWidth - imgWidth) / 2;
+                    paddingTop = (availableHeight - imgHeight) / 2;
+                }
+
+                Width = width;
+                Height = height;
+
+                // 设置图片的位置
+                pictureBox.Left = paddingLeft;
+                pictureBox.Top = paddingTop;
+
+                // 设置窗口的位置
+                Left = winLeft + (availableWidth - Width) / 2;
+                Top = winTop + (availableHeight - Height) / 2;
                 return;
             }
 
+            // 设置与屏幕可用区域大小一致
             Width = winWidth;
             Height = winHeight;
-            Left = 0;
-            Top = 0;
+
             pictureBox.Left = (availableWidth - imgWidth) / 2;
             pictureBox.Top = (availableHeight - imgHeight) / 2;
+
+            Left = winLeft;
+            Top = winTop;
         }
 
         #region 图片拖到窗口上加载功能支持
@@ -435,6 +473,9 @@ namespace ColorWanted.viewer
 
             menuCenterLine.Checked = Settings.Viewer.DrawCenterLine;
             menuBorder.Checked = Settings.Viewer.DrawBorder;
+
+            BringToFront();
+            Activate();
         }
 
         private void rangeBar_Scroll(object sender, EventArgs e)

@@ -411,12 +411,14 @@ namespace ColorWanted
 
         private void trayMenuExit_Click(object sender, EventArgs e)
         {
-            colorTimer.Stop();
             Environment.Exit(0);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            colorTimer.Stop();
+            caretTimer.Stop();
+
             try
             {
                 NativeMethods.RemoveClipboardFormatListener(Handle);
@@ -785,8 +787,6 @@ namespace ColorWanted
 
         private void trayMenuRestart_Click(object sender, EventArgs e)
         {
-            colorTimer.Stop();
-            Environment.Exit(0);
             Application.Restart();
         }
 
