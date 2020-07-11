@@ -125,7 +125,7 @@ git clone https://gitee.com/hyjiacan/ColorWanted.git --recursive
 
 ### 图片查看器
 
-![图片查看器](docs/img/image-viewer.png)
+![图片查看器](docs/img/image-viewer.gif)
 
 > 获取图片内矩形区域尺寸
 

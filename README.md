@@ -117,7 +117,7 @@ You can pause/resume preview by right click on preview window
 
 ### Image Viewer
 
-![Image Viewer](docs/img/image-viewer.png)
+![Image Viewer](docs/img/image-viewer.gif)
 
 > Get rectangle size from image.
 

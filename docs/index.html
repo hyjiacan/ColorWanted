@@ -11,9 +11,9 @@
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <title>ColorWanted: Screen color picker for Windows/好用的Windows屏幕取色器 - 官方网站</title>
     <link rel="stylesheet" type="text/css" href="./css/default.css"/>
-    <link rel="stylesheet" type="text/css" href="./css/markdown.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/md0/dist/md0.css"/>
     <script src="https://cdn.bootcss.com/Base64/1.0.2/base64.min.js"></script>
-    <script src="https://cdn.bootcss.com/markdown.js/0.5.0/markdown.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/md0/dist/md0.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -32,18 +32,20 @@
     </div>
     <main id="content" class="markdown">
     </main>
-    <footer></footer>
+    <footer>
+      Markdown renderer powered by <a href="https://github.com/hyjiacan/md0" target="_blank">md0</a>
+    </footer>
 
     <script type="text/javascript">
     var metas = document.querySelector('#metas')
 
     function readmeCallback(response) {
         var markdownText = decodeURIComponent(escape(atob(response.data.content.replace(/\n/g, ''))))
-        render(markdownText)
+        render(markdownText.replace(/\r\n/g, '\n'))
     }
     
     function render(markdownText) {
-        var html = markdown.toHTML(markdownText)
+        var html = md0(markdownText)
         html = html.replace(/docs\/img/g, 'img')
         var content = document.querySelector('#content');
         content.innerHTML = html.replace(/README\.(zh-CN\.)?md"/, 
