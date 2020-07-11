@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
@@ -94,8 +95,18 @@ namespace ColorWanted
         /// </summary>
         private HsiAlgorithm currentHsiAlgorithm;
 
+        /// <summary>
+        /// 启动时传入的参数列表
+        /// </summary>
+        private string[] AppArgs;
+
         public MainForm()
         {
+            componentsLayout();
+        }
+        public MainForm(params string[] args)
+        {
+            AppArgs = args;
             componentsLayout();
         }
 
@@ -116,27 +127,25 @@ namespace ColorWanted
             switch (m.Msg)
             {
                 case NativeMethods.WM_CLIPBOARDUPDATE:
+                    if (ClipboardManager.CopyHistory)
                     {
-                        if (ClipboardManager.CopyHistory)
-                        {
-                            ClipboardManager.CopyHistory = false;
-                            break;
-                        }
-                        try
-                        {
-                            //显示剪贴板中的文本信息
-                            if (Clipboard.ContainsText())
-                            {
-                                var text = Clipboard.GetText();
-                                ClipboardManager.Write(text, text.GetHashCode());
-                            }
-                        }
-                        catch
-                        {
-                            // ingore
-                        }
+                        ClipboardManager.CopyHistory = false;
                         break;
                     }
+                    try
+                    {
+                        //显示剪贴板中的文本信息
+                        if (Clipboard.ContainsText())
+                        {
+                            var text = Clipboard.GetText();
+                            ClipboardManager.Write(text, text.GetHashCode());
+                        }
+                    }
+                    catch
+                    {
+                        // ingore
+                    }
+                    break;
             }
             base.DefWndProc(ref m);
         }
@@ -432,6 +441,14 @@ namespace ColorWanted
             {
                 // ignore
             }
+            try
+            {
+                Msg.Stop();
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         /// <summary>
@@ -504,11 +521,11 @@ namespace ColorWanted
                     break;
                 // 截图
                 case HotKeyType.ScreenShot:
-                    trayMenuScreenShot_Click(null, null);
+                    ScreenShot.Capture();
                     break;
                 // 录屏
                 case HotKeyType.ScreenRecord:
-                    trayMenuScreenRecord_Click(null, null);
+                    ScreenShot.Record();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -768,6 +785,8 @@ namespace ColorWanted
 
         private void trayMenuRestart_Click(object sender, EventArgs e)
         {
+            colorTimer.Stop();
+            Environment.Exit(0);
             Application.Restart();
         }
 
@@ -874,9 +893,8 @@ namespace ColorWanted
                 if (!File.Exists(Settings.FullName))
                 {
                     File.Create(Settings.FullName).Close();
+                    Process.Start(Settings.FullName);
                 }
-
-                Process.Start(Settings.FullName);
             }
             catch (Exception ex)
             {
@@ -938,7 +956,7 @@ namespace ColorWanted
         }
 
         /// <summary>
-        /// 打开设置窗口
+        /// 是否启用监视剪贴板
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -953,6 +971,16 @@ namespace ColorWanted
             {
                 NativeMethods.RemoveClipboardFormatListener(Handle);
             }
+        }
+
+        /// <summary>
+        /// 是否启用图片查看器
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayMenuImgViewer_Click(object sender, EventArgs e)
+        {
+            Settings.Viewer.Enabled = trayMenuImgViewer.Checked = !trayMenuImgViewer.Checked;
         }
 
         private void ToggleCopyPolicy()
@@ -1372,7 +1400,7 @@ namespace ColorWanted
             if (e.Clicks > 1)
             {
                 // 双击截图
-                trayMenuScreenShot_Click(null, null);
+                ScreenShot.Capture();
                 return;
             }
             // 直接按住拖动窗口

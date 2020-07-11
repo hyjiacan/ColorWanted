@@ -205,5 +205,50 @@ namespace ColorWanted.util
 
             return temp[1] == "" ? temp[0] : string.Join(".", temp);
         }
+        public static bool RunAsAdmin()
+        {
+            /**
+             * 当前用户是管理员的时候，直接启动应用程序
+             * 如果不是管理员，则使用启动对象启动程序，以确保使用管理员身份运行
+             */
+            //获得当前登录的Windows用户标示
+            System.Security.Principal.WindowsIdentity identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+            //创建Windows用户主题
+            Application.EnableVisualStyles();
+
+            System.Security.Principal.WindowsPrincipal principal = new System.Security.Principal.WindowsPrincipal(identity);
+            //判断当前登录用户是否为管理员
+            if (principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator))
+            {
+                return true;
+            }
+
+            if (MessageBox.Show("此操作需要管理员权限，点击\"确定\"以管理员身份运行", "管理员", MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return false;
+            }
+
+            //创建启动对象
+            var startInfo = new System.Diagnostics.ProcessStartInfo
+            {
+                //设置运行文件
+                FileName = Application.ExecutablePath,
+                //设置启动参数
+                //startInfo.Arguments = String.Join(" ", Args);
+                //设置启动动作,确保以管理员身份运行
+                Verb = "runas"
+            };
+            try
+            {
+                //如果不是管理员，则启动UAC
+                System.Diagnostics.Process.Start(startInfo);
+                //退出
+                Application.Exit();
+            }
+            catch
+            {
+            }
+            return false;
+        }
     }
 }

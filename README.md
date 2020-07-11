@@ -63,8 +63,11 @@ You can just copy the color value by check **HEX only**/**RGB only** under **Cop
 
 Hotkey: `Alt+V`
 
-- **Screenshot**
+- **Screenshot** (no translation, Chinese only)
 Click the **circle button** front of main window to take screenshot (via tray context menu or hotkey **Alt+X**).
+
+- **Image Viewer** (no translatio, Chinese onlyn)
+Provides a tool to get the rectangle size with similar color. You can associate image file (`PNG/BMP/JP[E]G`) with it by tray menu.
 
 ## Hotkey
 
@@ -111,6 +114,12 @@ You can pause/resume preview by right click on preview window
 ### Take screenshot
 
 ![take screenshot](docs/img/screenshot.png)
+
+### Image Viewer
+
+![Image Viewer](docs/img/image-viewer.png)
+
+> Get rectangle size from image.
 
 ## Open source license
 

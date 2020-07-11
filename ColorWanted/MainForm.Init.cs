@@ -20,6 +20,9 @@ namespace ColorWanted
         /// </summary>
         private void Init()
         {
+            // 接收消息
+            Msg.Listen();
+
             trayMenuHsiAlgorithmGeometry.Tag = HsiAlgorithm.Geometry;
             trayMenuHsiAlgorithmAxis.Tag = HsiAlgorithm.Axis;
             trayMenuHsiAlgorithmSegment.Tag = HsiAlgorithm.Segment;
@@ -71,6 +74,8 @@ namespace ColorWanted
                     trayMenuPixelScale.Checked = Settings.Preview.PixelScale;
 
                     trayMenuShootOnCurrentScreen.Checked = Settings.Shoot.CurrentScreen;
+
+                    trayMenuImgViewer.Checked = Settings.Viewer.Enabled;
                 });
             })
             {
@@ -84,21 +89,6 @@ namespace ColorWanted
             colorTimer = new Timer { Interval = colorInterval };
             colorTimer.Tick += colortimer_Tick;
             colorTimer.Start();
-
-            // 检查是否是首次运行
-            if (Settings.Base.IsFirstRun)
-            {
-
-                Settings.Base.IsFirstRun = false;
-
-                // 首次运行时，打开帮助窗口
-                trayMenuShowAbout_Click(null, null);
-                if (!IsDisposed)
-                {
-                    // 然后打开快捷键设置窗口
-                    trayMenuHotkey_Click(null, null);
-                }
-            }
 
             // 是否监听剪贴板
             trayMenuEnableClipboard.Checked = Settings.Clipboard.Enabled;
@@ -174,6 +164,8 @@ namespace ColorWanted
                 IsBackground = true
             }.Start();
 
+            DoFirstRunWorks();
+
             // 启动时检查更新
             trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;
 
@@ -183,6 +175,45 @@ namespace ColorWanted
             {
                 update.UpdateForm.ShowWindow(true);
             }
+
+            var worker = new System.ComponentModel.BackgroundWorker();
+            worker.DoWork += AppArgsHandler;
+            worker.RunWorkerAsync();
+        }
+
+        private void AppArgsHandler(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            if (AppArgs == null || AppArgs.Length == 0)
+            {
+                return;
+            }
+            // 查看图片
+            if (AppArgs.Length > 1 && AppArgs[0] == "/viewer")
+            {
+                Msg.Send(MsgTypes.ViewImage, AppArgs[1]);
+            }
+        }
+
+        private void DoFirstRunWorks()
+        {
+
+            // 检查是否是首次运行
+            if (!Settings.Base.IsFirstRun)
+            {
+                return;
+            }
+
+            Settings.Base.IsFirstRun = false;
+
+            // 首次运行时，打开帮助窗口
+            trayMenuShowAbout_Click(null, null);
+            if (IsDisposed)
+            {
+                return;
+            }
+
+            // 然后打开快捷键设置窗口
+            trayMenuHotkey_Click(null, null);
         }
     }
 }

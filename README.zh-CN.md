@@ -68,6 +68,10 @@ git clone https://gitee.com/hyjiacan/ColorWanted.git --recursive
 - **屏幕截图**
 点击主窗口**前面的圆圈**或通过快捷键**Alt+X**启动屏幕截图。
 
+- **图片查看器**
+从图片查看方面来说，这不是个好的工具，但对前端开发来说，那就有意义了。这个图片查看器提供了获取图片内矩形尺寸的功能。
+可以通过软件菜单将其注册为关联的图片查看工具（目前仅支持 `PNG/BMP/JP[E]G` 格式）。
+
 ## 快捷键
 
 > **双击** 1秒内连续按下两次快捷键
@@ -118,6 +122,12 @@ git clone https://gitee.com/hyjiacan/ColorWanted.git --recursive
 ![屏幕截图](docs/img/screenshot.png)
 
 > 主窗口上的屏幕截图启动按钮
+
+### 图片查看器
+
+![图片查看器](docs/img/image-viewer.png)
+
+> 获取图片内矩形区域尺寸
 
 ## 开源协议
 

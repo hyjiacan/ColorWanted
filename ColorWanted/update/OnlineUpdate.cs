@@ -127,7 +127,7 @@ namespace ColorWanted.update
 
                         Thread.Sleep(2000);
                         Process.Start(filename,
-                            string.Format(@"-update 1 ""{0}""", Application.ExecutablePath));
+                            string.Format(@"/update 1 ""{0}""", Application.ExecutablePath));
 
                         Application.Exit();
                     };
@@ -155,13 +155,13 @@ namespace ColorWanted.update
         /*
          * 更新流程说明：
          * 1 下载更新文件，并命名成 ColorWanted-(版本号).tmp.exe)
-         * 2 启动新下载的文件，并传入参数 [-update 1 新下载文件的文件完整路径]，程序退出
-         * 3 新文件启动后，检查参数列表长度是否>3，并且有 -update 参数
+         * 2 启动新下载的文件，并传入参数 [/update 1 新下载文件的文件完整路径]，程序退出
+         * 3 新文件启动后，检查参数列表长度是否>3，并且有 /update 参数
          * 4 若满足，则等待2秒，以确保打开此文件的文件（因为是通过老版本的colorwanted打开新版本）已经关闭
          * 5 若参数为1，则此时运行的是新文件。此时给旧文件添加扩展名 .old ，
          *   备份存放，将新文件名复制为旧文件名
          * 6 此时，旧的文件名所存放的文件就是更新后的新文件，此时再启动旧文件名，
-         *   并传入参数 [-update 2 旧文件名]，程序退出
+         *   并传入参数 [/update 2 旧文件名]，程序退出
          * 7 此时，会重复步骤3，4，然后删除下载的临时文件，并删除旧文件的备份 (.old 文件)
          * 8 更新完成
          */
@@ -180,8 +180,8 @@ namespace ColorWanted.update
                 return false;
             }
 
-            // 第一个参数  -update 才有效
-            if (args[0] != "-update")
+            // 第一个参数  /update 才有效
+            if (args[0] != "/update")
             {
                 return false;
             }
@@ -202,7 +202,7 @@ namespace ColorWanted.update
                 File.Copy(Application.ExecutablePath, oldname);
 
                 // 启动新文件
-                Process.Start(oldname, string.Format(@"-update 2 ""{0}""",
+                Process.Start(oldname, string.Format(@"/update 2 ""{0}""",
                     Application.ExecutablePath));
                 return false;
             }

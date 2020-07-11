@@ -148,6 +148,8 @@
       <DependentUpon>ScreenForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="setting\Settings.Msg.cs" />
+    <Compile Include="setting\Settings.Viewer.cs" />
     <Compile Include="setting\Settings.Clipboard.cs" />
     <Compile Include="setting\Settings.Shoot.cs" />
     <Compile Include="setting\Settings.Theme.cs" />
@@ -251,7 +253,19 @@
     <Compile Include="colors\HSB.cs" />
     <Compile Include="util\Http.cs" />
     <Compile Include="util\Json.cs" />
+    <Compile Include="util\Msg.cs" />
     <Compile Include="util\Util.cs" />
+    <Compile Include="viewer\ImageCache.cs" />
+    <Compile Include="viewer\ImageUtil.cs" />
+    <Compile Include="viewer\LineSpan.cs" />
+    <Compile Include="viewer\ImageViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="viewer\ImageViewer.designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="viewer\Orientions.cs" />
+    <Compile Include="viewer\ViewerUtil.cs" />
     <EmbeddedResource Include="clipboard\ClipboardCtrl.resx">
       <DependentUpon>ClipboardCtrl.cs</DependentUpon>
     </EmbeddedResource>
@@ -270,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="screenshot\ScreenRecordSaveForm.resx">
       <DependentUpon>ScreenRecordSaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="viewer\ImageViewer.resx">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

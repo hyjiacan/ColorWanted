@@ -89,7 +89,8 @@ namespace ColorWanted.ext
         [DllImport("kernel32.dll")]
         public static extern IntPtr GlobalLock(IntPtr hMem);
         [DllImport("kernel32.dll")]
-        public static extern bool GlobalUnlock(IntPtr hMem); public const int WM_CLIPBOARDUPDATE = 0x031D;
+        public static extern bool GlobalUnlock(IntPtr hMem); 
+        public const int WM_CLIPBOARDUPDATE = 0x031D;
 
         [DllImport("user32.dll")]
         public static extern bool AddClipboardFormatListener(IntPtr hwnd);

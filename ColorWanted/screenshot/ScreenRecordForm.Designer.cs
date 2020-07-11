@@ -45,7 +45,7 @@
             // 
             // pnTarget
             // 
-            this.pnTarget.BackColor = System.Drawing.Color.Green;
+            this.pnTarget.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(1)))));
             this.pnTarget.Controls.Add(this.pnToolOption);
             this.pnTarget.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnTarget.Location = new System.Drawing.Point(0, 0);
@@ -149,7 +149,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "屏幕录制";
-            this.TransparencyKey = System.Drawing.Color.Green;
+            this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(1)))));
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenRecordForm_FormClosing);
             this.Load += new System.EventHandler(this.ScreenRecordForm_Load);
             this.pnTarget.ResumeLayout(false);

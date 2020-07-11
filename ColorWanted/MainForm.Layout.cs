@@ -82,6 +82,7 @@ namespace ColorWanted
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuEnableClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuImgViewer = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.componentsSet);
             this.lbColorPreview = new System.Windows.Forms.Label();
             this.lbHsl = new System.Windows.Forms.Label();
@@ -229,6 +230,7 @@ namespace ColorWanted
             this.toolStripSeparator4,
             this.trayMenuEnableClipboard,
             this.trayMenuShowClipboard,
+            this.trayMenuImgViewer,
             this.toolStripSeparator1,
             this.trayMenuLanguage,
             this.trayMenuCheckUpdate,
@@ -527,12 +529,19 @@ namespace ColorWanted
             this.trayMenuEnableClipboard.Size = new System.Drawing.Size(148, 22);
             this.trayMenuEnableClipboard.Click += new EventHandler(this.trayMenuEnableClipboard_Click);
             // 
-            // trayMenuClipboard
+            // trayMenuShowClipboard
             // 
             resources.ApplyResources(this.trayMenuShowClipboard, "trayMenuShowClipboard");
             this.trayMenuShowClipboard.Name = "trayMenuShowClipboard";
             this.trayMenuShowClipboard.Size = new System.Drawing.Size(148, 22);
             this.trayMenuShowClipboard.Click += new EventHandler(this.trayMenuShowClipboard_Click);
+            // 
+            // trayMenuImgViewer
+            // 
+            resources.ApplyResources(this.trayMenuImgViewer, "trayMenuImgViewer");
+            this.trayMenuImgViewer.Name = "trayMenuImgViewer";
+            this.trayMenuImgViewer.Size = new System.Drawing.Size(148, 22);
+            this.trayMenuImgViewer.Click += new EventHandler(this.trayMenuImgViewer_Click);
             // 
             // trayMenuLanguageZH
             // 
@@ -682,5 +691,6 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.ToolStripMenuItem trayMenuEnableClipboard;
         public System.Windows.Forms.ToolStripMenuItem trayMenuShowClipboard;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuImgViewer;
     }
 }

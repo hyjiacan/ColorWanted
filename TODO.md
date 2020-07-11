@@ -9,7 +9,7 @@
 - [ ] 功能插件化（截图，录屏，剪贴板监视）
 - [x] 录屏的重复播放次数配置，放到保存对话框中
 - [ ] 更新窗口位置，以及对更新文件的校验
-- [ ] 集成图片工具
+- [x] 集成图片工具
 - [ ] [高DPI 支持](https://docs.microsoft.com/zh-cn/dotnet/framework/winforms/automatic-scaling-in-windows-forms)
   考虑通过读取当前的系统缩放因子来计算
   同时将界面上的控件大小，使用变量存放起来，以在加载时自动应用缩放因子

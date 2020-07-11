@@ -140,9 +140,11 @@ namespace ColorWanted.screenshot
 
             // 隐藏工具条
             pnToolOption.Hide();
-
-            // 设置panel 背景为 Green，以实现透明
-            pnTarget.BackColor = Color.Green;
+            
+            // 当 R和B 相等时，鼠标可以穿透
+            TransparencyKey = Color.FromArgb(0, 0, 0);
+            // 设置panel 背景为 0,0,0，以实现透明
+            pnTarget.BackColor = Color.FromArgb(0, 0, 0);
 
             timer.Start();
         }
