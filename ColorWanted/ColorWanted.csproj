@@ -44,6 +44,9 @@
   <PropertyGroup>
     <StartupObject>ColorWanted.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -293,6 +296,7 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="app.manifest" />
     <None Include="Resources\copy.png" />
     <None Include="Resources\remove.png" />
     <None Include="Resources\picker.png" />

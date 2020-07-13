@@ -128,8 +128,7 @@ namespace ColorWanted.update
                         Thread.Sleep(2000);
                         Process.Start(filename,
                             string.Format(@"/update 1 ""{0}""", Application.ExecutablePath));
-
-                        Application.Exit();
+                        Environment.Exit(0);
                     };
                     web.DownloadProgressChanged += (sender, e) =>
                     {

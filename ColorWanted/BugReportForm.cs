@@ -49,7 +49,7 @@ namespace ColorWanted
                 Application.Restart();
                 return;
             }
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         private void lkIssue_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

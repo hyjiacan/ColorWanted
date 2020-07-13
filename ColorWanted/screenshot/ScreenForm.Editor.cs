@@ -115,9 +115,9 @@ namespace ColorWanted.screenshot
                 left = x + w - tb.Width - 2;
             }
 
-            tb.Left = left;
+            tb.Left = Util.ScaleX(left);
             // 2: 边框大小
-            tb.Top = top;
+            tb.Top = Util.ScaleY(top);
         }
 
         /// <summary>

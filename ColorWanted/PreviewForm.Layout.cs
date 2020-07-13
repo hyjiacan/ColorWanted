@@ -1,4 +1,6 @@
-﻿namespace ColorWanted
+﻿using ColorWanted.util;
+
+namespace ColorWanted
 {
     partial class PreviewForm
     {
@@ -48,11 +50,11 @@
             this.picPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.picPreview.Location = new System.Drawing.Point(0, 0);
+            this.picPreview.Location = new System.Drawing.Point(Util.ScaleX(0), Util.ScaleY(0));
             this.picPreview.Margin = new System.Windows.Forms.Padding(0);
             resources.ApplyResources(this.picPreview, "picPreview");
             this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(121, 121);
+            this.picPreview.Size = new System.Drawing.Size(Util.ScaleX(121), Util.ScaleY(121));
             this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picPreview.TabIndex = 0;
             this.picPreview.TabStop = false;
@@ -63,12 +65,12 @@
             // 
             // lbH
             // 
-            this.lbH.Location = new System.Drawing.Point(0, 60);
+            this.lbH.Location = new System.Drawing.Point(Util.ScaleX(0), Util.ScaleY(60));
             this.lbH.Margin = new System.Windows.Forms.Padding(0);
             resources.ApplyResources(this.lbH, "lbH");
             this.lbH.Name = "lbH";
             this.lbH.AutoSize = false;
-            this.lbH.Size = new System.Drawing.Size(121, 1);
+            this.lbH.Size = new System.Drawing.Size(Util.ScaleX(121), Util.ScaleY(1));
             this.lbH.TabIndex = 0;
             this.lbH.BackColor = System.Drawing.Color.Gray;
             this.lbH.TabStop = false;
@@ -76,12 +78,12 @@
             // 
             // lbV
             // 
-            this.lbV.Location = new System.Drawing.Point(60, 0);
+            this.lbV.Location = new System.Drawing.Point(Util.ScaleX(60), Util.ScaleY(0));
             this.lbV.Margin = new System.Windows.Forms.Padding(0);
             resources.ApplyResources(this.lbV, "lbV");
             this.lbV.Name = "lbV";
             this.lbV.AutoSize = false;
-            this.lbV.Size = new System.Drawing.Size(1, 121);
+            this.lbV.Size = new System.Drawing.Size(Util.ScaleX(1), Util.ScaleY(121));
             this.lbV.TabIndex = 0;
             this.lbV.BackColor = System.Drawing.Color.Gray;
             this.lbV.TabStop = false;
@@ -93,15 +95,15 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(121, 121);
+            this.ClientSize = new System.Drawing.Size(Util.ScaleX(121), Util.ScaleY(121));
             this.ControlBox = false;
             this.Controls.AddRange(new System.Windows.Forms.Control[] {
                 this.lbH, this.lbV, this.picPreview
             });
             this.Cursor = System.Windows.Forms.Cursors.SizeAll;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximumSize = new System.Drawing.Size(429, 429);
-            this.MinimumSize = new System.Drawing.Size(77, 77);
+            this.MaximumSize = new System.Drawing.Size(Util.ScaleX(429), Util.ScaleY(429));
+            this.MinimumSize = new System.Drawing.Size(Util.ScaleX(77), Util.ScaleY(77));
             this.Name = "PreviewForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

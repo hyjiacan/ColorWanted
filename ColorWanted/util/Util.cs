@@ -16,6 +16,13 @@ namespace ColorWanted.util
     /// </summary>
     internal static class Util
     {
+        public static PointF ScaleRatio { get; private set; }
+
+        static Util()
+        {
+            ScaleRatio = GetScaleRatio();
+        }
+
         /// <summary>
         /// 使用 Windows API复制数据到剪贴板
         /// </summary>
@@ -243,12 +250,64 @@ namespace ColorWanted.util
                 //如果不是管理员，则启动UAC
                 System.Diagnostics.Process.Start(startInfo);
                 //退出
-                Application.Exit();
+                Environment.Exit(0);
             }
             catch
             {
             }
             return false;
+        }
+
+        /// <summary>
+        /// 获取屏幕的缩放比例
+        /// </summary
+        /// <see cref="https://blog.csdn.net/chenlu5201314/article/details/89792317"/>
+        /// <returns></returns>
+        public static PointF GetScaleRatio()
+        {
+            IntPtr hdc = NativeMethods.GetDC(IntPtr.Zero);
+
+            float ScaleX = (float)NativeMethods.GetDeviceCaps(hdc, NativeMethods.DESKTOPHORZRES)
+                / NativeMethods.GetDeviceCaps(hdc, NativeMethods.HORZRES);
+
+            float ScaleY = (float)NativeMethods.GetDeviceCaps(hdc, NativeMethods.DESKTOPVERTRES)
+                / NativeMethods.GetDeviceCaps(hdc, NativeMethods.VERTRES);
+
+            // uint pixel = GetPixel(hdc, (int)(pnt.X * ScaleX), (int)(pnt.Y * ScaleY));
+
+            return new PointF(ScaleX, ScaleY);
+        }
+
+        public static int ScaleX(int value)
+        {
+            if (value == 0)
+            {
+                return value;
+            }
+            var scale = ScaleRatio;
+            if (scale.X == 1)
+            {
+                return value;
+            }
+
+            return (int)(value * scale.X);
+            //return value;
+        }
+
+        public static int ScaleY(int value)
+        {
+            if (value == 0)
+            {
+                return value;
+            }
+            var scale = ScaleRatio;
+            if (scale.Y == 1)
+            {
+                return value;
+            }
+
+            return (int)(value * scale.Y);
+            //return value;
         }
     }
 }

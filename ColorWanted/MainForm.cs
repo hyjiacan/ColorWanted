@@ -158,8 +158,8 @@ namespace ColorWanted
             // 干掉按钮边框
             btnScreenshot.NoBorder();
 
-            Height = 20;
-            Width = 88;
+            Height = Util.ScaleY(20);
+            Width = Util.ScaleX(88);
             Init();
 
             // 初始化截图窗口
@@ -168,21 +168,21 @@ namespace ColorWanted
 
         private void MainForm_ForeColorChanged(object sender, EventArgs e)
         {
-            var img = new Bitmap(20, 20);
+            var img = new Bitmap(Util.ScaleX(20), Util.ScaleX(20));
             using (var g = Graphics.FromImage(img))
             {
                 using (var brush = new SolidBrush(ForeColor))
                 {
                     using (var pen = new Pen(brush))
                     {
-                        g.DrawRectangle(pen, 0, 0, 17, 17);
+                        g.DrawRectangle(pen, 0, 0, Util.ScaleX(17), Util.ScaleY(17));
                         g.FillPolygon(brush, new[] {
-                            new Point(4, 8),
-                            new Point(8, 3),
-                            new Point(14, 8),
-                            new Point(8, 13)
+                            new Point(Util.ScaleX(4), Util.ScaleY(8)),
+                            new Point(Util.ScaleX(8), Util.ScaleY(3)),
+                            new Point(Util.ScaleX(14), Util.ScaleY(8)),
+                            new Point(Util.ScaleX(8), Util.ScaleY(13))
                         });
-                        g.DrawEllipse(pen, 2, 2, 13, 13);
+                        g.DrawEllipse(pen, Util.ScaleX(2), Util.ScaleY(2), Util.ScaleX(13), Util.ScaleY(13));
                     }
                 }
             }
@@ -758,7 +758,7 @@ namespace ColorWanted
 
         private void trayMenuTheme_Click(object sender, EventArgs e)
         {
-            if (themeForm == null)
+            if (themeForm == null || themeForm.IsDisposed)
             {
                 themeForm = new ThemeForm();
             }
@@ -1180,12 +1180,12 @@ namespace ColorWanted
                     trayMenuFormatExtention.Checked = false;
                     trayMenuFormatShot.Checked = false;
 
-                    lbHex.Width = 68;
+                    lbHex.Width = Util.ScaleX(68);
                     lbHex.Visible = true;
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
-                    Height = 20;
-                    Width = 108;
+                    Height = Util.ScaleY(20);
+                    Width = Util.ScaleX(108);
                     break;
                 case FormatMode.Standard:
                     trayMenuFormatMini.Checked = false;
@@ -1193,15 +1193,15 @@ namespace ColorWanted
                     trayMenuFormatExtention.Checked = false;
                     trayMenuFormatShot.Checked = false;
 
-                    lbHex.Width = 68;
-                    lbRgb.Width = 140;
-                    lbRgb.Left = 88;
+                    lbHex.Width = Util.ScaleX(68);
+                    lbRgb.Width = Util.ScaleX(140);
+                    lbRgb.Left = Util.ScaleX(88);
                     lbRgb.Top = 0;
                     lbHex.Visible = true;
                     lbRgb.Visible = true;
                     pnExt.Visible = false;
-                    Height = 20;
-                    Width = 228;
+                    Height = Util.ScaleY(20);
+                    Width = Util.ScaleX(228);
                     break;
                 case FormatMode.Extention:
                     trayMenuFormatMini.Checked = false;
@@ -1210,15 +1210,15 @@ namespace ColorWanted
                     trayMenuFormatShot.Checked = false;
 
                     // 让两边都留下20宽度，以使显示居中
-                    lbHex.Width = 140;
-                    lbRgb.Width = 180;
+                    lbHex.Width = Util.ScaleX(140);
+                    lbRgb.Width = Util.ScaleX(180);
                     lbRgb.Left = 0;
-                    lbRgb.Top = 20;
+                    lbRgb.Top = Util.ScaleY(20);
                     lbHex.Visible = true;
                     lbRgb.Visible = true;
                     pnExt.Visible = true;
-                    Height = 100;
-                    Width = 180;
+                    Height = Util.ScaleY(100);
+                    Width = Util.ScaleX(180);
                     break;
                 case FormatMode.Shot:
                     trayMenuFormatMini.Checked = false;
@@ -1229,8 +1229,8 @@ namespace ColorWanted
                     lbHex.Visible = false;
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
-                    Height = 20;
-                    Width = 20;
+                    Height = Util.ScaleY(20);
+                    Width = Util.ScaleX(20);
                     break;
             }
             currentFormatMode = mode;
@@ -1405,6 +1405,19 @@ namespace ColorWanted
             }
             // 直接按住拖动窗口
             MouseDownEventHandler(sender, e);
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // MainForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "MainForm";
+            this.ResumeLayout(false);
+
         }
     }
 }

@@ -141,5 +141,20 @@ namespace ColorWanted.ext
         [DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr o);
         #endregion
+
+        #region 屏幕缩放
+        [DllImport("user32")]
+        public static extern IntPtr GetDC(IntPtr hWnd);
+        [DllImport("user32")]
+        public static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        [DllImport("gdi32")]
+        public static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        public const int HORZRES = 8;
+        public const int VERTRES = 10;
+        public const int DESKTOPVERTRES = 117;
+        public const int DESKTOPHORZRES = 118;
+        #endregion
     }
 }
