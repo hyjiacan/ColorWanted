@@ -14,8 +14,9 @@ namespace ColorWanted
 @"操作系统: {0}
 .NET版本: {1}
 程序版本: {2}
-错误消息: {3}
-错误源: {4}
+错误类型: {3}
+错误消息: {4}
+错误源: {5}
 ";
 
         public BugReportForm()
@@ -32,6 +33,7 @@ namespace ColorWanted
             Environment.OSVersion,
             Environment.Version,
             Application.ProductVersion,
+            exception.GetType().FullName,
             exception.Message,
             exception.StackTrace));
         }
@@ -47,6 +49,7 @@ namespace ColorWanted
             if (cbRestart.Checked)
             {
                 Application.Restart();
+                Close();
                 return;
             }
             Environment.Exit(0);
