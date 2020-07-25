@@ -6,6 +6,9 @@
 
 有任何意见或建议，欢迎通过[issue](https://github.com/hyjiacan/ColorWanted/issues/new)提出
 
+> 提示：ColorWanted 开启后，可能会提示网络访问。
+> 这是因为ColorWanted会启动一个本机的UDP服务器以提供进程间通信功能(仅在 ColorWanted 间使用)，端口随机。
+
 ## 运行环境 
 
 - WindowsXP [(2.6.1及之前的版本) .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)    

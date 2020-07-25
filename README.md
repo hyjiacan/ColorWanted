@@ -6,6 +6,11 @@ This is a screen color picker on **Windows** system. **RGB**、**HSL**、**HSB/H
 
 If you got any issue or suggestion, [issue](https://github.com/hyjiacan/ColorWanted/issues/new) is always welcome.
 
+> Tips: You may get a warning after ColorWanted startup,
+> what shows you that ColorWanted is accessing the network.
+> Don't worry, ColorWanted is just start a UDP server with a random port,
+> to communicate cross processes (Between ColorWanted only).
+
 ## Requirements
 
 - Windows XP [(2.6.1 and lower) .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)    
