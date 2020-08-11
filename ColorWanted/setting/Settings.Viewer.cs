@@ -111,7 +111,7 @@ namespace ColorWanted.setting
                             key = key.CreateSubKey("shell");
                             key = key.CreateSubKey("open");
                             key = key.CreateSubKey("command");
-                            key.SetValue(string.Empty, exePath + " /viewer %1");
+                            key.SetValue(string.Empty, exePath + " /viewer \"%1\"");
                             key.Close();
 
                             Array.ForEach(ViewerUtil.SUPPORTED_IMAGES_TYPES, item =>

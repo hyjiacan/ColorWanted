@@ -236,7 +236,7 @@ namespace ColorWanted.viewer
             var img = Image.FromStream(new MemoryStream(data));
             ImageCache.SetImage(img as Bitmap);
 
-            Text = string.Format("图片查看器 - {0} ({1}x{2})", Path.GetFileName(image), ImageCache.Width, ImageCache.Height);
+            Text = string.Format("{0} ({1}x{2})", Path.GetFileName(image), ImageCache.Width, ImageCache.Height);
             LoadImage(img);
         }
 
