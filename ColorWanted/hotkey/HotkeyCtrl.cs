@@ -93,17 +93,19 @@ namespace ColorWanted.hotkey
             {
                 buffer.Append("`");
             }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                buffer.Append("Enter");
-            }
-            else if (e.KeyCode == Keys.CapsLock)
-            {
-                buffer.Append("CapsLock");
-            }
-            else if (new[] {
-                    Keys.Space}
-                .Contains(e.KeyCode))
+            //else if (e.KeyCode == Keys.Enter)
+            //{
+            //    buffer.Append("Enter");
+            //}
+            //else if (e.KeyCode == Keys.CapsLock)
+            //{
+            //    buffer.Append("CapsLock");
+            //}
+            //else if (new[] {
+            //        Keys.Space,
+            //}
+            //.Contains(e.KeyCode))
+            else if (e.KeyCode != Keys.PrintScreen && e.KeyCode != Keys.Escape)
             {
                 buffer.Append(e.KeyCode);
             }
