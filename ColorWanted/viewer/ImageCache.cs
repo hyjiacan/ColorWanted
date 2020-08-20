@@ -44,15 +44,22 @@ namespace ColorWanted.viewer
 
         public static Color Get(int x, int y)
         {
-            var value = _cache[x, y];
-            if (value != -1)
+            try
             {
-                return Color.FromArgb(value);
-            }
+                var value = _cache[x, y];
+                if (value != -1)
+                {
+                    return Color.FromArgb(value);
+                }
 
-            var color = image.GetPixel(x, y);
-            _cache[x, y] = color.ToArgb();
-            return color;
+                var color = image.GetPixel(x, y);
+                _cache[x, y] = color.ToArgb();
+                return color;
+            }
+            catch
+            {
+                return Color.Black;
+            }
         }
 
         internal static void Clear()
