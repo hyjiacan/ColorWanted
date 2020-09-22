@@ -47,6 +47,7 @@
             this.toolColorBlack = new System.Windows.Forms.ToolStripButton();
             this.toolColorSelect = new System.Windows.Forms.ToolStripButton();
             this.toolPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.toolbarExtPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.toolbarLineType = new System.Windows.Forms.ToolStrip();
             this.toolStyleSolid = new System.Windows.Forms.ToolStripButton();
@@ -61,7 +62,6 @@
             this.toolMaskSave = new System.Windows.Forms.ToolStripButton();
             this.toolMaskOK = new System.Windows.Forms.ToolStripButton();
             this.toolMaskCancel = new System.Windows.Forms.ToolStripButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.editorContainer = new System.Windows.Forms.Integration.ElementHost();
             this.editor = new ColorWanted.screenshot.ImageEditor();
             this.toolbar.SuspendLayout();
@@ -106,6 +106,7 @@
             this.toolText.Name = "toolText";
             this.toolText.Size = new System.Drawing.Size(23, 22);
             this.toolText.Tag = "Text";
+            this.toolText.ToolTipText = "文字";
             // 
             // toolCurve
             // 
@@ -115,6 +116,7 @@
             this.toolCurve.Name = "toolCurve";
             this.toolCurve.Size = new System.Drawing.Size(23, 22);
             this.toolCurve.Tag = "Curve";
+            this.toolCurve.ToolTipText = "自由画线";
             // 
             // toolLine
             // 
@@ -124,6 +126,7 @@
             this.toolLine.Name = "toolLine";
             this.toolLine.Size = new System.Drawing.Size(23, 22);
             this.toolLine.Tag = "Line";
+            this.toolLine.ToolTipText = "直线";
             // 
             // toolRectangle
             // 
@@ -134,6 +137,7 @@
             this.toolRectangle.Name = "toolRectangle";
             this.toolRectangle.Size = new System.Drawing.Size(23, 22);
             this.toolRectangle.Tag = "Rectangle";
+            this.toolRectangle.ToolTipText = "矩形";
             // 
             // toolEllipse
             // 
@@ -143,6 +147,7 @@
             this.toolEllipse.Name = "toolEllipse";
             this.toolEllipse.Size = new System.Drawing.Size(23, 22);
             this.toolEllipse.Tag = "Ellipse";
+            this.toolEllipse.ToolTipText = "圆";
             // 
             // toolArrow
             // 
@@ -152,6 +157,7 @@
             this.toolArrow.Name = "toolArrow";
             this.toolArrow.Size = new System.Drawing.Size(23, 22);
             this.toolArrow.Tag = "Arrow";
+            this.toolArrow.ToolTipText = "箭头";
             // 
             // toolStripSeparator2
             // 
@@ -165,6 +171,7 @@
             this.toolSave.Image = global::ColorWanted.Properties.Resources.save;
             this.toolSave.Name = "toolSave";
             this.toolSave.Size = new System.Drawing.Size(23, 22);
+            this.toolSave.ToolTipText = "保存为文件";
             this.toolSave.Click += new System.EventHandler(this.ToolSave_Click);
             // 
             // toolOK
@@ -174,6 +181,7 @@
             this.toolOK.Image = global::ColorWanted.Properties.Resources.ok;
             this.toolOK.Name = "toolOK";
             this.toolOK.Size = new System.Drawing.Size(23, 22);
+            this.toolOK.ToolTipText = "保存到剪贴板";
             this.toolOK.Click += new System.EventHandler(this.ToolOK_Click);
             // 
             // toolCancel
@@ -183,6 +191,7 @@
             this.toolCancel.Image = global::ColorWanted.Properties.Resources.cancel;
             this.toolCancel.Name = "toolCancel";
             this.toolCancel.Size = new System.Drawing.Size(23, 22);
+            this.toolCancel.ToolTipText = "取消";
             this.toolCancel.Click += new System.EventHandler(this.ToolCancel_Click);
             // 
             // toolbarColor
@@ -281,6 +290,19 @@
             this.toolPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseMove);
             this.toolPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseUp);
             // 
+            // label1
+            // 
+            this.label1.ForeColor = System.Drawing.Color.Green;
+            this.label1.Location = new System.Drawing.Point(239, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(126, 23);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "按住此处移动工具条";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseDown);
+            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseMove);
+            this.label1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseUp);
+            // 
             // toolbarExtPanel
             // 
             this.toolbarExtPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -317,6 +339,7 @@
             this.toolStyleSolid.Name = "toolStyleSolid";
             this.toolStyleSolid.Size = new System.Drawing.Size(40, 22);
             this.toolStyleSolid.Tag = "Solid";
+            this.toolStyleSolid.ToolTipText = "实线";
             // 
             // toolStyleDotted
             // 
@@ -327,6 +350,7 @@
             this.toolStyleDotted.Name = "toolStyleDotted";
             this.toolStyleDotted.Size = new System.Drawing.Size(40, 22);
             this.toolStyleDotted.Tag = "Dotted";
+            this.toolStyleDotted.ToolTipText = "点线";
             // 
             // toolStyleDashed
             // 
@@ -337,6 +361,7 @@
             this.toolStyleDashed.Name = "toolStyleDashed";
             this.toolStyleDashed.Size = new System.Drawing.Size(40, 22);
             this.toolStyleDashed.Tag = "Dashed";
+            this.toolStyleDashed.ToolTipText = "虚线";
             // 
             // toolLineWidth
             // 
@@ -385,7 +410,7 @@
             this.toolMaskCancel});
             this.toolbarMask.Location = new System.Drawing.Point(110, 301);
             this.toolbarMask.Name = "toolbarMask";
-            this.toolbarMask.Size = new System.Drawing.Size(110, 25);
+            this.toolbarMask.Size = new System.Drawing.Size(141, 25);
             this.toolbarMask.TabIndex = 11;
             this.toolbarMask.Visible = false;
             // 
@@ -396,6 +421,7 @@
             this.toolMaskEdit.Image = global::ColorWanted.Properties.Resources.edit;
             this.toolMaskEdit.Name = "toolMaskEdit";
             this.toolMaskEdit.Size = new System.Drawing.Size(23, 22);
+            this.toolMaskEdit.ToolTipText = "编辑";
             this.toolMaskEdit.Click += new System.EventHandler(this.ToolMaskEdit_Click);
             // 
             // toolStripSeparator1
@@ -410,6 +436,7 @@
             this.toolMaskSave.Image = global::ColorWanted.Properties.Resources.save;
             this.toolMaskSave.Name = "toolMaskSave";
             this.toolMaskSave.Size = new System.Drawing.Size(23, 22);
+            this.toolMaskSave.ToolTipText = "保存为文件";
             this.toolMaskSave.Click += new System.EventHandler(this.ToolSave_Click);
             // 
             // toolMaskOK
@@ -419,6 +446,7 @@
             this.toolMaskOK.Image = global::ColorWanted.Properties.Resources.ok;
             this.toolMaskOK.Name = "toolMaskOK";
             this.toolMaskOK.Size = new System.Drawing.Size(23, 22);
+            this.toolMaskOK.ToolTipText = "保存到剪贴板";
             this.toolMaskOK.Click += new System.EventHandler(this.ToolOK_Click);
             // 
             // toolMaskCancel
@@ -428,20 +456,8 @@
             this.toolMaskCancel.Image = global::ColorWanted.Properties.Resources.cancel;
             this.toolMaskCancel.Name = "toolMaskCancel";
             this.toolMaskCancel.Size = new System.Drawing.Size(23, 22);
+            this.toolMaskCancel.ToolTipText = "取消";
             this.toolMaskCancel.Click += new System.EventHandler(this.ToolCancel_Click);
-            // 
-            // label1
-            // 
-            this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(239, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 23);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "按住此处移动工具条";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseDown);
-            this.label1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseMove);
-            this.label1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolbar_MouseUp);
             // 
             // editorContainer
             // 
