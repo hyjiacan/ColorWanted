@@ -161,7 +161,21 @@ namespace ColorWanted.screenshot
                             StrokeLineJoin = PenLineJoin.Bevel
                         };
                     }
-                    ((Polygon)shape).Points = new PointCollection(MakePolygon(Start.X, Start.Y, End.X, End.Y));
+                    double arrowSize;
+                    var distance = Distance;
+                    if (distance >= 60)
+                    {
+                        arrowSize = 20;
+                    }
+                    else if (distance >= 32)
+                    {
+                        arrowSize = distance / 4.0;
+                    }
+                    else
+                    {
+                        arrowSize = 8;
+                    }
+                    ((Polygon)shape).Points = new PointCollection(MakeArrow(Start.X, Start.Y, End.X, End.Y, arrowLength: arrowSize));
                     shape.Fill = new SolidColorBrush(Color);
                     break;
                 case DrawShapes.Text:
@@ -208,7 +222,7 @@ namespace ColorWanted.screenshot
             return shape;
         }
 
-        private Point[] MakePolygon(double x1, double y1, double x2, double y2, double arrowAngle = Math.PI / 12, double arrowLength = 20)
+        private Point[] MakeArrow(double x1, double y1, double x2, double y2, double arrowAngle = Math.PI / 12, double arrowLength = 20)
         {
             Point point1 = new Point(x1, y1);     // 箭头起点
             Point point2 = new Point(x2, y2);     // 箭头终点
@@ -216,10 +230,10 @@ namespace ColorWanted.screenshot
             double angleDown = angleOri - arrowAngle;   // 箭头扩张角度
             double angleUp = angleOri + arrowAngle;     // 箭头扩张角度
             int directionFlag = (x2 > x1) ? -1 : 1;     // 方向标识
-            double x3 = x2 + ((directionFlag * arrowLength) * Math.Cos(angleDown));   // 箭头第三个点的坐标
-            double y3 = y2 + ((directionFlag * arrowLength) * Math.Sin(angleDown));
-            double x4 = x2 + ((directionFlag * arrowLength) * Math.Cos(angleUp));     // 箭头第四个点的坐标
-            double y4 = y2 + ((directionFlag * arrowLength) * Math.Sin(angleUp));
+            double x3 = x2 + (directionFlag * arrowLength * Math.Cos(angleDown));   // 箭头第三个点的坐标
+            double y3 = y2 + (directionFlag * arrowLength * Math.Sin(angleDown));
+            double x4 = x2 + (directionFlag * arrowLength * Math.Cos(angleUp));     // 箭头第四个点的坐标
+            double y4 = y2 + (directionFlag * arrowLength * Math.Sin(angleUp));
             Point point3 = new Point(x3, y3);   // 箭头第三个点
             Point point4 = new Point(x4, y4);   // 箭头第四个点
             return new Point[] { point1, point2, point3, point4, point2 };   // 多边形，起点 --> 终点 --> 第三点 --> 第四点 --> 终点
@@ -299,7 +313,7 @@ namespace ColorWanted.screenshot
         /// <summary>
         /// 起点与终点的距离
         /// </summary>
-        public int Distance => (int)Math.Sqrt(Math.Abs(Start.X - End.X) * Math.Abs(Start.X - End.X) + Math.Abs(Start.Y - End.Y) * Math.Abs(Start.Y - End.Y));
+        public int Distance => (int)Math.Sqrt((Math.Abs(Start.X - End.X) * Math.Abs(Start.X - End.X)) + Math.Abs(Start.Y - End.Y) * Math.Abs(Start.Y - End.Y));
 
         public DrawRecord()
         {

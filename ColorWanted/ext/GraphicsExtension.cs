@@ -27,7 +27,7 @@ namespace ColorWanted.ext
                 {
                     case DrawShapes.Curve:
                         pen.EndCap = LineCap.Round;
-                        graphics.DrawCurve(pen, record.Points.Select(p=>new Point((int)p.X, (int)p.Y)).ToArray());
+                        graphics.DrawCurve(pen, record.Points.Select(p => new Point((int)p.X, (int)p.Y)).ToArray());
                         break;
                     case DrawShapes.Ellipse:
                         graphics.DrawEllipse(pen, record.Rect.ToDrawingRectangle());
@@ -44,11 +44,27 @@ namespace ColorWanted.ext
                         {
                             return;
                         }
-                        graphics.DrawString(record.Text, record.TextFont, 
+                        graphics.DrawString(record.Text, record.TextFont,
                             new SolidBrush(record.Color.ToDrawingColor()), record.Start.ToDrawingPoint());
                         break;
                     case DrawShapes.Arrow:
-                        var cap = new AdjustableArrowCap(5, 5, false);
+                        int arrowSize;
+                        switch (record.Distance)
+                        {
+                            case 5:
+                            case 4:
+                                arrowSize = 2;
+                                break;
+                            case 3:
+                            case 2:
+                            case 1:
+                                arrowSize = 1;
+                                break;
+                            default:
+                                arrowSize = 5;
+                                break;
+                        }
+                        var cap = new AdjustableArrowCap(arrowSize, arrowSize, false);
                         pen.CustomEndCap = cap;
                         graphics.DrawLine(pen, record.Start.ToDrawingPoint(), record.End.ToDrawingPoint());
                         break;

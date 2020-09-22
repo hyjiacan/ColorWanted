@@ -254,8 +254,13 @@ namespace ColorWanted.screenshot
 
         private void CanvasMask_AreaDoubleClicked(object sender, AreaEventArgs e)
         {
+            if (e.Rect.IsEmpty)
+            {
+                return;
+            }
+            var image = SelectedImage ?? EndEdit();
             // 截图完成
-            Compeleted.Invoke(this, new DoubleClickEventArgs(SelectedImage));
+            Compeleted.Invoke(this, new DoubleClickEventArgs(image));
         }
 
         public void Reset()
@@ -303,6 +308,16 @@ namespace ColorWanted.screenshot
             catch { }
             canvasEdit.Visibility = Visibility.Hidden;
             canvasMask.EditEnabled = true;
+        }
+
+        private void canvasMask_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            canvasEdit.ExtendedCanvas_MouseUp(sender, e);
+        }
+
+        private void canvasMask_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            canvasEdit.OnMouseMove(null, e);
         }
     }
 }

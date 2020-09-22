@@ -1,5 +1,10 @@
 # 更新日志
 
+## 4.0.3
+
+- 优化 截图时的编辑体验
+- 修复 截图出错 [#6](https://github.com/hyjiacan/ColorWanted/issues/6)
+
 ## 4.0.2
 
 - 优化 错误报告信息中添加异常类型

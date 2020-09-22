@@ -9,7 +9,8 @@
     <Canvas x:Name="container">
         <local:ExtendedCanvas x:Name="canvasMask" DrawShape="Rectangle" DrawColor="BlueViolet"
                 MakeSelectionOnly="True" EditEnabled="True" OnDraw="CanvasMask_OnDraw"
-                AreaDoubleClicked="CanvasMask_AreaDoubleClicked">
+                AreaDoubleClicked="CanvasMask_AreaDoubleClicked" MouseLeftButtonUp="canvasMask_MouseUp"
+                              MouseMove="canvasMask_MouseMove">
             <local:ExtendedCanvas.Background>
                 <ImageBrush x:Name="maskBackground"></ImageBrush>
             </local:ExtendedCanvas.Background>

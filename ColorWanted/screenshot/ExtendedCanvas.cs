@@ -103,8 +103,8 @@ namespace ColorWanted.screenshot
         private void BindEvent()
         {
             MouseLeftButtonDown += OnMouseLeftButtonDown;
-            MouseLeftButtonUp += ExtendedCanvas_MouseLeaveOrUp;
-            MouseLeave += ExtendedCanvas_MouseLeaveOrUp; ;
+            MouseLeftButtonUp += ExtendedCanvas_MouseUp;
+            MouseLeave += ExtendedCanvas_MouseLeave; ;
             MouseMove += OnMouseMove;
             MouseRightButtonDown += On_MouseRightButtonDown;
         }
@@ -237,7 +237,7 @@ namespace ColorWanted.screenshot
                 if (e.ClickCount == 2)
                 {
                     // 双击图形，触发双击事件
-                    AreaDoubleClicked.Invoke(this, new AreaEventArgs(current.Rect));
+                    AreaDoubleClicked.Invoke(this, new AreaEventArgs(current.ElementRect));
                     return;
                 }
                 MoveMode = true;
@@ -272,13 +272,18 @@ namespace ColorWanted.screenshot
             EmitDrawEvent(DrawState.Start);
         }
 
-        private void ExtendedCanvas_MouseLeaveOrUp(object sender, System.Windows.Input.MouseEventArgs e)
+        public void ExtendedCanvas_MouseUp(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ExtendedCanvas_MouseLeave(sender, e);
+            IsMouseDown = false;
+        }
+
+        private void ExtendedCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (!EditEnabled || !IsMouseDown)
             {
                 return;
             }
-            IsMouseDown = false;
             var point = e.GetPosition(this);
 
             // 保证线不会画出界
@@ -318,7 +323,7 @@ namespace ColorWanted.screenshot
             EmitDrawEvent(DrawState.End);
         }
 
-        private void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        public void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (!EditEnabled || !IsMouseDown)
             {
@@ -326,6 +331,23 @@ namespace ColorWanted.screenshot
             }
 
             var point = e.GetPosition(this);
+            // 保证线不会画出界
+            if (point.X < 0)
+            {
+                point.X = 0;
+            }
+            else if (point.X > Width)
+            {
+                point.X = Width;
+            }
+            if (point.Y < 0)
+            {
+                point.Y = 0;
+            }
+            else if (point.Y > Height)
+            {
+                point.Y = Height;
+            }
             if (MouseDownPoint == point)
             {
                 return;
