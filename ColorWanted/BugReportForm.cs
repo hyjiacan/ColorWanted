@@ -11,19 +11,19 @@ namespace ColorWanted
         /// 数据模板
         /// </summary>
         private const string template =
-@"操作系统: {0}
-.NET版本: {1}
-程序版本: {2}
-错误类型: {3}
-错误消息: {4}
-错误源: {5}
+@"OS Version: {0}
+.NET Version: {1}
+App Version: {2}
+Error Type: {3}
+Error message: {4}
+Error Stack: {5}
 ";
 
         public BugReportForm()
         {
             componentsLayout();
             ThemeUtil.Apply(this);
-            
+
         }
 
         internal void SetException(Exception exception)
@@ -48,8 +48,16 @@ namespace ColorWanted
         {
             if (cbRestart.Checked)
             {
-                Application.Restart();
-                Close();
+                try
+                {
+                    Application.Restart();
+                    Close();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Sorry that I cannot restart myself.");
+                    Environment.Exit(1);
+                }
                 return;
             }
             Environment.Exit(0);

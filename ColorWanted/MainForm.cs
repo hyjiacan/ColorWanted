@@ -913,6 +913,16 @@ namespace ColorWanted
         }
 
         /// <summary>
+        /// 是否在截图和录屏时隐藏取色窗口
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayMenuHideColorWindows_Click(object sender, EventArgs e)
+        {
+            Settings.Shoot.HideColorWindows = trayMenuHideColorWindows.Checked = !trayMenuHideColorWindows.Checked;
+        }
+
+        /// <summary>
         /// 打开剪贴板历史窗口
         /// </summary>
         /// <param name="sender"></param>

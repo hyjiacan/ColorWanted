@@ -106,7 +106,6 @@ namespace ColorWanted
             {
                 UpdateTooltip();
 
-                // 读取开机启动的注册表
                 this.InvokeMethod(() =>
                 {
                     trayMenuAutoStart.Checked = Settings.Base.Autostart;
@@ -115,6 +114,7 @@ namespace ColorWanted
                     trayMenuPixelScale.Checked = Settings.Preview.PixelScale;
 
                     trayMenuShootOnCurrentScreen.Checked = Settings.Shoot.CurrentScreen;
+                    trayMenuHideColorWindows.Checked = Settings.Shoot.HideColorWindows;
 
                     trayMenuImgViewer.Checked = Settings.Viewer.Enabled;
                 });

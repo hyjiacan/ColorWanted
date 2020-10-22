@@ -335,7 +335,11 @@
             },
             "trayMenuShootOnCurrentScreen": {
                 "Text": "Current screen only",
-                "ToolTipText": "Shoot only on screen which cursor is"
+                "ToolTipText": "Shoot the screen which cursor on"
+            },
+            "trayMenuHideColorWindows": {
+                "Text": "Hide main windows",
+                "ToolTipText": "Hide color/preview window while shoot"
             },
             "trayMenuEnableClipboard": {
                 "Text": "Watch Clipboard",

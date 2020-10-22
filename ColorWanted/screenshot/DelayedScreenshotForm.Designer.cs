@@ -44,6 +44,7 @@ namespace ColorWanted.screenshot
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "延时";
+            this.label1.MouseLeave += new System.EventHandler(this.DelayedScreenshotForm_MouseLeave);
             // 
             // numSeconds
             // 
@@ -68,6 +69,7 @@ namespace ColorWanted.screenshot
             this.label2.Size = new System.Drawing.Size(17, 12);
             this.label2.TabIndex = 2;
             this.label2.Text = "秒";
+            this.label2.MouseLeave += new System.EventHandler(this.DelayedScreenshotForm_MouseLeave);
             // 
             // btnStart
             // 
@@ -80,6 +82,7 @@ namespace ColorWanted.screenshot
             this.btnStart.Text = "准备截图";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnStart.MouseLeave += new System.EventHandler(this.DelayedScreenshotForm_MouseLeave);
             // 
             // DelayedScreenshotForm
             // 

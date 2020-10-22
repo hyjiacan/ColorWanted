@@ -1,4 +1,5 @@
 ﻿using ColorWanted.ext;
+using ColorWanted.setting;
 using ColorWanted.util;
 using System;
 using System.Drawing;
@@ -25,6 +26,7 @@ namespace ColorWanted.screenshot
 
             screenForm.FormClosing += (sender, e) =>
             {
+                ToggleColorWindows(true);
                 Busy = false;
                 GC.Collect();
             };
@@ -81,6 +83,8 @@ namespace ColorWanted.screenshot
             {
                 new System.Threading.Thread(() =>
                 {
+                    ToggleColorWindows(false);
+
                     // 根据配置判断是否使用全屏
                     // 光标所在屏幕
 
@@ -148,7 +152,13 @@ namespace ColorWanted.screenshot
             Busy = true;
             try
             {
+                ToggleColorWindows(false);
                 recordForm = new ScreenRecordForm();
+                recordForm.FormClosing += (sender, e) =>
+                {
+                    ToggleColorWindows(true);
+                };
+
                 // 根据配置判断是否使用全屏
                 // 光标所在屏幕
 
@@ -188,6 +198,38 @@ namespace ColorWanted.screenshot
             };
             f.ShowDialog();
             f.Dispose();
+        }
+
+        /// <summary>
+        /// 切换主窗口和预览窗口 隐藏/显示
+        /// </summary>
+        private static void ToggleColorWindows(bool visible)
+        {
+            if (!Settings.Shoot.HideColorWindows)
+            {
+                return;
+            }
+
+            var mainForm = Application.OpenForms["MainForm"];
+
+            if (mainForm != null && Settings.Main.Display != mode.DisplayMode.Hidden)
+            {
+                mainForm.InvokeMethod(() =>
+                {
+                    mainForm.Visible = visible;
+                });
+            }
+
+            var previewForm = Application.OpenForms["PreviewForm"];
+            if (previewForm != null && Settings.Preview.Visible)
+            {
+                previewForm.InvokeMethod(() =>
+                {
+                    previewForm.Visible = visible;
+                });
+            }
+
+            Application.DoEvents();
         }
     }
 }

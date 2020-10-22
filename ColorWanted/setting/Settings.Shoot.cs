@@ -30,6 +30,18 @@ namespace ColorWanted.setting
                     Set("currentscreen", value ? "1" : "0");
                 }
             }
+
+            /// <summary>
+            /// 是否在操作时隐藏取色窗口(主窗口的预览窗口)，默认为 true
+            /// </summary>
+            public static bool HideColorWindows
+            {
+                get { return Get("hidecolorwindows") != "0"; }
+                set
+                {
+                    Set("hidecolorwindows", value ? "1" : "0");
+                }
+            }
         }
     }
 }

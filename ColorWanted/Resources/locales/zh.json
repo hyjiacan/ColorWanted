@@ -332,6 +332,10 @@
                 "Text": "在当前屏幕操作",
                 "ToolTipText": "仅在光标所在屏幕执行截图和录屏"
             },
+            "trayMenuHideColorWindows": {
+                "Text": "隐藏主窗口",
+                "ToolTipText": "在截图和录屏时是否隐藏取色窗口和预览窗口"
+            },
             "trayMenuEnableClipboard": {
                 "Text": "监视剪贴板",
                 "ToolTipText": "启用监视剪贴板"

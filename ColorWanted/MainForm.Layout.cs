@@ -81,9 +81,11 @@ namespace ColorWanted
             this.trayMenuScreenRecord = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShootOnCurrentScreen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuEnableClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuImgViewer = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuHideColorWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.componentsSet);
             this.lbColorPreview = new System.Windows.Forms.Label();
             this.lbHsl = new System.Windows.Forms.Label();
@@ -226,9 +228,11 @@ namespace ColorWanted
             this.trayMenuAutoStart,
             this.trayMenuOpenConfigFile,
             this.trayMenuHistory,
+            this.toolStripSeparator5,
             this.trayMenuScreenShot,
             this.trayMenuScreenRecord,
             this.trayMenuShootOnCurrentScreen,
+            this.trayMenuHideColorWindows,
             this.toolStripSeparator4,
             this.trayMenuEnableClipboard,
             this.trayMenuShowClipboard,
@@ -545,6 +549,13 @@ namespace ColorWanted
             this.trayMenuImgViewer.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
             this.trayMenuImgViewer.Click += new EventHandler(this.trayMenuImgViewer_Click);
             // 
+            // trayMenuHideColorWindows
+            // 
+            resources.ApplyResources(this.trayMenuHideColorWindows, "trayMenuHideColorWindows");
+            this.trayMenuHideColorWindows.Name = "trayMenuHideColorWindows";
+            this.trayMenuHideColorWindows.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
+            this.trayMenuHideColorWindows.Click += new EventHandler(this.trayMenuHideColorWindows_Click);
+            // 
             // trayMenuLanguageZH
             // 
             resources.ApplyResources(this.trayMenuLanguageZH, "trayMenuLanguageZH");
@@ -691,8 +702,10 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenRecord;
         public System.Windows.Forms.ToolStripMenuItem trayMenuShootOnCurrentScreen;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        public System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         public System.Windows.Forms.ToolStripMenuItem trayMenuEnableClipboard;
         public System.Windows.Forms.ToolStripMenuItem trayMenuShowClipboard;
         public System.Windows.Forms.ToolStripMenuItem trayMenuImgViewer;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuHideColorWindows;
     }
 }
