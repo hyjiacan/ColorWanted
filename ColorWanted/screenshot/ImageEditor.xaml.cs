@@ -107,7 +107,7 @@ namespace ColorWanted.screenshot
             canvasMask.Width = image.Width;
             canvasMask.Height = image.Height;
 
-            maskBackground.ImageSource = image.AsOpacity(0.7f).AsResource();
+            maskBackground.ImageSource = image.AsOpacity(0.8f).AsResource();
         }
 
         public void BeginEdit()

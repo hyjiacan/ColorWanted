@@ -23,6 +23,7 @@ namespace ColorWanted.screenshot
             Height = screen.Height;
 
             DoubleBuffered = true;
+            SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
@@ -131,17 +132,17 @@ namespace ColorWanted.screenshot
             toolPanel.Update();
         }
 
-        //protected override CreateParams CreateParams
-        //{
-        //    get
-        //    {
-        //        //const int WS_EX_APPWINDOW = 0x40000;
-        //        const int WS_EX_TOOLWINDOW = 0x80;
-        //        var cp = base.CreateParams;
-        //        //cp.ExStyle &= (~WS_EX_APPWINDOW); // 不显示在TaskBar
-        //        cp.ExStyle |= WS_EX_TOOLWINDOW; // 不显示在Alt-Tab
-        //        return cp;
-        //    }
-        //}
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                //const int WS_EX_APPWINDOW = 0x40000;
+                const int WS_EX_TOOLWINDOW = 0x80;
+                var cp = base.CreateParams;
+                //cp.ExStyle &= (~WS_EX_APPWINDOW); // 不显示在TaskBar
+                cp.ExStyle |= WS_EX_TOOLWINDOW; // 不显示在Alt-Tab
+                return cp;
+            }
+        }
     }
 }

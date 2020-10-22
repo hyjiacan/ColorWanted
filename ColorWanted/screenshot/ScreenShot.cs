@@ -4,6 +4,7 @@ using ColorWanted.util;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
@@ -26,7 +27,6 @@ namespace ColorWanted.screenshot
 
             screenForm.FormClosing += (sender, e) =>
             {
-                ToggleColorWindows(true);
                 Busy = false;
                 GC.Collect();
             };
@@ -61,9 +61,18 @@ namespace ColorWanted.screenshot
         public static Bitmap GetScreen(int x1, int y1, int width, int height)
         {
             var image = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(image))
+
+            ToggleColorWindows(false);
+            try
             {
-                g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height));
+                using (Graphics g = Graphics.FromImage(image))
+                {
+                    g.CopyFromScreen(x1, y1, 0, 0, new Size(width, height));
+                }
+            }
+            finally
+            {
+                ToggleColorWindows(true);
             }
             return image;
         }
@@ -81,25 +90,16 @@ namespace ColorWanted.screenshot
             Busy = true;
             try
             {
-                new System.Threading.Thread(() =>
-                {
-                    ToggleColorWindows(false);
+                // 根据配置判断是否使用全屏
+                // 光标所在屏幕
 
-                    // 根据配置判断是否使用全屏
-                    // 光标所在屏幕
+                var bounds = Util.GetScreenBounds();
 
-                    var bounds = Util.GetScreenBounds();
+                // 获取当前整个屏幕的截图
+                var image = GetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
 
-                    // 获取当前整个屏幕的截图
-                    var image = GetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
-
-                    screenForm.InvokeMethod(() =>
-                    {
-                        screenForm.Bounds = bounds;
-                        screenForm.SetImage(image);
-                    });
-                })
-                { IsBackground = true }.Start();
+                screenForm.Bounds = bounds;
+                screenForm.SetImage(image);
                 screenForm.ShowWindow();
             }
             catch (Exception e)
