@@ -1,6 +1,7 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.setting;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -88,11 +89,17 @@ namespace ColorWanted.theme
                     form.ForeColor = theme.ForeColor;
                     foreach (Control control in form.Controls)
                     {
-                        if (!(control is LinkLabel)) continue;
-
-                        var link = control as LinkLabel;
-                        link.ForeColor = theme.ForeColor;
-                        link.LinkColor = theme.ForeColor;
+                        if (control is LinkLabel)
+                        {
+                            var link = control as LinkLabel;
+                            link.ForeColor = theme.ForeColor;
+                            link.LinkColor = theme.ForeColor;
+                        }
+                        else if (control is NumericUpDown)
+                        {
+                            control.BackColor = theme.BackColor;
+                            control.ForeColor = theme.ForeColor;
+                        }
                     }
                 }
             }

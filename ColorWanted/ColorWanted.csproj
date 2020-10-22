@@ -151,6 +151,12 @@
       <DependentUpon>ScreenForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="screenshot\DelayedScreenshotForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="screenshot\DelayedScreenshotForm.Designer.cs">
+      <DependentUpon>DelayedScreenshotForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="setting\Settings.Msg.cs" />
     <Compile Include="setting\Settings.Viewer.cs" />
     <Compile Include="setting\Settings.Clipboard.cs" />
@@ -287,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="screenshot\ScreenRecordSaveForm.resx">
       <DependentUpon>ScreenRecordSaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="screenshot\DelayedScreenshotForm.resx">
+      <DependentUpon>DelayedScreenshotForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="viewer\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>

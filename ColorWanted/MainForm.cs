@@ -17,8 +17,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -26,6 +26,7 @@ namespace ColorWanted
 {
     internal partial class MainForm : Form
     {
+        #region 变量声明
         i18n.I18nManager resources = new i18n.I18nManager(typeof(MainForm));
         /// <summary>
         /// 取色的定时器
@@ -52,6 +53,7 @@ namespace ColorWanted
         private bool settingLoaded;
         private PreviewForm previewForm;
         private ThemeForm themeForm;
+        private DelayedScreenshotForm delayedScreenshotForm;
         private ColorDialog colorPicker;
 
         /// <summary>
@@ -99,29 +101,7 @@ namespace ColorWanted
         /// 启动时传入的参数列表
         /// </summary>
         private string[] AppArgs;
-
-        public MainForm()
-        {
-            componentsLayout();
-        }
-        public MainForm(params string[] args)
-        {
-            AppArgs = args;
-            componentsLayout();
-        }
-
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                const int WS_EX_APPWINDOW = 0x40000;
-                const int WS_EX_TOOLWINDOW = 0x80;
-                var cp = base.CreateParams;
-                cp.ExStyle &= (~WS_EX_APPWINDOW); // 不显示在TaskBar
-                cp.ExStyle |= WS_EX_TOOLWINDOW; // 不显示在Alt-Tab
-                return cp;
-            }
-        }
+        #endregion
         protected override void DefWndProc(ref Message m)
         {
             switch (m.Msg)
@@ -148,22 +128,6 @@ namespace ColorWanted
                     break;
             }
             base.DefWndProc(ref m);
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            ThemeUtil.Apply(this);
-            MainForm_ForeColorChanged(null, null);
-
-            // 干掉按钮边框
-            btnScreenshot.NoBorder();
-
-            Height = Util.ScaleY(20);
-            Width = Util.ScaleX(88);
-            Init();
-
-            // 初始化截图窗口
-            ScreenShot.Init();
         }
 
         private void MainForm_ForeColorChanged(object sender, EventArgs e)
@@ -409,11 +373,6 @@ namespace ColorWanted
         }
 
 
-        private void trayMenuExit_Click(object sender, EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             colorTimer.Stop();
@@ -638,6 +597,8 @@ namespace ColorWanted
             }
             // 同步移动预览窗口
             UpdatePreviewPosition();
+            // 同步移动截图倒计时窗口
+            UpdateDelayedWScreenShotPosition();
 
             if (settingLoaded)
             {
@@ -667,7 +628,6 @@ namespace ColorWanted
 
         #region 托盘菜单
 
-
         /// <summary>
         /// 处理鼠标左键单击托盘图标的事件
         /// 此时若取色窗口或预览窗口是可见的，刚将其设置为 topmost
@@ -686,6 +646,10 @@ namespace ColorWanted
             }
         }
 
+        private void trayMenuExit_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
 
         private void trayMenuHideWindow_Click(object sender, EventArgs e)
         {
@@ -810,7 +774,6 @@ namespace ColorWanted
             }
         }
 
-
         private void trayMenuShowPreview_Click(object sender, EventArgs e)
         {
             TogglePreview();
@@ -833,16 +796,19 @@ namespace ColorWanted
                 Settings.Base.AutoPin = item.Checked;
             }
         }
+
         private void trayMenuShowColorPicker_Click(object sender, EventArgs e)
         {
             ShowColorPicker();
         }
+
         private void trayMenuRestoreLocation_Click(object sender, EventArgs e)
         {
             SetDefaultLocation();
 
             previewForm.Location = new Point(0, 0);
         }
+
         private void trayMenuHotkey_Click(object sender, EventArgs e)
         {
             try
@@ -862,6 +828,7 @@ namespace ColorWanted
                 // ignore
             }
         }
+
         private void trayMenuAutoStart_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;
@@ -1391,12 +1358,15 @@ namespace ColorWanted
             tray.ShowBalloonTip(timeout, null, msg, ToolTipIcon.None);
         }
 
+        #region 延时截图功能
+        private void BtnScreenshot_MouseHover(object sender, EventArgs e)
+        {
+            // 鼠标放在按钮上时，显示倒计时按钮
+            DelayedScreenShot();
+        }
+
         private void BtnScreenshot_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
-            {
-                return;
-            }
             if (e.Clicks > 1)
             {
                 // 双击截图
@@ -1407,17 +1377,35 @@ namespace ColorWanted
             MouseDownEventHandler(sender, e);
         }
 
-        private void InitializeComponent()
+        /// <summary>
+        /// 延时截图
+        /// </summary>
+        private void DelayedScreenShot()
         {
-            this.SuspendLayout();
-            // 
-            // MainForm
-            // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "MainForm";
-            this.ResumeLayout(false);
-
+            if (delayedScreenshotForm == null)
+            {
+                delayedScreenshotForm = new DelayedScreenshotForm();
+            }
+            else if (delayedScreenshotForm.Visible)
+            {
+                delayedScreenshotForm.Hide();
+                return;
+            }
+            UpdateDelayedWScreenShotPosition();
+            delayedScreenshotForm.Show();
+            delayedScreenshotForm.Width = 110;
         }
+
+        private void UpdateDelayedWScreenShotPosition()
+        {
+            if (delayedScreenshotForm == null)
+            {
+                return;
+            }
+            // 如果预览窗口
+            delayedScreenshotForm.Left = this.Left;
+            delayedScreenshotForm.Top = this.Bottom;
+        }
+        #endregion
     }
 }

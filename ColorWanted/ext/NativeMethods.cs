@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Windows.Forms;
 using ColorWanted.hotkey;
 
 /**
@@ -40,7 +38,7 @@ namespace ColorWanted.ext
             IntPtr hWnd,                //要定义热键的窗口的句柄
             int id,                     //定义热键ID（不能与其它ID重复）           
             KeyModifier fsModifiers,   //标识热键是否在按Alt、Ctrl、Shift、等键时才会生效
-            Keys vk                     //定义热键的内容
+            System.Windows.Forms.Keys vk                     //定义热键的内容
             );
 
         [DllImport("user32.dll", SetLastError = true)]
@@ -89,7 +87,7 @@ namespace ColorWanted.ext
         [DllImport("kernel32.dll")]
         public static extern IntPtr GlobalLock(IntPtr hMem);
         [DllImport("kernel32.dll")]
-        public static extern bool GlobalUnlock(IntPtr hMem); 
+        public static extern bool GlobalUnlock(IntPtr hMem);
         public const int WM_CLIPBOARDUPDATE = 0x031D;
 
         [DllImport("user32.dll")]
@@ -134,7 +132,7 @@ namespace ColorWanted.ext
         public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
         //获取鼠标所在位置
         [DllImport("user32.dll", EntryPoint = "GetCursorPos")]
-        public static extern bool GetCursorPos(ref Point lpPoint);
+        public static extern bool GetCursorPos(ref System.Drawing.Point lpPoint);
         #endregion
 
         #region GDI
@@ -155,6 +153,29 @@ namespace ColorWanted.ext
         public const int VERTRES = 10;
         public const int DESKTOPVERTRES = 117;
         public const int DESKTOPHORZRES = 118;
+        #endregion
+
+        #region 获取窗口
+        public struct RECT
+        {
+            public long Left;
+            public long Top;
+            public long Right;
+            public long Bottom;
+        }
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetForegroundWindow();
+
+        [DllImport("user32.dll")]
+        public static extern int GetWindowRect(IntPtr handle, out RECT rect);
+
+        public static System.Drawing.Rectangle GetWindowBounds(IntPtr handle)
+        {
+            GetWindowRect(handle, out RECT rect);
+
+            return new System.Drawing.Rectangle((int)rect.Left, (int)rect.Top, (int)(rect.Right - rect.Left), (int)(rect.Bottom - rect.Top));
+        }
         #endregion
     }
 }

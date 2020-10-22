@@ -2,7 +2,9 @@
 using ColorWanted.ext;
 using ColorWanted.hotkey;
 using ColorWanted.mode;
+using ColorWanted.screenshot;
 using ColorWanted.setting;
+using ColorWanted.theme;
 using ColorWanted.util;
 using System;
 using System.Linq;
@@ -15,6 +17,45 @@ namespace ColorWanted
 {
     internal partial class MainForm
     {
+        public MainForm()
+        {
+            componentsLayout();
+        }
+        public MainForm(params string[] args)
+        {
+            AppArgs = args;
+            componentsLayout();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                const int WS_EX_APPWINDOW = 0x40000;
+                const int WS_EX_TOOLWINDOW = 0x80;
+                var cp = base.CreateParams;
+                cp.ExStyle &= (~WS_EX_APPWINDOW); // 不显示在TaskBar
+                cp.ExStyle |= WS_EX_TOOLWINDOW; // 不显示在Alt-Tab
+                return cp;
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            ThemeUtil.Apply(this);
+            MainForm_ForeColorChanged(null, null);
+
+            // 干掉按钮边框
+            btnScreenshot.NoBorder();
+
+            Height = Util.ScaleY(20);
+            Width = Util.ScaleX(88);
+            Init();
+
+            // 初始化截图窗口
+            ScreenShot.Init();
+        }
+
         /// <summary>
         /// 执行初始化操作
         /// </summary>

@@ -109,6 +109,7 @@ namespace ColorWanted
             this.btnScreenshot.FlatAppearance.BorderSize = 0;
             this.tooltip.SetToolTip(this.btnScreenshot, resources.GetString("btnScreenshot.ToolTip"));
             this.btnScreenshot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.BtnScreenshot_MouseDown);
+            this.btnScreenshot.MouseHover += new System.EventHandler(this.BtnScreenshot_MouseHover);
             // 
             // lbHex
             // 
