@@ -353,6 +353,10 @@
                 "Text": "Image Viewer",
                 "ToolTipText": "Use inner image viewer to view images"
             },
+            "trayMenuImgViewerSingleton": {
+                "Text": "Singleton mode",
+                "ToolTipText": "Open one window while view images"
+            },
             "trayMenuLanguageOther": {
                 "Text": "Others",
                 "ToolTipText": "Choose other language"

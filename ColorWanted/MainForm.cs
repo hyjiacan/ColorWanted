@@ -960,6 +960,11 @@ namespace ColorWanted
             Settings.Viewer.Enabled = trayMenuImgViewer.Checked = !trayMenuImgViewer.Checked;
         }
 
+        private void trayMenuImgViewerSingleton_Click(object sender, EventArgs e)
+        {
+            Settings.Viewer.Singleton = trayMenuImgViewerSingleton.Checked = !trayMenuImgViewerSingleton.Checked;
+        }
+
         private void ToggleCopyPolicy()
         {
             trayMenuCopyPolicyHexValueOnly.Checked =

@@ -1,7 +1,5 @@
 # TODO LIST
 
-[highdpi]: https://docs.microsoft.com/zh-cn/dotnet/framework/winforms/automatic-scaling-in-windows-forms
-
 - [x] 截图占用内存高
 - [x] 截图启动慢
 - [x] 截图工具条位置优化
@@ -10,10 +8,14 @@
 - [x] 屏幕录制时，支持设置质量(会影响生成文件大小)
 - [x] 功能插件化（截图，录屏，剪贴板监视）
 - [x] 录屏的重复播放次数配置，放到保存对话框中
-- [ ] 更新窗口位置，以及对更新文件的校验
 - [x] 集成图片工具
 - [x] [高DPI 支持][highdpi]
-- [ ] 图片查看器在打开相同文件时，激活已经存在的窗口
-- [ ] 图片查看器添加选项，以设置是否允许打开多个看图窗口（默认为 false)
+- [x] 图片查看器在打开相同文件时，激活已经存在的窗口
+- [x] 图片查看器添加选项，以设置是否允许打开多个看图窗口（默认为 false)
 - [ ] 添加程序日志（记录更新，以及程序异常）
+- [ ] 更新窗口位置，以及对更新文件的校验
 - [ ] 截图工具条，添加撤消/重做按钮
+- [ ] 截图选中区域后，支持调整尺寸
+- [ ] 截图和录屏，支持直接选择窗口
+
+[highdpi]: https://docs.microsoft.com/zh-cn/dotnet/framework/winforms/automatic-scaling-in-windows-forms

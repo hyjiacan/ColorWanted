@@ -309,5 +309,28 @@ namespace ColorWanted.util
             return (int)(value * scale.Y);
             //return value;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns>当文件不存在或长度为0时，返回空字符串</returns>
+        public static string HashFile(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                return "";
+            }
+            using (var fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                if (fs.Length == 0)
+                {
+                    return "";
+                }
+                var hash = System.Security.Cryptography.SHA1.Create().ComputeHash(fs);
+                fs.Close();
+                return BitConverter.ToString(hash).Replace("-", "");
+            }
+        }
     }
 }

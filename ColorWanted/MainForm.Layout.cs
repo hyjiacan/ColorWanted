@@ -85,6 +85,7 @@ namespace ColorWanted
             this.trayMenuEnableClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuShowClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuImgViewer = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuImgViewerSingleton = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuHideColorWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.tooltip = new System.Windows.Forms.ToolTip(this.componentsSet);
             this.lbColorPreview = new System.Windows.Forms.Label();
@@ -237,6 +238,7 @@ namespace ColorWanted
             this.trayMenuEnableClipboard,
             this.trayMenuShowClipboard,
             this.trayMenuImgViewer,
+            this.trayMenuImgViewerSingleton,
             this.toolStripSeparator1,
             this.trayMenuLanguage,
             this.trayMenuCheckUpdate,
@@ -549,6 +551,13 @@ namespace ColorWanted
             this.trayMenuImgViewer.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
             this.trayMenuImgViewer.Click += new EventHandler(this.trayMenuImgViewer_Click);
             // 
+            // trayMenuImgViewerSingleton
+            // 
+            resources.ApplyResources(this.trayMenuImgViewerSingleton, "trayMenuImgViewerSingleton");
+            this.trayMenuImgViewerSingleton.Name = "trayMenuImgViewerSingleton";
+            this.trayMenuImgViewerSingleton.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
+            this.trayMenuImgViewerSingleton.Click += new EventHandler(this.trayMenuImgViewerSingleton_Click);
+            // 
             // trayMenuHideColorWindows
             // 
             resources.ApplyResources(this.trayMenuHideColorWindows, "trayMenuHideColorWindows");
@@ -706,6 +715,7 @@ namespace ColorWanted
         public System.Windows.Forms.ToolStripMenuItem trayMenuEnableClipboard;
         public System.Windows.Forms.ToolStripMenuItem trayMenuShowClipboard;
         public System.Windows.Forms.ToolStripMenuItem trayMenuImgViewer;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuImgViewerSingleton;
         public System.Windows.Forms.ToolStripMenuItem trayMenuHideColorWindows;
     }
 }

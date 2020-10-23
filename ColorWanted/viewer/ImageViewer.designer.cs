@@ -51,16 +51,18 @@
             this.lkPrev = new System.Windows.Forms.Button();
             this.lbPicIndex = new System.Windows.Forms.Label();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.pnContainer = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rangeBar)).BeginInit();
             this.pnBar.SuspendLayout();
+            this.pnContainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
             this.pictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.pictureBox.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox.Location = new System.Drawing.Point(125, 94);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(100, 50);
@@ -77,7 +79,7 @@
             this.lbTip.AutoSize = true;
             this.lbTip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lbTip.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.lbTip.Location = new System.Drawing.Point(103, 9);
+            this.lbTip.Location = new System.Drawing.Point(228, 103);
             this.lbTip.Name = "lbTip";
             this.lbTip.Padding = new System.Windows.Forms.Padding(2);
             this.lbTip.Size = new System.Drawing.Size(4, 16);
@@ -269,6 +271,17 @@
             this.lbPicIndex.Text = "0/0";
             this.lbPicIndex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pnContainer
+            // 
+            this.pnContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.pnContainer.Controls.Add(this.pictureBox);
+            this.pnContainer.Controls.Add(this.lbTip);
+            this.pnContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnContainer.Location = new System.Drawing.Point(0, 0);
+            this.pnContainer.Name = "pnContainer";
+            this.pnContainer.Size = new System.Drawing.Size(784, 561);
+            this.pnContainer.TabIndex = 16;
+            // 
             // ImageViewer
             // 
             this.AllowDrop = true;
@@ -276,15 +289,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.ContextMenuStrip = this.menu;
-            this.Controls.Add(this.lbTip);
             this.Controls.Add(this.pnBar);
-            this.Controls.Add(this.pictureBox);
+            this.Controls.Add(this.pnContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "ImageViewer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "图片查看器";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ImageViewer_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.ImageViewer_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.ImageViewer_DragEnter);
@@ -297,8 +310,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.rangeBar)).EndInit();
             this.pnBar.ResumeLayout(false);
             this.pnBar.PerformLayout();
+            this.pnContainer.ResumeLayout(false);
+            this.pnContainer.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -325,6 +339,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuBorder;
         private System.Windows.Forms.ToolStripMenuItem menuCenterLine;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.Panel pnContainer;
     }
 }
 

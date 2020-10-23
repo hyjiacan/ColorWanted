@@ -117,6 +117,7 @@ namespace ColorWanted
                     trayMenuHideColorWindows.Checked = Settings.Shoot.HideColorWindows;
 
                     trayMenuImgViewer.Checked = Settings.Viewer.Enabled;
+                    trayMenuImgViewerSingleton.Checked = Settings.Viewer.Singleton;
                 });
             })
             {

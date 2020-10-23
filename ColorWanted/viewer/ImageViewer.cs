@@ -50,6 +50,8 @@ namespace ColorWanted.viewer
 
         private static int _index;
 
+        public string CurrentImageName { get; private set; }
+
         /// <summary>
         /// 当前显示的图片索引
         /// </summary>
@@ -76,11 +78,7 @@ namespace ColorWanted.viewer
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            if (filename == null)
-            {
-                return;
-            }
-            LoadImage(filename);
+            CurrentImageName = filename;
         }
         public ImageViewer() : this(null)
         {
@@ -89,100 +87,39 @@ namespace ColorWanted.viewer
         /// <summary>
         /// 自动调整图片控件，以适应图片的大小
         /// </summary>
-        private void FixSize()
+        public void FixSize()
         {
-            var winBounds = Util.GetScreenBounds(true);
-            var winWidth = winBounds.Width;
-            var winHeight = winBounds.Height;
-            var winLeft = winBounds.Left;
-            var winTop = winBounds.Top;
+            // 可用区域大小
+            var size = pnContainer.Size;
 
             var img = pictureBox.Image;
 
-            // 图片为空时，设置大小为 800x600
+            // 图片为空时，啥也不做
             if (img == null)
             {
-                Width = 800;
-                Height = 600;
-                Left = winLeft + (winWidth - winWidth) / 2;
-                Top = winTop + (winHeight - winHeight) / 2;
                 return;
             }
 
             var imgWidth = ImageCache.Width;
             var imgHeight = ImageCache.Height;
 
-            // 当前图片与 PictureBox 大小一致时，不需要任何处理
-            if (imgWidth == pictureBox.Width && imgHeight == pictureBox.Height)
-            {
-                return;
-            }
-
             pictureBox.Width = imgWidth;
             pictureBox.Height = imgHeight;
 
-            var titleHeight = SystemInformation.CaptionHeight;
-            var toolbarHeight = pnBar.Height;
-            var borderWidth = SystemInformation.FrameBorderSize.Width;
-            var borderHeight = SystemInformation.FrameBorderSize.Height;
-
-            // 区域内可用的尺寸 (除去标题栏，工具条和边框)
-            var availableWidth = winWidth - borderWidth * 4;
-            var availableHeight = winHeight - borderHeight * 4 - titleHeight - toolbarHeight;
-
             // 图片小于或等于可用区域大小
-            if (imgWidth <= availableWidth && imgHeight <= availableHeight)
+            if (imgWidth <= size.Width && imgHeight <= size.Height)
             {
-                var paddingLeft = (availableWidth - imgWidth) / 2;
-                var paddingTop = (availableHeight - imgHeight) / 2;
-
-                // 如果空白大于 40px ，就设置为 40px
-                if (paddingLeft > 40)
-                {
-                    paddingLeft = 40;
-                }
-
-                if (paddingTop > 40)
-                {
-                    paddingTop = 40;
-                }
-
-                // 窗口的尺寸
-                var width = imgWidth + paddingLeft * 2 + borderWidth * 4;
-                var height = imgHeight + paddingTop * 2 + borderHeight * 4 + titleHeight + toolbarHeight;
-
-                // 如果窗口大小与屏幕可用区域大小差小于 40，那么就让窗口与屏幕可用区域大小一致
-                if (winWidth - width < 40 || winHeight - height < 40)
-                {
-                    width = winWidth;
-                    height = winHeight;
-
-                    paddingLeft = (availableWidth - imgWidth) / 2;
-                    paddingTop = (availableHeight - imgHeight) / 2;
-                }
-
-                Width = width;
-                Height = height;
+                var paddingLeft = (size.Width - imgWidth) / 2;
+                var paddingTop = (size.Height - imgHeight) / 2;
 
                 // 设置图片的位置
                 pictureBox.Left = paddingLeft;
                 pictureBox.Top = paddingTop;
-
-                // 设置窗口的位置
-                Left = winLeft + (availableWidth - Width) / 2;
-                Top = winTop + (availableHeight - Height) / 2;
                 return;
             }
 
-            // 设置与屏幕可用区域大小一致
-            Width = winWidth;
-            Height = winHeight;
-
-            pictureBox.Left = (availableWidth - imgWidth) / 2;
-            pictureBox.Top = (availableHeight - imgHeight) / 2;
-
-            Left = winLeft;
-            Top = winTop;
+            pictureBox.Left = 0;
+            pictureBox.Top = 0;
         }
 
         #region 图片拖到窗口上加载功能支持
@@ -223,21 +160,23 @@ namespace ColorWanted.viewer
             LoadImage(dragPic);
         }
 
-        void LoadImage(string image)
+        public void LoadImage(string filename)
         {
             // 加载后再说其它的
-            var path = Path.GetDirectoryName(image);
+            var path = Path.GetDirectoryName(filename);
 
             PicList = Directory.GetFiles(path).Where(file => ViewerUtil.SUPPORTED_IMAGES_TYPES.Contains(Path.GetExtension(file))).ToArray();
-            ShowIndex = Array.IndexOf(PicList, image);
+            ShowIndex = Array.IndexOf(PicList, filename);
 
             // 读取出数据，以便释放图片句柄
-            var data = File.ReadAllBytes(image);
+            var data = File.ReadAllBytes(filename);
             var img = Image.FromStream(new MemoryStream(data));
             ImageCache.SetImage(img as Bitmap);
 
-            Text = string.Format("{0} ({1}x{2})", Path.GetFileName(image), ImageCache.Width, ImageCache.Height);
+            Text = string.Format("{0} ({1}x{2})", Path.GetFileName(filename), ImageCache.Width, ImageCache.Height);
             LoadImage(img);
+
+            CurrentImageName = filename;
         }
 
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -258,7 +197,6 @@ namespace ColorWanted.viewer
         {
             pictureBox.Image = image;
             originImage = null;
-            FixSize();
             if (!pictureBox.Visible)
             {
                 lbTip.Visible = pictureBox.Visible = true;
@@ -476,6 +414,12 @@ namespace ColorWanted.viewer
 
             BringToFront();
             Activate();
+
+            if (CurrentImageName == null)
+            {
+                return;
+            }
+            LoadImage(CurrentImageName);
         }
 
         private void rangeBar_Scroll(object sender, EventArgs e)

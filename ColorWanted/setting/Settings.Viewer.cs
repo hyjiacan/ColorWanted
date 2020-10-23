@@ -57,6 +57,18 @@ namespace ColorWanted.setting
             }
 
             /// <summary>
+            /// 是否启用单实例，启用时只打开一个看图窗口，默认为 true
+            /// </summary>
+            public static bool Singleton
+            {
+                get { return Get("singleton") != "0"; }
+                set
+                {
+                    Set("singleton", value ? "1" : "0");
+                }
+            }
+
+            /// <summary>
             /// 是否绘制边框
             /// </summary>
             public static bool DrawBorder

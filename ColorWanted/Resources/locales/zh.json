@@ -348,6 +348,10 @@
                 "Text": "图片查看器",
                 "ToolTipText": "使用内置的图片查看器来查看图片"
             },
+            "trayMenuImgViewerSingleton": {
+                "Text": "单窗口看图",
+                "ToolTipText": "查看图片时，是否始终只打开一个看图窗口"
+            },
             "trayMenuLanguageOther": {
                 "Text": "其它",
                 "ToolTipText": "选择其它语言"
