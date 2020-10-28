@@ -157,12 +157,19 @@
     <Compile Include="screenshot\DelayedScreenshotForm.Designer.cs">
       <DependentUpon>DelayedScreenshotForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="setting\SettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="setting\SettingForm.Designer.cs">
+      <DependentUpon>SettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="setting\Settings.Msg.cs" />
     <Compile Include="setting\Settings.Viewer.cs" />
     <Compile Include="setting\Settings.Clipboard.cs" />
     <Compile Include="setting\Settings.Shoot.cs" />
     <Compile Include="setting\Settings.Theme.cs" />
     <Compile Include="setting\Settings.I18n.cs" />
+    <Compile Include="setting\SettingsAttributes.cs" />
     <Compile Include="theme\ThemeDescription.cs" />
     <Compile Include="theme\ThemeForm.cs">
       <SubType>Form</SubType>
@@ -296,6 +303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="screenshot\DelayedScreenshotForm.resx">
       <DependentUpon>DelayedScreenshotForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="setting\SettingForm.resx">
+      <DependentUpon>SettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="viewer\ImageViewer.resx">
       <DependentUpon>ImageViewer.cs</DependentUpon>

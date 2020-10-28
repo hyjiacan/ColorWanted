@@ -18,6 +18,10 @@ namespace ColorWanted.update
         /// </summary>
         public long FileSize { get; set; }
         /// <summary>
+        /// 文件的 sha 值
+        /// </summary>
+        public string Sha { get; set; }
+        /// <summary>
         /// 更新的状态(true: 成功，false: 失败)
         /// </summary>
         public bool Status { get; set; }

@@ -1,5 +1,4 @@
-﻿using ColorWanted.colors;
-using ColorWanted.ext;
+﻿using ColorWanted.ext;
 using ColorWanted.hotkey;
 using ColorWanted.mode;
 using ColorWanted.screenshot;
@@ -64,17 +63,11 @@ namespace ColorWanted
             // 接收消息
             Msg.Listen();
 
-            trayMenuHsiAlgorithmGeometry.Tag = HsiAlgorithm.Geometry;
-            trayMenuHsiAlgorithmAxis.Tag = HsiAlgorithm.Axis;
-            trayMenuHsiAlgorithmSegment.Tag = HsiAlgorithm.Segment;
-            trayMenuHsiAlgorithmBajon.Tag = HsiAlgorithm.Bajon;
-            trayMenuHsiAlgorithmStandard.Tag = HsiAlgorithm.Standard;
-
             previewForm = new PreviewForm();
             previewForm.LocationChanged += previewForm_LocationChanged;
 
             currentDisplayMode = DisplayMode.Fixed;
-            SwitchHsiAlgorithm(Settings.Main.HsiAlgorithm);
+            currentHsiAlgorithm = Settings.Main.HsiAlgorithm;
 
             colorBuffer = new StringBuilder(8, 64);
 
@@ -84,7 +77,7 @@ namespace ColorWanted
                 TogglePreview();
             }
 
-            if (trayMenuFixed.Checked)
+            if (Settings.Main.Display == DisplayMode.Fixed)
             {
                 FixedPosition();
             }
@@ -98,27 +91,9 @@ namespace ColorWanted
 
             HotKey.Bind(Handle);
 
-            trayMenuCopyPolicyHexValueOnly.Checked = Settings.Base.HexValueOnly;
-            trayMenuCopyPolicyRgbValueOnly.Checked = Settings.Base.RgbValueOnly;
-            trayMenuCopyPolicyUpperCase.Checked = Settings.Base.CopyUpperCase;
-
             new Thread(() =>
             {
                 UpdateTooltip();
-
-                this.InvokeMethod(() =>
-                {
-                    trayMenuAutoStart.Checked = Settings.Base.Autostart;
-                    trayMenuAutoPin.Checked = Settings.Base.AutoPin;
-
-                    trayMenuPixelScale.Checked = Settings.Preview.PixelScale;
-
-                    trayMenuShootOnCurrentScreen.Checked = Settings.Shoot.CurrentScreen;
-                    trayMenuHideColorWindows.Checked = Settings.Shoot.HideColorWindows;
-
-                    trayMenuImgViewer.Checked = Settings.Viewer.Enabled;
-                    trayMenuImgViewerSingleton.Checked = Settings.Viewer.Singleton;
-                });
             })
             {
                 IsBackground = true
@@ -133,87 +108,83 @@ namespace ColorWanted
             colorTimer.Start();
 
             // 是否监听剪贴板
-            trayMenuEnableClipboard.Checked = Settings.Clipboard.Enabled;
-            if (trayMenuEnableClipboard.Checked)
+            if (Settings.Clipboard.Enabled)
             {
                 NativeMethods.AddClipboardFormatListener(Handle);
             }
 
             // 加载语言并选中使用的项
-            new Thread(() =>
-            {
-                // 当前显示的语言
-                var locale = (Settings.I18n.Lang ?? System.Globalization.CultureInfo.InstalledUICulture.Name).ToLower();
-                // 加载自定义语言
-                var langs = i18n.I18nManager.GetLocalLangs();
-                if (langs.Any())
-                {
-                    // 都放到其它语言菜单项下
-                    var others = new ToolStripMenuItem();
-                    resources.ApplyResources(others, "trayMenuLanguageOther");
-                    others.Name = "trayMenuLanguageOther";
+            //new Thread(() =>
+            //{
+            //    // 当前显示的语言
+            //    var locale = (Settings.I18n.Lang ?? System.Globalization.CultureInfo.InstalledUICulture.Name).ToLower();
+            //    // 加载自定义语言
+            //    var langs = i18n.I18nManager.GetLocalLangs();
+            //    if (langs.Any())
+            //    {
+            //        // 都放到其它语言菜单项下
+            //        var others = new ToolStripMenuItem();
+            //        resources.ApplyResources(others, "trayMenuLanguageOther");
+            //        others.Name = "trayMenuLanguageOther";
 
-                    // 存放语言 tooltip 的临时量
-                    var temp = new StringBuilder();
+            //        // 存放语言 tooltip 的临时量
+            //        var temp = new StringBuilder();
 
-                    var subs = langs.Select(language =>
-                    {
-                        var item = new ToolStripMenuItem();
-                        item.Name = $"customize-lang--{language.Locale}";
-                        item.Text = language.Name;
+            //        var subs = langs.Select(language =>
+            //        {
+            //            var item = new ToolStripMenuItem();
+            //            item.Name = $"customize-lang--{language.Locale}";
+            //            item.Text = language.Name;
 
-                        // 选中项
-                        var l = language.Locale.ToLower();
-                        item.Checked = locale == l || locale.StartsWith(l) || l.StartsWith(locale);
+            //            // 选中项
+            //            var l = language.Locale.ToLower();
+            //            item.Checked = locale == l || locale.StartsWith(l) || l.StartsWith(locale);
 
-                        // 提示信息中显示语言的版本以及作者
-                        temp.Append($"{language.Version}\n");
-                        if (language.Authors != null && language.Authors.Any())
-                        {
-                            temp.Append("------------\n");
-                            foreach (var author in language.Authors)
-                            {
-                                temp.AppendFormat("{0}/{1}\n", author.Name, author.Mail);
-                                if (string.IsNullOrEmpty(author.HomePage))
-                                {
-                                    temp.Append(author.HomePage);
-                                }
-                            }
-                        }
-                        item.ToolTipText = temp.ToString();
-                        temp.Clear();
-                        return item;
-                    });
+            //            // 提示信息中显示语言的版本以及作者
+            //            temp.Append($"{language.Version}\n");
+            //            if (language.Authors != null && language.Authors.Any())
+            //            {
+            //                temp.Append("------------\n");
+            //                foreach (var author in language.Authors)
+            //                {
+            //                    temp.AppendFormat("{0}/{1}\n", author.Name, author.Mail);
+            //                    if (string.IsNullOrEmpty(author.HomePage))
+            //                    {
+            //                        temp.Append(author.HomePage);
+            //                    }
+            //                }
+            //            }
+            //            item.ToolTipText = temp.ToString();
+            //            temp.Clear();
+            //            return item;
+            //        });
 
-                    // 添加菜单项
-                    others.DropDownItems.AddRange(subs.ToArray());
-                    this.InvokeMethod(() =>
-                    {
-                        trayMenuLanguage.DropDownItems.Add(others);
-                    });
-                }
-                if (locale.StartsWith("zh"))
-                {
-                    trayMenuLanguageZH.Checked = true;
-                }
-                else if (!langs.Any() || locale.StartsWith("en"))
-                {
-                    // 没有其它语言或设置为英语时
-                    trayMenuLanguageEN.Checked = true;
-                }
-            })
-            {
-                IsBackground = true
-            }.Start();
+            //        // 添加菜单项
+            //        others.DropDownItems.AddRange(subs.ToArray());
+            //        this.InvokeMethod(() =>
+            //        {
+            //            trayMenuLanguage.DropDownItems.Add(others);
+            //        });
+            //    }
+            //    if (locale.StartsWith("zh"))
+            //    {
+            //        trayMenuLanguageZH.Checked = true;
+            //    }
+            //    else if (!langs.Any() || locale.StartsWith("en"))
+            //    {
+            //        // 没有其它语言或设置为英语时
+            //        trayMenuLanguageEN.Checked = true;
+            //    }
+            //})
+            //{
+            //    IsBackground = true
+            //}.Start();
 
             DoFirstRunWorks();
 
-            // 启动时检查更新
-            trayMenuCheckUpdateOnStartup.Checked = Settings.Update.CheckOnStartup;
-
             // 自动检查更新
-            if (trayMenuCheckUpdateOnStartup.Checked &&
-                (DateTime.Now.Date - Settings.Update.LastUpdate).TotalDays >= Settings.Update.Span)
+            if (Settings.Update.CheckOnStartup &&
+                (DateTime.Now.Date - Settings.Update.LastUpdate).TotalDays >= Settings.Update.Interval)
             {
                 update.UpdateForm.ShowWindow(true);
             }
@@ -254,8 +225,8 @@ namespace ColorWanted
                 return;
             }
 
-            // 然后打开快捷键设置窗口
-            trayMenuHotkey_Click(null, null);
+            // 然后打开设置窗口
+            trayMenuSettings_Click(null, null);
         }
     }
 }

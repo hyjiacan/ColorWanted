@@ -93,7 +93,7 @@ namespace ColorWanted.update
                 LoadFileInfo(info, tag.commit.sha);
                 return info;
             }
-            catch
+            catch(Exception e)
             {
                 return info;
             }
@@ -118,7 +118,16 @@ namespace ColorWanted.update
                     data.Success = true;
                     web.DownloadFileCompleted += (sender, e) =>
                     {
+                        // 校验文件长度
                         if (data.TotalBytesToReceive != updateInfo.FileSize)
+                        {
+                            data.Success = false;
+                            callback.Invoke(data);
+                            return;
+                        }
+
+                        // 校验文件 sha
+                        if (!updateInfo.Sha.Equals(Util.HashFile(filename), StringComparison.OrdinalIgnoreCase))
                         {
                             data.Success = false;
                             callback.Invoke(data);
@@ -259,6 +268,7 @@ namespace ColorWanted.update
                 return;
             }
             info.FileSize = node.size;
+            info.Sha = node.sha;
         }
     }
 }

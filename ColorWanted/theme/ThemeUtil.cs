@@ -1,7 +1,5 @@
-﻿using ColorWanted.ext;
-using ColorWanted.setting;
+﻿using ColorWanted.setting;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -50,9 +48,19 @@ namespace ColorWanted.theme
             };
         }
 
-        public static ThemeDescription GetCurrent()
+        public static ThemeDescription Current
         {
-            return Get(Settings.Theme.Type);
+            get
+            {
+                var theme = Get(Settings.Theme.Type);
+
+                if (theme.IsEmpty)
+                {
+                    theme = Get(ThemeType.Dark);
+                }
+
+                return theme;
+            }
         }
 
         public static ThemeDescription Get(ThemeType type)
@@ -117,11 +125,7 @@ namespace ColorWanted.theme
         {
             SetOpacity(Settings.Theme.Opacity, form);
 
-            var theme = GetCurrent();
-            if (theme.IsEmpty)
-            {
-                theme = Get(ThemeType.Dark);
-            }
+            var theme = Current;
 
             SetTheme(theme, form);
 

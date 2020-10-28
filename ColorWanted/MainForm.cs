@@ -7,18 +7,14 @@ using ColorWanted.misc;
 using ColorWanted.mode;
 using ColorWanted.screenshot;
 using ColorWanted.setting;
-using ColorWanted.theme;
 using ColorWanted.update;
 using ColorWanted.util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -52,7 +48,6 @@ namespace ColorWanted
         /// </summary>
         private bool settingLoaded;
         private PreviewForm previewForm;
-        private ThemeForm themeForm;
         private DelayedScreenshotForm delayedScreenshotForm;
         private ColorDialog colorPicker;
 
@@ -238,7 +233,7 @@ namespace ColorWanted
             lbRgb.Text = colorBuffer.AppendFormat("RGB({0})", lbRgb.Tag).ToString();
             colorBuffer.Clear();
 
-            if (trayMenuShowPreview.Checked && !stopDrawPreview)
+            if (Settings.Preview.Visible && !stopDrawPreview)
             {
                 DrawPreview(MousePosition);
             }
@@ -478,7 +473,7 @@ namespace ColorWanted
                     break;
                 // 使用像素放大算法
                 case HotKeyType.PixelScale:
-                    trayMenuPixelScale_Click(null, null);
+                    Settings.Preview.PixelScale = !Settings.Preview.PixelScale;
                     break;
                 // 截图
                 case HotKeyType.ScreenShot:
@@ -511,7 +506,7 @@ namespace ColorWanted
 
         private void previewForm_LocationChanged(object sender, EventArgs e)
         {
-            if (!trayMenuAutoPin.Checked || previewForm.FollowMainForm)
+            if (!Settings.Base.AutoPin || previewForm.FollowMainForm)
             {
                 return;
             }
@@ -571,11 +566,11 @@ namespace ColorWanted
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
         {
-            if (trayMenuFollowCaret.Checked)
+            if (Settings.Main.Display == DisplayMode.Follow)
             {
                 return;
             }
-            if (trayMenuAutoPin.Checked)
+            if (Settings.Base.AutoPin)
             {
                 var size = Util.GetScreenSize();
                 if (Top <= pinSize)
@@ -651,104 +646,6 @@ namespace ColorWanted
             Environment.Exit(0);
         }
 
-        private void trayMenuHideWindow_Click(object sender, EventArgs e)
-        {
-            SwitchDisplayMode(DisplayMode.Hidden);
-        }
-
-        private void trayMenuFixed_Click(object sender, EventArgs e)
-        {
-            SwitchDisplayMode(DisplayMode.Fixed);
-        }
-
-        private void trayMenuFollowCaret_Click(object sender, EventArgs e)
-        {
-            SwitchDisplayMode(DisplayMode.Follow);
-        }
-
-        private void trayMenuFormatMini_Click(object sender, EventArgs e)
-        {
-            SwitchFormatMode(FormatMode.Mini);
-        }
-
-        private void trayMenuFormatStandard_Click(object sender, EventArgs e)
-        {
-            SwitchFormatMode(FormatMode.Standard);
-        }
-
-        private void trayMenuFormatExtention_Click(object sender, EventArgs e)
-        {
-            SwitchFormatMode(FormatMode.Extention);
-        }
-
-        private void trayMenuFormatShot_Click(object sender, EventArgs e)
-        {
-            SwitchFormatMode(FormatMode.Shot);
-        }
-
-        private void trayMenuCopyPolicyHexValueOnly_Click(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            item.Checked = !item.Checked;
-
-            Settings.Base.HexValueOnly = item.Checked;
-        }
-
-        private void trayMenuCopyPolicyRgbValueOnly_Click(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            item.Checked = !item.Checked;
-
-            Settings.Base.RgbValueOnly = item.Checked;
-        }
-
-        private void trayMenuCopyPolicyUpperCase_Click(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            item.Checked = !item.Checked;
-
-            Settings.Base.CopyUpperCase = item.Checked;
-        }
-
-        private void trayMenuHsiAlgorithmChange(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            SwitchHsiAlgorithm((HsiAlgorithm)item.Tag);
-        }
-
-        private void trayMenuTheme_Click(object sender, EventArgs e)
-        {
-            if (themeForm == null || themeForm.IsDisposed)
-            {
-                themeForm = new ThemeForm();
-            }
-            if (themeForm.Visible)
-            {
-                themeForm.BringToFront();
-                return;
-            }
-            themeForm.Show(this);
-            themeForm.BringToFront();
-        }
-
-        private void trayMenuLanguageEN_Click(object sender, EventArgs e)
-        {
-            trayMenuLanguageEN.Checked = true;
-            trayMenuLanguageZH.Checked = false;
-            Settings.I18n.Lang = "en";
-        }
-
-        private void trayMenuLanguageZH_Click(object sender, EventArgs e)
-        {
-            trayMenuLanguageZH.Checked = true;
-            trayMenuLanguageEN.Checked = false;
-            Settings.I18n.Lang = "zh";
-        }
-
         private void trayMenuRestart_Click(object sender, EventArgs e)
         {
             Application.Restart();
@@ -774,29 +671,6 @@ namespace ColorWanted
             }
         }
 
-        private void trayMenuShowPreview_Click(object sender, EventArgs e)
-        {
-            TogglePreview();
-        }
-
-        private void trayMenuPixelScale_Click(object sender, EventArgs e)
-        {
-            Settings.Preview.PixelScale =
-                trayMenuPixelScale.Checked =
-                !trayMenuPixelScale.Checked;
-        }
-
-        private void trayMenuAutoPin_Click(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            item.Checked = !item.Checked;
-            if (settingLoaded)
-            {
-                Settings.Base.AutoPin = item.Checked;
-            }
-        }
-
         private void trayMenuShowColorPicker_Click(object sender, EventArgs e)
         {
             ShowColorPicker();
@@ -809,64 +683,9 @@ namespace ColorWanted
             previewForm.Location = new Point(0, 0);
         }
 
-        private void trayMenuHotkey_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var form = Application.OpenForms["HotkeyForm"] ?? new HotkeyForm();
-
-                if (form.Visible)
-                {
-                    form.BringToFront();
-                    return;
-                }
-                form.Show(this);
-                form.BringToFront();
-            }
-            catch (ObjectDisposedException)
-            {
-                // ignore
-            }
-        }
-
-        private void trayMenuAutoStart_Click(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            item.Checked = !item.Checked;
-
-            // 写注册表
-            Settings.Base.Autostart = item.Checked;
-        }
-
         private void trayMenuCheckUpdate_Click(object sender, EventArgs e)
         {
             UpdateForm.ShowWindow();
-        }
-
-        private void trayMenuCheckUpdateOnStartup_Click(object sender, EventArgs e)
-        {
-            var item = sender as ToolStripMenuItem;
-            // ReSharper disable once PossibleNullReferenceException
-            item.Checked = !item.Checked;
-
-            Settings.Update.CheckOnStartup = item.Checked;
-        }
-
-        private void trayMenuOpenConfigFile_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (!File.Exists(Settings.FullName))
-                {
-                    File.Create(Settings.FullName).Close();
-                    Process.Start(Settings.FullName);
-                }
-            }
-            catch (Exception ex)
-            {
-                tray.ShowBalloonTip(5000, "无法打开配置文件", ex.Message, ToolTipIcon.Warning);
-            }
         }
 
         private void trayMenuHistory_Click(object sender, EventArgs e)
@@ -903,26 +722,6 @@ namespace ColorWanted
         }
 
         /// <summary>
-        /// 是否仅在当前屏幕操作
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void trayMenuShootOnCurrentScreen_Click(object sender, EventArgs e)
-        {
-            Settings.Shoot.CurrentScreen = trayMenuShootOnCurrentScreen.Checked = !trayMenuShootOnCurrentScreen.Checked;
-        }
-
-        /// <summary>
-        /// 是否在截图和录屏时隐藏取色窗口
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void trayMenuHideColorWindows_Click(object sender, EventArgs e)
-        {
-            Settings.Shoot.HideColorWindows = trayMenuHideColorWindows.Checked = !trayMenuHideColorWindows.Checked;
-        }
-
-        /// <summary>
         /// 打开剪贴板历史窗口
         /// </summary>
         /// <param name="sender"></param>
@@ -933,50 +732,25 @@ namespace ColorWanted
         }
 
         /// <summary>
-        /// 是否启用监视剪贴板
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void trayMenuEnableClipboard_Click(object sender, EventArgs e)
-        {
-            Settings.Clipboard.Enabled = trayMenuEnableClipboard.Checked = !trayMenuEnableClipboard.Checked;
-            if (trayMenuEnableClipboard.Checked)
-            {
-                NativeMethods.AddClipboardFormatListener(Handle);
-            }
-            else
-            {
-                NativeMethods.RemoveClipboardFormatListener(Handle);
-            }
-        }
-
-        /// <summary>
         /// 是否启用图片查看器
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void trayMenuImgViewer_Click(object sender, EventArgs e)
-        {
-            Settings.Viewer.Enabled = trayMenuImgViewer.Checked = !trayMenuImgViewer.Checked;
-        }
 
-        private void trayMenuImgViewerSingleton_Click(object sender, EventArgs e)
+        private void trayMenuSettings_Click(object sender, EventArgs e)
         {
-            Settings.Viewer.Singleton = trayMenuImgViewerSingleton.Checked = !trayMenuImgViewerSingleton.Checked;
+            SettingForm.Instance.ShowDialog(this);
         }
 
         private void ToggleCopyPolicy()
         {
-            trayMenuCopyPolicyHexValueOnly.Checked =
-                trayMenuCopyPolicyRgbValueOnly.Checked =
-                    Settings.Base.HexValueOnly =
-                        Settings.Base.RgbValueOnly =
-                            !Settings.Base.HexValueOnly;
+            Settings.Base.RgbValueOnly = Settings.Base.HexValueOnly;
+            Settings.Base.HexValueOnly = !Settings.Base.HexValueOnly;
         }
 
         private void TogglePreview()
         {
-            Settings.Preview.Visible = trayMenuShowPreview.Checked = previewForm.Visible = !previewForm.Visible;
+            Settings.Preview.Visible = previewForm.Visible = !previewForm.Visible;
             if (previewForm.Visible)
             {
                 previewForm.BringToFront();
@@ -1046,7 +820,7 @@ namespace ColorWanted
                 ColorHistory.Record(cl);
 
                 var text = string.Format("#{0:X2}{1:X2}{2:X2}", cl.R, cl.G, cl.B);
-                Util.SetClipboard(Handle, trayMenuCopyPolicyUpperCase.Checked ? text : text.ToLower());
+                Util.SetClipboard(Handle, Settings.Base.CopyUpperCase ? text : text.ToLower());
 
                 // 保存自定义颜色
                 Settings.Base.CustomColors = colorPicker.CustomColors;
@@ -1089,31 +863,10 @@ namespace ColorWanted
 
             if (mode == DisplayMode.Hidden)
             {
-                trayMenuHideWindow.Checked = true;
-                trayMenuFollowCaret.Checked = false;
-                trayMenuFixed.Checked = false;
-
-                trayMenuShowPreview.Enabled = false;
-
-                trayMenuRestoreLocation.Enabled = false;
-                trayMenuAutoPin.Enabled = false;
-
-                trayMenuFormatMini.Enabled = false;
-                trayMenuFormatExtention.Enabled = false;
-
                 Hide();
             }
             else
             {
-
-                trayMenuHideWindow.Checked = false;
-                trayMenuFollowCaret.Checked = false;
-                trayMenuFixed.Checked = false;
-                trayMenuShowPreview.Enabled = true;
-
-                trayMenuFormatMini.Enabled = true;
-                trayMenuFormatExtention.Enabled = true;
-
                 Show();
                 BringToFront();
                 FixedPosition();
@@ -1121,14 +874,10 @@ namespace ColorWanted
                 switch (mode)
                 {
                     case DisplayMode.Fixed:
-                        trayMenuFixed.Checked = true;
                         trayMenuRestoreLocation.Enabled = true;
-                        trayMenuAutoPin.Enabled = true;
                         break;
                     case DisplayMode.Follow:
-                        trayMenuFollowCaret.Checked = true;
                         trayMenuRestoreLocation.Enabled = false;
-                        trayMenuAutoPin.Enabled = false;
                         // 跟随模式时启动取色窗口定时器
                         caretTimer.Start();
                         break;
@@ -1157,11 +906,6 @@ namespace ColorWanted
             switch (mode)
             {
                 case FormatMode.Mini:
-                    trayMenuFormatMini.Checked = true;
-                    trayMenuFormatStandard.Checked = false;
-                    trayMenuFormatExtention.Checked = false;
-                    trayMenuFormatShot.Checked = false;
-
                     lbHex.Width = Util.ScaleX(68);
                     lbHex.Visible = true;
                     lbRgb.Visible = false;
@@ -1170,11 +914,6 @@ namespace ColorWanted
                     Width = Util.ScaleX(108);
                     break;
                 case FormatMode.Standard:
-                    trayMenuFormatMini.Checked = false;
-                    trayMenuFormatStandard.Checked = true;
-                    trayMenuFormatExtention.Checked = false;
-                    trayMenuFormatShot.Checked = false;
-
                     lbHex.Width = Util.ScaleX(68);
                     lbRgb.Width = Util.ScaleX(140);
                     lbRgb.Left = Util.ScaleX(88);
@@ -1186,11 +925,6 @@ namespace ColorWanted
                     Width = Util.ScaleX(228);
                     break;
                 case FormatMode.Extention:
-                    trayMenuFormatMini.Checked = false;
-                    trayMenuFormatStandard.Checked = false;
-                    trayMenuFormatExtention.Checked = true;
-                    trayMenuFormatShot.Checked = false;
-
                     // 让两边都留下20宽度，以使显示居中
                     lbHex.Width = Util.ScaleX(140);
                     lbRgb.Width = Util.ScaleX(180);
@@ -1203,11 +937,6 @@ namespace ColorWanted
                     Width = Util.ScaleX(180);
                     break;
                 case FormatMode.Shot:
-                    trayMenuFormatMini.Checked = false;
-                    trayMenuFormatStandard.Checked = false;
-                    trayMenuFormatExtention.Checked = false;
-                    trayMenuFormatShot.Checked = true;
-
                     lbHex.Visible = false;
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
@@ -1226,36 +955,6 @@ namespace ColorWanted
             {
                 UpdatePreviewPosition();
             }
-        }
-
-        private void SwitchHsiAlgorithm(HsiAlgorithm algorithm)
-        {
-            trayMenuHsiAlgorithmGeometry.Checked = false;
-            trayMenuHsiAlgorithmAxis.Checked = false;
-            trayMenuHsiAlgorithmSegment.Checked = false;
-            trayMenuHsiAlgorithmBajon.Checked = false;
-            trayMenuHsiAlgorithmStandard.Checked = false;
-            switch (algorithm)
-            {
-                case HsiAlgorithm.Geometry:
-                    trayMenuHsiAlgorithmGeometry.Checked = true;
-                    break;
-                case HsiAlgorithm.Axis:
-                    trayMenuHsiAlgorithmAxis.Checked = true;
-                    break;
-                case HsiAlgorithm.Segment:
-                    trayMenuHsiAlgorithmSegment.Checked = true;
-                    break;
-                case HsiAlgorithm.Bajon:
-                    trayMenuHsiAlgorithmBajon.Checked = true;
-                    break;
-                case HsiAlgorithm.Standard:
-                    trayMenuHsiAlgorithmStandard.Checked = true;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("algorithm", algorithm, null);
-            }
-            Settings.Main.HsiAlgorithm = currentHsiAlgorithm = algorithm;
         }
 
         /// <summary>
@@ -1323,9 +1022,9 @@ namespace ColorWanted
             {
                 ColorHistory.Record(ColorUtil.GetColor(MousePosition));
                 var text = doubleClick ?
-                    (trayMenuCopyPolicyRgbValueOnly.Checked ? lbRgb.Tag.ToString() : lbRgb.Text) :
-                    (trayMenuCopyPolicyHexValueOnly.Checked ? lbHex.Tag.ToString() : lbHex.Text);
-                var result = Util.SetClipboard(Handle, trayMenuCopyPolicyUpperCase.Checked ? text : text.ToLower());
+                    (Settings.Base.RgbValueOnly ? lbRgb.Tag.ToString() : lbRgb.Text) :
+                    (Settings.Base.HexValueOnly ? lbHex.Tag.ToString() : lbHex.Text);
+                var result = Util.SetClipboard(Handle, Settings.Base.CopyUpperCase ? text : text.ToLower());
 
                 // 复制失败
                 if (result != null)
@@ -1340,6 +1039,11 @@ namespace ColorWanted
             {
                 Util.ShowBugReportForm(e);
             }
+        }
+
+        public void ShowBalloon(int timeout, string title, string content, ToolTipIcon icon = ToolTipIcon.Info)
+        {
+            tray.ShowBalloonTip(timeout, title, content, icon);
         }
 
         /// <summary>

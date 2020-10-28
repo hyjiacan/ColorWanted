@@ -11,9 +11,7 @@ namespace ColorWanted.setting
     // 所有文件操作都加个  try catch
     partial class Settings
     {
-        /// <summary>
-        /// 基础配置
-        /// </summary>
+        [SettingModule("基础配置")]
         public static class Base
         {
             private const string section = "base";
@@ -28,6 +26,7 @@ namespace ColorWanted.setting
                 return GetValue(section, key);
             }
 
+            [SettingItem("主窗口在靠近屏幕边缘时是否自动吸附")]
             public static bool AutoPin
             {
                 get
@@ -41,8 +40,7 @@ namespace ColorWanted.setting
                 }
             }
 
-
-
+            [SettingItem("是否在开机时启动")]
             public static bool Autostart
             {
                 get
@@ -110,6 +108,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否只复制十六进制的值，为true时复制不会包含#字符，默认为 false
             /// </summary>
+            [SettingItem("在复制颜色值时，是否仅复制十六进制颜色值")]
             public static bool HexValueOnly
             {
                 get { return Get("hexvalueonly") == "1"; }
@@ -122,6 +121,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否只复制RGB的值，为true时复制不会包含rgb()字符只有值  "255,255,255"，默认为 false
             /// </summary>
+            [SettingItem("在复制颜色值时，是否仅复制 RGB 颜色值")]
             public static bool RgbValueOnly
             {
                 get { return Get("rgbvalueonly") == "1"; }
@@ -134,6 +134,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否复制大小颜色值，为true时复制大写，默认为 false
             /// </summary>
+            [SettingItem("在复制颜色值时，是否复制为大写形式")]
             public static bool CopyUpperCase
             {
                 get { return Get("copyuppercase") == "1"; }

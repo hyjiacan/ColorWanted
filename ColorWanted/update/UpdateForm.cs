@@ -5,7 +5,6 @@ using ColorWanted.util;
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -305,10 +304,11 @@ namespace ColorWanted.update
 
                         lbProgress.Width = lbPercentage.Width * result.Percentage / 100;
 
-                        if (result.TotalBytesToReceive == result.BytesReceived)
+                        if (result.TotalBytesToReceive != result.BytesReceived)
                         {
-                            lbMsg.Text = resources.GetString("downloadComplete");
+                            return;
                         }
+                        lbMsg.Text = resources.GetString("downloadComplete");
                     });
                 });
             })

@@ -361,6 +361,10 @@
                 "Text": "Others",
                 "ToolTipText": "Choose other language"
             },
+            "trayMenuSettings": {
+                "Text": "Settings",
+                "ToolTipText": "Open settings"
+            },
             "$this": {
                 "Text": "ColorWanted-Screen color picker"
             },

@@ -356,6 +356,10 @@
                 "Text": "其它",
                 "ToolTipText": "选择其它语言"
             },
+            "trayMenuSettings": {
+                "Text": "设置",
+                "ToolTipText": "打开设置窗口"
+            },
             "$this": {
                 "Text": "ColorWanted-屏幕取色器"
             },

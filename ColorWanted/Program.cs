@@ -3,7 +3,6 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 using ColorWanted.util;
-using System.Diagnostics;
 
 namespace ColorWanted
 {

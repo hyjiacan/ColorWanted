@@ -1,6 +1,4 @@
 ﻿using ColorWanted.setting;
-using ColorWanted.util;
-using ColorWanted.viewer;
 using System;
 using System.ComponentModel;
 using System.Drawing;

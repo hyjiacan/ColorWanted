@@ -4,7 +4,6 @@ using ColorWanted.util;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace ColorWanted.screenshot

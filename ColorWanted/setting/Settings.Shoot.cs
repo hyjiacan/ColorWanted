@@ -6,6 +6,7 @@ namespace ColorWanted.setting
         /// <summary>
         /// 截图和录屏配置
         /// </summary>
+        [SettingModule("截图和录屏配置")]
         public static class Shoot
         {
             private const string section = "shoot";
@@ -22,6 +23,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 仅在当前光标所在屏幕操作，默认为 true
             /// </summary>
+            [SettingItem("仅在鼠标所在屏幕操作")]
             public static bool CurrentScreen
             {
                 get { return Get("currentscreen") != "0"; }
@@ -32,8 +34,9 @@ namespace ColorWanted.setting
             }
 
             /// <summary>
-            /// 是否在操作时隐藏取色窗口(主窗口的预览窗口)，默认为 true
+            /// 是否在操作时隐藏取色窗口(主窗口与预览窗口)，默认为 true
             /// </summary>
+            [SettingItem("是否在操作时隐藏取色窗口(主窗口与预览窗口)")]
             public static bool HideColorWindows
             {
                 get { return Get("hidecolorwindows") != "0"; }

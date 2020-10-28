@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ColorWanted.history
+﻿namespace ColorWanted.history
 {
     partial class HistoryForm
     {

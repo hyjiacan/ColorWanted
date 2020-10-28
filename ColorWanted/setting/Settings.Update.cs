@@ -5,6 +5,7 @@ namespace ColorWanted.setting
 {
     partial class Settings
     {
+        [SettingModule("自动更新")]
         public static class Update
         {
             private const string section = "update";
@@ -33,6 +34,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否在启动时检查更新
             /// </summary>
+            [SettingItem("是否在启动时检查更新")]
             public static bool CheckOnStartup
             {
                 get { return Get("checkonstartup") != "0"; }
@@ -65,7 +67,8 @@ namespace ColorWanted.setting
             /// <summary>
             /// 每多少天执行一次自动检查更新，默认为1天，设置为0表示每次启动都检查更新
             /// </summary>
-            public static int Span
+            [SettingItem("检查更新周期 (默认为1天，0 表示每次启动都检查更新)")]
+            public static int Interval
             {
                 get
                 {

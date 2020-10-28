@@ -10,6 +10,7 @@ namespace ColorWanted.setting
         /// <summary>
         /// 主窗口（取色窗口）
         /// </summary>
+        [SettingModule("主窗口")]
         public static class Main
         {
             private const string section = "main";
@@ -35,6 +36,8 @@ namespace ColorWanted.setting
                     Set("location", string.Format("{0},{1}", value.X, value.Y));
                 }
             }
+
+            [SettingItem("取色类型显示格式")]
             public static FormatMode Format
             {
                 get
@@ -53,6 +56,7 @@ namespace ColorWanted.setting
                 }
             }
 
+            [SettingItem("窗口显示模式")]
             public static DisplayMode Display
             {
                 get
@@ -71,6 +75,7 @@ namespace ColorWanted.setting
                 }
             }
 
+            [SettingItem("HSI 算法")]
             public static HsiAlgorithm HsiAlgorithm
             {
                 get

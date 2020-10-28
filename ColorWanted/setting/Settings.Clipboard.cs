@@ -5,6 +5,7 @@
         /// <summary>
         /// 剪贴板 
         /// </summary>
+        [SettingModule("剪贴板")]
         public static class Clipboard
         {
             private const string section = "clipboard";
@@ -22,6 +23,7 @@
             /// <summary>
             /// 是否监视剪贴板
             /// </summary>
+            [SettingItem("监视剪贴板")]
             public static bool Enabled
             {
                 get

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
-using ColorWanted.util;
 using ColorWanted.viewer;
 using Microsoft.Win32;
 
@@ -13,6 +11,7 @@ namespace ColorWanted.setting
         /// <summary>
         /// 基础配置
         /// </summary>
+        [SettingModule("图片查看器")]
         public static class Viewer
         {
             private const string section = "viewer";
@@ -59,6 +58,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否启用单实例，启用时只打开一个看图窗口，默认为 true
             /// </summary>
+            [SettingItem("是否启用单实例，启用时只打开一个看图窗口")]
             public static bool Singleton
             {
                 get { return Get("singleton") != "0"; }
@@ -92,6 +92,7 @@ namespace ColorWanted.setting
                 }
             }
 
+            [SettingItem("启用图片查看器")]
             public static bool Enabled
             {
                 get

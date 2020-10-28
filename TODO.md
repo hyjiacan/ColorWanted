@@ -17,5 +17,9 @@
 - [ ] 截图工具条，添加撤消/重做按钮
 - [ ] 截图选中区域后，支持调整尺寸
 - [ ] 截图和录屏，支持直接选择窗口
+- [ ] 整理菜单
+- [ ] 设置选项变更后，发出事件通知
+- [ ] 优化设置选项加载模式，给设置项添加缓存支持(取色时会频繁读取配置，可能导致IO性能问题)
+- [ ] 提取统一的窗体基类，设置统一样式
 
 [highdpi]: https://docs.microsoft.com/zh-cn/dotnet/framework/winforms/automatic-scaling-in-windows-forms

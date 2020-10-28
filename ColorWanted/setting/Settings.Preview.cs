@@ -10,6 +10,7 @@ namespace ColorWanted.setting
         /// <summary>
         /// 预览窗口 
         /// </summary>
+        [SettingModule("预览窗口")]
         public static class Preview
         {
             private const string section = "preview";
@@ -44,6 +45,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否显示预览窗口
             /// </summary>
+            [SettingItem("显示预览窗口")]
             public static bool Visible
             {
                 get
@@ -75,6 +77,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否使用像素放大，默认为true
             /// </summary>
+            [SettingItem("使用像素放大模式")]
             public static bool PixelScale
             {
                 get
@@ -91,6 +94,7 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否紧贴主窗口，默认为 None
             /// </summary>
+            [SettingItem("与主窗口位置")]
             public static PinPosition PinPosition
             {
                 get
