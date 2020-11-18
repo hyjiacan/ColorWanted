@@ -207,6 +207,10 @@ namespace ColorWanted.util
         public static string Round(double value)
         {
             var temp = value.ToString("0.00").Split('.');
+            if (temp.Length == 1)
+            {
+                return temp[0];
+            }
 
             temp[1] = temp[1].TrimEnd('0');
 

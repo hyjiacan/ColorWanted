@@ -344,6 +344,20 @@ namespace ColorWanted.setting
             Settings.I18n.Lang = "en";
             rbLangZh.Checked = false;
         }
+
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Application.Restart();
+                Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Sorry that I cannot restart myself.");
+                Environment.Exit(1);
+            }
+        }
     }
 
     class SettingModule

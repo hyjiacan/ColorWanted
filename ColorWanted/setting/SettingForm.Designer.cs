@@ -34,6 +34,7 @@ namespace ColorWanted.setting
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingForm));
             this.pnContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.rbLangEn = new System.Windows.Forms.RadioButton();
             this.rbLangZh = new System.Windows.Forms.RadioButton();
             this.btnTheme = new System.Windows.Forms.Button();
@@ -42,7 +43,8 @@ namespace ColorWanted.setting
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.tbFilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnRestart = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +56,7 @@ namespace ColorWanted.setting
             this.pnContainer.AutoScroll = true;
             this.pnContainer.Location = new System.Drawing.Point(12, 92);
             this.pnContainer.Name = "pnContainer";
-            this.pnContainer.Size = new System.Drawing.Size(560, 460);
+            this.pnContainer.Size = new System.Drawing.Size(560, 426);
             this.pnContainer.TabIndex = 0;
             // 
             // panel1
@@ -75,6 +77,14 @@ namespace ColorWanted.setting
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(560, 81);
             this.panel1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.label3.Location = new System.Drawing.Point(0, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(560, 1);
+            this.label3.TabIndex = 7;
             // 
             // rbLangEn
             // 
@@ -160,13 +170,25 @@ namespace ColorWanted.setting
             this.label1.TabIndex = 0;
             this.label1.Text = "配置文件";
             // 
-            // label3
+            // label4
             // 
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(0, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(560, 1);
-            this.label3.TabIndex = 7;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 534);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(449, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "设置项在变更后会自动保存。但一些设置项需要重启软件才能生效，是否立即重启？";
+            // 
+            // btnRestart
+            // 
+            this.btnRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestart.Location = new System.Drawing.Point(497, 529);
+            this.btnRestart.Name = "btnRestart";
+            this.btnRestart.Size = new System.Drawing.Size(75, 23);
+            this.btnRestart.TabIndex = 2;
+            this.btnRestart.Text = "立即重启";
+            this.btnRestart.UseVisualStyleBackColor = true;
+            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 
             // SettingForm
             // 
@@ -174,6 +196,8 @@ namespace ColorWanted.setting
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.btnRestart);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -187,6 +211,7 @@ namespace ColorWanted.setting
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -203,5 +228,7 @@ namespace ColorWanted.setting
         private System.Windows.Forms.RadioButton rbLangZh;
         private System.Windows.Forms.RadioButton rbLangEn;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnRestart;
     }
 }
