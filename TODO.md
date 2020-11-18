@@ -19,5 +19,6 @@
 - [ ] 截图工具条，添加撤消/重做按钮
 - [ ] 截图选中区域后，支持调整尺寸
 - [ ] 截图和录屏，支持直接选择窗口
-- [ ] 重构多语言支持
+- [ ] 重构多语言支持(通过遍历控件文本的方式查找其它语言，并设置其值)
+
 [highdpi]: https://docs.microsoft.com/zh-cn/dotnet/framework/winforms/automatic-scaling-in-windows-forms
