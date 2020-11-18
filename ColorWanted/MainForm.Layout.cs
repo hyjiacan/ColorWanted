@@ -172,7 +172,7 @@ namespace ColorWanted
             resources.ApplyResources(this.tray, "tray");
             this.tray.ContextMenuStrip = this.menu;
             this.tray.Icon = global::ColorWanted.Properties.Resources.ico;
-            this.tray.Click += new EventHandler(this.tray_Click);
+            this.tray.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tray_MouseClick);
             this.tray.Visible = true;
             // 
             // menu

@@ -88,11 +88,6 @@ namespace ColorWanted
         private StringBuilder colorBuffer;
 
         /// <summary>
-        /// 当前的HSI算法
-        /// </summary>
-        private HsiAlgorithm currentHsiAlgorithm;
-
-        /// <summary>
         /// 启动时传入的参数列表
         /// </summary>
         private string[] AppArgs;
@@ -282,7 +277,7 @@ namespace ColorWanted
                 Util.Round(hsb.B * 100)).ToString();
             colorBuffer.Clear();
 
-            var hsi = HSI.Parse(color, currentHsiAlgorithm);
+            var hsi = HSI.Parse(color, Settings.Main.HsiAlgorithm);
             lbHsi.Text = colorBuffer.AppendFormat("HSI({0},{1},{2})",
                 Math.Round(hsi.H),
                 Util.Round(hsi.S * 100),
@@ -629,8 +624,12 @@ namespace ColorWanted
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tray_Click(object sender, EventArgs e)
+        private void tray_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
             if (Visible)
             {
                 TopMost = true;
@@ -739,7 +738,7 @@ namespace ColorWanted
 
         private void trayMenuSettings_Click(object sender, EventArgs e)
         {
-            SettingForm.Instance.ShowDialog(this);
+            SettingForm.Instance.Show();
         }
 
         private void ToggleCopyPolicy()
