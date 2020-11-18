@@ -106,6 +106,7 @@ namespace ColorWanted.screenshot
             this.Text = "ScreenshotCountdown";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.DelayedScreenshotForm_Load);
+            this.VisibleChanged += new System.EventHandler(this.DelayedScreenshotForm_VisibleChanged);
             this.MouseEnter += new System.EventHandler(this.DelayedScreenshotForm_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.DelayedScreenshotForm_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.numSeconds)).EndInit();

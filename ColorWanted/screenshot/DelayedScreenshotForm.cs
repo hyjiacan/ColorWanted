@@ -9,6 +9,7 @@ namespace ColorWanted.screenshot
         /// 延时截图的计时器
         /// </summary>
         private Timer screenshotTimer;
+        private Timer visibleWatchTimer;
 
         public DelayedScreenshotForm()
         {
@@ -22,6 +23,13 @@ namespace ColorWanted.screenshot
                 Interval = 1000
             };
             screenshotTimer.Tick += ScreenshotTimer_Tick;
+
+            // 如果窗口显示后1秒鼠标都没有移到到窗口上，那么隐藏窗口
+            visibleWatchTimer = new Timer
+            {
+                Interval = 1000
+            };
+            visibleWatchTimer.Tick += VisibleWatchTimer_Tick;
         }
 
         private void ScreenshotTimer_Tick(object sender, EventArgs e)
@@ -89,6 +97,19 @@ namespace ColorWanted.screenshot
             else
             {
                 numSeconds.Focus();
+            }
+        }
+
+        private void DelayedScreenshotForm_VisibleChanged(object sender, EventArgs e)
+        {
+            visibleWatchTimer.Enabled = Visible;
+        }
+
+        private void VisibleWatchTimer_Tick(object sender, EventArgs e)
+        {
+            if (!Bounds.Contains(MousePosition))
+            {
+                Hide();
             }
         }
     }
