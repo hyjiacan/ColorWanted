@@ -67,7 +67,6 @@ namespace ColorWanted
             previewForm.LocationChanged += previewForm_LocationChanged;
 
             currentDisplayMode = DisplayMode.Fixed;
-            currentHsiAlgorithm = Settings.Main.HsiAlgorithm;
 
             colorBuffer = new StringBuilder(8, 64);
 

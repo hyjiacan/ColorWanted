@@ -3,7 +3,6 @@ namespace ColorWanted.setting
 {
     partial class Settings
     {
-        [SettingModule("多语言")]
         public static class I18n
         {
             private const string section = "i18n";
@@ -20,7 +19,6 @@ namespace ColorWanted.setting
             /// <summary>
             /// 语言
             /// </summary>
-            [SettingItem("设置语言")]
             public static string Lang
             {
                 get { return Get("lang"); }

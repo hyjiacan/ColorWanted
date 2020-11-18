@@ -94,7 +94,6 @@ namespace ColorWanted.setting
             /// <summary>
             /// 是否紧贴主窗口，默认为 None
             /// </summary>
-            [SettingItem("与主窗口位置")]
             public static PinPosition PinPosition
             {
                 get

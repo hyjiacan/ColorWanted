@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,7 +24,7 @@ namespace ColorWanted.setting
         {
             get
             {
-                if (instance == null)
+                if (instance == null || instance.IsDisposed)
                 {
                     instance = new SettingForm();
                 }
@@ -34,6 +35,12 @@ namespace ColorWanted.setting
         private SettingForm()
         {
             InitializeComponent();
+        }
+
+        public new void Show()
+        {
+            base.Show();
+            BringToFront();
         }
 
         private void LoadSettings()
@@ -145,7 +152,14 @@ namespace ColorWanted.setting
                 AutoSize = true
             });
 
-            var enumItems = Enum.GetNames(item.PropertyType);
+            var enumItems = item.PropertyType.GetFields()
+                .Where(field => field.Name != "value__")
+                .Select(field =>
+                {
+                    var desc = field.GetCustomAttribute<EnumDescriptionAttribute>();
+                    desc.Value = field.GetValue(item).ToString();
+                    return desc;
+                }).ToArray();
 
             var dropdown = new ComboBox
             {
@@ -153,17 +167,26 @@ namespace ColorWanted.setting
                 Top = 16,
                 MinimumSize = new Size(400, 0),
                 DropDownStyle = ComboBoxStyle.DropDownList,
-                FlatStyle = FlatStyle.Flat
+                ValueMember = "Value",
+                DisplayMember = "Description"
             };
 
             dropdown.Items.AddRange(enumItems);
-            dropdown.SelectedIndex = Array.IndexOf(enumItems, item.GetValue(module).ToString());
+
+            var val = item.GetValue(module).ToString();
+            dropdown.SelectedItem = enumItems.First(i => i.Value == val);
+
+            // 鼠标离开时，使其推动焦点，以避免选项被意外选择
+            dropdown.MouseLeave += (sender, e) =>
+            {
+                dropdown.Parent.Focus();
+            };
 
             itemContainer.Controls.Add(dropdown);
 
             dropdown.SelectedIndexChanged += (sender, e) =>
             {
-                item.SetValue(module, Enum.Parse(item.PropertyType, dropdown.SelectedItem.ToString()));
+                item.SetValue(module, Enum.Parse(item.PropertyType, ((EnumDescriptionAttribute)dropdown.SelectedItem).Value));
             };
             return itemContainer;
         }
@@ -286,13 +309,40 @@ namespace ColorWanted.setting
 
         private void SettingForm_Load(object sender, EventArgs e)
         {
-            ThemeUtil.Apply(this);
+            if (Settings.I18n.Lang == "zh")
+            {
+                rbLangZh.Checked = true;
+                rbLangEn.Checked = false;
+            }
+            else
+            {
+                rbLangZh.Checked = false;
+                rbLangEn.Checked = true;
+            }
+
             Task.Factory.StartNew(() =>
             {
                 LoadSettings();
 
                 this.InvokeMethod(UpdateSettings);
             });
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void rbLangZh_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.I18n.Lang = "zh";
+            rbLangEn.Checked = false;
+        }
+
+        private void rbLangEn_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.I18n.Lang = "en";
+            rbLangZh.Checked = false;
         }
     }
 

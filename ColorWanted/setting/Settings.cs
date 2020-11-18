@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
@@ -31,6 +32,11 @@ namespace ColorWanted.setting
         /// </summary>
         public const string FileName = "option.ini";
 
+        /// <summary>
+        /// 为了减少频繁读取配置引发性能问题，添加配置项的缓存
+        /// </summary>
+        private static readonly Dictionary<string, string> cache = new Dictionary<string, string>();
+
         static Settings()
         {
             DataPath = Path.Combine(Environment
@@ -49,10 +55,24 @@ namespace ColorWanted.setting
             }
         }
 
+        private static void UpodateCache(string section, string key, string value)
+        {
+            var cacheKey = $"{section}-{key}";
+            if (cache.ContainsKey(cacheKey))
+            {
+                cache[cacheKey] = value;
+            }
+            else
+            {
+                cache.Add(cacheKey, value);
+            }
+        }
+
         private static void SetValue(string section, string key, string value)
         {
             try
             {
+                UpodateCache(section, key, value);
                 NativeMethods.WriteIni(section, key, value, FullName);
             }
             catch { }
@@ -62,9 +82,19 @@ namespace ColorWanted.setting
         {
             try
             {
+                var cacheKey = $"{section}-{key}";
+                if (cache.ContainsKey(cacheKey))
+                {
+                    return cache[cacheKey];
+                }
+
                 var buf = new StringBuilder(512);
                 NativeMethods.ReadIni(section, key, "", buf, 512, FullName);
-                return buf.ToString();
+
+                var value = buf.ToString();
+                cache.Add(cacheKey, value);
+
+                return value;
             }
             catch { return ""; }
         }
