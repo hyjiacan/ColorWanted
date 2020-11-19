@@ -6,6 +6,7 @@ using ColorWanted.setting;
 using ColorWanted.theme;
 using ColorWanted.util;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -188,9 +189,23 @@ namespace ColorWanted
                 update.UpdateForm.ShowWindow(true);
             }
 
+            //RegisterDeskband();
+
             var worker = new System.ComponentModel.BackgroundWorker();
             worker.DoWork += AppArgsHandler;
             worker.RunWorkerAsync();
+        }
+
+        private void RegisterDeskband()
+        {
+            Process.Start(Environment.ExpandEnvironmentVariables("%SystemRoot%\\Microsoft.NET\\Framework\\v4.0.30319\\RegAsm.exe"),
+                $"/codebase {Application.ExecutablePath}");
+        }
+
+        private void UnregisterDeskband()
+        {
+            Process.Start("%SystemRoot%\\Microsoft.NET\\Framework\\v4.0.30319\\RegAsm.exe",
+                $"/u {Application.ExecutablePath}");
         }
 
         private void AppArgsHandler(object sender, System.ComponentModel.DoWorkEventArgs e)

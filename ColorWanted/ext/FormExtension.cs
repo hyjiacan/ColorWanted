@@ -10,20 +10,20 @@ namespace ColorWanted.ext
     /// </summary>
     public static class FormExtension
     {
-        public delegate void FormInvoker();
+        public delegate void MethodInvoker();
 
-        public static void InvokeMethod(this Form form, FormInvoker invoker)
+        public static void InvokeMethod(this Control control, MethodInvoker invoker)
         {
-            if (form.IsDisposed)
+            if (control.IsDisposed)
             {
                 return;
             }
             // fix #3 #4
             try
             {
-                if (form.InvokeRequired)
+                if (control.InvokeRequired)
                 {
-                    form.Invoke(new MethodInvoker(invoker));
+                    control.Invoke(new MethodInvoker(invoker));
                 }
                 else
                 {

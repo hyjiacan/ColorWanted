@@ -1441,7 +1441,8 @@ namespace CSDeskBand
             var guid = t.GUID.ToString("B");
             try
             {
-                var registryKey = Registry.ClassesRoot.CreateSubKey($@"CLSID\{guid}");
+                //var registryKey = Registry.ClassesRoot.CreateSubKey($@"CLSID\{guid}");
+                var registryKey = Registry.CurrentUser.CreateSubKey($@"SOFTWARE\Classes\CLSID\{guid}");
                 registryKey.SetValue(null, GetToolbarName(t));
 
                 var subKey = registryKey.CreateSubKey("Implemented Categories");
@@ -1508,7 +1509,8 @@ namespace CSDeskBand
             var guid = t.GUID.ToString("B");
             try
             {
-                Registry.ClassesRoot.OpenSubKey(@"CLSID", true)?.DeleteSubKeyTree(guid);
+                // Registry.ClassesRoot.OpenSubKey(@"CLSID", true)?.DeleteSubKeyTree(guid);
+                Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Classes\CLSID", true)?.DeleteSubKeyTree(guid);
 
                 Console.WriteLine($"Successfully unregistered deskband `{GetToolbarName(t)}` - GUID: {guid}");
             }

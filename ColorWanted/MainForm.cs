@@ -400,6 +400,7 @@ namespace ColorWanted
             {
                 // ignore
             }
+            //UnregisterDeskband();
         }
 
         /// <summary>
