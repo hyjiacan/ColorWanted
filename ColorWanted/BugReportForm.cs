@@ -1,4 +1,5 @@
 ﻿using ColorWanted.theme;
+using ColorWanted.util;
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -53,9 +54,10 @@ Error Stack: {5}
                     Application.Restart();
                     Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Sorry that I cannot restart myself.");
+                    Logger.Error(ex);
+                    MessageBox.Show($"Sorry that I cannot restart myself: {ex.Message}");
                     Environment.Exit(1);
                 }
                 return;

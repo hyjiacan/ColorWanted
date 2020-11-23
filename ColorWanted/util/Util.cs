@@ -137,6 +137,7 @@ namespace ColorWanted.util
 
         public static void ShowBugReportForm(Exception ex)
         {
+            Logger.Fatal(ex);
             // 发生未处理的异常时，打开BUG报告窗口
             if (reportform == null)
             {
@@ -256,8 +257,9 @@ namespace ColorWanted.util
                 //退出
                 Environment.Exit(0);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
             }
             return false;
         }

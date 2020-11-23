@@ -152,6 +152,7 @@ namespace ColorWanted.screenshot
                 }
                 catch (Exception ex)
                 {
+                    util.Logger.Warn(ex);
                     this.InvokeMethod(() =>
                     {
                         lbMsg.Text = "生成GIF文件出错";

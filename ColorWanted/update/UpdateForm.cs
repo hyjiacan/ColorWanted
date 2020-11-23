@@ -60,9 +60,7 @@ namespace ColorWanted.update
             if (Instance.Busy)
             {
                 var mainForm = Application.OpenForms["MainForm"] as MainForm;
-                if (mainForm != null)
-                    mainForm
-                        .ShowTip(2000, Instance.resources.GetString("updateIsBusy"));
+                mainForm?.ShowTip(2000, Instance.resources.GetString("updateIsBusy"));
                 return;
             }
 
@@ -132,8 +130,9 @@ namespace ColorWanted.update
                 updateStatePresent.DoWork += updateStatePresent_DoWork;
                 updateStatePresent.RunWorkerCompleted += updateStatePresent_RunWorkerCompleted;
             }
-            if (updateStatePresent.IsBusy)
+            else if (updateStatePresent.IsBusy)
             {
+                Logger.Debug("updateStatePresent is busy");
                 return;
             }
             Busy = true;
@@ -181,6 +180,7 @@ namespace ColorWanted.update
                 }
 
                 // 检查到可用的更新
+                Logger.Info($"New version found: {updateInfo.Version}");
                 lbMsg.Text = $"{resources.GetString("newVersion")} " + updateInfo.Version;
 
 
@@ -196,7 +196,10 @@ namespace ColorWanted.update
 
                 // 当不是来自于自动更新时，窗口已经处于可见状态
                 if (!FromAutoUpdate)
+                {
+                    Logger.Debug("Currently is not autoupdate, the window should be visible");
                     return;
+                }
 
                 // 只有来自于自动更新时，窗口才是在检查到更新到才显示
                 this.SlideIn(() =>

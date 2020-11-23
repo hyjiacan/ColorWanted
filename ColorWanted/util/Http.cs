@@ -29,6 +29,7 @@ namespace ColorWanted.util
             var req = WebRequest.Create(uri) as HttpWebRequest;
             if (req == null)
             {
+                Logger.Warn($"Cannot create request to {uri}");
                 return null;
             }
             req.Accept = accept;
@@ -36,11 +37,13 @@ namespace ColorWanted.util
             req.UserAgent = string.Format(userAgent, Application.ProductVersion);
             req.KeepAlive = false;
 
+            Logger.Info($"Request {uri}");
             using (var res = req.GetResponse())
             {
                 var responseStream = res.GetResponseStream();
                 if (responseStream == null)
                 {
+                    Logger.Warn("Empty response");
                     return null;
                 }
                 using (var stream = new StreamReader(responseStream))

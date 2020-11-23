@@ -43,8 +43,9 @@ namespace ColorWanted.screenshot
                 // 卸载勾子
                 NativeMethods.UnhookWindowsHookEx(hook);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 // ignore
             }
             if (timer != null)
@@ -58,9 +59,7 @@ namespace ColorWanted.screenshot
         private void ScreenRecordForm_Load(object sender, EventArgs e)
         {
             // 创建缓存目录
-            var cachePath = Path.Combine(Environment
-                       .GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                   Application.ProductName, "record-temp", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            var cachePath = Path.Combine(Glob.AppDataPath, "record-temp", DateTime.Now.ToString("yyyyMMddHHmmss"));
 
             Directory.CreateDirectory(cachePath);
 

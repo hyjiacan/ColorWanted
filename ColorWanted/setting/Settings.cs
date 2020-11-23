@@ -39,20 +39,8 @@ namespace ColorWanted.setting
 
         static Settings()
         {
-            DataPath = Path.Combine(Environment
-                    .GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                Application.ProductName);
+            DataPath = Glob.AppDataPath;
             FullName = Path.Combine(DataPath, FileName);
-
-            if (Directory.Exists(DataPath)) return;
-
-            try
-            {
-                Directory.CreateDirectory(DataPath);
-            }
-            catch
-            {
-            }
         }
 
         private static void UpodateCache(string section, string key, string value)
@@ -75,7 +63,10 @@ namespace ColorWanted.setting
                 UpodateCache(section, key, value);
                 NativeMethods.WriteIni(section, key, value, FullName);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                util.Logger.Warn(ex);
+            }
         }
 
         private static string GetValue(string section, string key)
@@ -96,7 +87,11 @@ namespace ColorWanted.setting
 
                 return value;
             }
-            catch { return ""; }
+            catch (Exception ex)
+            {
+                util.Logger.Warn(ex);
+                return "";
+            }
         }
 
         private static Point ParsePoint(string loc)

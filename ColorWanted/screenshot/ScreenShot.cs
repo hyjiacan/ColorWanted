@@ -141,11 +141,8 @@ namespace ColorWanted.screenshot
         {
             if (Busy)
             {
-                if (recordForm != null)
-                {
-                    // 关闭窗口，此时会停止录制
-                    recordForm.Close();
-                }
+                // 关闭窗口，此时会停止录制
+                recordForm?.Close();
                 return;
             }
             Busy = true;

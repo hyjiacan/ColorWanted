@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorWanted.util;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows;
@@ -161,8 +162,9 @@ namespace ColorWanted.ext
 
                 return bmpReturn;
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 return null;
             }
         }
@@ -293,6 +295,11 @@ namespace ColorWanted.ext
                     image.Save(stream, format);
                 }
                 return new Bitmap(stream);
+            }
+            catch (Exception ex)
+            {
+                Logger.Warn(ex);
+                return null;
             }
             finally
             {

@@ -111,8 +111,9 @@ namespace ColorWanted
                             ClipboardManager.Write(text, text.GetHashCode());
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        Logger.Warn(ex);
                         // ingore
                     }
                     break;
@@ -335,8 +336,9 @@ namespace ColorWanted
             {
                 previewForm.UpdateImage(pic);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 try
                 {
                     if (previewForm != null && !previewForm.IsDisposed)
@@ -344,8 +346,9 @@ namespace ColorWanted
                         previewForm.Dispose();
                     }
                 }
-                catch (Exception)
+                catch (Exception ex2)
                 {
+                    Logger.Warn(ex2);
                     // ignore
                 }
                 // 重试一次
@@ -372,32 +375,36 @@ namespace ColorWanted
             {
                 NativeMethods.RemoveClipboardFormatListener(Handle);
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 // ignore
             }
             try
             {
                 ColorUtil.DeleteDC();
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 // ignore
             }
             try
             {
                 this.InvokeMethod(() => HotKey.Unbind(Handle));
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 // ignore
             }
             try
             {
                 Msg.Stop();
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 // ignore
             }
             //UnregisterDeskband();
@@ -804,8 +811,9 @@ namespace ColorWanted
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 // ignore
             }
 

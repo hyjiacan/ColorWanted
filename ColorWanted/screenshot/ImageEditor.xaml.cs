@@ -265,28 +265,22 @@ namespace ColorWanted.screenshot
 
         public void Reset()
         {
-            if (image != null)
+            try
             {
-                try
-                {
-                    image.Dispose();
-                }
-                finally
-                {
-                    image = null;
-                }
+                image?.Dispose();
+            }
+            finally
+            {
+                image = null;
             }
             counter = 0;
-            if (SelectedImage != null)
+            try
             {
-                try
-                {
-                    SelectedImage.Dispose();
-                }
-                finally
-                {
-                    SelectedImage = null;
-                }
+                SelectedImage?.Dispose();
+            }
+            finally
+            {
+                SelectedImage = null;
             }
             maskBackground.ImageSource = null;
             selectArea.Source = null;
@@ -299,13 +293,19 @@ namespace ColorWanted.screenshot
             {
                 canvasMask.Reset();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Logger.Warn(ex);
+            }
 
             try
             {
                 canvasEdit.Reset();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Logger.Warn(ex);
+            }
             canvasEdit.Visibility = Visibility.Hidden;
             canvasMask.EditEnabled = true;
         }

@@ -44,8 +44,9 @@ namespace ColorWanted.setting
                     {
                         return Color.FromArgb(colorValue);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        util.Logger.Warn(ex);
                         return color;
                     }
                 }
@@ -164,9 +165,10 @@ namespace ColorWanted.setting
                         // 写注册表成功后，将其写入配置文件，以避免每次启动读取注册表
                         Set("enabled", value ? "1" : "0");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show($"此操作需要管理员权限，请重新以管理员身份运行: {e.Message}");
+                        util.Logger.Warn(ex);
+                        MessageBox.Show($"此操作需要管理员权限，请重新以管理员身份运行: {ex.Message}");
                     }
                 }
             }

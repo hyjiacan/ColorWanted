@@ -1,4 +1,5 @@
 ﻿using ColorWanted.setting;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -81,8 +82,9 @@ namespace ColorWanted.theme
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                util.Logger.Warn(ex);
                 // ignore
             }
         }
@@ -111,8 +113,9 @@ namespace ColorWanted.theme
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                util.Logger.Warn(ex);
                 // ignore
             }
         }

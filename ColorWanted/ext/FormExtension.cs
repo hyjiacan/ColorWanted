@@ -83,10 +83,7 @@ namespace ColorWanted.ext
                 {
                     // ignore
                 }
-                if (callback != null)
-                {
-                    callback.Invoke();
-                }
+                callback?.Invoke();
             })
             { IsBackground = true }.Start();
         }

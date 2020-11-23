@@ -283,6 +283,7 @@ namespace ColorWanted.setting
             }
             catch (Exception ex)
             {
+                util.Logger.Warn(ex);
                 ((MainForm)Application.OpenForms["MainForm"]).ShowBalloon(5000, "无法打开配置文件", ex.Message, ToolTipIcon.Warning);
             }
         }
@@ -352,8 +353,9 @@ namespace ColorWanted.setting
                 Application.Restart();
                 Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                util.Logger.Error(ex);
                 MessageBox.Show("Sorry that I cannot restart myself.");
                 Environment.Exit(1);
             }

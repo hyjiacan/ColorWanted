@@ -135,6 +135,7 @@ namespace ColorWanted.util
         private static void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             var port = GetRandomPort();
+            Logger.Info($"Start UDP listener on port {port}");
 
             Settings.Msg.Port = port;
 

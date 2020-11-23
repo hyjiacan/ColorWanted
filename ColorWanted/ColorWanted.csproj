@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DESKBAND_WINFORMS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -102,6 +102,7 @@
     <Compile Include="ext\ColorExtension.cs" />
     <Compile Include="ext\ElementExtension.cs" />
     <Compile Include="ext\GraphicsExtension.cs" />
+    <Compile Include="Glob.cs" />
     <Compile Include="history\DateTreeNode.cs" />
     <Compile Include="MainForm.Init.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -269,6 +270,7 @@
     <Compile Include="colors\HSB.cs" />
     <Compile Include="util\Http.cs" />
     <Compile Include="util\Json.cs" />
+    <Compile Include="util\Logger.cs" />
     <Compile Include="util\Msg.cs" />
     <Compile Include="util\Util.cs" />
     <Compile Include="viewer\ImageCache.cs" />

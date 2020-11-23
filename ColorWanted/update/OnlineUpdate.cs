@@ -51,6 +51,7 @@ namespace ColorWanted.update
 
             try
             {
+                Logger.Info("Checking update info");
                 var data = Http.Get(tagsUrl);
                 if (data == null)
                 {
@@ -82,6 +83,7 @@ namespace ColorWanted.update
 
                 if (tag == null)
                 {
+                    Logger.Info("Newer tag not found");
                     return null;
                 }
 
@@ -93,8 +95,9 @@ namespace ColorWanted.update
                 LoadFileInfo(info, tag.commit.sha);
                 return info;
             }
-            catch(Exception e)
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 return info;
             }
         }
@@ -149,8 +152,9 @@ namespace ColorWanted.update
                     web.DownloadFileAsync(new Uri(updateInfo.Link), filename);
                 }
             }
-            catch
+            catch (Exception ex)
             {
+                Logger.Warn(ex);
                 data.Success = false;
                 callback.Invoke(data);
                 if (File.Exists(filename))
@@ -260,11 +264,13 @@ namespace ColorWanted.update
             var treeInfo = Json.Deserialize<TreeInfo>(data);
             if (treeInfo == null)
             {
+                Logger.Warn("Cannot deserialize response data as TreeInfo");
                 return;
             }
             var node = treeInfo.tree.FirstOrDefault(n => n.path == "ColorWanted/bin/Release/ColorWanted.exe");
             if (node == null)
             {
+                Logger.Info("Cannot find BINARY file in response");
                 return;
             }
             info.FileSize = node.size;

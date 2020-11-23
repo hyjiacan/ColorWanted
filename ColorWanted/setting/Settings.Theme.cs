@@ -85,8 +85,9 @@ namespace ColorWanted.setting
                     {
                         return Color.FromArgb(colorValue);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        util.Logger.Warn(ex);
                         return color;
                     }
                 }
@@ -115,8 +116,9 @@ namespace ColorWanted.setting
                     {
                         return Color.FromArgb(colorValue);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        util.Logger.Warn(ex);
                         return color;
                     }
                 }

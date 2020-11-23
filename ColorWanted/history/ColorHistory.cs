@@ -1,4 +1,5 @@
 ﻿using ColorWanted.setting;
+using ColorWanted.util;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -64,8 +65,9 @@ namespace ColorWanted.history
                         Source = int.Parse(temp[2])
                     };
                 }
-                catch
+                catch(Exception ex)
                 {
+                    Logger.Warn(ex);
                     return null;
                 }
             }).Where(item => item != null).ToArray();

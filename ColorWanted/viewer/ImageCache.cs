@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace ColorWanted.viewer
 {
@@ -54,8 +55,9 @@ namespace ColorWanted.viewer
                 _cache[x, y] = color.ToArgb();
                 return color;
             }
-            catch
+            catch (Exception ex)
             {
+                util.Logger.Warn(ex);
                 return Color.Black;
             }
         }
@@ -65,11 +67,8 @@ namespace ColorWanted.viewer
             _cache = null;
             Width = 0;
             Height = 0;
-            if (image != null)
-            {
-                image.Dispose();
-                image = null;
-            }
+            image?.Dispose();
+            image = null;
         }
     }
 }

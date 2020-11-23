@@ -19,9 +19,7 @@ namespace ColorWanted.i18n
 
         static I18nManager()
         {
-            LangDir = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                Application.ProductName, "i18n");
+            LangDir = Path.Combine(Glob.AppDataPath, "i18n");
             if (!Directory.Exists(LangDir))
             {
                 Directory.CreateDirectory(LangDir);
@@ -178,8 +176,9 @@ namespace ColorWanted.i18n
                        {
                            return Json.Deserialize<Language>(content);
                        }
-                       catch (Exception)
+                       catch (Exception ex)
                        {
+                           Logger.Warn(ex);
                            // ignore the exception
                            return null;
                        }

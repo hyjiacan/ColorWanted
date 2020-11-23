@@ -68,9 +68,10 @@ namespace ColorWanted.setting
                         // 写注册表成功后，将其写入配置文件，以避免每次启动读取注册表
                         Set("autostart", value ? "1" : "0");
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show(e.Message);
+                        util.Logger.Warn(ex);
+                        MessageBox.Show(ex.Message);
                     }
                 }
             }

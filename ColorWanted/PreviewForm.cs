@@ -48,10 +48,7 @@ namespace ColorWanted
             var size = padding == 0 ? picPreview.Size : picPreview.Size - new Size(padding, padding);
             if (image == null || !image.Size.Equals(size))
             {
-                if (image != null)
-                {
-                    image.Dispose();
-                }
+                image?.Dispose();
                 image = new Bitmap(size.Width, size.Height);
             }
 

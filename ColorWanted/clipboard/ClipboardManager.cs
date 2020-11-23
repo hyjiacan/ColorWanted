@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Windows.Forms;
 
 namespace ColorWanted.clipboard
 {
@@ -13,8 +12,7 @@ namespace ColorWanted.clipboard
 
         static ClipboardManager()
         {
-            DataRoot = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                Application.ProductName, "clipboard");
+            DataRoot = Path.Combine(Glob.AppDataPath, "clipboard");
             if (!Directory.Exists(DataRoot))
             {
                 Directory.CreateDirectory(DataRoot);
