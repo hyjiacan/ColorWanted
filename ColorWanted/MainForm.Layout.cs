@@ -49,6 +49,7 @@ namespace ColorWanted
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenShot = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuOpenImage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.trayMenuShowClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,6 +187,7 @@ namespace ColorWanted
             this.toolStripSeparator2,
             this.trayMenuScreenShot,
             this.trayMenuScreenRecord,
+            this.trayMenuOpenImage,
             this.toolStripSeparator4,
             this.trayMenuSettings,
             this.toolStripSeparator1,
@@ -244,12 +246,19 @@ namespace ColorWanted
             this.trayMenuScreenShot.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
             this.trayMenuScreenShot.Click += new EventHandler(this.trayMenuScreenShot_Click);
             // 
-            // trayMenuScreenShot
+            // trayMenuScreenRecord
             // 
             resources.ApplyResources(this.trayMenuScreenRecord, "trayMenuScreenRecord");
             this.trayMenuScreenRecord.Name = "trayMenuScreenRecord";
             this.trayMenuScreenRecord.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
             this.trayMenuScreenRecord.Click += new EventHandler(this.trayMenuScreenRecord_Click);
+            // 
+            // trayMenuOpenImage
+            // 
+            resources.ApplyResources(this.trayMenuOpenImage, "trayMenuOpenImage");
+            this.trayMenuOpenImage.Name = "trayMenuOpenImage";
+            this.trayMenuOpenImage.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
+            this.trayMenuOpenImage.Click += new EventHandler(this.trayMenuOpenImage_Click);
             // 
             // toolStripSeparator4
             // 
@@ -359,6 +368,7 @@ namespace ColorWanted
         public System.Windows.Forms.Label lbHsi;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenShot;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenRecord;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuOpenImage;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         public System.Windows.Forms.ToolStripMenuItem trayMenuShowClipboard;

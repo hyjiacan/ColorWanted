@@ -328,6 +328,10 @@
                 "Text": "录屏",
                 "ToolTipText": "录制屏幕GIF"
             },
+            "trayMenuOpenImage": {
+                "Text": "打开图片",
+                "ToolTipText": "使用图片查看器打开图片"
+            },
             "trayMenuShootOnCurrentScreen": {
                 "Text": "在当前屏幕操作",
                 "ToolTipText": "仅在光标所在屏幕执行截图和录屏"

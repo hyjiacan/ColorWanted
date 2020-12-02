@@ -333,6 +333,10 @@
                 "Text": "Screenrecord",
                 "ToolTipText": "Record screen as GIF"
             },
+            "trayMenuOpenImage": {
+                "Text": "Open Image",
+                "ToolTipText": "Open an image file with Image Viewer"
+            },
             "trayMenuShootOnCurrentScreen": {
                 "Text": "Current screen only",
                 "ToolTipText": "Shoot the screen which cursor on"

@@ -9,6 +9,7 @@ using ColorWanted.screenshot;
 using ColorWanted.setting;
 using ColorWanted.update;
 using ColorWanted.util;
+using ColorWanted.viewer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -729,6 +730,20 @@ namespace ColorWanted
         }
 
         /// <summary>
+        /// 打开图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void trayMenuOpenImage_Click(object sender, EventArgs e)
+        {
+            var filename = ImageViewer.SelectFile();
+            if (filename != null)
+            {
+                ImageViewer.OpenImage(filename);
+            }
+        }
+
+        /// <summary>
         /// 打开剪贴板历史窗口
         /// </summary>
         /// <param name="sender"></param>
@@ -739,11 +754,10 @@ namespace ColorWanted
         }
 
         /// <summary>
-        /// 是否启用图片查看器
+        /// 打开设置窗口
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-
         private void trayMenuSettings_Click(object sender, EventArgs e)
         {
             SettingForm.Instance.Show();
