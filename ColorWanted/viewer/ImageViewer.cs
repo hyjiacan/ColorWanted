@@ -1,4 +1,5 @@
-﻿using ColorWanted.setting;
+﻿using ColorWanted.ext;
+using ColorWanted.setting;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -120,6 +121,74 @@ namespace ColorWanted.viewer
             pictureBox.Top = 0;
         }
 
+        public static string SelectFile()
+        {
+            var dialog = new OpenFileDialog
+            {
+                // { ".png", ".jpg", ".jpeg", ".bmp" };
+                Filter = "图片文件|" + string.Join(";", ViewerUtil.SUPPORTED_IMAGES_TYPES.Select(type => $"*{type}"))
+            };
+            if (DialogResult.OK != dialog.ShowDialog())
+            {
+                dialog.Dispose();
+                return null;
+            }
+            var filename = dialog.FileName;
+            dialog.Dispose();
+            return filename;
+        }
+
+        public static void OpenImage(string filename)
+        {
+            var singleton = Settings.Viewer.Singleton;
+            ImageViewer viewer = null;
+            // 如果存在同文件窗口，直接激活
+            foreach (Form form in Application.OpenForms)
+            {
+                if (!(form is ImageViewer))
+                {
+                    continue;
+                }
+
+                var v = (ImageViewer)form;
+                // 单实例时就使用这一个窗口
+                if (singleton)
+                {
+                    viewer = v;
+                    viewer.LoadImage(filename);
+                    break;
+                }
+
+                // 有相同的文件名，重用此窗口
+                if (filename.Equals(v.CurrentImageName, StringComparison.OrdinalIgnoreCase))
+                {
+                    viewer = v;
+                    break;
+                }
+            }
+            if (viewer == null)
+            {
+                // 运行到这里时，表示未找到窗口，新建一个
+                viewer = new ImageViewer(filename);
+            }
+            if (viewer.WindowState == FormWindowState.Minimized)
+            {
+                viewer.WindowState = FormWindowState.Maximized;
+            }
+            viewer.Show();
+            viewer.FixSize();
+
+            // 延迟将窗口显示到最前，以确保鼠标点击窗口的动作已经完成
+            System.Threading.Tasks.Task.Factory.StartNew(() =>
+            {
+                System.Threading.Thread.Sleep(100);
+                viewer.InvokeMethod(() =>
+                {
+                    viewer.BringToFront();
+                });
+            });
+        }
+
         #region 图片拖到窗口上加载功能支持
         private void ImageViewer_DragEnter(object sender, DragEventArgs e)
         {
@@ -169,9 +238,8 @@ namespace ColorWanted.viewer
             // 读取出数据，以便释放图片句柄
             var data = File.ReadAllBytes(filename);
             var img = Image.FromStream(new MemoryStream(data));
-            ImageCache.SetImage(img as Bitmap);
 
-            Text = string.Format("{0} ({1}x{2})", Path.GetFileName(filename), ImageCache.Width, ImageCache.Height);
+            Text = string.Format("{0} ({1}x{2})", Path.GetFileName(filename), img.Width, img.Height);
             LoadImage(img);
 
             CurrentImageName = filename;
@@ -193,11 +261,13 @@ namespace ColorWanted.viewer
         }
         void LoadImage(Image image)
         {
+            ImageCache.SetImage(image as Bitmap);
             pictureBox.Image = image;
             originImage = null;
             if (!pictureBox.Visible)
             {
                 lbTip.Visible = pictureBox.Visible = true;
+                lbTip.BringToFront();
             }
         }
         #endregion
@@ -209,6 +279,7 @@ namespace ColorWanted.viewer
             if (e.Button == MouseButtons.Left)
             {
                 LeftMouseButtonDown = true;
+                Cursor = Cursors.SizeAll;
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -222,6 +293,7 @@ namespace ColorWanted.viewer
             {
                 LeftMouseButtonDown = false;
                 oldLocation.X = oldLocation.Y = 0;
+                Cursor = Cursors.Cross;
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -235,6 +307,7 @@ namespace ColorWanted.viewer
             RightMouseButtonDown = false;
             oldLocation.X = oldLocation.Y = 0;
             HideSizeLabel();
+            Cursor = Cursors.Cross;
         }
 
         void MovePicture()
@@ -285,6 +358,7 @@ namespace ColorWanted.viewer
             if (pictureBox.Image != null && !lbTip.Visible)
             {
                 lbTip.Visible = true;
+                lbTip.BringToFront();
             }
             if (e.Location == LastMousePosition)
             {
@@ -436,16 +510,11 @@ namespace ColorWanted.viewer
 
         private void menuOpen_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog
+            var filename = SelectFile();
+            if (filename != null)
             {
-                // { ".png", ".jpg", ".jpeg", ".bmp" };
-                Filter = "图片文件|" + string.Join(";", ViewerUtil.SUPPORTED_IMAGES_TYPES.Select(type => $"*{type}"))
-            };
-            if (DialogResult.OK != dialog.ShowDialog(this))
-            {
-                return;
+                LoadImage(filename);
             }
-            LoadImage(dialog.FileName);
         }
 
         private void menuReset_Click(object sender, EventArgs e)

@@ -1,5 +1,4 @@
-﻿using ColorWanted.ext;
-using ColorWanted.setting;
+﻿using ColorWanted.setting;
 using ColorWanted.viewer;
 using System;
 using System.ComponentModel;
@@ -83,53 +82,7 @@ namespace ColorWanted.util
 
         private static void ShowImage(string filename)
         {
-            var singleton = Settings.Viewer.Singleton;
-            ImageViewer viewer = null;
-            // 如果存在同文件窗口，直接激活
-            foreach (Form form in Application.OpenForms)
-            {
-                if (!(form is ImageViewer))
-                {
-                    continue;
-                }
-
-                var v= (ImageViewer)form;
-                // 单实例时就使用这一个窗口
-                if (singleton)
-                {
-                    viewer = v;
-                    viewer.LoadImage(filename);
-                    break;
-                }
-
-                // 有相同的文件名，重用此窗口
-                if (filename.Equals(v.CurrentImageName, StringComparison.OrdinalIgnoreCase))
-                {
-                    viewer = v;
-                    break;
-                }
-            }
-            if (viewer == null)
-            {
-                // 运行到这里时，表示未找到窗口，新建一个
-                viewer = new ImageViewer(filename);
-            }
-            if (viewer.WindowState == FormWindowState.Minimized)
-            {
-                viewer.WindowState = FormWindowState.Maximized;
-            }
-            viewer.Show();
-            viewer.FixSize();
-
-            // 延迟将窗口显示到最前，以确保鼠标点击窗口的动作已经完成
-            System.Threading.Tasks.Task.Factory.StartNew(() =>
-            {
-                System.Threading.Thread.Sleep(100);
-                viewer.InvokeMethod(() =>
-                {
-                    viewer.BringToFront();
-                });
-            });
+            ImageViewer.OpenImage(filename);
         }
 
         private static void Worker_DoWork(object sender, DoWorkEventArgs e)
