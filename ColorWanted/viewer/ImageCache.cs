@@ -55,9 +55,10 @@ namespace ColorWanted.viewer
                 _cache[x, y] = color.ToArgb();
                 return color;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                util.Logger.Warn(ex);
+                //util.Logger.Warn(ex);
+                util.Logger.Warn($"Cannot find point({x},{y}) in image cache({Width},{Height})");
                 return Color.Black;
             }
         }
