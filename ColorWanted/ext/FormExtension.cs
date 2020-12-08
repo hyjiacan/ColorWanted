@@ -1,5 +1,6 @@
 ﻿using ColorWanted.util;
 using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -35,6 +36,10 @@ namespace ColorWanted.ext
                 // ignore
             }
             catch (ObjectDisposedException)
+            {
+                // ignore
+            }
+            catch (InvalidAsynchronousStateException)
             {
                 // ignore
             }
