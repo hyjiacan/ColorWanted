@@ -177,5 +177,21 @@ namespace ColorWanted.ext
             return new System.Drawing.Rectangle((int)rect.Left, (int)rect.Top, (int)(rect.Right - rect.Left), (int)(rect.Bottom - rect.Top));
         }
         #endregion
+        #region 获取键状态
+        /// <summary>
+        /// 参考 https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+        /// </summary>
+        /// <param name="nVirtKey"></param>
+        /// <returns>
+        /// The return value specifies the status of the specified virtual key, as follows:
+        /// If the high-order bit is 1, the key is down; otherwise, it is up.
+        /// If the low-order bit is 1, the key is toggled.A key, such as the CAPS LOCK key, 
+        /// is toggled if it is turned on.The key is off and untoggled if the low-order bit is 0. 
+        /// A toggle key's indicator light (if any) on the keyboard will be on when the key is toggled, 
+        /// and off when the key is untoggled.
+        /// </returns>
+        [DllImport("user32.dll")]
+        public static extern short GetKeyState(int nVirtKey);
+        #endregion
     }
 }

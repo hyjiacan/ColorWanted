@@ -17,7 +17,7 @@ namespace ColorWanted.screenshot
     {
         public Stack<DrawHistoryItem> History { get; private set; }
 
-        private bool IsMouseDown;
+        private bool IsMouseLeftButtonDown;
 
         public bool EditEnabled { get; set; }
 
@@ -63,7 +63,7 @@ namespace ColorWanted.screenshot
                 Children.Remove(item.Element);
             }
             History.Clear();
-            IsMouseDown = false;
+            IsMouseLeftButtonDown = false;
             current = null;
             MoveMode = false;
         }
@@ -241,7 +241,7 @@ namespace ColorWanted.screenshot
                     return;
                 }
                 MoveMode = true;
-                IsMouseDown = true;
+                IsMouseLeftButtonDown = true;
                 EmitDrawEvent(DrawState.Start);
                 return;
             }
@@ -256,7 +256,7 @@ namespace ColorWanted.screenshot
                 current = MakeNewRecord();
 
                 current.Start = point;
-                IsMouseDown = true;
+                IsMouseLeftButtonDown = true;
 
                 CreateTextBox();
 
@@ -268,19 +268,19 @@ namespace ColorWanted.screenshot
 
             current = MakeNewRecord();
             current.Start = point;
-            IsMouseDown = true;
+            IsMouseLeftButtonDown = true;
             EmitDrawEvent(DrawState.Start);
         }
 
         public void ExtendedCanvas_MouseUp(object sender, System.Windows.Input.MouseEventArgs e)
         {
             ExtendedCanvas_MouseLeave(sender, e);
-            IsMouseDown = false;
+            IsMouseLeftButtonDown = false;
         }
 
         private void ExtendedCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (!EditEnabled || !IsMouseDown)
+            if (!EditEnabled || !IsMouseLeftButtonDown)
             {
                 return;
             }
@@ -318,14 +318,15 @@ namespace ColorWanted.screenshot
                 }
                 return;
             }
-            current.End = point;
+
+            current.End = FixPoint(point);
             Draw(current);
             EmitDrawEvent(DrawState.End);
         }
 
         public void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (!EditEnabled || !IsMouseDown)
+            if (!EditEnabled || !IsMouseLeftButtonDown)
             {
                 return;
             }
@@ -360,7 +361,7 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            current.End = point;
+            current.End = FixPoint(point);
 
             if (DrawShape == DrawShapes.Text)
             {
@@ -379,6 +380,52 @@ namespace ColorWanted.screenshot
             EmitDrawEvent(DrawState.Cancel, true);
         }
         #endregion
+
+        /// <summary>
+        /// 如果按下了 Shift 键，那么结束点为距离较大的边
+        /// 用于画出正方形/正圆/水平线/垂直线
+        /// </summary>
+        /// <param name="point"></param>
+        private Point FixPoint(Point point)
+        {
+            if (!Glob.IsShiftKeyDown)
+            {
+                return point;
+            }
+
+            if (current.Shape == DrawShapes.Curve || current.Shape == DrawShapes.Text)
+            {
+                return point;
+            }
+            var offsetX = point.X - current.Start.X;
+            var offsetY = point.Y - current.Start.Y;
+
+            if (offsetX > offsetY)
+            {
+                switch (current.Shape)
+                {
+                    case DrawShapes.Arrow:
+                    case DrawShapes.Line:
+                        return new Point(current.Start.X + offsetX, current.Start.Y);
+                    case DrawShapes.Rectangle:
+                    case DrawShapes.Ellipse:
+                        return new Point(current.Start.X + offsetX, current.Start.Y + offsetX);
+                }
+            }
+            else if (offsetY > offsetX)
+            {
+                switch (current.Shape)
+                {
+                    case DrawShapes.Arrow:
+                    case DrawShapes.Line:
+                        return new Point(current.Start.X, current.Start.Y + offsetY);
+                    case DrawShapes.Rectangle:
+                    case DrawShapes.Ellipse:
+                        return new Point(current.Start.X + offsetY, current.Start.Y + offsetY);
+                }
+            }
+            return point;
+        }
     }
 
     public class DrawEventArgs : EventArgs

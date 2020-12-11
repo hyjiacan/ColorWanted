@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace ColorWanted
 {
@@ -25,6 +26,15 @@ namespace ColorWanted
             catch
             {
                 // ignore
+            }
+        }
+
+        public static bool IsShiftKeyDown
+        {
+            get
+            {
+                var val = ext.NativeMethods.GetKeyState(0x10);
+                return val < 0;
             }
         }
     }
