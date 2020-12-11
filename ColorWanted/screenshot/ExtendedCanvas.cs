@@ -284,25 +284,7 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
-            var point = e.GetPosition(this);
-
-            // 保证线不会画出界
-            if (point.X < 0)
-            {
-                point.X = 0;
-            }
-            else if (point.X > Width)
-            {
-                point.X = Width;
-            }
-            if (point.Y < 0)
-            {
-                point.Y = 0;
-            }
-            else if (point.Y > Height)
-            {
-                point.Y = Height;
-            }
+            var point = FixPoint(e.GetPosition(this));
             if (MoveMode)
             {
                 current.Move(this, MouseDownPoint, point);
@@ -319,7 +301,7 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            current.End = FixPoint(point);
+            current.End = point;
             Draw(current);
             EmitDrawEvent(DrawState.End);
         }
@@ -331,24 +313,7 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            var point = e.GetPosition(this);
-            // 保证线不会画出界
-            if (point.X < 0)
-            {
-                point.X = 0;
-            }
-            else if (point.X > Width)
-            {
-                point.X = Width;
-            }
-            if (point.Y < 0)
-            {
-                point.Y = 0;
-            }
-            else if (point.Y > Height)
-            {
-                point.Y = Height;
-            }
+            var point = FixPoint(e.GetPosition(this));
             if (MouseDownPoint == point)
             {
                 return;
@@ -361,7 +326,7 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            current.End = FixPoint(point);
+            current.End = point;
 
             if (DrawShape == DrawShapes.Text)
             {
@@ -388,6 +353,8 @@ namespace ColorWanted.screenshot
         /// <param name="point"></param>
         private Point FixPoint(Point point)
         {
+            FixPointBoundary(ref point);
+
             if (!Glob.IsShiftKeyDown)
             {
                 return point;
@@ -397,34 +364,92 @@ namespace ColorWanted.screenshot
             {
                 return point;
             }
+
             var offsetX = point.X - current.Start.X;
             var offsetY = point.Y - current.Start.Y;
 
-            if (offsetX > offsetY)
+            if (offsetX == offsetY)
             {
+                return point;
+            }
+
+            double newX, newY;
+            if (Math.Abs(offsetX) > Math.Abs(offsetY))
+            {
+                newX = current.Start.X + offsetX;
+                newY = current.Start.Y + offsetX;
+                FixBoudary2(ref newX, ref newY);
                 switch (current.Shape)
                 {
                     case DrawShapes.Arrow:
                     case DrawShapes.Line:
-                        return new Point(current.Start.X + offsetX, current.Start.Y);
+                        return new Point(newX, current.Start.Y);
                     case DrawShapes.Rectangle:
                     case DrawShapes.Ellipse:
-                        return new Point(current.Start.X + offsetX, current.Start.Y + offsetX);
+                        return new Point(newX, newY);
                 }
             }
-            else if (offsetY > offsetX)
+            else
             {
+                newX = current.Start.X + offsetY;
+                newY = current.Start.Y + offsetY;
+                FixBoudary2(ref newX, ref newY);
                 switch (current.Shape)
                 {
                     case DrawShapes.Arrow:
                     case DrawShapes.Line:
-                        return new Point(current.Start.X, current.Start.Y + offsetY);
+                        return new Point(current.Start.X, newY);
                     case DrawShapes.Rectangle:
                     case DrawShapes.Ellipse:
-                        return new Point(current.Start.X + offsetY, current.Start.Y + offsetY);
+                        return new Point(newX, newY);
                 }
             }
             return point;
+        }
+
+        private void FixPointBoundary(ref Point point)
+        {
+            // 保证线不会画出界
+            if (point.X < 0)
+            {
+                point.X = 0;
+            }
+            else if (point.X > Width)
+            {
+                point.X = Width;
+            }
+            if (point.Y < 0)
+            {
+                point.Y = 0;
+            }
+            else if (point.Y > Height)
+            {
+                point.Y = Height;
+            }
+        }
+
+        private void FixBoudary2(ref double newX, ref double newY)
+        {
+            if (newX > Width)
+            {
+                newX = Width;
+                newY = current.Start.Y + newX - current.Start.X;
+            }
+            else if (newX < 0)
+            {
+                newX = 0;
+                newY = current.Start.Y + newX - current.Start.X;
+            }
+            if (newY > Height)
+            {
+                newY = Height;
+                newX = current.Start.X + newY - current.Start.Y;
+            }
+            else if (newY < 0)
+            {
+                newY = 0;
+                newX = current.Start.X + newY - current.Start.Y;
+            }
         }
     }
 
