@@ -229,7 +229,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.btnExit;
-            this.ClientSize = new System.Drawing.Size(600, 360);
+            this.ClientSize = new System.Drawing.Size(800, 480);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.linkRgb);
