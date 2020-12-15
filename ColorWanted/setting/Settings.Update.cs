@@ -73,11 +73,15 @@ namespace ColorWanted.setting
                 get
                 {
                     int days;
-                    if (!int.TryParse(Get("span"), out days))
+                    if (!int.TryParse(Get("interval"), out days))
                     {
                         days = 1;
                     }
                     return days;
+                }
+                set
+                {
+                    Set("interval", value.ToString());
                 }
             }
         }

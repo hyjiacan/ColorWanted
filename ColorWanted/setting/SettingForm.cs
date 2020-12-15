@@ -191,10 +191,53 @@ namespace ColorWanted.setting
             return itemContainer;
         }
 
-        private Control RenderInput(SettingModule module, PropertyInfo item)
+        private Control RenderNumber(SettingModule module, PropertyInfo item, char type)
         {
             var name = item.GetCustomAttribute<SettingItemAttribute>().Name;
 
+            var itemContainer = new Panel
+            {
+                AutoSize = true,
+                Margin = new Padding(0, 10, 0, 10)
+            };
+
+            itemContainer.Controls.Add(new Label
+            {
+                Text = name,
+                Left = 0,
+                Top = 0,
+                AutoSize = true
+            });
+
+            var textbox = new NumericUpDown
+            {
+                Value = long.Parse(item.GetValue(module).ToString()),
+                Left = 0,
+                Top = 16,
+                Width = 400,
+                Minimum = 0,
+                Maximum = type == 'i' ? int.MaxValue : long.MaxValue
+            };
+            itemContainer.Controls.Add(textbox);
+
+            textbox.ValueChanged += (sender, e) =>
+            {
+                if(type == 'i')
+                {
+                    item.SetValue(module, Convert.ToInt32(textbox.Value));
+                }
+                else
+                {
+                    item.SetValue(module, Convert.ToInt64(textbox.Value));
+                }                
+            };
+
+            return itemContainer;
+        }
+
+        private Control RenderInput(SettingModule module, PropertyInfo item)
+        {
+            var name = item.GetCustomAttribute<SettingItemAttribute>().Name;
 
             var itemContainer = new Panel
             {
@@ -251,6 +294,16 @@ namespace ColorWanted.setting
             if (type.IsEnum)
             {
                 return RenderEnum(module, item);
+            }
+
+            if (type == typeof (int))
+            {
+                return RenderNumber(module, item, 'i');
+            }
+
+            if (type == typeof(long))
+            {
+                return RenderNumber(module, item, 'l');
             }
 
             return RenderInput(module, item);

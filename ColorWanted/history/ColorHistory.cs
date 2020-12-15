@@ -60,7 +60,9 @@ namespace ColorWanted.history
                     var temp = row.Split(',');
                     return new ColorHistory
                     {
-                        DateTime = DateTime.Parse(temp[0]),
+                        // 从 4.1.0 开始，日期记录为时间戳格式
+                        // 以前的格式为： yyyy-MM-dd HH:mm:ss
+                        DateTime = temp[0].Contains(" ") ? DateTime.Parse(temp[0]) : DateTime.FromFileTime(long.Parse(temp[0])),
                         Color = Color.FromArgb(int.Parse(temp[1])),
                         Source = int.Parse(temp[2])
                     };
@@ -123,8 +125,8 @@ namespace ColorWanted.history
             var fileName = Path.Combine(dirName, string.Format("{0:MM}.txt", now));
 
             File.AppendAllText(fileName,
-                string.Format("{0:yyyy-MM-dd HH:mm:ss},{1},{2}{3}",
-                    DateTime.Now,
+                string.Format("{0},{1},{2}{3}",
+                    DateTime.Now.ToFileTime(),
                     color.ToArgb(),
                     source,
                     Environment.NewLine));
