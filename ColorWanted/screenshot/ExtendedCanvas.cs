@@ -378,7 +378,6 @@ namespace ColorWanted.screenshot
             {
                 newX = current.Start.X + offsetX;
                 newY = current.Start.Y + offsetX;
-                FixBoudary2(ref newX, ref newY);
                 switch (current.Shape)
                 {
                     case DrawShapes.Arrow:
@@ -386,6 +385,7 @@ namespace ColorWanted.screenshot
                         return new Point(newX, current.Start.Y);
                     case DrawShapes.Rectangle:
                     case DrawShapes.Ellipse:
+                        FixBoudary2(ref newX, ref newY);
                         return new Point(newX, newY);
                 }
             }
@@ -401,6 +401,7 @@ namespace ColorWanted.screenshot
                         return new Point(current.Start.X, newY);
                     case DrawShapes.Rectangle:
                     case DrawShapes.Ellipse:
+                        FixBoudary2(ref newX, ref newY);
                         return new Point(newX, newY);
                 }
             }
