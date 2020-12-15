@@ -176,7 +176,6 @@ namespace ColorWanted.viewer
                 viewer.WindowState = FormWindowState.Maximized;
             }
             viewer.Show();
-            viewer.FixSize();
 
             // 延迟将窗口显示到最前，以确保鼠标点击窗口的动作已经完成
             System.Threading.Tasks.Task.Factory.StartNew(() =>
@@ -239,7 +238,7 @@ namespace ColorWanted.viewer
             var data = File.ReadAllBytes(filename);
             var img = Image.FromStream(new MemoryStream(data));
 
-            Text = string.Format("{0} ({1}x{2})", Path.GetFileName(filename), img.Width, img.Height);
+            Text = string.Format("{0} ({1}x{2})", filename, img.Width, img.Height);
             LoadImage(img);
 
             CurrentImageName = filename;
@@ -255,10 +254,6 @@ namespace ColorWanted.viewer
             ShowIndex = Array.IndexOf(PicList, image);
         }
 
-        void LoadImage(Bitmap image)
-        {
-            LoadImage(image as Image);
-        }
         void LoadImage(Image image)
         {
             ImageCache.SetImage(image as Bitmap);
@@ -269,6 +264,7 @@ namespace ColorWanted.viewer
                 lbTip.Visible = pictureBox.Visible = true;
                 lbTip.BringToFront();
             }
+            FixSize();
         }
         #endregion
 
@@ -368,7 +364,7 @@ namespace ColorWanted.viewer
         }
         private void ImageViewer_Resize(object sender, EventArgs e)
         {
-            //FixSize();
+            FixSize();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
