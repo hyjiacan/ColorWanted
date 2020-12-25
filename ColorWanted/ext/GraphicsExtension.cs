@@ -13,8 +13,8 @@ namespace ColorWanted.ext
             var width = record.Width;
             using (var pen = new Pen(record.Color.ToDrawingColor(), width))
             {
-                pen.StartCap = LineCap.Square;
-                pen.MiterLimit = 0.1f;
+                //pen.StartCap = LineCap.Square;
+                //pen.MiterLimit = 0.1f;
                 if (record.LineStyle == LineStyles.Dashed)
                 {
                     pen.DashStyle = DashStyle.Dash;
@@ -26,14 +26,14 @@ namespace ColorWanted.ext
                 switch (record.Shape)
                 {
                     case DrawShapes.Curve:
-                        pen.EndCap = LineCap.Square;
+                        //pen.EndCap = LineCap.Square;
                         graphics.DrawCurve(pen, record.Points.Select(p => new Point((int)p.X, (int)p.Y)).ToArray());
                         break;
                     case DrawShapes.Ellipse:
                         graphics.DrawEllipse(pen, record.Rect.ToDrawingRectangle());
                         break;
                     case DrawShapes.Line:
-                        pen.EndCap = LineCap.Square;
+                        //pen.EndCap = LineCap.Square;
                         graphics.DrawLine(pen, record.Start.ToDrawingPoint(), record.End.ToDrawingPoint());
                         break;
                     case DrawShapes.Rectangle:

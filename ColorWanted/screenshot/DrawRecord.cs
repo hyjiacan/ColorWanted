@@ -208,9 +208,8 @@ namespace ColorWanted.screenshot
             }
             else if (LineStyle == LineStyles.Dotted)
             {
-
                 shape.StrokeDashArray = new DoubleCollection() { 0.5, 3 };
-                shape.StrokeDashCap = PenLineCap.Round;
+                shape.StrokeDashCap = PenLineCap.Square;
             }
             else
             {
