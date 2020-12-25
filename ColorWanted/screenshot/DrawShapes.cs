@@ -25,6 +25,10 @@
         /// <summary>
         /// 箭头
         /// </summary>
-        Arrow
+        Arrow,
+        /// <summary>
+        /// 马赛克
+        /// </summary>
+        Mosiac
     }
 }

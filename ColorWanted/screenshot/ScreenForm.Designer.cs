@@ -35,6 +35,7 @@
             this.toolRectangle = new System.Windows.Forms.ToolStripButton();
             this.toolEllipse = new System.Windows.Forms.ToolStripButton();
             this.toolArrow = new System.Windows.Forms.ToolStripButton();
+            this.toolMosiac = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolSave = new System.Windows.Forms.ToolStripButton();
             this.toolOK = new System.Windows.Forms.ToolStripButton();
@@ -84,13 +85,14 @@
             this.toolRectangle,
             this.toolEllipse,
             this.toolArrow,
+            this.toolMosiac,
             this.toolStripSeparator2,
             this.toolSave,
             this.toolOK,
             this.toolCancel});
             this.toolbar.Location = new System.Drawing.Point(0, 0);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(225, 25);
+            this.toolbar.Size = new System.Drawing.Size(248, 25);
             this.toolbar.TabIndex = 5;
             this.toolbar.Text = "toolStrip1";
             this.toolbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolbar_ItemClicked);
@@ -158,6 +160,15 @@
             this.toolArrow.Size = new System.Drawing.Size(23, 22);
             this.toolArrow.Tag = "Arrow";
             this.toolArrow.ToolTipText = "箭头";
+            // 
+            // toolMosiac
+            // 
+            this.toolMosiac.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolMosiac.Image = global::ColorWanted.Properties.Resources.mosaic;
+            this.toolMosiac.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolMosiac.Name = "toolMosiac";
+            this.toolMosiac.Size = new System.Drawing.Size(23, 22);
+            this.toolMosiac.ToolTipText = "马赛克";
             // 
             // toolStripSeparator2
             // 
@@ -293,9 +304,9 @@
             // label1
             // 
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(239, 8);
+            this.label1.Location = new System.Drawing.Point(251, 8);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 23);
+            this.label1.Size = new System.Drawing.Size(114, 23);
             this.label1.TabIndex = 11;
             this.label1.Text = "按住此处移动工具条";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -410,7 +421,7 @@
             this.toolMaskCancel});
             this.toolbarMask.Location = new System.Drawing.Point(110, 301);
             this.toolbarMask.Name = "toolbarMask";
-            this.toolbarMask.Size = new System.Drawing.Size(141, 25);
+            this.toolbarMask.Size = new System.Drawing.Size(110, 25);
             this.toolbarMask.TabIndex = 11;
             this.toolbarMask.Visible = false;
             // 
@@ -544,5 +555,6 @@
         private System.Windows.Forms.Integration.ElementHost editorContainer;
         private ImageEditor editor;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripButton toolMosiac;
     }
 }
