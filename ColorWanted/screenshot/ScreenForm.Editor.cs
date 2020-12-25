@@ -25,9 +25,10 @@ namespace ColorWanted.screenshot
 
         public void ShowWindow()
         {
+            this.ShowInTaskbar = false;
             Show();
-            //TopMost = true;
             BringToFront();
+            TopMost = true;
 
             new Thread(InitEditorToolbar) { IsBackground = true }.Start();
         }
@@ -61,6 +62,8 @@ namespace ColorWanted.screenshot
 
         private void Editor_AreaSelected(object sender, AreaEventArgs e)
         {
+            TopMost = false;
+            this.ShowInTaskbar = true;
             // 这个事件会在创建选区时触发
             if (toolPanel.Visible)
             {

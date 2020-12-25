@@ -481,10 +481,8 @@
             this.KeyPreview = true;
             this.Name = "ScreenForm";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ScreenForm";
-            this.TopMost = true;
+            this.Text = "截图";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenForm_FormClosing);
             this.Load += new System.EventHandler(this.ScreenForm_Load);
             this.Enter += new System.EventHandler(this.ScreenForm_Enter);
