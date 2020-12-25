@@ -368,7 +368,7 @@
             this.toolLineWidth.AutoSize = false;
             this.toolLineWidth.LargeChange = 2;
             this.toolLineWidth.Location = new System.Drawing.Point(135, 3);
-            this.toolLineWidth.Maximum = 32;
+            this.toolLineWidth.Maximum = 5;
             this.toolLineWidth.Minimum = 1;
             this.toolLineWidth.Name = "toolLineWidth";
             this.toolLineWidth.Size = new System.Drawing.Size(74, 22);
