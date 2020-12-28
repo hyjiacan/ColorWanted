@@ -317,6 +317,7 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="Resources\mosaic.png" />
     <None Include="app.manifest" />
     <None Include="Resources\copy.png" />
     <None Include="Resources\remove.png" />
