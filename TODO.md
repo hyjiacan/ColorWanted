@@ -24,9 +24,9 @@
 - [x] 截图工具，编辑调小最大线宽
 - [x] 截图工具，在编辑时，生成图形的矩形和编辑时不一致
 - [x] 截图选中区域后，支持调整尺寸
-- [ ] 修改关于窗口的反馈链接为 github 和 gitee，移除QQ群和邮箱
 - [ ] 截图工具条，添加撤消/重做按钮
 - [ ] 截图和录屏，支持直接选择窗口(获取当前桌面顶层窗口的句柄)
+- [ ] 截图工具，支持自由绘制 Polygon
 - [ ] 截图工具，编辑支持设置对闭合图形进行填充还是描边
 - [ ] 截图工具，编辑支持马赛克，并支持马赛克级别
 - [ ] 看图工具，按下滚轮（中键）时才移动图片位置
@@ -39,6 +39,7 @@
 - [ ] 使用 `DrawingContext` 代替 `Graphics` 作为截图编辑支持
 - [ ] 使用 WPF 重写看图工具
 - [ ] 窗口作为任务栏工具条
+- [ ] 修改关于窗口的反馈链接为 github 和 gitee，移除QQ群和邮箱
 
 [highdpi]: https://docs.microsoft.com/zh-cn/dotnet/framework/winforms/automatic-scaling-in-windows-forms
 
