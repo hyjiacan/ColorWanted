@@ -30,6 +30,9 @@ namespace ColorWanted.screenshot
         private PolylineState currentState;
         private Dictionary<ResizePositions, PolylineState> polylineState;
 
+        private static Color color = Colors.DeepSkyBlue;
+        private static Color activeColor = Colors.Red;
+
         public event ResizeEventHandler Resize;
 
         public bool IsDisposed { get; private set; }
@@ -100,7 +103,7 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
-            currentState.Line.Stroke = new SolidColorBrush(Colors.Red);
+            currentState.Line.Stroke = new SolidColorBrush(activeColor);
             var oldPosition = currentState.MouseDownPosition;
             currentState.MouseDownPosition = newPosition;
             canvas.Cursor = currentState.Line.Cursor;
@@ -114,12 +117,15 @@ namespace ColorWanted.screenshot
 
         public void EndResize()
         {
-            canvas.Cursor = Cursors.Arrow;
+            if (canvas != null)
+            {
+                canvas.Cursor = Cursors.Arrow;
+            }
             if (currentState == null)
             {
                 return;
             }
-            currentState.Line.Stroke = new SolidColorBrush(Colors.Blue);
+            currentState.Line.Stroke = new SolidColorBrush(color);
             currentState.MouseDown = false;
         }
 
@@ -144,7 +150,7 @@ namespace ColorWanted.screenshot
             var line = new Polyline
             {
                 StrokeThickness = 2,
-                Stroke = new SolidColorBrush(Colors.Blue),
+                Stroke = new SolidColorBrush(color),
                 Cursor = cursor
             };
 
@@ -159,17 +165,17 @@ namespace ColorWanted.screenshot
                 currentState = polylineState[resizePosition];
                 currentState.MouseDown = true;
                 currentState.MouseDownPosition = e.GetPosition(canvas);
-                currentState.Line.Stroke = new SolidColorBrush(Colors.Red);
+                currentState.Line.Stroke = new SolidColorBrush(activeColor);
             };
 
             line.MouseEnter += (sender, e) =>
             {
-                line.Stroke = new SolidColorBrush(Colors.Red);
+                line.Stroke = new SolidColorBrush(activeColor);
             };
 
             line.MouseLeave += (sender, e) =>
             {
-                line.Stroke = new SolidColorBrush(Colors.Blue);
+                line.Stroke = new SolidColorBrush(color);
             };
 
             line.MouseUp += (sender, e) =>
