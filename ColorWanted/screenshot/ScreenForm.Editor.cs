@@ -166,6 +166,7 @@ namespace ColorWanted.screenshot
 
         private void CloseForm()
         {
+            editor.CancelEdit();
             Close();
         }
 
@@ -251,7 +252,6 @@ namespace ColorWanted.screenshot
 
         private void ToolCancel_Click(object sender, EventArgs e)
         {
-            editor.CancelEdit();
             CloseForm();
         }
 
