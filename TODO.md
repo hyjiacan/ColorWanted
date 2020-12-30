@@ -36,6 +36,9 @@
 - [ ] 截图工具，编辑支持马赛克，并支持马赛克级别
 - [ ] 使用 `DrawingContext` 代替 `Graphics` 作为截图编辑支持
 - [ ] 剪贴板历史支持按日期删除(在左侧树上添加右键菜单)
+- [ ] 修改关于窗口的反馈链接为 github 和 gitee，移除QQ群和邮箱
+- [ ] 通过UDP/websocket向系统广播当前取色的值
+- [ ] 接收 websocket 命令，以调用截图功能
 
 [highdpi]: https://docs.microsoft.com/zh-cn/dotnet/framework/winforms/automatic-scaling-in-windows-forms
 
@@ -43,6 +46,6 @@
 
 1. 指定像素范围
 2. 找出范围内所有点的颜色
-3. 在所有颜色中取随机值，并调整其色阈为原来的一半，并填充到范围内所有像素点上
+3. 在所有颜色中取随机值(或平均值)，并调整其色阈为原来的一半(可选)，并填充到范围内所有像素点上
 4. 重复前面的2/3步骤，直至整个区域都被填充
 
