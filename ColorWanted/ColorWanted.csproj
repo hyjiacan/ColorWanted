@@ -93,6 +93,14 @@
     <Compile Include="external\AnimatedGif\AnimatedGif\PaletteQuantizer.cs" />
     <Compile Include="external\AnimatedGif\AnimatedGif\Quantizer.cs" />
     <Compile Include="external\AnimatedGif\AnimatedGif\VideoEncoder.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\AdjustableArrowBezierCurve.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\AdjustableArrowQuadraticBezier.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\ArrowBase.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\ArrowBezierCurve.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\ArrowEnds.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\ArrowLine.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\ArrowLineWithText.cs" />
+    <Compile Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\ArrowQuadraticBezier.cs" />
     <Compile Include="ext\BitmapExtension.cs" />
     <Compile Include="ext\ButtonExtension.cs" />
     <Compile Include="ext\EnumDescriptionAttribute.cs" />
@@ -320,6 +328,7 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\Arrow.cd" />
     <None Include="Resources\mosaic.png" />
     <None Include="app.manifest" />
     <None Include="Resources\copy.png" />

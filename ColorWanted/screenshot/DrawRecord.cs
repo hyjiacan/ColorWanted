@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using YiYan127.WPF.Arrows;
 
 namespace ColorWanted.screenshot
 {
@@ -156,27 +157,11 @@ namespace ColorWanted.screenshot
                 case DrawShapes.Arrow:
                     if (shape == null)
                     {
-                        shape = new Polygon
-                        {
-                            StrokeLineJoin = PenLineJoin.Bevel
-                        };
+                        shape = new ArrowLine();
                     }
-                    double arrowSize;
-                    var distance = Distance;
-                    if (distance >= 60)
-                    {
-                        arrowSize = 20;
-                    }
-                    else if (distance >= 32)
-                    {
-                        arrowSize = distance / 4.0;
-                    }
-                    else
-                    {
-                        arrowSize = 8;
-                    }
-                    ((Polygon)shape).Points = new PointCollection(MakeArrow(Start.X, Start.Y, End.X, End.Y, arrowLength: arrowSize));
-                    shape.Fill = new SolidColorBrush(Color);
+                    ((ArrowLine)shape).StartPoint = Start;
+                    ((ArrowLine)shape).EndPoint = End;
+                    shape.Stroke = new SolidColorBrush(Color);
                     break;
                 case DrawShapes.Text:
                     if (string.IsNullOrWhiteSpace(Text))

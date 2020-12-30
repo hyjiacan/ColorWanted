@@ -1,3 +1,6 @@
 [submodule "ColorWanted/external/AnimatedGif"]
 	path = ColorWanted/external/AnimatedGif
 	url = https://github.com/mrousavy/AnimatedGif.git
+[submodule "ColorWanted/external/WPFArrows"]
+	path = ColorWanted/external/WPFArrows
+	url = https://github.com/yiyan127/WPFArrows.git
