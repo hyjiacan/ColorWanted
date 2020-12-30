@@ -43,6 +43,8 @@ namespace ColorWanted.screenshot
         /// </summary>
         private System.Windows.Shapes.Rectangle SelectionBorder;
 
+        private ResizeBorder resizeBorder;
+
         /// <summary>
         /// 编辑状态改变时的事件
         /// </summary>
@@ -112,6 +114,8 @@ namespace ColorWanted.screenshot
 
         public void BeginEdit()
         {
+            // 开始编辑时，隐藏 resize border
+            resizeBorder.Dispose();
             canvasMask.EditEnabled = false;
 
             editBackground.ImageSource = selectArea.Source;
@@ -138,6 +142,11 @@ namespace ColorWanted.screenshot
             }
 
             return SelectedImage;
+        }
+
+        public void CancelEdit()
+        {
+            resizeBorder?.Dispose();
         }
 
         public void Undo()
@@ -189,6 +198,73 @@ namespace ColorWanted.screenshot
             SelectionBorder.Visibility = Visibility.Visible;
         }
 
+        private void ResizeBorder_Resize(object sender, ResizeEventArgs e)
+        {
+            var location = SelectionBorder.GetLocation();
+            var size = SelectionBorder.GetSize();
+
+            switch (e.ResizePosition)
+            {
+                case ResizePositions.North:
+                    location.Offset(0, e.OffsetY);
+                    size.Height -= e.OffsetY;
+                    break;
+                case ResizePositions.South:
+                    size.Height += e.OffsetY;
+                    break;
+                case ResizePositions.West:
+                    location.Offset(e.OffsetX, 0);
+                    size.Width -= e.OffsetX;
+                    break;
+                case ResizePositions.East:
+                    size.Width += e.OffsetX;
+                    break;
+                case ResizePositions.NorthWest:
+                case ResizePositions.SouthWest:
+                    location.Offset(e.OffsetX, e.OffsetY);
+                    size.Width -= e.OffsetX;
+                    size.Height -= e.OffsetY;
+                    break;
+                case ResizePositions.SouthEast:
+                case ResizePositions.NorthEast:
+                    size.Width += e.OffsetX;
+                    size.Height += e.OffsetY;
+                    break;
+            }
+
+            if (size.Width <= 8 || size.Height <= 8)
+            {
+                return;
+            }
+
+            // 不能超出画布
+            if (location.X < 0)
+            {
+                return;
+            }
+            if (location.Y < 0)
+            {
+                return;
+            }
+            if (location.X + size.Width > container.Width)
+            {
+                return;
+            }
+            if (location.Y + size.Height > container.Height)
+            {
+                return;
+            }
+
+            SelectionBorder.SetLocation(location);
+            SelectionBorder.SetSize(size);
+            canvasMask.UpdateCurrent(location, size);
+            resizeBorder.FixPosition();
+
+            var area = new Rect(location, size);
+            UpdateSelectArea(area, false);
+            AreaSelected.Invoke(this, new AreaEventArgs(area));
+        }
+
         private void CanvasMask_OnDraw(object sender, DrawEventArgs e)
         {
             if (e.State == DrawState.Cancel || e.IsEmpty)
@@ -198,6 +274,7 @@ namespace ColorWanted.screenshot
                 {
                     SelectionBorder.Visibility = Visibility.Hidden;
                 }
+                resizeBorder?.Dispose();
                 AreaCleared.Invoke(this, null);
                 return;
             }
@@ -210,6 +287,7 @@ namespace ColorWanted.screenshot
             if (area.IsEmpty || area.Width == 0 || area.Height == 0)
             {
                 selectArea.Visibility = Visibility.Hidden;
+                resizeBorder?.Dispose();
                 AreaCleared.Invoke(this, null);
                 return;
             }
@@ -231,8 +309,16 @@ namespace ColorWanted.screenshot
             UpdateSelectArea(area);
 
             AreaSelected.Invoke(this, new AreaEventArgs(area));
+
+            // 显示 resize border
+            if (resizeBorder == null || resizeBorder.IsDisposed)
+            {
+                resizeBorder = new ResizeBorder(container, SelectionBorder);
+                resizeBorder.Resize += ResizeBorder_Resize;
+            }
+            resizeBorder.FixPosition();
         }
-        private void UpdateSelectArea(Rect selectedRect)
+        private void UpdateSelectArea(Rect selectedRect, bool updateBorder = true)
         {
             if (lastSelectedRect == selectedRect)
             {
@@ -249,7 +335,10 @@ namespace ColorWanted.screenshot
             {
                 selectArea.Visibility = Visibility.Visible;
             }
-            SetBorder();
+            if (updateBorder)
+            {
+                SetBorder();
+            }
         }
 
         private void CanvasMask_AreaDoubleClicked(object sender, AreaEventArgs e)
@@ -258,6 +347,7 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
+            resizeBorder?.Dispose();
             var image = SelectedImage ?? EndEdit();
             // 截图完成
             Compeleted.Invoke(this, new DoubleClickEventArgs(image));
@@ -318,6 +408,24 @@ namespace ColorWanted.screenshot
         private void canvasMask_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             canvasEdit.OnMouseMove(null, e);
+            // 移动选区时，resize border 一起移动
+            resizeBorder?.FixPosition();
+        }
+
+        private void container_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (resizeBorder != null)
+            {
+                resizeBorder.EndResize();
+            }
+        }
+
+        private void container_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (resizeBorder != null)
+            {
+                resizeBorder.UpdateState(e.GetPosition(container));
+            }
         }
     }
 }

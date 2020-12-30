@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="screenshot\DrawHistoryItem.cs" />
     <Compile Include="screenshot\events\DoubleClickEventArgs.cs" />
+    <Compile Include="screenshot\events\ResizeEventArgs.cs" />
     <Compile Include="screenshot\ExtendedCanvas.cs" />
     <Compile Include="ext\PictureBoxExtension.cs" />
     <Compile Include="i18n\Author.cs" />
@@ -128,6 +129,8 @@
     <Compile Include="screenshot\DrawRecord.cs" />
     <Compile Include="screenshot\DrawShapes.cs" />
     <Compile Include="screenshot\LineStyles.cs" />
+    <Compile Include="screenshot\ResizeBorder.cs" />
+    <Compile Include="screenshot\ResizePositions.cs" />
     <Compile Include="screenshot\ScreenRecordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -317,6 +320,7 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="Resources\mosaic.png" />
     <None Include="app.manifest" />
     <None Include="Resources\copy.png" />
     <None Include="Resources\remove.png" />

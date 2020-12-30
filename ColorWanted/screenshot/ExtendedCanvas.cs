@@ -90,6 +90,10 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
+            if (current == null)
+            {
+                return;
+            }
             OnDraw.Invoke(this, new DrawEventArgs()
             {
                 DrawType = current.Shape,
@@ -204,6 +208,17 @@ namespace ColorWanted.screenshot
                 Draw(current);
             }
             current = MakeNewRecord();
+        }
+
+        public void UpdateCurrent(Point location, Size size)
+        {
+            if (current == null)
+            {
+                return;
+            }
+            current.Points[0] = location;
+            current.Points[current.Points.Count - 1] = new Point(location.X + size.Width, location.Y + size.Height);
+            current.GetElement();
         }
 
         private DrawRecord MakeNewRecord()

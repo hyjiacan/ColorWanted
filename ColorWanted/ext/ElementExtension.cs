@@ -48,5 +48,16 @@ namespace ColorWanted.ext
         {
             return new Size(element.Width, element.Height);
         }
+
+        /// <summary>
+        /// 设置元素的大小
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
+        public static void SetSize(this FrameworkElement element, Size size)
+        {
+            element.Width = size.Width;
+            element.Height = size.Height;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using ColorWanted.ext;
@@ -124,10 +125,30 @@ namespace ColorWanted.screenshot
         }
 
         /// <summary>
+        /// 重置按钮状态
+        /// </summary>
+        private void ResetEditorToolbar()
+        {
+            var buttons = toolPanel.Controls.OfType<ToolStrip>()
+                .Where(control => control != null)
+                .SelectMany(toolstrip => toolstrip.Items.OfType<ToolStripButton>())
+                .Where(button => button != null);
+            this.InvokeMethod(() =>
+            {
+                foreach (ToolStripButton button in buttons)
+                {
+                    button.Checked = false;
+                }
+            });
+        }
+
+        /// <summary>
         /// 初始化编辑器的工具条
         /// </summary>
         private void InitEditorToolbar()
         {
+            ResetEditorToolbar();
+
             activeToolShapeType = toolRectangle;
             activeToolColor = toolColorRed;
             activeToolLineStyle = toolStyleSolid;
@@ -230,6 +251,7 @@ namespace ColorWanted.screenshot
 
         private void ToolCancel_Click(object sender, EventArgs e)
         {
+            editor.CancelEdit();
             CloseForm();
         }
 
