@@ -55,6 +55,9 @@
             this.toolStyleDotted = new System.Windows.Forms.ToolStripButton();
             this.toolStyleDashed = new System.Windows.Forms.ToolStripButton();
             this.toolLineWidth = new System.Windows.Forms.TrackBar();
+            this.toolbarDrawMode = new System.Windows.Forms.ToolStrip();
+            this.toolDrawModeStroke = new System.Windows.Forms.ToolStripButton();
+            this.toolDrawModeFill = new System.Windows.Forms.ToolStripButton();
             this.toolbarTextStyle = new System.Windows.Forms.ToolStrip();
             this.toolTextStyle = new System.Windows.Forms.ToolStripButton();
             this.toolbarMask = new System.Windows.Forms.ToolStrip();
@@ -71,6 +74,7 @@
             this.toolbarExtPanel.SuspendLayout();
             this.toolbarLineType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolLineWidth)).BeginInit();
+            this.toolbarDrawMode.SuspendLayout();
             this.toolbarTextStyle.SuspendLayout();
             this.toolbarMask.SuspendLayout();
             this.SuspendLayout();
@@ -82,9 +86,9 @@
             this.toolText,
             this.toolCurve,
             this.toolLine,
+            this.toolArrow,
             this.toolRectangle,
             this.toolEllipse,
-            this.toolArrow,
             this.toolMosiac,
             this.toolStripSeparator2,
             this.toolSave,
@@ -168,6 +172,7 @@
             this.toolMosiac.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolMosiac.Name = "toolMosiac";
             this.toolMosiac.Size = new System.Drawing.Size(23, 22);
+            this.toolMosiac.Tag = "Mosaic";
             this.toolMosiac.ToolTipText = "马赛克";
             // 
             // toolStripSeparator2
@@ -215,9 +220,9 @@
             this.toolColorPurple,
             this.toolColorBlack,
             this.toolColorSelect});
-            this.toolbarColor.Location = new System.Drawing.Point(212, 0);
+            this.toolbarColor.Location = new System.Drawing.Point(270, 0);
             this.toolbarColor.Name = "toolbarColor";
-            this.toolbarColor.Size = new System.Drawing.Size(150, 25);
+            this.toolbarColor.Size = new System.Drawing.Size(181, 25);
             this.toolbarColor.TabIndex = 7;
             this.toolbarColor.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolbarColor_ItemClicked);
             // 
@@ -225,8 +230,6 @@
             // 
             this.toolColorRed.AutoSize = false;
             this.toolColorRed.BackColor = System.Drawing.Color.Red;
-            this.toolColorRed.Checked = true;
-            this.toolColorRed.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolColorRed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolColorRed.ForeColor = System.Drawing.Color.Red;
             this.toolColorRed.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -256,9 +259,9 @@
             // toolColorPurple
             // 
             this.toolColorPurple.AutoSize = false;
-            this.toolColorPurple.BackColor = System.Drawing.Color.Purple;
+            this.toolColorPurple.BackColor = System.Drawing.Color.Yellow;
             this.toolColorPurple.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolColorPurple.ForeColor = System.Drawing.Color.Purple;
+            this.toolColorPurple.ForeColor = System.Drawing.Color.Yellow;
             this.toolColorPurple.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolColorPurple.Name = "toolColorPurple";
             this.toolColorPurple.Size = new System.Drawing.Size(23, 22);
@@ -281,6 +284,7 @@
             this.toolColorSelect.Name = "toolColorSelect";
             this.toolColorSelect.Size = new System.Drawing.Size(23, 22);
             this.toolColorSelect.Tag = "customize";
+            this.toolColorSelect.ToolTipText = "其它颜色";
             // 
             // toolPanel
             // 
@@ -292,7 +296,7 @@
             this.toolPanel.Controls.Add(this.toolbar);
             this.toolPanel.Location = new System.Drawing.Point(12, 197);
             this.toolPanel.Name = "toolPanel";
-            this.toolPanel.Size = new System.Drawing.Size(374, 69);
+            this.toolPanel.Size = new System.Drawing.Size(459, 72);
             this.toolPanel.TabIndex = 9;
             this.toolPanel.Visible = false;
             this.toolPanel.LocationChanged += new System.EventHandler(this.toolPanel_LocationChanged);
@@ -303,8 +307,10 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(251, 8);
+            this.label1.Location = new System.Drawing.Point(340, 2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 23);
             this.label1.TabIndex = 11;
@@ -316,14 +322,16 @@
             // 
             // toolbarExtPanel
             // 
+            this.toolbarExtPanel.AutoSize = true;
             this.toolbarExtPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.toolbarExtPanel.Controls.Add(this.toolbarLineType);
             this.toolbarExtPanel.Controls.Add(this.toolLineWidth);
+            this.toolbarExtPanel.Controls.Add(this.toolbarDrawMode);
             this.toolbarExtPanel.Controls.Add(this.toolbarColor);
             this.toolbarExtPanel.Controls.Add(this.toolbarTextStyle);
             this.toolbarExtPanel.Location = new System.Drawing.Point(3, 39);
             this.toolbarExtPanel.Name = "toolbarExtPanel";
-            this.toolbarExtPanel.Size = new System.Drawing.Size(366, 25);
+            this.toolbarExtPanel.Size = new System.Drawing.Size(451, 28);
             this.toolbarExtPanel.TabIndex = 10;
             // 
             // toolbarLineType
@@ -384,10 +392,41 @@
             this.toolLineWidth.Name = "toolLineWidth";
             this.toolLineWidth.Size = new System.Drawing.Size(74, 22);
             this.toolLineWidth.TabIndex = 11;
-            this.toolLineWidth.TickFrequency = 4;
-            this.toolLineWidth.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.toolLineWidth.Value = 2;
+            this.toolLineWidth.Value = 1;
             this.toolLineWidth.Scroll += new System.EventHandler(this.ToolLineWidth_Scroll);
+            // 
+            // toolbarDrawMode
+            // 
+            this.toolbarDrawMode.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolbarDrawMode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolDrawModeStroke,
+            this.toolDrawModeFill});
+            this.toolbarDrawMode.Location = new System.Drawing.Point(212, 0);
+            this.toolbarDrawMode.Name = "toolbarDrawMode";
+            this.toolbarDrawMode.Size = new System.Drawing.Size(58, 25);
+            this.toolbarDrawMode.TabIndex = 12;
+            this.toolbarDrawMode.Text = "toolStrip1";
+            this.toolbarDrawMode.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolbarDrawMode_ItemClick);
+            // 
+            // toolDrawModeStroke
+            // 
+            this.toolDrawModeStroke.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolDrawModeStroke.Image = global::ColorWanted.Properties.Resources.rect;
+            this.toolDrawModeStroke.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDrawModeStroke.Name = "toolDrawModeStroke";
+            this.toolDrawModeStroke.Size = new System.Drawing.Size(23, 22);
+            this.toolDrawModeStroke.Tag = "Stroke";
+            this.toolDrawModeStroke.ToolTipText = "描边";
+            // 
+            // toolDrawModeFill
+            // 
+            this.toolDrawModeFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolDrawModeFill.Image = global::ColorWanted.Properties.Resources.fill;
+            this.toolDrawModeFill.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDrawModeFill.Name = "toolDrawModeFill";
+            this.toolDrawModeFill.Size = new System.Drawing.Size(23, 22);
+            this.toolDrawModeFill.Tag = "Fill";
+            this.toolDrawModeFill.ToolTipText = "填充";
             // 
             // toolbarTextStyle
             // 
@@ -509,6 +548,8 @@
             this.toolbarLineType.ResumeLayout(false);
             this.toolbarLineType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolLineWidth)).EndInit();
+            this.toolbarDrawMode.ResumeLayout(false);
+            this.toolbarDrawMode.PerformLayout();
             this.toolbarTextStyle.ResumeLayout(false);
             this.toolbarTextStyle.PerformLayout();
             this.toolbarMask.ResumeLayout(false);
@@ -556,5 +597,8 @@
         private ImageEditor editor;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripButton toolMosiac;
+        private System.Windows.Forms.ToolStrip toolbarDrawMode;
+        private System.Windows.Forms.ToolStripButton toolDrawModeFill;
+        private System.Windows.Forms.ToolStripButton toolDrawModeStroke;
     }
 }

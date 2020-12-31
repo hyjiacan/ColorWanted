@@ -13,9 +13,14 @@ namespace ColorWanted.screenshot
     {
         public Guid Id { get; private set; }
         /// <summary>
-        /// 绘制类型
+        /// 绘制图形
         /// </summary>
         public DrawShapes Shape { get; set; }
+
+        /// <summary>
+        /// 绘制模式
+        /// </summary>
+        public DrawModes Mode { get; set; }
 
         /// <summary>
         /// 起点坐标
@@ -201,26 +206,17 @@ namespace ColorWanted.screenshot
                 shape.StrokeDashArray.Clear();
                 shape.StrokeDashCap = PenLineCap.Flat;
             }
-            shape.StrokeThickness = Width;
-            shape.Stroke = new SolidColorBrush(Color);
+            if (Mode == DrawModes.Fill && (shape is Rectangle || shape is Ellipse))
+            {
+                shape.Fill = new SolidColorBrush(Color);
+            }
+            else
+            {
+                Mode = DrawModes.Stroke;
+                shape.StrokeThickness = Width;
+                shape.Stroke = new SolidColorBrush(Color);
+            }
             return shape;
-        }
-
-        private Point[] MakeArrow(double x1, double y1, double x2, double y2, double arrowAngle = Math.PI / 12, double arrowLength = 20)
-        {
-            Point point1 = new Point(x1, y1);     // 箭头起点
-            Point point2 = new Point(x2, y2);     // 箭头终点
-            double angleOri = Math.Atan((y2 - y1) / (x2 - x1));      // 起始点线段夹角
-            double angleDown = angleOri - arrowAngle;   // 箭头扩张角度
-            double angleUp = angleOri + arrowAngle;     // 箭头扩张角度
-            int directionFlag = (x2 > x1) ? -1 : 1;     // 方向标识
-            double x3 = x2 + (directionFlag * arrowLength * Math.Cos(angleDown));   // 箭头第三个点的坐标
-            double y3 = y2 + (directionFlag * arrowLength * Math.Sin(angleDown));
-            double x4 = x2 + (directionFlag * arrowLength * Math.Cos(angleUp));     // 箭头第四个点的坐标
-            double y4 = y2 + (directionFlag * arrowLength * Math.Sin(angleUp));
-            Point point3 = new Point(x3, y3);   // 箭头第三个点
-            Point point4 = new Point(x4, y4);   // 箭头第四个点
-            return new Point[] { point1, point2, point3, point4, point2 };   // 多边形，起点 --> 终点 --> 第三点 --> 第四点 --> 终点
         }
 
         public FrameworkElement Element
@@ -307,6 +303,7 @@ namespace ColorWanted.screenshot
             Color = Colors.Red;
             LineStyle = LineStyles.Solid;
             TextFont = System.Drawing.SystemFonts.DefaultFont;
+            Mode = DrawModes.Stroke;
         }
 
         public static DrawRecord Make(DrawShapes type)

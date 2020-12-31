@@ -172,6 +172,16 @@ namespace ColorWanted.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap fill {
+            get {
+                object obj = ResourceManager.GetObject("fill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap font {
             get {
                 object obj = ResourceManager.GetObject("font", resourceCulture);

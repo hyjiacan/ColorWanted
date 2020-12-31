@@ -15,7 +15,7 @@ namespace ColorWanted.ext
         /// <returns></returns>
         public static MediaColor ToMediaColor(this DrawingColor color)
         {
-            return MediaColor.FromRgb(color.R, color.G, color.B);
+            return MediaColor.FromArgb(color.A, color.R, color.G, color.B);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace ColorWanted.ext
         /// <returns></returns>
         public static DrawingColor ToDrawingColor(this MediaColor color)
         {
-            return DrawingColor.FromArgb(color.R, color.G, color.B);
+            return DrawingColor.FromArgb(color.A, color.R, color.G, color.B);
         }
     }
 }

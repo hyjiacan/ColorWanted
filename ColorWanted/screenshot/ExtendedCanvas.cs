@@ -27,7 +27,7 @@ namespace ColorWanted.screenshot
         public bool MakeSelectionOnly { get; set; }
 
         private DrawShapes drawShape;
-
+        public DrawModes DrawMode { get; set; }
         public DrawShapes DrawShape
         {
             get => drawShape;
@@ -81,6 +81,7 @@ namespace ColorWanted.screenshot
         public ExtendedCanvas()
         {
             History = new Stack<DrawHistoryItem>();
+            DrawMode = DrawModes.Stroke;
             BindEvent();
         }
 
@@ -229,7 +230,8 @@ namespace ColorWanted.screenshot
                 Color = DrawColor,
                 Width = DrawWidth,
                 LineStyle = LineStyle,
-                TextFont = TextFont
+                TextFont = TextFont,
+                Mode = DrawMode
             };
         }
 

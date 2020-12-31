@@ -80,6 +80,11 @@ namespace ColorWanted.screenshot
             get => canvasEdit.DrawColor;
             set => canvasEdit.DrawColor = value;
         }
+        public DrawModes DrawMode
+        {
+            get => canvasEdit.DrawMode;
+            set => canvasEdit.DrawMode = value;
+        }
         public Font TextFont
         {
             get => canvasEdit.TextFont;

@@ -15,6 +15,7 @@ namespace ColorWanted.screenshot
         private ToolStripButton activeToolShapeType;
         private ToolStripButton activeToolColor;
         private ToolStripButton activeToolLineStyle;
+        private ToolStripButton activeToolDrawMode;
         private const int HOTKEY_ID_BASE = 0xF10000;
 
         public void BindEditorEvents()
@@ -152,12 +153,15 @@ namespace ColorWanted.screenshot
             activeToolShapeType = toolRectangle;
             activeToolColor = toolColorRed;
             activeToolLineStyle = toolStyleSolid;
+            activeToolDrawMode = toolDrawModeStroke;
 
             this.InvokeMethod(() =>
             {
+                toolbarDrawMode.Show();
                 activeToolShapeType.Checked = true;
                 activeToolColor.Checked = true;
                 activeToolLineStyle.Checked = true;
+                activeToolDrawMode.Checked = true;
 
                 // 字体
                 toolTextStyle.ForeColor = activeToolColor.BackColor;
@@ -195,6 +199,7 @@ namespace ColorWanted.screenshot
             editor.DrawShape = DrawShapes.Rectangle;
             editor.DrawWidth = 2;
             editor.TextFont = toolTextStyle.Font;
+            editor.DrawMode = DrawModes.Stroke;
 
             FixToolbarPosition(editor.Bounds, toolPanel);
             editor.BeginEdit();
@@ -230,6 +235,14 @@ namespace ColorWanted.screenshot
                 toolbarTextStyle.Hide();
                 toolbarLineType.Show();
                 toolLineWidth.Show();
+            }
+            if (editor.DrawShape == DrawShapes.Ellipse || editor.DrawShape == DrawShapes.Rectangle)
+            {
+                toolbarDrawMode.Show();
+            }
+            else
+            {
+                toolbarDrawMode.Hide();
             }
         }
 
@@ -328,6 +341,24 @@ namespace ColorWanted.screenshot
 
             editor.TextFont = toolTextStyle.Font = dialog.Font;
             dialog.Dispose();
+        }
+
+        /// <summary>
+        /// 绘制模式切换
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToolbarDrawMode_ItemClick(object sender, ToolStripItemClickedEventArgs e)
+        {
+            var item = (ToolStripButton)e.ClickedItem;
+
+            if (activeToolDrawMode != null)
+            {
+                activeToolDrawMode.Checked = false;
+            }
+            activeToolDrawMode = item;
+            item.Checked = true;
+            editor.DrawMode = (DrawModes)Enum.Parse(typeof(DrawModes), item.Tag.ToString());
         }
 
         /// <summary>

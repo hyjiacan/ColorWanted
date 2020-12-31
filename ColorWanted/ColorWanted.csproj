@@ -117,6 +117,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="screenshot\DrawHistoryItem.cs" />
+    <Compile Include="screenshot\DrawModes.cs" />
     <Compile Include="screenshot\events\DoubleClickEventArgs.cs" />
     <Compile Include="screenshot\events\ResizeEventArgs.cs" />
     <Compile Include="screenshot\ExtendedCanvas.cs" />
@@ -328,6 +329,8 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="Resources\stroke.png" />
+    <None Include="Resources\fill.png" />
     <None Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\Arrow.cd" />
     <None Include="Resources\mosaic.png" />
     <None Include="app.manifest" />
