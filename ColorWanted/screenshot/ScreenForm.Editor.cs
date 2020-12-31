@@ -157,7 +157,13 @@ namespace ColorWanted.screenshot
 
             this.InvokeMethod(() =>
             {
+                toolbarLineType.Show();
+                toolLineWidth.Show();
+                toolbarColor.Show();
                 toolbarDrawMode.Show();
+                toolbarTextStyle.Hide();
+                
+
                 activeToolShapeType.Checked = true;
                 activeToolColor.Checked = true;
                 activeToolLineStyle.Checked = true;
