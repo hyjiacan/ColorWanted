@@ -171,6 +171,7 @@ namespace ColorWanted.screenshot
                     StrokeThickness = BORDER_WIDTH,
                     Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue)
                 };
+                SelectionBorder.MouseUp += SelectionBorder_MouseLeftButtonUp;
 
                 canvasMask.Children.Add(SelectionBorder);
             }
@@ -198,8 +199,9 @@ namespace ColorWanted.screenshot
                 h = size.Height - y;
             }
             SelectionBorder.SetLocation(x, y);
-            SelectionBorder.Width = w;
-            SelectionBorder.Height = h;
+            // -1 用于修正 border 边框引起的计算误差
+            SelectionBorder.Width = w - 1;
+            SelectionBorder.Height = h - 1;
             SelectionBorder.Visibility = Visibility.Visible;
         }
 
@@ -207,39 +209,66 @@ namespace ColorWanted.screenshot
         {
             var location = SelectionBorder.GetLocation();
             var size = SelectionBorder.GetSize();
-
+            var minSize = 8;
             switch (e.ResizePosition)
             {
                 case ResizePositions.North:
                     location.Offset(0, e.OffsetY);
                     size.Height -= e.OffsetY;
+                    if (size.Height < minSize)
+                    {
+                        return;
+                    }
                     break;
                 case ResizePositions.South:
                     size.Height += e.OffsetY;
+                    if (size.Height < minSize)
+                    {
+                        return;
+                    }
                     break;
                 case ResizePositions.West:
                     location.Offset(e.OffsetX, 0);
                     size.Width -= e.OffsetX;
+                    if (size.Width < minSize)
+                    {
+                        return;
+                    }
                     break;
                 case ResizePositions.East:
                     size.Width += e.OffsetX;
+                    if (size.Width < minSize)
+                    {
+                        return;
+                    }
                     break;
                 case ResizePositions.NorthWest:
                 case ResizePositions.SouthWest:
                     location.Offset(e.OffsetX, e.OffsetY);
                     size.Width -= e.OffsetX;
                     size.Height -= e.OffsetY;
+                    if (size.Width < minSize)
+                    {
+                        size.Width = minSize;
+                    }
+                    if (size.Height < minSize)
+                    {
+                        size.Height = minSize;
+                    }
                     break;
                 case ResizePositions.SouthEast:
                 case ResizePositions.NorthEast:
                     size.Width += e.OffsetX;
                     size.Height += e.OffsetY;
+                    if (size.Width < minSize)
+                    {
+                        size.Width = minSize;
+                    }
+                    if (size.Height < minSize)
+                    {
+                        size.Height = minSize;
+                    }
                     break;
-            }
-
-            if (size.Width <= 8 || size.Height <= 8)
-            {
-                return;
             }
 
             // 不能超出画布
@@ -415,6 +444,14 @@ namespace ColorWanted.screenshot
             canvasEdit.OnMouseMove(null, e);
             // 移动选区时，resize border 一起移动
             resizeBorder?.FixPosition();
+        }
+
+        private void SelectionBorder_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (resizeBorder != null)
+            {
+                resizeBorder.EndResize();
+            }
         }
 
         private void container_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

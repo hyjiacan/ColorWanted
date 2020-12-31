@@ -90,7 +90,7 @@ namespace ColorWanted.screenshot
             var left = x + w - tb.Width;
             var top = y + h + 2;
 
-            var size = Util.GetScreenSize(true);
+            var size = this.Size;
 
             // 如果下方高度不合适，放到右侧
             if (top + tb.Height > size.Height)
