@@ -176,6 +176,7 @@ namespace ColorWanted.viewer
                 viewer.WindowState = FormWindowState.Maximized;
             }
             viewer.Show();
+            viewer.TopMost = true;
 
             // 延迟将窗口显示到最前，以确保鼠标点击窗口的动作已经完成
             System.Threading.Tasks.Task.Factory.StartNew(() =>
@@ -183,7 +184,10 @@ namespace ColorWanted.viewer
                 System.Threading.Thread.Sleep(100);
                 viewer.InvokeMethod(() =>
                 {
+                    viewer.TopMost = false;
                     viewer.BringToFront();
+                    viewer.Activate();
+                    viewer.Capture = true;
                 });
             });
         }
@@ -364,7 +368,7 @@ namespace ColorWanted.viewer
         }
         private void ImageViewer_Resize(object sender, EventArgs e)
         {
-            FixSize();
+            //FixSize();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
