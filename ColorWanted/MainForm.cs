@@ -481,7 +481,14 @@ namespace ColorWanted
                     break;
                 // 截图
                 case HotKeyType.ScreenShot:
-                    ScreenShot.Capture();
+                    if (ScreenShot.Busy)
+                    {
+                        ScreenShot.CancelCapture();
+                    }
+                    else
+                    {
+                        ScreenShot.Capture();
+                    }
                     break;
                 // 录屏
                 case HotKeyType.ScreenRecord:

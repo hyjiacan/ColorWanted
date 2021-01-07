@@ -76,6 +76,21 @@ namespace ColorWanted.screenshot
             return image;
         }
 
+        public static void CancelCapture()
+        {
+            if (screenForm == null)
+            {
+                return;
+            }
+            if (!Busy)
+            {
+                return;
+            }
+
+            screenForm.Close();
+            Busy = false;
+        }
+
         public static void Capture()
         {
             if (screenForm == null)

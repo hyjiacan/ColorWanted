@@ -176,7 +176,6 @@ namespace ColorWanted.screenshot
 
         private void CloseForm()
         {
-            editor.CancelEdit();
             Close();
         }
 
@@ -184,6 +183,7 @@ namespace ColorWanted.screenshot
         {
             UnbindHotKeys();
 
+            editor.CancelEdit();
             // 内存回收
             editor.Reset();
 
