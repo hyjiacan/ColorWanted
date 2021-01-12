@@ -43,6 +43,7 @@ namespace ColorWanted.screenshot
         public LineStyles LineStyle { get; set; }
         public int DrawWidth { get; set; }
         public System.Drawing.Font TextFont { get; set; }
+        public event EventHandler<HistoryEventArgs> HistoryChange;
 
         /// <summary>
         /// 当前的绘制
@@ -139,6 +140,7 @@ namespace ColorWanted.screenshot
                 Record = record
             });
             RedoHistory.Clear();
+            HistoryChange?.Invoke(this, new HistoryEventArgs(History.Count, RedoHistory.Count));
             GC.Collect();
         }
 
@@ -155,6 +157,8 @@ namespace ColorWanted.screenshot
             Children.Add(element.Element);
             History.Push(element);
             EmitDrawEvent(DrawState.End, true);
+
+            HistoryChange?.Invoke(this, new HistoryEventArgs(History.Count, RedoHistory.Count));
         }
 
         /// <summary>
@@ -170,6 +174,8 @@ namespace ColorWanted.screenshot
             Children.Remove(element.Element);
             RedoHistory.Push(element);
             EmitDrawEvent(DrawState.End, true);
+
+            HistoryChange?.Invoke(this, new HistoryEventArgs(History.Count, RedoHistory.Count));
         }
 
         private void CreateTextBox()

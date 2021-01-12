@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 
 namespace ColorWanted.screenshot.events
 {
@@ -9,6 +8,4 @@ namespace ColorWanted.screenshot.events
         public double OffsetX { get; set; }
         public double OffsetY { get; set; }
     }
-
-    delegate void ResizeEventHandler(object sender, ResizeEventArgs e);
 }

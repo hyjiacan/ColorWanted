@@ -16,7 +16,7 @@
             </local:ExtendedCanvas.Background>
             <Image x:Name="selectArea" Visibility="Hidden"></Image>
         </local:ExtendedCanvas>
-        <local:ExtendedCanvas x:Name="canvasEdit" EditEnabled="True" Visibility="Hidden">
+        <local:ExtendedCanvas x:Name="canvasEdit" EditEnabled="True" Visibility="Hidden" HistoryChange="canvasEdit_HistoryChange">
             <local:ExtendedCanvas.Background>
                 <ImageBrush x:Name="editBackground"></ImageBrush>
             </local:ExtendedCanvas.Background>

@@ -33,7 +33,7 @@ namespace ColorWanted.screenshot
         private static Color color = Colors.DeepSkyBlue;
         private static Color activeColor = Colors.Red;
 
-        public event ResizeEventHandler Resize;
+        public event EventHandler<ResizeEventArgs> Resize;
 
         public bool IsDisposed { get; private set; }
 

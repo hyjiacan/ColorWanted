@@ -119,6 +119,7 @@
     <Compile Include="screenshot\DrawHistoryItem.cs" />
     <Compile Include="screenshot\DrawModes.cs" />
     <Compile Include="screenshot\events\DoubleClickEventArgs.cs" />
+    <Compile Include="screenshot\events\HistoryEventArgs.cs" />
     <Compile Include="screenshot\events\ResizeEventArgs.cs" />
     <Compile Include="screenshot\ExtendedCanvas.cs" />
     <Compile Include="ext\PictureBoxExtension.cs" />

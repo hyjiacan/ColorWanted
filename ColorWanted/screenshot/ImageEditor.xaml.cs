@@ -50,6 +50,8 @@ namespace ColorWanted.screenshot
         /// </summary>
         public event EventHandler<DoubleClickEventArgs> Compeleted;
 
+        public event EventHandler<HistoryEventArgs> HistoryChange;
+
         /// <summary>
         /// 选区被清除时的事件
         /// </summary>
@@ -339,13 +341,21 @@ namespace ColorWanted.screenshot
 
             AreaSelected.Invoke(this, new AreaEventArgs(area));
 
-            // 显示 resize border
-            if (resizeBorder == null || resizeBorder.IsDisposed)
+            // 异步显示 resize ，以避免选区完成时， resize 被激活
+            System.Threading.Tasks.Task.Factory.StartNew(() =>
             {
-                resizeBorder = new ResizeBorder(container, SelectionBorder);
-                resizeBorder.Resize += ResizeBorder_Resize;
-            }
-            resizeBorder.FixPosition();
+                System.Threading.Thread.Sleep(300);
+                Dispatcher.Invoke(() =>
+                {
+                    // 显示 resize border
+                    if (resizeBorder == null || resizeBorder.IsDisposed)
+                    {
+                        resizeBorder = new ResizeBorder(container, SelectionBorder);
+                        resizeBorder.Resize += ResizeBorder_Resize;
+                    }
+                    resizeBorder.FixPosition();
+                });
+            });
         }
         private void UpdateSelectArea(Rect selectedRect, bool updateBorder = true)
         {
@@ -428,6 +438,10 @@ namespace ColorWanted.screenshot
 
         private void canvasMask_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (resizeBorder != null)
+            {
+                resizeBorder.EndResize();
+            }
             canvasEdit.ExtendedCanvas_MouseUp(sender, e);
         }
 
@@ -460,6 +474,11 @@ namespace ColorWanted.screenshot
             {
                 resizeBorder.UpdateState(e.GetPosition(container));
             }
+        }
+
+        private void canvasEdit_HistoryChange(object sender, HistoryEventArgs e)
+        {
+            HistoryChange?.Invoke(sender, e);
         }
     }
 }

@@ -23,6 +23,13 @@ namespace ColorWanted.screenshot
             editor.AreaSelected += Editor_AreaSelected;
             editor.AreaCleared += Editor_AreaCleared;
             editor.Compeleted += Editor_Compeleted;
+            editor.HistoryChange += Editor_HistoryChange;
+        }
+
+        private void Editor_HistoryChange(object sender, HistoryEventArgs e)
+        {
+            toolUndo.Enabled = e.HistoryCount > 0;
+            toolRedo.Enabled = e.RedoHistoryCount > 0;
         }
 
         public void ShowWindow()
@@ -31,7 +38,7 @@ namespace ColorWanted.screenshot
             Show();
             BringToFront();
             TopMost = true;
-            
+
             BindHotKeys();
 
             new Thread(InitEditorToolbar) { IsBackground = true }.Start();
@@ -164,7 +171,9 @@ namespace ColorWanted.screenshot
                 toolbarColor.Show();
                 toolbarDrawMode.Show();
                 toolbarTextStyle.Hide();
-                
+
+                toolUndo.Enabled = false;
+                toolRedo.Enabled = false;
 
                 activeToolShapeType.Checked = true;
                 activeToolColor.Checked = true;
