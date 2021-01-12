@@ -55,14 +55,14 @@
             this.toolRedo = new System.Windows.Forms.ToolStripButton();
             this.label1 = new System.Windows.Forms.Label();
             this.toolbarExtPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.toolbarDrawMode = new System.Windows.Forms.ToolStrip();
+            this.toolDrawModeStroke = new System.Windows.Forms.ToolStripButton();
+            this.toolDrawModeFill = new System.Windows.Forms.ToolStripButton();
             this.toolbarLineType = new System.Windows.Forms.ToolStrip();
             this.toolStyleSolid = new System.Windows.Forms.ToolStripButton();
             this.toolStyleDotted = new System.Windows.Forms.ToolStripButton();
             this.toolStyleDashed = new System.Windows.Forms.ToolStripButton();
             this.toolLineWidth = new System.Windows.Forms.TrackBar();
-            this.toolbarDrawMode = new System.Windows.Forms.ToolStrip();
-            this.toolDrawModeStroke = new System.Windows.Forms.ToolStripButton();
-            this.toolDrawModeFill = new System.Windows.Forms.ToolStripButton();
             this.toolbarTextStyle = new System.Windows.Forms.ToolStrip();
             this.toolTextStyle = new System.Windows.Forms.ToolStripButton();
             this.toolbarMask = new System.Windows.Forms.ToolStrip();
@@ -79,9 +79,9 @@
             this.toolbarMainPanel.SuspendLayout();
             this.toolbarHistory.SuspendLayout();
             this.toolbarExtPanel.SuspendLayout();
+            this.toolbarDrawMode.SuspendLayout();
             this.toolbarLineType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolLineWidth)).BeginInit();
-            this.toolbarDrawMode.SuspendLayout();
             this.toolbarTextStyle.SuspendLayout();
             this.toolbarMask.SuspendLayout();
             this.SuspendLayout();
@@ -311,7 +311,6 @@
             this.toolPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.toolPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.toolPanel.Controls.Add(this.toolbarMainPanel);
-            this.toolPanel.Controls.Add(this.label1);
             this.toolPanel.Controls.Add(this.toolbarExtPanel);
             this.toolPanel.Location = new System.Drawing.Point(12, 197);
             this.toolPanel.Name = "toolPanel";
@@ -329,9 +328,10 @@
             this.toolbarMainPanel.AutoSize = true;
             this.toolbarMainPanel.Controls.Add(this.toolbarHistory);
             this.toolbarMainPanel.Controls.Add(this.toolbar);
+            this.toolbarMainPanel.Controls.Add(this.label1);
             this.toolbarMainPanel.Location = new System.Drawing.Point(3, 2);
             this.toolbarMainPanel.Name = "toolbarMainPanel";
-            this.toolbarMainPanel.Size = new System.Drawing.Size(329, 27);
+            this.toolbarMainPanel.Size = new System.Drawing.Size(449, 27);
             this.toolbarMainPanel.TabIndex = 13;
             // 
             // toolbarHistory
@@ -370,7 +370,7 @@
             // 
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(344, 2);
+            this.label1.Location = new System.Drawing.Point(332, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 23);
             this.label1.TabIndex = 11;
@@ -384,15 +384,48 @@
             // 
             this.toolbarExtPanel.AutoSize = true;
             this.toolbarExtPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.toolbarExtPanel.Controls.Add(this.toolbarDrawMode);
             this.toolbarExtPanel.Controls.Add(this.toolbarLineType);
             this.toolbarExtPanel.Controls.Add(this.toolLineWidth);
-            this.toolbarExtPanel.Controls.Add(this.toolbarDrawMode);
             this.toolbarExtPanel.Controls.Add(this.toolbarColor);
             this.toolbarExtPanel.Controls.Add(this.toolbarTextStyle);
             this.toolbarExtPanel.Location = new System.Drawing.Point(3, 39);
             this.toolbarExtPanel.Name = "toolbarExtPanel";
             this.toolbarExtPanel.Size = new System.Drawing.Size(455, 28);
             this.toolbarExtPanel.TabIndex = 10;
+            // 
+            // toolbarDrawMode
+            // 
+            this.toolbarDrawMode.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolbarDrawMode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolDrawModeStroke,
+            this.toolDrawModeFill});
+            this.toolbarDrawMode.Location = new System.Drawing.Point(0, 0);
+            this.toolbarDrawMode.Name = "toolbarDrawMode";
+            this.toolbarDrawMode.Size = new System.Drawing.Size(58, 25);
+            this.toolbarDrawMode.TabIndex = 12;
+            this.toolbarDrawMode.Text = "toolStrip1";
+            this.toolbarDrawMode.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolbarDrawMode_ItemClick);
+            // 
+            // toolDrawModeStroke
+            // 
+            this.toolDrawModeStroke.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolDrawModeStroke.Image = global::ColorWanted.Properties.Resources.rect;
+            this.toolDrawModeStroke.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDrawModeStroke.Name = "toolDrawModeStroke";
+            this.toolDrawModeStroke.Size = new System.Drawing.Size(23, 22);
+            this.toolDrawModeStroke.Tag = "Stroke";
+            this.toolDrawModeStroke.ToolTipText = "描边";
+            // 
+            // toolDrawModeFill
+            // 
+            this.toolDrawModeFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolDrawModeFill.Image = global::ColorWanted.Properties.Resources.fill;
+            this.toolDrawModeFill.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolDrawModeFill.Name = "toolDrawModeFill";
+            this.toolDrawModeFill.Size = new System.Drawing.Size(23, 22);
+            this.toolDrawModeFill.Tag = "Fill";
+            this.toolDrawModeFill.ToolTipText = "填充";
             // 
             // toolbarLineType
             // 
@@ -401,7 +434,7 @@
             this.toolStyleSolid,
             this.toolStyleDotted,
             this.toolStyleDashed});
-            this.toolbarLineType.Location = new System.Drawing.Point(0, 0);
+            this.toolbarLineType.Location = new System.Drawing.Point(58, 0);
             this.toolbarLineType.Name = "toolbarLineType";
             this.toolbarLineType.Size = new System.Drawing.Size(132, 25);
             this.toolbarLineType.TabIndex = 9;
@@ -446,7 +479,7 @@
             // 
             this.toolLineWidth.AutoSize = false;
             this.toolLineWidth.LargeChange = 2;
-            this.toolLineWidth.Location = new System.Drawing.Point(135, 3);
+            this.toolLineWidth.Location = new System.Drawing.Point(193, 3);
             this.toolLineWidth.Maximum = 5;
             this.toolLineWidth.Minimum = 1;
             this.toolLineWidth.Name = "toolLineWidth";
@@ -454,39 +487,6 @@
             this.toolLineWidth.TabIndex = 11;
             this.toolLineWidth.Value = 1;
             this.toolLineWidth.Scroll += new System.EventHandler(this.ToolLineWidth_Scroll);
-            // 
-            // toolbarDrawMode
-            // 
-            this.toolbarDrawMode.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolbarDrawMode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolDrawModeStroke,
-            this.toolDrawModeFill});
-            this.toolbarDrawMode.Location = new System.Drawing.Point(212, 0);
-            this.toolbarDrawMode.Name = "toolbarDrawMode";
-            this.toolbarDrawMode.Size = new System.Drawing.Size(58, 25);
-            this.toolbarDrawMode.TabIndex = 12;
-            this.toolbarDrawMode.Text = "toolStrip1";
-            this.toolbarDrawMode.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ToolbarDrawMode_ItemClick);
-            // 
-            // toolDrawModeStroke
-            // 
-            this.toolDrawModeStroke.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolDrawModeStroke.Image = global::ColorWanted.Properties.Resources.rect;
-            this.toolDrawModeStroke.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDrawModeStroke.Name = "toolDrawModeStroke";
-            this.toolDrawModeStroke.Size = new System.Drawing.Size(23, 22);
-            this.toolDrawModeStroke.Tag = "Stroke";
-            this.toolDrawModeStroke.ToolTipText = "描边";
-            // 
-            // toolDrawModeFill
-            // 
-            this.toolDrawModeFill.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolDrawModeFill.Image = global::ColorWanted.Properties.Resources.fill;
-            this.toolDrawModeFill.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolDrawModeFill.Name = "toolDrawModeFill";
-            this.toolDrawModeFill.Size = new System.Drawing.Size(23, 22);
-            this.toolDrawModeFill.Tag = "Fill";
-            this.toolDrawModeFill.ToolTipText = "填充";
             // 
             // toolbarTextStyle
             // 
@@ -607,11 +607,11 @@
             this.toolbarHistory.PerformLayout();
             this.toolbarExtPanel.ResumeLayout(false);
             this.toolbarExtPanel.PerformLayout();
+            this.toolbarDrawMode.ResumeLayout(false);
+            this.toolbarDrawMode.PerformLayout();
             this.toolbarLineType.ResumeLayout(false);
             this.toolbarLineType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toolLineWidth)).EndInit();
-            this.toolbarDrawMode.ResumeLayout(false);
-            this.toolbarDrawMode.PerformLayout();
             this.toolbarTextStyle.ResumeLayout(false);
             this.toolbarTextStyle.PerformLayout();
             this.toolbarMask.ResumeLayout(false);

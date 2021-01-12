@@ -411,6 +411,9 @@ namespace ColorWanted.screenshot
             activeToolDrawMode = item;
             item.Checked = true;
             editor.DrawMode = (DrawModes)Enum.Parse(typeof(DrawModes), item.Tag.ToString());
+
+            // 仅在描边时才显示宽度和线型
+            toolbarLineType.Visible = toolLineWidth.Visible = editor.DrawMode == DrawModes.Stroke;
         }
 
         private void toolUndo_Click(object sender, EventArgs e)
