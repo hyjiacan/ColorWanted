@@ -92,6 +92,9 @@ namespace ColorWanted
         /// 启动时传入的参数列表
         /// </summary>
         private string[] AppArgs;
+
+        public static MainForm Instance { get; private set; }
+
         #endregion
         protected override void DefWndProc(ref Message m)
         {

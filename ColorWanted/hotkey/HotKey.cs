@@ -85,8 +85,6 @@ namespace ColorWanted.hotkey
             return attr;
         }
 
-        private static IntPtr MainFormHandle;
-
         public static HotKey Get(HotKeyType type)
         {
             return Settings.Hotkeys.Get(type) ?? FromType(type);
@@ -104,7 +102,6 @@ namespace ColorWanted.hotkey
         /// <param name="handle"></param>
         public static void Bind(IntPtr handle)
         {
-            MainFormHandle = handle;
             foreach (var hotkey in Util.Enum<HotKeyType>().Select(Get)
                 .Where(hotkey=>hotkey.HasHotkey()))
             {
@@ -120,7 +117,7 @@ namespace ColorWanted.hotkey
         /// </summary>
         public static void Bind()
         {
-            Bind(MainFormHandle);
+            Bind(MainForm.Instance.Handle);
         }
 
         /// <summary>
@@ -139,7 +136,7 @@ namespace ColorWanted.hotkey
         /// </summary>
         public static void Unbind()
         {
-            Unbind(MainFormHandle);
+            Unbind(MainForm.Instance.Handle);
         }
         #endregion
     }

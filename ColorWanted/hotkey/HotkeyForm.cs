@@ -31,8 +31,7 @@ namespace ColorWanted.hotkey
         private void btnExit_Click(object sender, EventArgs e)
         {
             HotKey.Bind();
-            // ReSharper disable once PossibleNullReferenceException
-            ((MainForm)Application.OpenForms["MainForm"]).UpdateTooltip();
+            MainForm.Instance.UpdateTooltip();
             Close();
         }
 

@@ -59,8 +59,7 @@ namespace ColorWanted.update
 
             if (Instance.Busy)
             {
-                var mainForm = Application.OpenForms["MainForm"] as MainForm;
-                mainForm?.ShowTip(2000, Instance.resources.GetString("updateIsBusy"));
+                MainForm.Instance?.ShowTip(2000, Instance.resources.GetString("updateIsBusy"));
                 return;
             }
 

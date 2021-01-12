@@ -60,6 +60,8 @@ namespace ColorWanted.screenshot
         /// </summary>
         public event EventHandler AreaCleared;
 
+        public bool IsEditing { get; private set; }
+
         public DrawShapes DrawShape
         {
             get => canvasEdit.DrawShape;
@@ -130,6 +132,7 @@ namespace ColorWanted.screenshot
 
             canvasEdit.SetLocation(lastSelectedRect.Location);
             canvasEdit.Visibility = Visibility.Visible;
+            IsEditing = true;
         }
 
         /// <summary>
@@ -138,6 +141,7 @@ namespace ColorWanted.screenshot
         /// </summary>
         public Bitmap EndEdit()
         {
+            IsEditing = false;
             canvasMask.EditEnabled = true;
             canvasEdit.CommitTextInput();
             var graphics = Graphics.FromImage(SelectedImage);
@@ -156,7 +160,20 @@ namespace ColorWanted.screenshot
 
         public void Undo()
         {
+            if (!canvasEdit.EditEnabled)
+            {
+                return;
+            }
             canvasEdit.Undo();
+        }
+
+        public void Redo()
+        {
+            if (!canvasEdit.EditEnabled)
+            {
+                return;
+            }
+            canvasEdit.Redo();
         }
 
         private void SetBorder()

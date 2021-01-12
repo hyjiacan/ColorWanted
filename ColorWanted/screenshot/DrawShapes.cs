@@ -29,6 +29,10 @@
         /// <summary>
         /// 马赛克
         /// </summary>
-        Mosiac
+        Mosaic,
+        /// <summary>
+        /// 折线
+        /// </summary>
+        Polyline
     }
 }

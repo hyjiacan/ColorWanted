@@ -31,11 +31,6 @@ namespace ColorWanted.screenshot
             {
                 return Points.FirstOrDefault();
             }
-            set
-            {
-                Points.Clear();
-                Points.Add(value);
-            }
         }
 
         /// <summary>
@@ -46,11 +41,6 @@ namespace ColorWanted.screenshot
             get
             {
                 return Points.Count > 1 ? Points.Last() : new Point();
-            }
-            set
-            {
-                Points.Add(value);
-                GetElement();
             }
         }
 
@@ -129,16 +119,6 @@ namespace ColorWanted.screenshot
                     }
                     ((Polyline)shape).Points = Points;
                     break;
-                case DrawShapes.Ellipse:
-                    if (shape == null)
-                    {
-                        shape = new Ellipse();
-                    }
-
-                    shape.Width = Size.Width;
-                    shape.Height = Size.Height;
-                    shape.SetLocation(Rect.X, Rect.Y);
-                    break;
                 case DrawShapes.Line:
                     if (shape == null)
                     {
@@ -149,6 +129,23 @@ namespace ColorWanted.screenshot
                     l.Y1 = Start.Y;
                     l.X2 = End.X;
                     l.Y2 = End.Y;
+                    break;
+                case DrawShapes.Polyline:
+                    if (shape == null)
+                    {
+                        shape = new Polyline();
+                    }
+                    ((Polyline)shape).Points = Points;
+                    break;
+                case DrawShapes.Ellipse:
+                    if (shape == null)
+                    {
+                        shape = new Ellipse();
+                    }
+
+                    shape.Width = Size.Width;
+                    shape.Height = Size.Height;
+                    shape.SetLocation(Rect.X, Rect.Y);
                     break;
                 case DrawShapes.Rectangle:
                     if (shape == null)
@@ -234,6 +231,28 @@ namespace ColorWanted.screenshot
                 }
                 return element;
             }
+        }
+
+        public void AppendPoint(Point point)
+        {
+            Points.Add(point);
+            GetElement();
+        }
+
+        public void SetStart(Point point)
+        {
+            Points.Clear();
+            Points.Add(point);
+        }
+
+        public void SetEnd(Point point)
+        {
+            if (Points.Count == 0)
+            {
+                return;
+            }
+
+            Points[Points.Count - 1] = point;
         }
 
         public void Move(Canvas canvas, Point from, Point to)

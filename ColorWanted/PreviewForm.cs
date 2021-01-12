@@ -242,8 +242,7 @@ namespace ColorWanted
                 return;
             }
             // 切换暂停预览
-            var mainForm = Application.OpenForms["MainForm"] as MainForm;
-            mainForm.DrawControl(false);
+            MainForm.Instance.DrawControl(false);
         }
 
         /// <summary>

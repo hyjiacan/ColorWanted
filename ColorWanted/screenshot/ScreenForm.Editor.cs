@@ -31,6 +31,8 @@ namespace ColorWanted.screenshot
             Show();
             BringToFront();
             TopMost = true;
+            
+            BindHotKeys();
 
             new Thread(InitEditorToolbar) { IsBackground = true }.Start();
         }
@@ -40,7 +42,6 @@ namespace ColorWanted.screenshot
             this.InvokeMethod(() =>
             {
                 editor.SetImage(img);
-                BindHotKeys();
 
                 Refresh();
             });
@@ -157,6 +158,7 @@ namespace ColorWanted.screenshot
 
             this.InvokeMethod(() =>
             {
+                toolbarMask.Hide();
                 toolbarLineType.Show();
                 toolLineWidth.Show();
                 toolbarColor.Show();
@@ -230,25 +232,60 @@ namespace ColorWanted.screenshot
             activeToolShapeType = item;
             item.Checked = true;
             editor.DrawShape = (DrawShapes)Enum.Parse(typeof(DrawShapes), type.ToString());
-            if (editor.DrawShape == DrawShapes.Text)
+
+            switch (editor.DrawShape)
             {
-                toolbarLineType.Hide();
-                toolLineWidth.Hide();
-                toolbarTextStyle.Show();
-            }
-            else
-            {
-                toolbarTextStyle.Hide();
-                toolbarLineType.Show();
-                toolLineWidth.Show();
-            }
-            if (editor.DrawShape == DrawShapes.Ellipse || editor.DrawShape == DrawShapes.Rectangle)
-            {
-                toolbarDrawMode.Show();
-            }
-            else
-            {
-                toolbarDrawMode.Hide();
+                case DrawShapes.Curve:
+                    toolbarTextStyle.Hide();
+                    toolbarDrawMode.Hide();
+                    toolbarLineType.Show();
+                    toolLineWidth.Show();
+                    toolbarColor.Show();
+                    break;
+                case DrawShapes.Line:
+                    toolbarTextStyle.Hide();
+                    toolbarDrawMode.Hide();
+                    toolbarLineType.Show();
+                    toolLineWidth.Show();
+                    toolbarColor.Show();
+                    break;
+                case DrawShapes.Polyline:
+                    toolbarTextStyle.Hide();
+                    toolbarDrawMode.Hide();
+                    toolbarLineType.Show();
+                    toolLineWidth.Show();
+                    toolbarColor.Show();
+                    break;
+                case DrawShapes.Text:
+                    toolbarTextStyle.Show();
+                    toolbarLineType.Hide();
+                    toolLineWidth.Hide();
+                    toolbarDrawMode.Hide();
+                    toolbarColor.Show();
+                    break;
+                case DrawShapes.Rectangle:
+                case DrawShapes.Ellipse:
+                //case DrawShapes.Polygon:
+                //    toolbarTextStyle.Hide();
+                //    toolbarLineType.Show();
+                //    toolLineWidth.Show();
+                //    toolbarDrawMode.Show();
+                //    toolbarColor.Show();
+                //    break;
+                case DrawShapes.Arrow:
+                    toolbarTextStyle.Hide();
+                    toolbarDrawMode.Hide();
+                    toolbarLineType.Show();
+                    toolLineWidth.Show();
+                    toolbarColor.Show();
+                    break;
+                case DrawShapes.Mosaic:
+                    toolbarTextStyle.Hide();
+                    toolbarDrawMode.Hide();
+                    toolbarLineType.Hide();
+                    toolLineWidth.Show();
+                    toolbarColor.Hide();
+                    break;
             }
         }
 
@@ -367,6 +404,16 @@ namespace ColorWanted.screenshot
             editor.DrawMode = (DrawModes)Enum.Parse(typeof(DrawModes), item.Tag.ToString());
         }
 
+        private void toolUndo_Click(object sender, EventArgs e)
+        {
+            editor.Undo();
+        }
+
+        private void toolRedo_Click(object sender, EventArgs e)
+        {
+            editor.Redo();
+        }
+
         /// <summary>
         /// 接收消息，响应快捷键
         /// </summary>
@@ -398,10 +445,20 @@ namespace ColorWanted.screenshot
                     break;
                 // 撤消编辑
                 case 0xF10002:
-                    editor.Undo();
+                    if (editor.IsEditing)
+                    {
+                        editor.Undo();
+                    }
+                    break;
+                // 重做编辑
+                case 0xF10003:
+                    if (editor.IsEditing)
+                    {
+                        editor.Redo();
+                    }
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
 
             base.WndProc(ref m);
@@ -420,6 +477,12 @@ namespace ColorWanted.screenshot
                     HOTKEY_ID_BASE + 2,
                     KeyModifier.Ctrl,
                     Keys.Z);
+
+            // Ctrl Shift Z 重做编辑
+            NativeMethods.RegisterHotKey(Handle,
+                    HOTKEY_ID_BASE + 3,
+                    KeyModifier.Ctrl | KeyModifier.Shift,
+                    Keys.Z);
         }
 
         private void UnbindHotKeys()
@@ -431,6 +494,10 @@ namespace ColorWanted.screenshot
             // Ctrl Z 撤消编辑
             NativeMethods.UnregisterHotKey(Handle,
                     HOTKEY_ID_BASE + 2);
+
+            // Ctrl Shift Z 重做编辑
+            NativeMethods.UnregisterHotKey(Handle,
+                    HOTKEY_ID_BASE + 3);
         }
     }
 }

@@ -221,7 +221,7 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            var mainForm = Application.OpenForms["MainForm"];
+            var mainForm = MainForm.Instance;
 
             if (mainForm != null && Settings.Main.Display != mode.DisplayMode.Hidden)
             {

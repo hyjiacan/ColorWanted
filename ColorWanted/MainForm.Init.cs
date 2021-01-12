@@ -19,10 +19,12 @@ namespace ColorWanted
     {
         public MainForm()
         {
+            Instance = this;
             componentsLayout();
         }
         public MainForm(params string[] args)
         {
+            Instance = this;
             AppArgs = args;
             componentsLayout();
         }

@@ -329,6 +329,10 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="Resources\redo.png" />
+    <None Include="Resources\undo.png" />
+    <None Include="Resources\polyline.png" />
+    <None Include="Resources\polygon.png" />
     <None Include="Resources\stroke.png" />
     <None Include="Resources\fill.png" />
     <None Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\Arrow.cd" />

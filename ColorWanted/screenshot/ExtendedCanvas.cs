@@ -16,6 +16,7 @@ namespace ColorWanted.screenshot
     public class ExtendedCanvas : Canvas
     {
         public Stack<DrawHistoryItem> History { get; private set; }
+        public Stack<DrawHistoryItem> RedoHistory { get; private set; }
 
         private bool IsMouseLeftButtonDown;
 
@@ -63,6 +64,7 @@ namespace ColorWanted.screenshot
                 Children.Remove(item.Element);
             }
             History.Clear();
+            RedoHistory.Clear();
             IsMouseLeftButtonDown = false;
             current = null;
             MoveMode = false;
@@ -81,6 +83,7 @@ namespace ColorWanted.screenshot
         public ExtendedCanvas()
         {
             History = new Stack<DrawHistoryItem>();
+            RedoHistory = new Stack<DrawHistoryItem>();
             DrawMode = DrawModes.Stroke;
             BindEvent();
         }
@@ -135,6 +138,7 @@ namespace ColorWanted.screenshot
                 Element = element,
                 Record = record
             });
+            RedoHistory.Clear();
             GC.Collect();
         }
 
@@ -143,7 +147,14 @@ namespace ColorWanted.screenshot
         /// </summary>
         public void Redo()
         {
-            throw new NotImplementedException();
+            if (RedoHistory.Count == 0)
+            {
+                return;
+            }
+            var element = RedoHistory.Pop();
+            Children.Add(element.Element);
+            History.Push(element);
+            EmitDrawEvent(DrawState.End, true);
         }
 
         /// <summary>
@@ -157,6 +168,7 @@ namespace ColorWanted.screenshot
             }
             var element = History.Pop();
             Children.Remove(element.Element);
+            RedoHistory.Push(element);
             EmitDrawEvent(DrawState.End, true);
         }
 
@@ -191,7 +203,7 @@ namespace ColorWanted.screenshot
             TextBox.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
             TextBox.Foreground = new SolidColorBrush(DrawColor);
 
-            current.End = new Point(current.Start.X + 160, current.Start.Y + 60);
+            current.SetEnd(new Point(current.Start.X + 160, current.Start.Y + 60));
         }
 
         public void CommitTextInput()
@@ -271,8 +283,7 @@ namespace ColorWanted.screenshot
                 }
 
                 current = MakeNewRecord();
-
-                current.Start = point;
+                current.SetStart(point);
                 IsMouseLeftButtonDown = true;
 
                 CreateTextBox();
@@ -284,7 +295,7 @@ namespace ColorWanted.screenshot
             }
 
             current = MakeNewRecord();
-            current.Start = point;
+            current.SetStart(point);
             IsMouseLeftButtonDown = true;
             EmitDrawEvent(DrawState.Start);
         }
@@ -297,7 +308,7 @@ namespace ColorWanted.screenshot
 
         private void ExtendedCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (!EditEnabled || !IsMouseLeftButtonDown)
+            if ((DrawShape != DrawShapes.Polyline || current == null) && (!EditEnabled || !IsMouseLeftButtonDown))
             {
                 return;
             }
@@ -313,19 +324,26 @@ namespace ColorWanted.screenshot
             {
                 if (MouseDownPoint != point)
                 {
-                    current.End = e.GetPosition(this);
+                    current.SetEnd(e.GetPosition(this));
                 }
                 return;
             }
 
-            current.End = point;
+            if (DrawShape == DrawShapes.Polyline)
+            {
+                current.AppendPoint(point);
+            }
+            else
+            {
+                current.SetEnd(point);
+            }
             Draw(current);
             EmitDrawEvent(DrawState.End);
         }
 
         public void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (!EditEnabled || !IsMouseLeftButtonDown)
+            if ((DrawShape != DrawShapes.Polyline || current == null) && (!EditEnabled || !IsMouseLeftButtonDown))
             {
                 return;
             }
@@ -343,13 +361,21 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            current.End = point;
 
             if (DrawShape == DrawShapes.Text)
             {
                 TextBox.Width = current.Size.Width;
                 TextBox.Height = current.Size.Height;
                 return;
+            }
+
+            if (DrawShape == DrawShapes.Polyline)
+            {
+                current.SetEnd(point);
+            }
+            else
+            {
+                current.AppendPoint(point);
             }
             Draw(current);
             EmitDrawEvent(DrawState.Move);

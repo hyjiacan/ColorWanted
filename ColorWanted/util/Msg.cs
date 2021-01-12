@@ -65,7 +65,7 @@ namespace ColorWanted.util
 
             if (type == MsgTypes.ShowWindow)
             {
-                var form = Application.OpenForms["MainForm"];
+                var form = MainForm.Instance;
                 if (!form.Visible)
                 {
                     form.Show();

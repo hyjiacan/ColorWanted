@@ -337,7 +337,7 @@ namespace ColorWanted.setting
             catch (Exception ex)
             {
                 util.Logger.Warn(ex);
-                ((MainForm)Application.OpenForms["MainForm"]).ShowBalloon(5000, "无法打开配置文件", ex.Message, ToolTipIcon.Warning);
+                MainForm.Instance.ShowBalloon(5000, "无法打开配置文件", ex.Message, ToolTipIcon.Warning);
             }
         }
 
