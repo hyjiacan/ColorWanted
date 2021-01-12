@@ -332,7 +332,6 @@
     <None Include="Resources\redo.png" />
     <None Include="Resources\undo.png" />
     <None Include="Resources\polyline.png" />
-    <None Include="Resources\polygon.png" />
     <None Include="Resources\stroke.png" />
     <None Include="Resources\fill.png" />
     <None Include="external\WPFArrows\WPFArrows\YiYan127.WPF\Arrows\Arrow.cd" />

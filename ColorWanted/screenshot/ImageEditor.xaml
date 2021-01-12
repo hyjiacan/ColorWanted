@@ -21,5 +21,7 @@
                 <ImageBrush x:Name="editBackground"></ImageBrush>
             </local:ExtendedCanvas.Background>
         </local:ExtendedCanvas>
+        <Rectangle x:Name="SelectionBorder" Stroke="Blue" StrokeThickness="1"
+                   MouseLeftButtonDown="SelectionBorder_MouseLeftButtonUp"></Rectangle>
     </Canvas>
 </UserControl>

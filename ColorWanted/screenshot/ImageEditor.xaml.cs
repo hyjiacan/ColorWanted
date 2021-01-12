@@ -38,11 +38,6 @@ namespace ColorWanted.screenshot
         /// </summary>
         private Bitmap SelectedImage;
 
-        /// <summary>
-        /// 选区的边框 
-        /// </summary>
-        private System.Windows.Shapes.Rectangle SelectionBorder;
-
         private ResizeBorder resizeBorder;
 
         /// <summary>
@@ -94,8 +89,7 @@ namespace ColorWanted.screenshot
         }
         public Rectangle Bounds
         {
-            get => SelectionBorder == null ? new Rectangle() :
-                new Rectangle(SelectionBorder.GetLocation().ToDrawingPoint(),
+            get => new Rectangle(SelectionBorder.GetLocation().ToDrawingPoint(),
                     SelectionBorder.GetSize().ToDrawingSize());
         }
 
@@ -178,20 +172,7 @@ namespace ColorWanted.screenshot
 
         private void SetBorder()
         {
-            const int BORDER_WIDTH = 1;
-
-            if (SelectionBorder == null)
-            {
-                // 添加边框
-                SelectionBorder = new System.Windows.Shapes.Rectangle
-                {
-                    StrokeThickness = BORDER_WIDTH,
-                    Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Blue)
-                };
-                SelectionBorder.MouseUp += SelectionBorder_MouseLeftButtonUp;
-
-                canvasMask.Children.Add(SelectionBorder);
-            }
+            double BORDER_WIDTH = SelectionBorder.StrokeThickness;
             var x = lastSelectedRect.X - BORDER_WIDTH;
             if (x < 0)
             {
@@ -321,10 +302,7 @@ namespace ColorWanted.screenshot
             if (e.State == DrawState.Cancel || e.IsEmpty)
             {
                 selectArea.Visibility = Visibility.Hidden;
-                if (SelectionBorder != null)
-                {
-                    SelectionBorder.Visibility = Visibility.Hidden;
-                }
+                SelectionBorder.Visibility = Visibility.Hidden;
                 resizeBorder?.Dispose();
                 AreaCleared.Invoke(this, null);
                 return;
@@ -426,10 +404,7 @@ namespace ColorWanted.screenshot
             maskBackground.ImageSource = null;
             selectArea.Source = null;
             editBackground.ImageSource = null;
-            if (SelectionBorder != null)
-            {
-                SelectionBorder.Visibility = Visibility.Hidden;
-            }
+            SelectionBorder.Visibility = Visibility.Hidden;
             try
             {
                 canvasMask.Reset();
