@@ -115,7 +115,6 @@ namespace ColorWanted.screenshot
             MouseLeftButtonUp += ExtendedCanvas_MouseUp;
             MouseLeave += ExtendedCanvas_MouseLeave; ;
             MouseMove += OnMouseMove;
-            MouseRightButtonDown += On_MouseRightButtonDown;
         }
 
         /// <summary>
@@ -385,13 +384,6 @@ namespace ColorWanted.screenshot
             }
             Draw(current);
             EmitDrawEvent(DrawState.Move);
-        }
-
-        private void On_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            // 取消图形
-            Undo();
-            EmitDrawEvent(DrawState.Cancel, true);
         }
         #endregion
 
