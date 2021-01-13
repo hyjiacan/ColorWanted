@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -57,6 +58,7 @@ namespace ColorWanted.screenshot
 
         private Point MouseDownPoint;
         private TextBox TextBox;
+        private Ellipse polygonPoint;
 
         public void Reset()
         {
@@ -112,8 +114,9 @@ namespace ColorWanted.screenshot
         private void BindEvent()
         {
             MouseLeftButtonDown += OnMouseLeftButtonDown;
+            MouseRightButtonDown += ExtendedCanvas_MouseRightButtonDown;
             MouseLeftButtonUp += ExtendedCanvas_MouseUp;
-            MouseLeave += ExtendedCanvas_MouseLeave; ;
+            MouseLeave += ExtendedCanvas_MouseLeave;
             MouseMove += OnMouseMove;
         }
 
@@ -255,6 +258,11 @@ namespace ColorWanted.screenshot
         #region 事件
         private void OnMouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            if (polygonPoint != null)
+            {
+                this.Children.Remove(polygonPoint);
+                polygonPoint = null;
+            }
             if (!EditEnabled)
             {
                 return;
@@ -298,11 +306,38 @@ namespace ColorWanted.screenshot
                 TextBox.Focus();
                 return;
             }
+            if (drawShape == DrawShapes.Polygon && current != null && current.Points.Any())
+            {
+                if (current.Points.Count > 3 && current.Distance < 3)
+                {
+                    // 起点和终点距离小于3时，自动关闭图形
+                    current.IsPolygonEditing = false;
+                    current.SetEnd(new Point(current.Start.X, current.Start.Y));
 
-            current = MakeNewRecord();
-            current.SetStart(point);
+                    Draw(current);
+                    EmitDrawEvent(DrawState.End);
+                    current = null;
+                    return;
+                }
+                // 追加点
+                current.AppendPoint(point);
+            }
+            else
+            {
+                current = MakeNewRecord();
+                current.SetStart(point);
+                if (drawShape == DrawShapes.Polygon)
+                {
+                    current.IsPolygonEditing = true;
+                }
+            }
             IsMouseLeftButtonDown = true;
             EmitDrawEvent(DrawState.Start);
+        }
+
+        private void ExtendedCanvas_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            current?.Reset();
         }
 
         public void ExtendedCanvas_MouseUp(object sender, System.Windows.Input.MouseEventArgs e)
@@ -313,7 +348,7 @@ namespace ColorWanted.screenshot
 
         private void ExtendedCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if ((DrawShape != DrawShapes.Polyline || current == null) && (!EditEnabled || !IsMouseLeftButtonDown))
+            if ((DrawShape != DrawShapes.Polygon || current == null || current.PolygonClosed) && (!EditEnabled || !IsMouseLeftButtonDown))
             {
                 return;
             }
@@ -334,21 +369,18 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            if (DrawShape == DrawShapes.Polyline)
-            {
-                current.AppendPoint(point);
-            }
-            else
-            {
-                current.SetEnd(point);
-            }
+            current.SetEnd(point);
             Draw(current);
             EmitDrawEvent(DrawState.End);
+            if (!MakeSelectionOnly && drawShape != DrawShapes.Polygon)
+            {
+                current = null;
+            }
         }
 
         public void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if ((DrawShape != DrawShapes.Polyline || current == null) && (!EditEnabled || !IsMouseLeftButtonDown))
+            if ((DrawShape != DrawShapes.Polygon || current == null || current.PolygonClosed) && (!EditEnabled || !IsMouseLeftButtonDown))
             {
                 return;
             }
@@ -369,14 +401,39 @@ namespace ColorWanted.screenshot
 
             if (DrawShape == DrawShapes.Text)
             {
+                //current.AppendPoint(point);
                 TextBox.Width = current.Size.Width;
                 TextBox.Height = current.Size.Height;
                 return;
             }
 
-            if (DrawShape == DrawShapes.Polyline)
+            if (DrawShape == DrawShapes.Polygon)
             {
                 current.SetEnd(point);
+
+                if (current.Points.Count > 3 && current.Distance < 3)
+                {
+                    // 高亮起点
+                    if (polygonPoint == null)
+                    {
+                        polygonPoint = new Ellipse
+                        {
+                            StrokeThickness = 2,
+                            Fill = new SolidColorBrush(DrawColor)
+                        };
+                        polygonPoint.SetSize(new Size(10, 10));
+                        polygonPoint.SetLocation(new Point(current.Start.X - 5, current.Start.Y - 5));
+                        this.Children.Add(polygonPoint);
+                    }
+                }
+                else
+                {
+                    if (polygonPoint != null)
+                    {
+                        this.Children.Remove(polygonPoint);
+                        polygonPoint = null;
+                    }
+                }
             }
             else
             {

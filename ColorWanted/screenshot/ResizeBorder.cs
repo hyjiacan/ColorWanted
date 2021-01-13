@@ -26,11 +26,10 @@ namespace ColorWanted.screenshot
         private Polyline sw;
         private Polyline w;
 
-        private int length;
         private PolylineState currentState;
         private Dictionary<ResizePositions, PolylineState> polylineState;
 
-        private static Color color = Colors.DeepSkyBlue;
+        private static Color color = Colors.Black;
         private static Color activeColor = Colors.Red;
 
         public event EventHandler<ResizeEventArgs> Resize;
@@ -79,7 +78,6 @@ namespace ColorWanted.screenshot
         {
             this.canvas = canvas;
             this.border = border;
-            this.length = 5;
 
             polylineState = new Dictionary<ResizePositions, PolylineState>();
 
@@ -206,52 +204,62 @@ namespace ColorWanted.screenshot
             var location = this.border.GetLocation();
             var size = this.border.GetSize();
 
+            var x = location.X;
+            var y = location.Y;
+            var width = size.Width;
+            var height = size.Height;
+
+            // resize 最大值为 20，最小值为 3
+            var factor = 0.08;
+            var hLen = Math.Max(Math.Min(width * factor, 20), 3);
+            var vLen = Math.Max(Math.Min(height * factor, 20), 3);
+
             nw.Points = new PointCollection {
-                new Point(location.X, location.Y + this.length),
-                new Point(location.X, location.Y),
-                new Point(location.X  +this.length, location.Y),
+                new Point(x, y + vLen),
+                new Point(x, y),
+                new Point(x  +hLen, y),
             };
 
             n.Points = new PointCollection
             {
-                new Point(location.X  + size.Width / 2 - this.length / 2, location.Y),
-                new Point(location.X  + size.Width / 2 + this.length, location.Y),
+                new Point(x  + width / 2 -hLen / 2, y),
+                new Point(location.X  + width / 2 + hLen, y),
             };
 
             ne.Points = new PointCollection {
-                new Point(location.X + size.Width - this.length, location.Y),
-                new Point(location.X + size.Width, location.Y),
-                new Point(location.X + size.Width, location.Y + this.length),
+                new Point(x + width - hLen, y),
+                new Point(x + width, y),
+                new Point(x + width, y + vLen),
             };
 
             e.Points = new PointCollection
             {
-                new Point(location.X  + size.Width, location.Y + size.Height / 2 - this.length / 2),
-                new Point(location.X  + size.Width, location.Y + size.Height / 2  + this.length),
+                new Point(x  + width, y + height / 2 - vLen / 2),
+                new Point(x  + width, y + height / 2  + vLen),
             };
 
             se.Points = new PointCollection {
-                new Point(location.X + size.Width, location.Y + size.Height - this.length),
-                new Point(location.X + size.Width, location.Y + size.Height),
-                new Point(location.X + size.Width - this.length, location.Y + size.Height),
+                new Point(x + width, y + height - vLen),
+                new Point(x + width, y + height),
+                new Point(x + width - hLen, y + height),
             };
 
             s.Points = new PointCollection
             {
-                new Point(location.X  + size.Width / 2 - this.length / 2, location.Y + size.Height),
-                new Point(location.X  + size.Width / 2 + this.length, location.Y + size.Height),
+                new Point(x  + width / 2 - hLen/ 2, y + height),
+                new Point(x  + width / 2 + hLen, y + height),
             };
 
             sw.Points = new PointCollection {
-                new Point(location.X, location.Y + size.Height - this.length),
-                new Point(location.X, location.Y + size.Height),
-                new Point(location.X + this.length, location.Y + size.Height),
+                new Point(x, y + height - vLen),
+                new Point(x, y + height),
+                new Point(x + hLen, y + height),
             };
 
             w.Points = new PointCollection
             {
-                new Point(location.X, location.Y + size.Height / 2 - this.length / 2),
-                new Point(location.X, location.Y + size.Height / 2  + this.length),
+                new Point(x, y + height / 2 - vLen / 2),
+                new Point(x, y + height / 2  + vLen),
             };
         }
     }

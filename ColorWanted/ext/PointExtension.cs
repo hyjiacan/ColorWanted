@@ -1,5 +1,7 @@
 ﻿using WpfPoint = System.Windows.Point;
 using DrawingPoint = System.Drawing.Point;
+using System.Runtime.CompilerServices;
+using System;
 
 namespace ColorWanted.ext
 {
@@ -26,6 +28,18 @@ namespace ColorWanted.ext
         public static DrawingPoint ToDrawingPoint(this WpfPoint point)
         {
             return new DrawingPoint((int)point.X, (int)point.Y);
+        }
+
+        /// <summary>
+        /// 计算两个 WPF Point 间的绝对距离
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="another"></param>
+        /// <returns></returns>
+        public static int DistanceTo(this WpfPoint point, WpfPoint another)
+        {
+            return (int)Math.Sqrt((Math.Abs(point.X - another.X) * Math.Abs(point.X - another.X))
+                + Math.Abs(point.Y - another.Y) * Math.Abs(point.Y - another.Y));
         }
     }
 }

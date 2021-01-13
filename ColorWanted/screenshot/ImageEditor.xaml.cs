@@ -312,6 +312,10 @@ namespace ColorWanted.screenshot
 
             if (e.State == DrawState.Start)
             {
+                if (!e.IsEmpty)
+                {
+                    resizeBorder?.Dispose();
+                }
                 return;
             }
             var area = e.Area;
@@ -448,8 +452,11 @@ namespace ColorWanted.screenshot
         private void canvasMask_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             canvasEdit.OnMouseMove(null, e);
-            // 移动选区时，resize border 一起移动
-            resizeBorder?.FixPosition();
+            if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                // 移动选区时，resize border 一起移动
+                resizeBorder?.FixPosition();
+            }
         }
 
         private void SelectionBorder_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -470,9 +477,9 @@ namespace ColorWanted.screenshot
 
         private void container_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if (resizeBorder != null)
+            if (e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                resizeBorder.UpdateState(e.GetPosition(container));
+                resizeBorder?.UpdateState(e.GetPosition(container));
             }
         }
 

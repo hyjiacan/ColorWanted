@@ -138,10 +138,11 @@ namespace ColorWanted.screenshot
         /// </summary>
         private void ResetEditorToolbar()
         {
-            var buttons = toolPanel.Controls.OfType<ToolStrip>()
+            var buttons = toolPanel.Controls.OfType<Panel>()
+                .SelectMany(panel => panel.Controls.OfType<ToolStrip>()
                 .Where(control => control != null)
                 .SelectMany(toolstrip => toolstrip.Items.OfType<ToolStripButton>())
-                .Where(button => button != null);
+                .Where(button => button != null));
             this.InvokeMethod(() =>
             {
                 foreach (ToolStripButton button in buttons)
@@ -258,13 +259,6 @@ namespace ColorWanted.screenshot
                     toolLineWidth.Show();
                     toolbarColor.Show();
                     break;
-                case DrawShapes.Polyline:
-                    toolbarTextStyle.Hide();
-                    toolbarDrawMode.Hide();
-                    toolbarLineType.Show();
-                    toolLineWidth.Show();
-                    toolbarColor.Show();
-                    break;
                 case DrawShapes.Text:
                     toolbarTextStyle.Show();
                     toolbarLineType.Hide();
@@ -274,13 +268,13 @@ namespace ColorWanted.screenshot
                     break;
                 case DrawShapes.Rectangle:
                 case DrawShapes.Ellipse:
-                //case DrawShapes.Polygon:
-                //    toolbarTextStyle.Hide();
-                //    toolbarLineType.Show();
-                //    toolLineWidth.Show();
-                //    toolbarDrawMode.Show();
-                //    toolbarColor.Show();
-                //    break;
+                case DrawShapes.Polygon:
+                    toolbarTextStyle.Hide();
+                    toolbarLineType.Show();
+                    toolLineWidth.Show();
+                    toolbarDrawMode.Show();
+                    toolbarColor.Show();
+                    break;
                 case DrawShapes.Arrow:
                     toolbarTextStyle.Hide();
                     toolbarDrawMode.Hide();
@@ -413,7 +407,9 @@ namespace ColorWanted.screenshot
             editor.DrawMode = (DrawModes)Enum.Parse(typeof(DrawModes), item.Tag.ToString());
 
             // 仅在描边时才显示宽度和线型
-            toolbarLineType.Visible = toolLineWidth.Visible = editor.DrawMode == DrawModes.Stroke;
+            // 显示的时候还要考虑当前的图形
+            // 逻辑有点麻烦，先就这样吧，将就用
+            //toolbarLineType.Visible = toolLineWidth.Visible = editor.DrawMode == DrawModes.Stroke;
         }
 
         private void toolUndo_Click(object sender, EventArgs e)

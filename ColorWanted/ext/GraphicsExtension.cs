@@ -53,6 +53,16 @@ namespace ColorWanted.ext
                         graphics.FillRectangle(brush, record.Rect.ToDrawingRectangle());
                     }
                     break;
+                case DrawShapes.Polygon:
+                    if (record.Mode == DrawModes.Stroke)
+                    {
+                        graphics.DrawPolygon(pen, record.Points.Take(record.Points.Count - 1).Select(p => p.ToDrawingPoint()).ToArray());
+                    }
+                    else if (record.Mode == DrawModes.Fill)
+                    {
+                        graphics.FillPolygon(brush, record.Points.Take(record.Points.Count - 1).Select(p => p.ToDrawingPoint()).ToArray());
+                    }
+                    break;
                 case DrawShapes.Text:
                     if (string.IsNullOrWhiteSpace(record.Text))
                     {

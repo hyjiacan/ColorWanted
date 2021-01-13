@@ -30,12 +30,12 @@
         {
             this.toolbar = new System.Windows.Forms.ToolStrip();
             this.toolText = new System.Windows.Forms.ToolStripButton();
-            this.toolPolyline = new System.Windows.Forms.ToolStripButton();
             this.toolCurve = new System.Windows.Forms.ToolStripButton();
             this.toolLine = new System.Windows.Forms.ToolStripButton();
             this.toolArrow = new System.Windows.Forms.ToolStripButton();
             this.toolRectangle = new System.Windows.Forms.ToolStripButton();
             this.toolEllipse = new System.Windows.Forms.ToolStripButton();
+            this.toolPolygon = new System.Windows.Forms.ToolStripButton();
             this.toolMosaic = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolSave = new System.Windows.Forms.ToolStripButton();
@@ -91,12 +91,12 @@
             this.toolbar.Dock = System.Windows.Forms.DockStyle.None;
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolText,
-            this.toolPolyline,
             this.toolCurve,
             this.toolLine,
             this.toolArrow,
             this.toolRectangle,
             this.toolEllipse,
+            this.toolPolygon,
             this.toolMosaic,
             this.toolStripSeparator2,
             this.toolSave,
@@ -104,7 +104,7 @@
             this.toolCancel});
             this.toolbar.Location = new System.Drawing.Point(58, 0);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(271, 25);
+            this.toolbar.Size = new System.Drawing.Size(302, 25);
             this.toolbar.TabIndex = 5;
             this.toolbar.Text = "toolStrip1";
             this.toolbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolbar_ItemClicked);
@@ -121,17 +121,6 @@
             this.toolText.Size = new System.Drawing.Size(23, 22);
             this.toolText.Tag = "Text";
             this.toolText.ToolTipText = "文字";
-            // 
-            // toolPolyline
-            // 
-            this.toolPolyline.AutoSize = false;
-            this.toolPolyline.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolPolyline.Image = global::ColorWanted.Properties.Resources.polyline;
-            this.toolPolyline.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolPolyline.Name = "toolPolyline";
-            this.toolPolyline.Size = new System.Drawing.Size(23, 22);
-            this.toolPolyline.Tag = "Polyline";
-            this.toolPolyline.ToolTipText = "折线";
             // 
             // toolCurve
             // 
@@ -183,6 +172,17 @@
             this.toolEllipse.Size = new System.Drawing.Size(23, 22);
             this.toolEllipse.Tag = "Ellipse";
             this.toolEllipse.ToolTipText = "圆形";
+            // 
+            // toolPolygon
+            // 
+            this.toolPolygon.AutoSize = false;
+            this.toolPolygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolPolygon.Image = global::ColorWanted.Properties.Resources.polyline;
+            this.toolPolygon.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolPolygon.Name = "toolPolygon";
+            this.toolPolygon.Size = new System.Drawing.Size(23, 22);
+            this.toolPolygon.Tag = "Polygon";
+            this.toolPolygon.ToolTipText = "多边形";
             // 
             // toolMosaic
             // 
@@ -314,7 +314,7 @@
             this.toolPanel.Controls.Add(this.toolbarExtPanel);
             this.toolPanel.Location = new System.Drawing.Point(12, 197);
             this.toolPanel.Name = "toolPanel";
-            this.toolPanel.Size = new System.Drawing.Size(463, 72);
+            this.toolPanel.Size = new System.Drawing.Size(488, 72);
             this.toolPanel.TabIndex = 9;
             this.toolPanel.Visible = false;
             this.toolPanel.LocationChanged += new System.EventHandler(this.toolPanel_LocationChanged);
@@ -331,7 +331,7 @@
             this.toolbarMainPanel.Controls.Add(this.label1);
             this.toolbarMainPanel.Location = new System.Drawing.Point(3, 2);
             this.toolbarMainPanel.Name = "toolbarMainPanel";
-            this.toolbarMainPanel.Size = new System.Drawing.Size(449, 27);
+            this.toolbarMainPanel.Size = new System.Drawing.Size(480, 27);
             this.toolbarMainPanel.TabIndex = 13;
             // 
             // toolbarHistory
@@ -370,7 +370,7 @@
             // 
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(332, 0);
+            this.label1.Location = new System.Drawing.Point(363, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 23);
             this.label1.TabIndex = 11;
@@ -662,7 +662,7 @@
         private System.Windows.Forms.ToolStrip toolbarDrawMode;
         private System.Windows.Forms.ToolStripButton toolDrawModeFill;
         private System.Windows.Forms.ToolStripButton toolDrawModeStroke;
-        private System.Windows.Forms.ToolStripButton toolPolyline;
+        private System.Windows.Forms.ToolStripButton toolPolygon;
         private System.Windows.Forms.ToolStrip toolbarHistory;
         private System.Windows.Forms.ToolStripButton toolUndo;
         private System.Windows.Forms.ToolStripButton toolRedo;

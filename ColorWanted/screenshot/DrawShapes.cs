@@ -31,8 +31,8 @@
         /// </summary>
         Mosaic,
         /// <summary>
-        /// 折线
+        /// 多边形
         /// </summary>
-        Polyline
+        Polygon
     }
 }

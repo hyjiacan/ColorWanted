@@ -101,6 +101,9 @@ namespace ColorWanted.screenshot
             }
         }
 
+        public bool IsPolygonEditing { get; set; }
+        public bool PolygonClosed => !IsPolygonEditing && Points.Count > 3 && Distance == 0;
+
         private Shape shape;
         private TextBlock textBlock;
 
@@ -130,12 +133,24 @@ namespace ColorWanted.screenshot
                     l.X2 = End.X;
                     l.Y2 = End.Y;
                     break;
-                case DrawShapes.Polyline:
-                    if (shape == null)
+                case DrawShapes.Polygon:
+                    if (PolygonClosed)
                     {
-                        shape = new Polyline();
+                        if (!(shape is Polygon))
+                        {
+                            shape = new Polygon();
+                        }
+                        ((Polygon)shape).Points = new PointCollection(Points.Take(Points.Count - 1));
                     }
-                    ((Polyline)shape).Points = Points;
+                    else
+                    {
+                        // 不到3个点/或未闭合时，渲染成折线
+                        if (shape == null)
+                        {
+                            shape = new Polyline();
+                        }
+                        ((Polyline)shape).Points = Points;
+                    }
                     break;
                 case DrawShapes.Ellipse:
                     if (shape == null)
@@ -203,13 +218,12 @@ namespace ColorWanted.screenshot
                 shape.StrokeDashArray.Clear();
                 shape.StrokeDashCap = PenLineCap.Flat;
             }
-            if (Mode == DrawModes.Fill && (shape is Rectangle || shape is Ellipse))
+            if (Mode == DrawModes.Fill && (shape is Rectangle || shape is Ellipse || shape is Polygon))
             {
                 shape.Fill = new SolidColorBrush(Color);
             }
             else
             {
-                Mode = DrawModes.Stroke;
                 shape.StrokeThickness = Width;
                 shape.Stroke = new SolidColorBrush(Color);
             }
@@ -252,7 +266,14 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            Points[Points.Count - 1] = point;
+            if (Points.Count == 1 && Shape == DrawShapes.Polygon)
+            {
+                AppendPoint(point);
+            }
+            else
+            {
+                Points[Points.Count - 1] = point;
+            }
         }
 
         public void Move(Canvas canvas, Point from, Point to)
@@ -312,7 +333,7 @@ namespace ColorWanted.screenshot
         /// <summary>
         /// 起点与终点的距离
         /// </summary>
-        public int Distance => (int)Math.Sqrt((Math.Abs(Start.X - End.X) * Math.Abs(Start.X - End.X)) + Math.Abs(Start.Y - End.Y) * Math.Abs(Start.Y - End.Y));
+        public int Distance => Start.DistanceTo(End);
 
         public DrawRecord()
         {
