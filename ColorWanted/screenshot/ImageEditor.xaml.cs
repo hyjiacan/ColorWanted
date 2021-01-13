@@ -3,6 +3,7 @@ using ColorWanted.screenshot.events;
 using ColorWanted.util;
 using System;
 using System.Drawing;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -486,6 +487,31 @@ namespace ColorWanted.screenshot
         private void canvasEdit_HistoryChange(object sender, HistoryEventArgs e)
         {
             HistoryChange?.Invoke(sender, e);
+        }
+
+        private void container_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Z)
+            {
+                return;
+            }
+            // 实现  undo  redo
+            if (!e.KeyboardDevice.IsKeyDown(System.Windows.Input.Key.LeftCtrl))
+            {
+                return;
+            }
+
+            // ctrl z
+            // undo
+            if (!e.KeyboardDevice.IsKeyDown(System.Windows.Input.Key.LeftShift))
+            {
+                this.Undo();
+                return;
+            }
+
+            // ctrl shift z
+
+            this.Redo();
         }
     }
 }

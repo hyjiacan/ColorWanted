@@ -430,86 +430,86 @@ namespace ColorWanted.screenshot
         /// 接收消息，响应快捷键
         /// </summary>
         /// <param name="m"></param>
-        protected override void WndProc(ref Message m)
-        {
-            // 收到的不是快捷键消息，不作任何处理
-            if (m.Msg != 0x312)
-            {
-                base.WndProc(ref m);
-                return;
-            }
+        //protected override void WndProc(ref Message m)
+        //{
+        //    // 收到的不是快捷键消息，不作任何处理
+        //    if (m.Msg != 0x312)
+        //    {
+        //        base.WndProc(ref m);
+        //        return;
+        //    }
 
-            // 窗口没有激活，不处理
-            if (!IsActive)
-            {
-                base.WndProc(ref m);
-                return;
-            }
+        //    // 窗口没有激活，不处理
+        //    if (!IsActive)
+        //    {
+        //        base.WndProc(ref m);
+        //        return;
+        //    }
 
-            // 收到的快捷键的值
-            var keyValue = m.WParam.ToInt32();
+        //    // 收到的快捷键的值
+        //    var keyValue = m.WParam.ToInt32();
 
-            switch (keyValue)
-            {
-                // 关闭窗口
-                case 0xF10001:
-                    CloseForm();
-                    break;
-                // 撤消编辑
-                case 0xF10002:
-                    if (editor.IsEditing)
-                    {
-                        editor.Undo();
-                    }
-                    break;
-                // 重做编辑
-                case 0xF10003:
-                    if (editor.IsEditing)
-                    {
-                        editor.Redo();
-                    }
-                    break;
-                default:
-                    break;
-            }
+        //    switch (keyValue)
+        //    {
+        //        // 关闭窗口
+        //        //case 0xF10001:
+        //        //    CloseForm();
+        //        //    break;
+        //        // 撤消编辑
+        //        case 0xF10002:
+        //            if (editor.IsEditing)
+        //            {
+        //                editor.Undo();
+        //            }
+        //            break;
+        //        // 重做编辑
+        //        case 0xF10003:
+        //            if (editor.IsEditing)
+        //            {
+        //                editor.Redo();
+        //            }
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
-            base.WndProc(ref m);
-        }
+        //    base.WndProc(ref m);
+        //}
 
         private void BindHotKeys()
         {
             // ESC 关闭窗口
-            NativeMethods.RegisterHotKey(Handle,
-                    HOTKEY_ID_BASE + 1,
-                    KeyModifier.None,
-                    Keys.Escape);
+            //NativeMethods.RegisterHotKey(Handle,
+            //        HOTKEY_ID_BASE + 1,
+            //        KeyModifier.None,
+            //        Keys.Escape);
 
             // Ctrl Z 撤消编辑
-            NativeMethods.RegisterHotKey(Handle,
-                    HOTKEY_ID_BASE + 2,
-                    KeyModifier.Ctrl,
-                    Keys.Z);
+            //NativeMethods.RegisterHotKey(Handle,
+            //        HOTKEY_ID_BASE + 2,
+            //        KeyModifier.Ctrl,
+            //        Keys.Z);
 
-            // Ctrl Shift Z 重做编辑
-            NativeMethods.RegisterHotKey(Handle,
-                    HOTKEY_ID_BASE + 3,
-                    KeyModifier.Ctrl | KeyModifier.Shift,
-                    Keys.Z);
+            //// Ctrl Shift Z 重做编辑
+            //NativeMethods.RegisterHotKey(Handle,
+            //        HOTKEY_ID_BASE + 3,
+            //        KeyModifier.Ctrl | KeyModifier.Shift,
+            //        Keys.Z);
         }
 
         private void UnbindHotKeys()
         {
             // ESC 关闭窗口
-            NativeMethods.UnregisterHotKey(Handle,
-                    HOTKEY_ID_BASE + 1);
+            //NativeMethods.UnregisterHotKey(Handle,
+            //        HOTKEY_ID_BASE + 1);
 
-            // Ctrl Z 撤消编辑
-            NativeMethods.UnregisterHotKey(Handle,
-                    HOTKEY_ID_BASE + 2);
+            //// Ctrl Z 撤消编辑
+            //NativeMethods.UnregisterHotKey(Handle,
+            //        HOTKEY_ID_BASE + 2);
 
-            // Ctrl Shift Z 重做编辑
-            NativeMethods.UnregisterHotKey(Handle,
-                    HOTKEY_ID_BASE + 3);
+            //// Ctrl Shift Z 重做编辑
+            //NativeMethods.UnregisterHotKey(Handle,
+            //        HOTKEY_ID_BASE + 3);
         }
     }
 }

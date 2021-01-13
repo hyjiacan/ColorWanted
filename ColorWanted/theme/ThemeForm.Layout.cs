@@ -290,7 +290,7 @@
             this.Load += new System.EventHandler(this.ThemeForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.trOpacity)).EndInit();
-            this.Icon = global::ColorWanted.Properties.Resources.ico;
+            this.Icon = Properties.Resources.ico;
             this.pnChoose.ResumeLayout(false);
             this.pnChoose.PerformLayout();
             this.ResumeLayout(false);

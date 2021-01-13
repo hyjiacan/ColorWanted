@@ -67,7 +67,7 @@
             // 
             resources.ApplyResources(this.picLOGO, "picLOGO");
             this.picLOGO.BackColor = System.Drawing.Color.White;
-            this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
+            this.picLOGO.Image = Properties.Resources.logo;
             this.picLOGO.Location = new System.Drawing.Point(11, 12);
             this.picLOGO.Name = "picLOGO";
             this.picLOGO.Size = new System.Drawing.Size(16, 16);
@@ -147,7 +147,7 @@
             this.Load += new System.EventHandler(this.HotkeyForm_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
-            this.Icon = global::ColorWanted.Properties.Resources.ico;
+            this.Icon = Properties.Resources.ico;
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -62,7 +62,7 @@ namespace ColorWanted.screenshot
         private bool MoveMode;
 
         private Point MouseDownPoint;
-        private TextBox TextBox;
+        private TextBox Textbox;
         private Ellipse polygonPoint;
 
         public void Reset()
@@ -187,47 +187,64 @@ namespace ColorWanted.screenshot
 
         private void CreateTextBox()
         {
-            if (TextBox == null)
+            if (Textbox == null)
             {
-                TextBox = new TextBox
+                Textbox = new TextBox
                 {
                     AcceptsReturn = true,
                     AcceptsTab = true,
                     TextWrapping = TextWrapping.Wrap,
-                    Background = Brushes.Transparent,
-                    Visibility = Visibility.Hidden
+                    Background = new SolidColorBrush(Color.FromArgb(20, 255, 255, 255)),
+                    Visibility = Visibility.Hidden,
+                    BorderThickness = new Thickness(2),
+                    Padding = new Thickness(5),
+                    ToolTip = "提示\n按下 ESC 取消编辑\n按下 Ctrl Enter 完成编辑"
                 };
-                TextBox.KeyDown += (sender, e) =>
+                Textbox.KeyDown += (sender, e) =>
                   {
                       // 在输入框内按下 ESC 时，取消输入
-                      if (e.Key == System.Windows.Input.Key.Escape)
+                      if (e.Key == Key.Escape)
                       {
-                          TextBox.Visibility = Visibility.Hidden;
-                          TextBox.Clear();
+                          Textbox.Visibility = Visibility.Hidden;
+                          Textbox.Clear();
+                          e.Handled = true;
+                          return;
+                      }
+
+                      if (e.Key == Key.Enter && (
+                      e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) ||
+                      e.KeyboardDevice.IsKeyDown(Key.RightCtrl)))
+                      {
+                          CommitTextInput();
+                          e.Handled = true;
                       }
                   };
-                Children.Add(TextBox);
+                Children.Add(Textbox);
             }
-            TextBox.Width = 160;
-            TextBox.Height = 60;
-            TextBox.FontFamily = new FontFamily(TextFont.FontFamily.Name);
-            TextBox.FontSize = TextFont.SizeInPoints;
-            TextBox.FontStyle = TextFont.Italic ? FontStyles.Italic : FontStyles.Normal;
-            TextBox.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
-            TextBox.Foreground = new SolidColorBrush(DrawColor);
+            Textbox.Width = 0;
+            Textbox.Height = 0;
+            Textbox.FontFamily = new FontFamily(TextFont.FontFamily.Name);
+            Textbox.FontSize = TextFont.SizeInPoints;
+            Textbox.FontStyle = TextFont.Italic ? FontStyles.Italic : FontStyles.Normal;
+            Textbox.FontWeight = TextFont.Bold ? FontWeights.Bold : FontWeights.Normal;
 
-            current.SetEnd(new Point(current.Start.X + 160, current.Start.Y + 60));
+            var brush = new SolidColorBrush(DrawColor);
+
+            Textbox.Foreground = brush;
+            Textbox.BorderBrush = brush;
+            Textbox.CaretBrush = brush;
         }
 
         public void CommitTextInput()
         {
-            if (TextBox == null)
+            Keyboard.ClearFocus();
+            if (Textbox == null)
             {
                 return;
             }
-            TextBox.Visibility = Visibility.Hidden;
-            var text = TextBox.Text;
-            TextBox.Clear();
+            Textbox.Visibility = Visibility.Hidden;
+            var text = Textbox.Text;
+            Textbox.Clear();
             if (!string.IsNullOrWhiteSpace(text))
             {
                 current.Text = text;
@@ -294,7 +311,7 @@ namespace ColorWanted.screenshot
             }
             if (DrawShape == DrawShapes.Text)
             {
-                if (TextBox != null && TextBox.Visibility == Visibility.Visible)
+                if (Textbox != null && Textbox.Visibility == Visibility.Visible)
                 {
                     // 已经显示起了，此时提交输入
                     CommitTextInput();
@@ -306,9 +323,8 @@ namespace ColorWanted.screenshot
 
                 CreateTextBox();
 
-                TextBox.SetLocation(point);
-                TextBox.Visibility = Visibility.Visible;
-                TextBox.Focus();
+                Textbox.SetLocation(point);
+                Textbox.Visibility = Visibility.Visible;
                 return;
             }
             if (drawShape == DrawShapes.Polygon && current != null && current.Points.Any())
@@ -369,14 +385,25 @@ namespace ColorWanted.screenshot
             {
                 if (MouseDownPoint != point)
                 {
-                    current.SetEnd(e.GetPosition(this));
+                    current.AppendPoint(point);
+                    Textbox.SetLocation(current.Rect.Location);
+                    Textbox.Width = current.Size.Width;
+                    Textbox.Height = current.Size.Height;
                 }
+                Textbox.Focus();
                 return;
             }
-
-            current.SetEnd(point);
-            Draw(current);
-            EmitDrawEvent(DrawState.End);
+            if (current.Points.Count > 1)
+            {
+                current.SetEnd(point);
+                Draw(current);
+                EmitDrawEvent(DrawState.End);
+            }
+            else
+            {
+                current.Reset();
+                EmitDrawEvent(DrawState.Cancel);
+            }
             if (!MakeSelectionOnly && drawShape != DrawShapes.Polygon)
             {
                 current = MakeNewRecord();
@@ -407,9 +434,10 @@ namespace ColorWanted.screenshot
 
             if (DrawShape == DrawShapes.Text)
             {
-                //current.AppendPoint(point);
-                TextBox.Width = current.Size.Width;
-                TextBox.Height = current.Size.Height;
+                current.AppendPoint(point);
+                Textbox.SetLocation(current.Rect.Location);
+                Textbox.Width = current.Size.Width;
+                Textbox.Height = current.Size.Height;
                 return;
             }
 
@@ -425,7 +453,8 @@ namespace ColorWanted.screenshot
                         polygonPoint = new Ellipse
                         {
                             StrokeThickness = 2,
-                            Fill = new SolidColorBrush(DrawColor)
+                            Fill = new SolidColorBrush(DrawColor),
+                            ToolTip = "点击此处完成多边形编辑"
                         };
                         polygonPoint.SetSize(new Size(10, 10));
                         polygonPoint.SetLocation(new Point(current.Start.X - 5, current.Start.Y - 5));

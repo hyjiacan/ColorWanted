@@ -141,7 +141,7 @@
             // 
             resources.ApplyResources(this.picLOGO, "picLOGO");
             this.picLOGO.BackColor = System.Drawing.Color.White;
-            this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
+            this.picLOGO.Image = Properties.Resources.logo;
             this.picLOGO.Location = new System.Drawing.Point(12, 10);
             this.picLOGO.Name = "picLOGO";
             this.picLOGO.Size = new System.Drawing.Size(16, 16);

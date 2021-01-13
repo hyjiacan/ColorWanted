@@ -99,7 +99,7 @@
             // 
             resources.ApplyResources(this.picLOGO, "picLOGO");
             this.picLOGO.BackColor = System.Drawing.Color.White;
-            this.picLOGO.Image = global::ColorWanted.Properties.Resources.logo;
+            this.picLOGO.Image = Properties.Resources.logo;
             this.picLOGO.Location = new System.Drawing.Point(300, 25);
             this.picLOGO.Name = "picLOGO";
             this.picLOGO.Size = new System.Drawing.Size(64, 64);
@@ -371,7 +371,7 @@
             this.toolTip.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDownEventHandler);
             ((System.ComponentModel.ISupportInitialize)(this.picLOGO)).EndInit();
-            this.Icon = global::ColorWanted.Properties.Resources.ico;
+            this.Icon = Properties.Resources.ico;
             this.ResumeLayout(false);
             this.PerformLayout();
 

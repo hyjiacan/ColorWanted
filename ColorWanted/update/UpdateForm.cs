@@ -96,7 +96,7 @@ namespace ColorWanted.update
             componentsLayout();
             ThemeUtil.Apply(this);
 
-            var screen = util.Util.GetScreenSize(true);
+            var screen = Util.GetScreenSize(true);
             Location = new Point(screen.Width - Width, screen.Height - Height);
         }
 

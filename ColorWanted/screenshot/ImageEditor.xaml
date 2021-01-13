@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:ColorWanted.screenshot"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas x:Name="container" MouseLeftButtonUp="container_MouseLeftButtonUp" MouseMove="container_MouseMove">
+    <Canvas x:Name="container" MouseLeftButtonUp="container_MouseLeftButtonUp" 
+            MouseMove="container_MouseMove" PreviewKeyDown="container_PreviewKeyDown">
         <local:ExtendedCanvas x:Name="canvasMask" DrawShape="Rectangle" DrawColor="BlueViolet"
                 MakeSelectionOnly="True" EditEnabled="True" OnDraw="CanvasMask_OnDraw"
                 AreaDoubleClicked="CanvasMask_AreaDoubleClicked" MouseLeftButtonUp="canvasMask_MouseUp"
@@ -16,7 +17,8 @@
             </local:ExtendedCanvas.Background>
             <Image x:Name="selectArea" Visibility="Hidden"></Image>
         </local:ExtendedCanvas>
-        <local:ExtendedCanvas x:Name="canvasEdit" EditEnabled="True" Visibility="Hidden" HistoryChange="canvasEdit_HistoryChange">
+        <local:ExtendedCanvas x:Name="canvasEdit" EditEnabled="True" Visibility="Hidden"
+                              HistoryChange="canvasEdit_HistoryChange">
             <local:ExtendedCanvas.Background>
                 <ImageBrush x:Name="editBackground"></ImageBrush>
             </local:ExtendedCanvas.Background>
