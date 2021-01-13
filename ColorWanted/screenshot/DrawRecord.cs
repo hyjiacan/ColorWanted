@@ -122,6 +122,13 @@ namespace ColorWanted.screenshot
                     }
                     ((Polyline)shape).Points = Points;
                     break;
+                case DrawShapes.Mosaic:
+                    if (shape == null)
+                    {
+                        shape = new Polyline();
+                    }
+                    ((Polyline)shape).Points = Points;
+                    break;
                 case DrawShapes.Line:
                     if (shape == null)
                     {
@@ -218,7 +225,36 @@ namespace ColorWanted.screenshot
                 shape.StrokeDashArray.Clear();
                 shape.StrokeDashCap = PenLineCap.Flat;
             }
-            if (Mode == DrawModes.Fill && (shape is Rectangle || shape is Ellipse || shape is Polygon))
+
+            if (Shape == DrawShapes.Mosaic)
+            {
+                //shape.Stroke = Brushes.DarkSeaGreen;
+                //shape.StrokeThickness = Width * 5;
+
+                const int offset = 5;
+
+                var brush = new SolidColorBrush(Color);
+                var drawing = new GeometryDrawing
+                {
+                    Brush = brush,
+                    Pen = new Pen(brush, Width * offset)
+                };
+                var blocks = new GeometryGroup();
+
+                foreach (Point point in Points)
+                {
+                    var rect = new Rect(point.X - offset, point.Y - offset, point.X + offset, point.Y + offset);
+                    var g = new RectangleGeometry(rect);
+                    blocks.Children.Add(g);
+                }
+
+                drawing.Geometry = blocks;
+                // 绘制马赛克
+                // 本质是画一条曲线
+                // 然后在以曲线为中心，在其附近改变像素点的颜色
+                shape.Fill = new DrawingBrush(drawing);
+            }
+            else if (Mode == DrawModes.Fill && (shape is Rectangle || shape is Ellipse || shape is Polygon))
             {
                 shape.Fill = new SolidColorBrush(Color);
             }

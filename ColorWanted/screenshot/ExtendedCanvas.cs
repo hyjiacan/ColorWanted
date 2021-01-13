@@ -37,6 +37,11 @@ namespace ColorWanted.screenshot
             {
                 CommitTextInput();
                 drawShape = value;
+                // 如果多边形还没有画完，那么就重置
+                if (current != null && current.Shape == DrawShapes.Polygon && !current.PolygonClosed)
+                {
+                    current.Reset();
+                }
             }
         }
         public Color DrawColor { get; set; }
@@ -374,13 +379,14 @@ namespace ColorWanted.screenshot
             EmitDrawEvent(DrawState.End);
             if (!MakeSelectionOnly && drawShape != DrawShapes.Polygon)
             {
-                current = null;
+                current = MakeNewRecord();
             }
         }
 
         public void OnMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            if ((DrawShape != DrawShapes.Polygon || current == null || current.PolygonClosed) && (!EditEnabled || !IsMouseLeftButtonDown))
+            if ((DrawShape != DrawShapes.Polygon || current == null || current.PolygonClosed) &&
+                (!EditEnabled || !IsMouseLeftButtonDown))
             {
                 return;
             }

@@ -138,6 +138,10 @@ namespace ColorWanted.screenshot
         /// </summary>
         private void ResetEditorToolbar()
         {
+            // TODO 暂时不启用马赛克功能
+            // 技术原因
+            toolMosaic.Visible = false;
+
             var buttons = toolPanel.Controls.OfType<Panel>()
                 .SelectMany(panel => panel.Controls.OfType<ToolStrip>()
                 .Where(control => control != null)

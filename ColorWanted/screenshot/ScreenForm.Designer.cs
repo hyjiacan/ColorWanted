@@ -104,7 +104,7 @@
             this.toolCancel});
             this.toolbar.Location = new System.Drawing.Point(58, 0);
             this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(302, 25);
+            this.toolbar.Size = new System.Drawing.Size(248, 25);
             this.toolbar.TabIndex = 5;
             this.toolbar.Text = "toolStrip1";
             this.toolbar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.Toolbar_ItemClicked);
@@ -193,6 +193,7 @@
             this.toolMosaic.Size = new System.Drawing.Size(23, 22);
             this.toolMosaic.Tag = "Mosaic";
             this.toolMosaic.ToolTipText = "马赛克";
+            this.toolMosaic.Visible = false;
             // 
             // toolStripSeparator2
             // 
@@ -314,7 +315,7 @@
             this.toolPanel.Controls.Add(this.toolbarExtPanel);
             this.toolPanel.Location = new System.Drawing.Point(12, 197);
             this.toolPanel.Name = "toolPanel";
-            this.toolPanel.Size = new System.Drawing.Size(488, 72);
+            this.toolPanel.Size = new System.Drawing.Size(485, 62);
             this.toolPanel.TabIndex = 9;
             this.toolPanel.Visible = false;
             this.toolPanel.LocationChanged += new System.EventHandler(this.toolPanel_LocationChanged);
@@ -329,7 +330,7 @@
             this.toolbarMainPanel.Controls.Add(this.toolbarHistory);
             this.toolbarMainPanel.Controls.Add(this.toolbar);
             this.toolbarMainPanel.Controls.Add(this.label1);
-            this.toolbarMainPanel.Location = new System.Drawing.Point(3, 2);
+            this.toolbarMainPanel.Location = new System.Drawing.Point(0, 0);
             this.toolbarMainPanel.Name = "toolbarMainPanel";
             this.toolbarMainPanel.Size = new System.Drawing.Size(480, 27);
             this.toolbarMainPanel.TabIndex = 13;
@@ -370,7 +371,7 @@
             // 
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.label1.ForeColor = System.Drawing.Color.Green;
-            this.label1.Location = new System.Drawing.Point(363, 0);
+            this.label1.Location = new System.Drawing.Point(309, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(114, 23);
             this.label1.TabIndex = 11;
@@ -389,7 +390,7 @@
             this.toolbarExtPanel.Controls.Add(this.toolLineWidth);
             this.toolbarExtPanel.Controls.Add(this.toolbarColor);
             this.toolbarExtPanel.Controls.Add(this.toolbarTextStyle);
-            this.toolbarExtPanel.Location = new System.Drawing.Point(3, 39);
+            this.toolbarExtPanel.Location = new System.Drawing.Point(0, 29);
             this.toolbarExtPanel.Name = "toolbarExtPanel";
             this.toolbarExtPanel.Size = new System.Drawing.Size(455, 28);
             this.toolbarExtPanel.TabIndex = 10;
