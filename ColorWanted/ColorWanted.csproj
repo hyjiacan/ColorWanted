@@ -330,6 +330,7 @@
     <Content Include="external\AnimatedGif\AnimatedGif\AnimatedGif.csproj" />
     <Content Include="external\AnimatedGif\AnimatedGif\Icon.ico" />
     <Content Include="logo.ico" />
+    <None Include="Resources\polygon.png" />
     <None Include="Resources\redo.png" />
     <None Include="Resources\undo.png" />
     <None Include="Resources\polyline.png" />

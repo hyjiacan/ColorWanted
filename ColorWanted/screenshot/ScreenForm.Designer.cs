@@ -177,7 +177,7 @@
             // 
             this.toolPolygon.AutoSize = false;
             this.toolPolygon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolPolygon.Image = global::ColorWanted.Properties.Resources.polyline;
+            this.toolPolygon.Image = global::ColorWanted.Properties.Resources.polygon;
             this.toolPolygon.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolPolygon.Name = "toolPolygon";
             this.toolPolygon.Size = new System.Drawing.Size(23, 22);
