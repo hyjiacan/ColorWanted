@@ -218,6 +218,8 @@ namespace ColorWanted
             lastPosition = MousePosition;
             lastColor = color;
 
+            Msg.Broadcast(lastPosition.X, lastPosition.Y, string.Format("{0},{1},{2}", color.R, color.G, color.B));
+
             colorBuffer.Clear();
             var val = colorBuffer.AppendFormat("{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B).ToString();
             lbHex.Tag = val;

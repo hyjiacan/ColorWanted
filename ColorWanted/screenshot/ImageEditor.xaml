@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ColorWanted.screenshot"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas x:Name="container" MouseLeftButtonUp="container_MouseLeftButtonUp" 
+    <Canvas x:Name="container" MouseLeftButtonUp="container_MouseLeftButtonUp"
             MouseMove="container_MouseMove" PreviewKeyDown="container_PreviewKeyDown">
         <local:ExtendedCanvas x:Name="canvasMask" DrawShape="Rectangle" DrawColor="BlueViolet"
                 MakeSelectionOnly="True" EditEnabled="True" OnDraw="CanvasMask_OnDraw"

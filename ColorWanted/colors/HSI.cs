@@ -45,6 +45,15 @@ namespace ColorWanted.colors
                 hsi.H = 0;
             }
 
+            if (double.IsNaN(hsi.S))
+            {
+                hsi.S = 0;
+            }
+
+            if (double.IsNaN(hsi.I))
+            {
+                hsi.I = 0;
+            }
             return hsi;
         }
 

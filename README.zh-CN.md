@@ -9,6 +9,15 @@
 > 提示：ColorWanted 开启后，可能会提示网络访问。
 > 这是因为ColorWanted会启动一个本机的UDP服务器以提供进程间通信功能(仅在 ColorWanted 间使用)，端口随机。
 
+除此之外，还提供了以下功能:
+
+- 截图 (支持全局快捷键与编辑)
+- 录屏
+- 看图 (支持自动识别图片内矩形区域尺寸)
+- 监视剪贴板 (记录文本历史，避免一些东西被遗忘)
+
+还提供了一些开发接口以供调用，详见 [开发支持](#开发支持)
+
 ## 运行环境 
 
 - WindowsXP [(2.6.1及之前的版本) .NET Framework 4.0](http://www.microsoft.com/zh-cn/download/details.aspx?id=17718)    
@@ -34,6 +43,8 @@ git clone https://gitee.com/hyjiacan/ColorWanted.git --recursive
 - [稳定版](https://github.com/hyjiacan/ColorWanted/releases)
 - [开发版](https://github.com/hyjiacan/ColorWanted/blob/master/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
 - [2.6.1.3](https://github.com/hyjiacan/ColorWanted/blob/2.6.1.3/ColorWanted/bin/Release/ColorWanted.exe?raw=true)
+
+可以在 [附件](https://gitee.com/hyjiacan/ColorWanted/attach_files) 下载历史版本。
 
 # 使用说明
 
@@ -97,6 +108,43 @@ git clone https://gitee.com/hyjiacan/ColorWanted.git --recursive
 > 以上是*默认*的快捷键，可以通过托盘的**快捷键**菜单，打开快捷键设置窗口来更改。
 
 在预览窗口点击鼠标右键，可以开启/暂停预览功能
+
+## 开发支持
+
+ColorWanted 提供了取色和截图的开发支持。
+
+可以在设置中启用 **websocket** 服务器(默认端口为 `9791`)，以向其它程序提供取色和截图支持。
+
+```javascript
+var ws = new Websocket('ws://127.0.0.1:9791');
+ws.onmessage = function(response) {
+	// ...
+};
+// 获取颜色值
+// 响应分为好几行
+// 第一行是废话 (但其中包含了取色像素的坐标)
+// 后面的每一行是一个不同的颜色值
+ws.send('Hi hyjican, tell me the color of pixel under the cursor please. Thank you!');
+// 启动截图(仅返回整个屏幕截图，暂时不支持编辑)
+// 响应分两行
+// 第一行是废话
+// 第二行是截图的 Base64 编码数据 (jpeg)
+ws.send('Hi hyjican, I want to take a screenshot.');
+```
+
+另外，可以在设置中开启取色广播（UDP协议），以在指定端口 (默认为 `9792`)广播当前光标所在处像素的颜色值。
+
+```javascript
+var udp = new UdpServer();
+udp.listen(9792);
+udp.onmesage = function(data) {
+	// data 为 ColorWanted 广播的数据内容
+	// 格式如下：
+	// 
+};
+```
+
+> 开发支持仅在本地 `127.0.0.1` 上可用。截图时截取的屏幕依赖软件配置。
 
 ## 截图
 

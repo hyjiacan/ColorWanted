@@ -7,5 +7,6 @@ namespace ColorWanted.screenshot.events
         public ResizePositions ResizePosition { get; set; }
         public double OffsetX { get; set; }
         public double OffsetY { get; set; }
+        public bool End { get; set; }
     }
 }

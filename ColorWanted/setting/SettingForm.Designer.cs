@@ -44,7 +44,6 @@ namespace ColorWanted.setting
             this.tbFilePath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.btnRestart = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -173,22 +172,11 @@ namespace ColorWanted.setting
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 534);
+            this.label4.Location = new System.Drawing.Point(15, 534);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(449, 12);
+            this.label4.Size = new System.Drawing.Size(365, 12);
             this.label4.TabIndex = 1;
-            this.label4.Text = "设置项在变更后会自动保存。但一些设置项需要重启软件才能生效，是否立即重启？";
-            // 
-            // btnRestart
-            // 
-            this.btnRestart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRestart.Location = new System.Drawing.Point(497, 529);
-            this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(75, 23);
-            this.btnRestart.TabIndex = 2;
-            this.btnRestart.Text = "立即重启";
-            this.btnRestart.UseVisualStyleBackColor = true;
-            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            this.label4.Text = "设置项在变更后会自动保存。但红色标记项需要重启软件才能生效。";
             // 
             // SettingForm
             // 
@@ -196,7 +184,6 @@ namespace ColorWanted.setting
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(584, 561);
-            this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnContainer);
@@ -229,6 +216,5 @@ namespace ColorWanted.setting
         private System.Windows.Forms.RadioButton rbLangEn;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button btnRestart;
     }
 }

@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows.Forms;
 
 namespace ColorWanted.util
 {
@@ -19,6 +18,8 @@ namespace ColorWanted.util
     {
         private static BackgroundWorker worker;
         private static bool running;
+        private static UdpClient broadcastClient;
+        private static IPEndPoint broadcastEndpoint;
 
         public static void Send(MsgTypes command, string message = "")
         {
@@ -45,6 +46,26 @@ namespace ColorWanted.util
         public static void Stop()
         {
             running = false;
+        }
+
+        public static void Broadcast(int x, int y, string message)
+        {
+            if (!Settings.Msg.BroadcastEnabled)
+            {
+                return;
+            }
+            if (broadcastClient == null)
+            {
+                broadcastClient = new UdpClient(new IPEndPoint(IPAddress.Any, 0));
+                broadcastEndpoint = new IPEndPoint(IPAddress.Broadcast, Settings.Msg.BroadcastPort);
+            }
+            if(broadcastEndpoint.Port != Settings.Msg.BroadcastPort)
+            {
+                broadcastEndpoint.Port = Settings.Msg.BroadcastPort;
+            }
+
+            byte[] data = Encoding.UTF8.GetBytes($"Color in RGB#{x}#{y}#{message}");
+            broadcastClient.Send(data, data.Length, broadcastEndpoint);
         }
 
         /// <summary>

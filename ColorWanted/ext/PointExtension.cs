@@ -1,6 +1,5 @@
 ﻿using WpfPoint = System.Windows.Point;
 using DrawingPoint = System.Drawing.Point;
-using System.Runtime.CompilerServices;
 using System;
 
 namespace ColorWanted.ext

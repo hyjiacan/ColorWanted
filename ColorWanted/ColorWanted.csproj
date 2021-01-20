@@ -53,6 +53,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
@@ -177,6 +178,7 @@
     <Compile Include="setting\SettingForm.Designer.cs">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="setting\Settings.Websocket.cs" />
     <Compile Include="setting\Settings.Msg.cs" />
     <Compile Include="setting\Settings.Viewer.cs" />
     <Compile Include="setting\Settings.Clipboard.cs" />
@@ -297,6 +299,7 @@
     </Compile>
     <Compile Include="viewer\Orientions.cs" />
     <Compile Include="viewer\ViewerUtil.cs" />
+    <Compile Include="websocket\HttpServer.cs" />
     <EmbeddedResource Include="clipboard\ClipboardCtrl.resx">
       <DependentUpon>ClipboardCtrl.cs</DependentUpon>
     </EmbeddedResource>

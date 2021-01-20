@@ -3,7 +3,6 @@ using ColorWanted.screenshot.events;
 using ColorWanted.util;
 using System;
 using System.Drawing;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -103,6 +102,8 @@ namespace ColorWanted.screenshot
 
         public void SetImage(Bitmap image)
         {
+            resizeBorder?.Dispose();
+
             this.image = image;
 
             container.SetLocation(0, 0);
@@ -244,7 +245,6 @@ namespace ColorWanted.screenshot
                     }
                     break;
                 case ResizePositions.NorthWest:
-                case ResizePositions.SouthWest:
                     location.Offset(e.OffsetX, e.OffsetY);
                     size.Width -= e.OffsetX;
                     size.Height -= e.OffsetY;
@@ -257,10 +257,35 @@ namespace ColorWanted.screenshot
                         size.Height = minSize;
                     }
                     break;
+                case ResizePositions.SouthWest:
+                    location.Offset(e.OffsetX, 0);
+                    size.Width -= e.OffsetX;
+                    size.Height += e.OffsetY;
+                    if (size.Width < minSize)
+                    {
+                        size.Width = minSize;
+                    }
+                    if (size.Height < minSize)
+                    {
+                        size.Height = minSize;
+                    }
+                    break;
                 case ResizePositions.SouthEast:
-                case ResizePositions.NorthEast:
                     size.Width += e.OffsetX;
                     size.Height += e.OffsetY;
+                    if (size.Width < minSize)
+                    {
+                        size.Width = minSize;
+                    }
+                    if (size.Height < minSize)
+                    {
+                        size.Height = minSize;
+                    }
+                    break;
+                case ResizePositions.NorthEast:
+                    location.Offset(0, e.OffsetY);
+                    size.Width += e.OffsetX;
+                    size.Height -= e.OffsetY;
                     if (size.Width < minSize)
                     {
                         size.Width = minSize;
@@ -297,7 +322,15 @@ namespace ColorWanted.screenshot
 
             var area = new Rect(location, size);
             UpdateSelectArea(area, false);
-            AreaSelected.Invoke(this, new AreaEventArgs(area));
+
+            if (e.End)
+            {
+                AreaSelected.Invoke(this, new AreaEventArgs(area));
+            }
+            else
+            {
+                AreaCleared.Invoke(this, null);
+            }
         }
 
         private void CanvasMask_OnDraw(object sender, DrawEventArgs e)
@@ -343,6 +376,11 @@ namespace ColorWanted.screenshot
             counter = 0;
             // 立即执行
             UpdateSelectArea(area);
+
+            if (e.LeftButtonPressed)
+            {
+                return;
+            }
 
             AreaSelected.Invoke(this, new AreaEventArgs(area));
 

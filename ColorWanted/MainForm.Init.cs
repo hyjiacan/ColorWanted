@@ -5,6 +5,7 @@ using ColorWanted.screenshot;
 using ColorWanted.setting;
 using ColorWanted.theme;
 using ColorWanted.util;
+using ColorWanted.websocket;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -196,6 +197,12 @@ namespace ColorWanted
             var worker = new System.ComponentModel.BackgroundWorker();
             worker.DoWork += AppArgsHandler;
             worker.RunWorkerAsync();
+
+            // 启动 websocket
+            if (Settings.Websocket.Enabled)
+            {
+                new HttpServer("127.0.0.1", Settings.Websocket.Port).Start();
+            }
         }
 
         private void RegisterDeskband()

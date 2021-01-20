@@ -2,9 +2,6 @@
 using ColorWanted.screenshot.events;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -47,6 +44,10 @@ namespace ColorWanted.screenshot
 
         public void Dispose()
         {
+            if (this.IsDisposed)
+            {
+                return;
+            }
             this.IsDisposed = true;
 
             if (this.polylineState != null)
@@ -125,6 +126,13 @@ namespace ColorWanted.screenshot
             }
             currentState.Line.Stroke = new SolidColorBrush(color);
             currentState.MouseDown = false;
+            this.Resize.Invoke(currentState.Line, new ResizeEventArgs
+            {
+                ResizePosition = currentState.Position,
+                OffsetX = 0,
+                OffsetY = 0,
+                End = true
+            });
         }
 
         public void Hide()

@@ -1,5 +1,6 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.screenshot.events;
+using ColorWanted.util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -112,7 +113,8 @@ namespace ColorWanted.screenshot
                 Shape = current.Element as Shape,
                 IsEmpty = isEmpty,
                 Area = current.ElementRect,
-                State = state
+                State = state,
+                LeftButtonPressed = IsMouseLeftButtonDown
             });
         }
 
@@ -363,8 +365,46 @@ namespace ColorWanted.screenshot
 
         public void ExtendedCanvas_MouseUp(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            ExtendedCanvas_MouseLeave(sender, e);
+            if ((DrawShape != DrawShapes.Polygon || current == null || current.PolygonClosed) && (!EditEnabled || !IsMouseLeftButtonDown))
+            {
+                return;
+            }
             IsMouseLeftButtonDown = false;
+            var point = FixPoint(e.GetPosition(this));
+            if (MoveMode)
+            {
+                current.Move(this, MouseDownPoint, point);
+                MoveMode = false;
+                EmitDrawEvent(DrawState.End);
+                return;
+            }
+            if (DrawShape == DrawShapes.Text)
+            {
+                if (MouseDownPoint != point)
+                {
+                    current.AppendPoint(point);
+                    Textbox.SetLocation(current.Rect.Location);
+                    Textbox.Width = current.Size.Width;
+                    Textbox.Height = current.Size.Height;
+                }
+                Textbox.Focus();
+                return;
+            }
+            if (current.Points.Count > 1)
+            {
+                current.SetEnd(point);
+                Draw(current);
+                EmitDrawEvent(DrawState.End);
+            }
+            else
+            {
+                current.Reset();
+                EmitDrawEvent(DrawState.Cancel);
+            }
+            if (!MakeSelectionOnly && drawShape != DrawShapes.Polygon)
+            {
+                current = MakeNewRecord();
+            }
         }
 
         private void ExtendedCanvas_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
@@ -418,6 +458,11 @@ namespace ColorWanted.screenshot
                 return;
             }
 
+            if (MakeSelectionOnly && e.LeftButton != MouseButtonState.Pressed)
+            {
+                return;
+            }
+
             var point = FixPoint(e.GetPosition(this));
             if (MouseDownPoint == point)
             {
@@ -452,8 +497,9 @@ namespace ColorWanted.screenshot
                     {
                         polygonPoint = new Ellipse
                         {
-                            StrokeThickness = 2,
+                            StrokeThickness = 1,
                             Fill = new SolidColorBrush(DrawColor),
+                            Stroke = new SolidColorBrush(ColorUtil.GetContrastColor(DrawColor.ToDrawingColor()).ToMediaColor()),
                             ToolTip = "点击此处完成多边形编辑"
                         };
                         polygonPoint.SetSize(new Size(10, 10));
@@ -594,7 +640,7 @@ namespace ColorWanted.screenshot
         public Shape Shape { get; set; }
         public Rect Area { get; set; }
         public DrawState State { get; set; }
-
+        public bool LeftButtonPressed { get; set; }
     }
 
     public enum DrawState

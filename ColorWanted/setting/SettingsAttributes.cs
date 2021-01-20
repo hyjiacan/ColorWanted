@@ -23,10 +23,12 @@ namespace ColorWanted.setting
     class SettingItemAttribute : Attribute
     {
         public string Name { get; set; }
+        public bool RestartRequired { get; set; }
 
-        public SettingItemAttribute(string name)
+        public SettingItemAttribute(string name, bool restartRequired = false)
         {
             Name = name;
+            RestartRequired = restartRequired;
         }
     }
 }

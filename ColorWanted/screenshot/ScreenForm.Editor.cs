@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using ColorWanted.ext;
-using ColorWanted.hotkey;
 using ColorWanted.screenshot.events;
 using ColorWanted.util;
 

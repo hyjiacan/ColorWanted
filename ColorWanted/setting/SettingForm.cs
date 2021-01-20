@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -118,7 +117,8 @@ namespace ColorWanted.setting
 
         private Control RenderBool(SettingModule module, PropertyInfo item)
         {
-            var name = item.GetCustomAttribute<SettingItemAttribute>().Name;
+            var attr = item.GetCustomAttribute<SettingItemAttribute>();
+            var name = attr.Name;
             var checkbox = new CheckBox
             {
                 Text = name,
@@ -128,6 +128,10 @@ namespace ColorWanted.setting
                 FlatStyle = FlatStyle.Flat,
                 Margin = new Padding(0, 5, 0, 5)
             };
+            if (attr.RestartRequired)
+            {
+                checkbox.ForeColor = Color.Red;
+            }
             checkbox.CheckedChanged += (sender, e) =>
             {
                 item.SetValue(module, checkbox.Checked);
@@ -136,7 +140,8 @@ namespace ColorWanted.setting
         }
         private Control RenderEnum(SettingModule module, PropertyInfo item)
         {
-            var name = item.GetCustomAttribute<SettingItemAttribute>().Name;
+            var attr = item.GetCustomAttribute<SettingItemAttribute>();
+            var name = attr.Name;
 
             var itemContainer = new Panel
             {
@@ -144,13 +149,19 @@ namespace ColorWanted.setting
                 Margin = new Padding(0, 10, 0, 10)
             };
 
-            itemContainer.Controls.Add(new Label
+            var label = new Label
             {
                 Text = name,
                 Left = 0,
                 Top = 0,
                 AutoSize = true
-            });
+            };
+
+            if (attr.RestartRequired)
+            {
+                label.ForeColor = Color.Red;
+            }
+            itemContainer.Controls.Add(label);
 
             var enumItems = item.PropertyType.GetFields()
                 .Where(field => field.Name != "value__")
@@ -193,31 +204,36 @@ namespace ColorWanted.setting
 
         private Control RenderNumber(SettingModule module, PropertyInfo item, char type)
         {
-            var name = item.GetCustomAttribute<SettingItemAttribute>().Name;
+            var attr = item.GetCustomAttribute<SettingItemAttribute>();
+            var name = attr.Name;
 
             var itemContainer = new Panel
             {
                 AutoSize = true,
                 Margin = new Padding(0, 10, 0, 10)
             };
-
-            itemContainer.Controls.Add(new Label
+            var label = new Label
             {
                 Text = name,
                 Left = 0,
                 Top = 0,
                 AutoSize = true
-            });
+            };
+            if (attr.RestartRequired)
+            {
+                label.ForeColor = Color.Red;
+            }
+            itemContainer.Controls.Add(label);
 
             var textbox = new NumericUpDown
             {
-                Value = long.Parse(item.GetValue(module).ToString()),
                 Left = 0,
                 Top = 16,
                 Width = 400,
                 Minimum = 0,
                 Maximum = type == 'i' ? int.MaxValue : long.MaxValue
             };
+            textbox.Value = long.Parse(item.GetValue(module).ToString());
             itemContainer.Controls.Add(textbox);
 
             textbox.ValueChanged += (sender, e) =>
@@ -237,7 +253,8 @@ namespace ColorWanted.setting
 
         private Control RenderInput(SettingModule module, PropertyInfo item)
         {
-            var name = item.GetCustomAttribute<SettingItemAttribute>().Name;
+            var attr = item.GetCustomAttribute<SettingItemAttribute>();
+            var name = attr.Name;
 
             var itemContainer = new Panel
             {
@@ -245,13 +262,18 @@ namespace ColorWanted.setting
                 Margin = new Padding(0, 10, 0, 10)
             };
 
-            itemContainer.Controls.Add(new Label
+            var label = new Label
             {
                 Text = name,
                 Left = 0,
                 Top = 0,
                 AutoSize = true
-            });
+            };
+            if (attr.RestartRequired)
+            {
+                label.ForeColor = Color.Red;
+            }
+            itemContainer.Controls.Add(label);
 
             var textbox = new TextBox
             {
@@ -397,21 +419,6 @@ namespace ColorWanted.setting
         {
             Settings.I18n.Lang = "en";
             rbLangZh.Checked = false;
-        }
-
-        private void btnRestart_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Application.Restart();
-                Close();
-            }
-            catch (Exception ex)
-            {
-                util.Logger.Error(ex);
-                MessageBox.Show("Sorry that I cannot restart myself.");
-                Environment.Exit(1);
-            }
         }
     }
 
