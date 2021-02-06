@@ -67,7 +67,7 @@ namespace ColorWanted.setting
                     var p = Get("broadcastport");
                     if (!int.TryParse(p, out int port))
                     {
-                        port = 9792;
+                        port = 9791;
                     }
                     return port;
                 }

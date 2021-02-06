@@ -132,11 +132,11 @@ ws.send('Hi hyjican, tell me the color of pixel under the cursor please. Thank y
 ws.send('Hi hyjican, I want to take a screenshot.');
 ```
 
-另外，可以在设置中开启取色广播（UDP协议），以在指定端口 (默认为 `9792`)广播当前光标所在处像素的颜色值。
+另外，可以在设置中开启取色广播（UDP协议），以在指定端口 (默认为 `9791`)广播当前光标所在处像素的颜色值。
 
 ```javascript
 var udp = new UdpServer();
-udp.listen(9792);
+udp.listen(9791);
 udp.onmesage = function(data) {
 	// data 为 ColorWanted 广播的数据内容
 	// 格式如下：
