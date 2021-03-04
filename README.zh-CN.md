@@ -124,12 +124,12 @@ ws.onmessage = function(response) {
 // 响应分为好几行
 // 第一行是废话 (但其中包含了取色像素的坐标)
 // 后面的每一行是一个不同的颜色值
-ws.send('Hi hyjican, tell me the color of pixel under the cursor please. Thank you!');
+ws.send('Hi hyjican, tell me the color please. Thank you!');
 // 启动截图(仅返回整个屏幕截图，暂时不支持编辑)
 // 响应分两行
 // 第一行是废话
 // 第二行是截图的 Base64 编码数据 (jpeg)
-ws.send('Hi hyjican, I want to take a screenshot.');
+ws.send('Hi hyjican, I would like to take a screenshot.');
 ```
 
 另外，可以在设置中开启取色广播（UDP协议），以在指定端口 (默认为 `9791`)广播当前光标所在处像素的颜色值。

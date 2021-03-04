@@ -35,7 +35,7 @@ namespace ColorWanted.websocket
 
             Commands = new Dictionary<string, Func<string, string>>();
 
-            RegisterCommand("Hi hyjican, tell me the color of pixel under the cursor please. Thank you!", (data) =>
+            RegisterCommand("Hi hyjican, tell me the color please. Thank you!", (data) =>
             {
                 var pos = Control.MousePosition;
                 var color = ColorUtil.GetColor(pos);
@@ -52,7 +52,7 @@ namespace ColorWanted.websocket
                     string.Format("HSI({0},{1},{2})", Math.Round(hsi.H), Util.Round(hsi.S * 100), Util.Round(hsi.I * 100));
             });
 
-            RegisterCommand("Hi hyjican, I want to take a screenshot.", (data) =>
+            RegisterCommand("Hi hyjican, I would like to take a screenshot.", (data) =>
             {
                 var rect = Util.GetCurrentScreen();
                 var img = ScreenShot.GetScreen(rect.X, rect.Y, rect.Width, rect.Height);
