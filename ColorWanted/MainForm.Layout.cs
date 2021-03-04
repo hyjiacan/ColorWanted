@@ -324,7 +324,6 @@ namespace ColorWanted
             this.Controls.Add(this.lbRgb);
             this.Controls.Add(this.lbColorPreview);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.ForeColorChanged += MainForm_ForeColorChanged;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

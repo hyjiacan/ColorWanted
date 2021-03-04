@@ -127,10 +127,15 @@ namespace ColorWanted
 
         private void MainForm_ForeColorChanged(object sender, EventArgs e)
         {
+            UpdateShotButton(ForeColor);
+        }
+
+        private void UpdateShotButton(Color color)
+        {
             var img = new Bitmap(Util.ScaleX(20), Util.ScaleX(20));
             using (var g = Graphics.FromImage(img))
             {
-                using (var brush = new SolidBrush(ForeColor))
+                using (var brush = new SolidBrush(color))
                 {
                     using (var pen = new Pen(brush))
                     {
@@ -235,6 +240,10 @@ namespace ColorWanted
             lbRgb.Text = colorBuffer.AppendFormat("RGB({0})", lbRgb.Tag).ToString();
             colorBuffer.Clear();
 
+            // 利用截图按钮来显示选中的颜色
+            btnScreenshot.BackColor = ColorUtil.GetContrastColor(color);
+            UpdateShotButton(color);
+
             if (Settings.Preview.Visible && !stopDrawPreview)
             {
                 DrawPreview(MousePosition);
@@ -255,18 +264,9 @@ namespace ColorWanted
                 lbColorPreview.Hide();
             }
 
-            var contrastColor = ColorUtil.GetContrastColor(color);
-            if (FormatMode.Standard == currentFormatMode)
+            if (FormatMode.Shot == currentFormatMode || FormatMode.Standard == currentFormatMode)
             {
-                lbRgb.BackColor = color;
-                lbRgb.ForeColor = contrastColor;
                 return;
-            }
-
-            if (lbRgb.BackColor != BackColor)
-            {
-                lbRgb.BackColor = BackColor;
-                lbRgb.ForeColor = ForeColor;
             }
 
             // var hsl = HSL.Parse(color);
@@ -290,9 +290,6 @@ namespace ColorWanted
                 Util.Round(hsi.S * 100),
                 Util.Round(hsi.I * 100)).ToString();
             colorBuffer.Clear();
-
-            pnExt.BackColor = color;
-            pnExt.ForeColor = contrastColor;
         }
 
         /// <summary>
@@ -945,7 +942,7 @@ namespace ColorWanted
                     lbRgb.Visible = false;
                     pnExt.Visible = false;
                     Height = Util.ScaleY(20);
-                    Width = Util.ScaleX(108);
+                    Width = Util.ScaleX(88);
                     break;
                 case FormatMode.Standard:
                     lbHex.Width = Util.ScaleX(68);

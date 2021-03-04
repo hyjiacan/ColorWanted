@@ -16,6 +16,7 @@ namespace ColorWanted.screenshot
         private ToolStripButton activeToolLineStyle;
         private ToolStripButton activeToolDrawMode;
         private const int HOTKEY_ID_BASE = 0xF10000;
+        private Rectangle selectedArea;
 
         public void BindEditorEvents()
         {
@@ -33,6 +34,9 @@ namespace ColorWanted.screenshot
 
         public void ShowWindow()
         {
+            editorContainer.Left = 0;
+            editorContainer.Top = 0;
+            editorContainer.Dock = DockStyle.Fill;
             this.ShowInTaskbar = false;
             Show();
             BringToFront();
@@ -48,6 +52,9 @@ namespace ColorWanted.screenshot
             this.InvokeMethod(() =>
             {
                 editor.SetImage(img);
+
+                editorContainer.Width = img.Width;
+                editorContainer.Height = img.Height;
 
                 Refresh();
             });
@@ -71,6 +78,7 @@ namespace ColorWanted.screenshot
 
         private void Editor_AreaSelected(object sender, AreaEventArgs e)
         {
+            selectedArea = e.Rect;
             //TopMost = false;
             //this.ShowInTaskbar = true;
             // 这个事件会在创建选区时触发

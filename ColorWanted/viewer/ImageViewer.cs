@@ -37,6 +37,10 @@ namespace ColorWanted.viewer
         /// </summary>
         private bool LeftMouseButtonDown;
         /// <summary>
+        /// 当前鼠标中键（滚轮）是否按下
+        /// </summary>
+        private bool MiddleMouseButtonDown;
+        /// <summary>
         /// 当前鼠标右键是否按下
         /// </summary>
         private bool RightMouseButtonDown;
@@ -45,7 +49,7 @@ namespace ColorWanted.viewer
         /// <summary>
         /// 目录下的图片列表
         /// </summary>
-        private static string[] PicList;
+        private string[] PicList;
 
         private static int _index;
 
@@ -272,13 +276,19 @@ namespace ColorWanted.viewer
         }
         #endregion
 
-        #region 图片移动支持
+        #region 图片移动和框选支持
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 LeftMouseButtonDown = true;
+                Cursor = Cursors.Default;
+                oldLocation = e.Location;
+            }
+            else if (e.Button == MouseButtons.Middle)
+            {
+                MiddleMouseButtonDown = true;
                 Cursor = Cursors.SizeAll;
             }
             else if (e.Button == MouseButtons.Right)
@@ -291,9 +301,16 @@ namespace ColorWanted.viewer
         {
             if (e.Button == MouseButtons.Left)
             {
+                rect?.Hide();
                 LeftMouseButtonDown = false;
                 oldLocation.X = oldLocation.Y = 0;
-                Cursor = Cursors.Cross;
+                Cursor = Cursors.Default;
+            }
+            else if (e.Button == MouseButtons.Middle)
+            {
+                MiddleMouseButtonDown = false;
+                oldLocation.X = oldLocation.Y = 0;
+                Cursor = Cursors.Default;
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -304,10 +321,11 @@ namespace ColorWanted.viewer
         private void pictureBox_MouseLeave(object sender, EventArgs e)
         {
             LeftMouseButtonDown = false;
+            MiddleMouseButtonDown = false;
             RightMouseButtonDown = false;
             oldLocation.X = oldLocation.Y = 0;
             HideSizeLabel();
-            Cursor = Cursors.Cross;
+            Cursor = Cursors.Default;
         }
 
         void MovePicture()
@@ -339,12 +357,79 @@ namespace ColorWanted.viewer
             oldLocation = pos;
         }
 
+        private static int GetRectValueItem(int value, int max)
+        {
+            if (value < 0)
+            {
+                return 0;
+            }
+
+            if (value > max)
+            {
+                return max;
+            }
+
+            return value;
+        }
+
+
+        Label rect;
+
+        private void DrawRectangle(Point pos)
+        {
+            var ox = GetRectValueItem(oldLocation.X, pictureBox.Width);
+            var oy = GetRectValueItem(oldLocation.Y, pictureBox.Height);
+            var nx = GetRectValueItem(pos.X, pictureBox.Width);
+            var ny = GetRectValueItem(pos.Y, pictureBox.Height);
+
+            var w = nx - ox;
+            var h = ny - oy;
+            var x = ox;
+            var y = oy;
+
+            if (w < 0)
+            {
+                x = nx;
+                w = -w;
+            }
+            if (h < 0)
+            {
+                y = ny;
+                h = -h;
+            }
+
+            if (rect == null)
+            {
+                rect = new Label
+                {
+                    AutoSize = false,
+                    Visible = false,
+                    BorderStyle = BorderStyle.Fixed3D,
+                    BackColor = Color.FromArgb(100, Color.Black)
+                };
+                pictureBox.Controls.Add(rect);
+            }
+
+            rect.SetBounds(x, y, w, h);
+            rect.Show();
+
+            UpdateTip(x, y, w, h);
+            lbTip.Visible = true;
+            lbTip.BringToFront();
+        }
+
         #endregion
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
-            // 鼠标左键按下时，执行移动图片功能
+            // 鼠标左键按下时，执行画框功能
             if (LeftMouseButtonDown)
+            {
+                DrawRectangle(e.Location);
+                return;
+            }
+            // 鼠标中键按下时，执行移动图片功能
+            if (MiddleMouseButtonDown)
             {
                 MovePicture();
                 return;
@@ -373,7 +458,7 @@ namespace ColorWanted.viewer
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (LeftMouseButtonDown)
+            if (LeftMouseButtonDown || MiddleMouseButtonDown)
             {
                 HideSizeLabel();
                 return;
@@ -408,15 +493,19 @@ namespace ColorWanted.viewer
                 pictureBox.Image = originImage;
             }
 
-            var tipText = "";
             var img = new Bitmap(pictureBox.Image);
             var rect = ImageUtil.GetNearestArea(img, x, y, menuCenterLine.Checked, menuBorder.Checked);
             pictureBox.Image = img;
 
+            UpdateTip(rect.X, rect.Y, rect.Width, rect.Height);
+        }
+
+        private void UpdateTip(int x, int y, int w, int h)
+        {
             // 为啥要 + 1 ？
             // 比如，图片宽度为 10，实际存储为 0到9，也就是说，得到的尺寸是 9-0 ，结果为9，会有1个差
             // 所以。。
-            lbTip.Text = $"位置 ({rect.X},{rect.Y})\n尺寸 ({rect.Width + 1},{rect.Height + 1})" + tipText;
+            lbTip.Text = $"位置 ({x},{y})\n尺寸 ({w},{h})";
 
             var mousePosition = MousePosition;
 

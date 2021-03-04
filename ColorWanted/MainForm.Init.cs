@@ -46,7 +46,7 @@ namespace ColorWanted
         private void MainForm_Load(object sender, EventArgs e)
         {
             ThemeUtil.Apply(this);
-            MainForm_ForeColorChanged(null, null);
+            UpdateShotButton(ForeColor);
 
             // 干掉按钮边框
             btnScreenshot.NoBorder();
