@@ -725,6 +725,24 @@ namespace ColorWanted.viewer
             var y = pos.Y;
             var w = cache.Width;
             var h = cache.Height;
+
+            if (x < 0)
+            {
+                x = 0;
+            }
+            else if (x >= w)
+            {
+                x = w - 1;
+            }
+            if (y < 0)
+            {
+                y = 0;
+            }
+            else if (y >= h)
+            {
+                y = h - 1;
+            }
+
             if (originImage == null)
             {
                 originImage = pictureBox.Image;
