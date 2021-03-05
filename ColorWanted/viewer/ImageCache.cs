@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColorWanted.util;
+using System;
 using System.Drawing;
 
 namespace ColorWanted.viewer
@@ -6,66 +7,103 @@ namespace ColorWanted.viewer
     /// <summary>
     /// 图片在指定像素点的颜色缓存
     /// </summary>
-    static class ImageCache
+    class ImageCache
     {
-        private static Bitmap image;
-        private static int[,] _cache;
+        private Bitmap image;
+        private int[,] cachedColor;
+        private int[,] cachedContrastColor;
 
-        public static int Width { get; private set; }
-        public static int Height { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
-        public static void SetImage(Bitmap img)
+        public void SetImage(Bitmap img)
         {
             image = img;
 
             Width = img.Width;
             Height = img.Height;
 
-            if (_cache != null)
+            if (cachedColor != null)
             {
-                _cache = null;
+                cachedColor = null;
             }
-            _cache = new int[Width, Height];
+            if (cachedContrastColor != null)
+            {
+                cachedContrastColor = null;
+            }
+            cachedColor = new int[Width, Height];
+            cachedContrastColor = new int[Width, Height];
             // 初始化所有值为 -1
             for (int i = 0; i < Width; i++)
             {
                 for (int j = 0; j < Height; j++)
                 {
-                    _cache[i, j] = -1;
+                    cachedColor[i, j] = -1;
+                    cachedContrastColor[i, j] = -1;
                 }
             }
         }
 
-        public static Color Get(Point point)
+        public Color Get(Point point)
         {
             return Get(point.X, point.Y);
         }
 
-        public static Color Get(int x, int y)
+        public Color Get(int x, int y)
         {
             try
             {
-                var value = _cache[x, y];
+                var value = cachedColor[x, y];
                 if (value != -1)
                 {
                     return Color.FromArgb(value);
                 }
 
                 var color = image.GetPixel(x, y);
-                _cache[x, y] = color.ToArgb();
+                cachedColor[x, y] = color.ToArgb();
                 return color;
             }
             catch (Exception)
             {
-                //util.Logger.Warn(ex);
-                util.Logger.Warn($"Cannot find point({x},{y}) in image cache({Width},{Height})");
+                //Logger.Warn(ex);
+                Logger.Warn($"Cannot find point({x},{y}) in image cache({Width},{Height})");
                 return Color.Black;
             }
         }
 
-        internal static void Clear()
+
+
+        public Color GetContrast(Point point)
         {
-            _cache = null;
+            return GetContrast(point.X, point.Y);
+        }
+
+        public Color GetContrast(int x, int y)
+        {
+            try
+            {
+                var value = cachedContrastColor[x, y];
+                if (value != -1)
+                {
+                    return Color.FromArgb(value);
+                }
+
+                var color = ColorUtil.GetContrastColor(Get(x, y));
+                cachedContrastColor[x, y] = color.ToArgb();
+                return color;
+            }
+            catch (Exception)
+            {
+                //Logger.Warn(ex);
+                Logger.Warn($"Cannot find point({x},{y}) in image contrast cache({Width},{Height})");
+                return Color.Black;
+            }
+        }
+
+        internal void Clear()
+        {
+            cachedColor = null;
+            cachedContrastColor = null;
             Width = 0;
             Height = 0;
             image?.Dispose();

@@ -3,16 +3,23 @@ using System.Drawing;
 
 namespace ColorWanted.viewer
 {
-    static class ImageUtil
+    class ImageUtil
     {
         /// <summary>
         /// 色差范围
         /// </summary>
-        public static int Range = 3;
+        public int Range = 3;
         /// <summary>
         /// 画线的颜色
         /// </summary>
-        static Color fillColor = Color.OrangeRed;
+        public Color fillColor = Color.OrangeRed;
+
+        private ImageCache cache;
+
+        public ImageUtil(ImageCache cache)
+        {
+            this.cache = cache;
+        }
 
         /// <summary>
         /// 获取指定点最近的闭合区域
@@ -23,13 +30,13 @@ namespace ColorWanted.viewer
         /// <param name="drawLine"></param>
         /// <param name="drawBorder"></param>
         /// <returns></returns>
-        internal static Rectangle GetNearestArea(Bitmap img, int x, int y, bool drawLine, bool drawBorder)
+        internal Rectangle GetNearestArea(Bitmap img, int x, int y, bool drawLine, bool drawBorder)
         {
-            var width = ImageCache.Width;
-            var height = ImageCache.Height;
+            var width = cache.Width;
+            var height = cache.Height;
 
             // step1: 取到当前点的颜色
-            var color = ImageCache.Get(x, y);
+            var color = cache.Get(x, y);
             fillColor = GetContrastColor(color);
             // step1: 找到最近的不同颜色
             // 从4个方向，按顺序 上右下左 依次判断
@@ -68,12 +75,12 @@ namespace ColorWanted.viewer
                     {
                         // 边界处理
                         topPos = new Point(x, 0);
-                        topColor = ImageCache.Get(x, 0);
+                        topColor = cache.Get(x, 0);
                         //drawLine(img, x, 0, Orient.Horison);
                     }
                     else
                     {
-                        topColor = ImageCache.Get(x, top);
+                        topColor = cache.Get(x, top);
                         if (IsSimilarColor(topColor, color) || IsSimilarColor(topColor, lastTopColor))
                         {
                             lastTopColor = topColor;
@@ -95,12 +102,12 @@ namespace ColorWanted.viewer
                     {
                         // 边界处理
                         rightPos = new Point(width - 1, y);
-                        rightColor = ImageCache.Get(width - 1, y);
+                        rightColor = cache.Get(width - 1, y);
                         //drawLine(img, width - 1, y, Orient.Vertical);
                     }
                     else
                     {
-                        rightColor = ImageCache.Get(right, y);
+                        rightColor = cache.Get(right, y);
 
                         if (IsSimilarColor(rightColor, color) || IsSimilarColor(rightColor, lastRightColor))
                         {
@@ -123,12 +130,12 @@ namespace ColorWanted.viewer
                     {
                         // 边界处理
                         bottomPos = new Point(x, height - 1);
-                        bottomColor = ImageCache.Get(x, height - 1);
+                        bottomColor = cache.Get(x, height - 1);
                         //drawLine(img, x, height - 1, Orient.Horison);
                     }
                     else
                     {
-                        bottomColor = ImageCache.Get(x, bottom);
+                        bottomColor = cache.Get(x, bottom);
                         if (IsSimilarColor(bottomColor, color) || IsSimilarColor(bottomColor, lastBottomColor))
                         {
                             lastBottomColor = bottomColor;
@@ -150,12 +157,12 @@ namespace ColorWanted.viewer
                     {
                         // 边界处理
                         leftPos = new Point(0, y);
-                        leftColor = ImageCache.Get(0, y);
+                        leftColor = cache.Get(0, y);
                         //drawLine(img, 0, y, Orient.Vertical);
                     }
                     else
                     {
-                        leftColor = ImageCache.Get(left, y);
+                        leftColor = cache.Get(left, y);
                         if (IsSimilarColor(leftColor, color) || IsSimilarColor(leftColor, lastLeftColor))
                         {
                             lastLeftColor = leftColor;
@@ -200,12 +207,12 @@ namespace ColorWanted.viewer
                 // 画水平线
                 for (int i = leftPos.X; i < rightPos.X; i++)
                 {
-                    img.SetPixel(i, y, fillColor);
+                    img.SetPixel(i, y, cache.GetContrast(i, y));
                 }
                 // 画垂直线
                 for (int i = topPos.Y; i < bottomPos.Y; i++)
                 {
-                    img.SetPixel(x, i, fillColor);
+                    img.SetPixel(x, i, cache.GetContrast(x, i));
                 }
             }
 
@@ -251,7 +258,7 @@ namespace ColorWanted.viewer
         /// <param name="bottomSpan"></param>
         /// <param name="leftSpan"></param>
         /// <returns></returns>
-        private static bool IsPointsValid(Bitmap img, Color targetColor,
+        private bool IsPointsValid(Bitmap img, Color targetColor,
             ref Point topPos, ref Point rightPos, ref Point bottomPos, ref Point leftPos,
             Color topColor, Color rightColor, Color bottomColor, Color leftColor,
             LineSpan topSpan, LineSpan rightSpan, LineSpan bottomSpan, LineSpan leftSpan)
@@ -309,7 +316,7 @@ namespace ColorWanted.viewer
             {
                 if (leftPos.X < bottomSpan.FromX)
                 {
-                    if (bottomPos.Y < ImageCache.Height)
+                    if (bottomPos.Y < cache.Height)
                     {
                         // 左边线在下边线的左端点更左侧，此时需要重新获取下边线
                         bottomPos = Point.Empty;
@@ -343,7 +350,7 @@ namespace ColorWanted.viewer
                 }
                 else
                 {
-                    if (rightPos.X < ImageCache.Width)
+                    if (rightPos.X < cache.Width)
                     {
                         // 右边线在上边线的右端点左侧，此时需要重新获取右边线
                         rightPos = Point.Empty;
@@ -359,7 +366,7 @@ namespace ColorWanted.viewer
             {
                 if (rightPos.X > bottomSpan.ToX)
                 {
-                    if (bottomPos.Y < ImageCache.Height)
+                    if (bottomPos.Y < cache.Height)
                     {
                         // 右边线在下边线的右端点更右侧，此时需要重新获取下边线
                         bottomPos = Point.Empty;
@@ -368,7 +375,7 @@ namespace ColorWanted.viewer
                 }
                 else
                 {
-                    if (rightPos.X < ImageCache.Width)
+                    if (rightPos.X < cache.Width)
                     {
                         // 右边线在下边线的右端点左侧，此时需要重新获取右边线
                         rightPos = Point.Empty;
@@ -384,7 +391,7 @@ namespace ColorWanted.viewer
             return true;
         }
 
-        static bool HasSimilarNeiboor(Bitmap img, Color diffColor, Point diffPoint, int r = 5)
+        bool HasSimilarNeiboor(Bitmap img, Color diffColor, Point diffPoint, int r = 5)
         {
             // 顺时针查找
             for (int i = 0; i < r; i++)
@@ -393,7 +400,7 @@ namespace ColorWanted.viewer
                 for (int j = 0; j < r; j++)
                 {
                     //var y = diffPoint.Y + j;
-                    if (IsSimilarColor(ImageCache.Get(diffPoint.X, diffPoint.Y), diffColor))
+                    if (IsSimilarColor(cache.Get(diffPoint.X, diffPoint.Y), diffColor))
                     {
                         return true;
                     }
@@ -401,7 +408,7 @@ namespace ColorWanted.viewer
                 for (int j = 0; j < r; j++)
                 {
                     //var y = diffPoint.Y + j;
-                    if (IsSimilarColor(ImageCache.Get(diffPoint.X, diffPoint.Y), diffColor))
+                    if (IsSimilarColor(cache.Get(diffPoint.X, diffPoint.Y), diffColor))
                     {
                         return true;
                     }
@@ -416,12 +423,12 @@ namespace ColorWanted.viewer
         /// <param name="c1"></param>
         /// <param name="c2"></param>
         /// <returns></returns>
-        static bool IsSimilarColor(Color c1, Color c2)
+        bool IsSimilarColor(Color c1, Color c2)
         {
             return lt(c1.R, c2.R, Range) && lt(c1.G, c2.G, Range) && lt(c1.B, c2.B, Range);
         }
 
-        static bool lt(int a, int b, int lt)
+        bool lt(int a, int b, int lt)
         {
             return Math.Abs(a - b) <= lt;
         }
@@ -433,7 +440,7 @@ namespace ColorWanted.viewer
         /// <param name="color"></param>
         /// <param name="orient"></param>
         /// <param name="span"></param>
-        static void GetLineSpan(Point point, Color color, Orientions orient, LineSpan span)
+        void GetLineSpan(Point point, Color color, Orientions orient, LineSpan span)
         {
             span.Reset(point);
 
@@ -442,16 +449,16 @@ namespace ColorWanted.viewer
                 // 向左
                 for (int i = point.X; i >= 0; i--)
                 {
-                    if (IsSimilarColor(color, ImageCache.Get(i, point.Y)))
+                    if (IsSimilarColor(color, cache.Get(i, point.Y)))
                     {
                         span.FromX = i;
                         break;
                     }
                 }
                 // 向右
-                for (int i = point.X; i < ImageCache.Width; i++)
+                for (int i = point.X; i < cache.Width; i++)
                 {
-                    if (IsSimilarColor(color, ImageCache.Get(i, point.Y)))
+                    if (IsSimilarColor(color, cache.Get(i, point.Y)))
                     {
                         span.ToX = i;
                         break;
@@ -463,16 +470,16 @@ namespace ColorWanted.viewer
             // 向上
             for (int i = point.Y; i >= 0; i--)
             {
-                if (IsSimilarColor(color, ImageCache.Get(point.X, i)))
+                if (IsSimilarColor(color, cache.Get(point.X, i)))
                 {
                     span.FromY = i;
                     break;
                 }
             }
             // 向下
-            for (int i = point.Y; i < ImageCache.Height; i++)
+            for (int i = point.Y; i < cache.Height; i++)
             {
-                if (IsSimilarColor(color, ImageCache.Get(point.X, i)))
+                if (IsSimilarColor(color, cache.Get(point.X, i)))
                 {
                     span.ToY = i;
                     break;
@@ -486,7 +493,7 @@ namespace ColorWanted.viewer
         /// <param name="img"></param>
         /// <param name="from"></param>
         /// <param name="to"></param>
-        static void DrawLine(Bitmap img, Point from, Point to)
+        void DrawLine(Bitmap img, Point from, Point to)
         {
             int min, max;
             //Console.WriteLine("从{0}到{1}画线", from, to);
@@ -497,7 +504,7 @@ namespace ColorWanted.viewer
                 // 画竖线
                 for (int i = min; i < max; i++)
                 {
-                    img.SetPixel(from.X, i, fillColor);
+                    img.SetPixel(from.X, i, cache.GetContrast(from.X, i));
                 }
                 return;
             }
@@ -507,44 +514,44 @@ namespace ColorWanted.viewer
             // 画横线
             for (int i = min; i < max; i++)
             {
-                img.SetPixel(i, from.Y, fillColor);
+                img.SetPixel(i, from.Y, cache.GetContrast(i, from.Y));
             }
         }
 
-        public static bool isGray(Color color)
+        public bool isGray(Color color)
         {
             return bt(color.R) + bt(color.G) + bt(color.B) >= 2;
         }
 
-        public static int bt(byte val)
+        public int bt(byte val)
         {
             return val >= 100 && val <= 200 ? 1 : 0;
         }
 
-        public static bool isLight(Color color)
+        public bool isLight(Color color)
         {
             return gt200(color.R) + gt200(color.G) + gt200(color.B) >= 2;
         }
 
-        public static bool isDark(Color color)
+        public bool isDark(Color color)
         {
             return lt150(color.R) + lt150(color.G) + lt150(color.B) >= 2;
         }
 
-        public static bool isSingle(Color color)
+        public bool isSingle(Color color)
         {
             return lt100(color.R) + lt100(color.G) + lt100(color.B) == 2 && gt200(color.R) + gt200(color.G) + gt200(color.B) == 1;
         }
-        public static int lt150(byte val)
+        public int lt150(byte val)
         {
             return val <= 150 ? 1 : 0;
         }
-        public static int lt100(byte val)
+        public int lt100(byte val)
         {
             return val <= 100 ? 1 : 0;
         }
 
-        public static int gt200(byte val)
+        public int gt200(byte val)
         {
             return val >= 200 ? 1 : 0;
         }
@@ -555,7 +562,7 @@ namespace ColorWanted.viewer
         /// <param name="color"></param>
         /// <param name="light">使用浅色</param>
         /// <returns></returns>
-        public static Color GetContrastColor(Color color, bool light = false)
+        public Color GetContrastColor(Color color, bool light = false)
         {
             if (!isSingle(color))
             {

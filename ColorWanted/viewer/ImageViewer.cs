@@ -1,5 +1,6 @@
 ﻿using ColorWanted.ext;
 using ColorWanted.setting;
+using ColorWanted.util;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -55,6 +56,9 @@ namespace ColorWanted.viewer
 
         public string CurrentImageName { get; private set; }
 
+        private ImageCache cache;
+        private ImageUtil util;
+
         /// <summary>
         /// 当前显示的图片索引
         /// </summary>
@@ -73,6 +77,9 @@ namespace ColorWanted.viewer
         public ImageViewer(string filename)
         {
             InitializeComponent();
+
+            cache = new ImageCache();
+            util = new ImageUtil(cache);
 
             timer = new Timer
             {
@@ -103,8 +110,8 @@ namespace ColorWanted.viewer
                 return;
             }
 
-            var imgWidth = ImageCache.Width;
-            var imgHeight = ImageCache.Height;
+            var imgWidth = cache.Width;
+            var imgHeight = cache.Height;
 
             pictureBox.Width = imgWidth;
             pictureBox.Height = imgHeight;
@@ -264,7 +271,7 @@ namespace ColorWanted.viewer
 
         void LoadImage(Image image)
         {
-            ImageCache.SetImage(image as Bitmap);
+            cache.SetImage(image as Bitmap);
             pictureBox.Image = image;
             originImage = null;
             if (!pictureBox.Visible)
@@ -384,8 +391,8 @@ namespace ColorWanted.viewer
 
             var w = nx - ox;
             var h = ny - oy;
-            var x = ox;
-            var y = oy;
+            var x = ox + 1;
+            var y = oy + 1;
 
             if (w < 0)
             {
@@ -408,6 +415,11 @@ namespace ColorWanted.viewer
                     BackColor = Color.FromArgb(100, Color.Black)
                 };
                 pictureBox.Controls.Add(rect);
+            }
+            else if (x == rect.Left && y == rect.Top && w == rect.Width && h == rect.Height)
+            {
+                // 当位置和大小未发生变化时，不需要重绘
+                return;
             }
 
             rect.SetBounds(x, y, w, h);
@@ -458,9 +470,13 @@ namespace ColorWanted.viewer
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (LeftMouseButtonDown || MiddleMouseButtonDown)
+            if (LeftMouseButtonDown)
             {
-                HideSizeLabel();
+                DrawFullCrossline();
+                return;
+            }
+            if (MiddleMouseButtonDown)
+            {
                 return;
             }
             if (LastSizePosition == LastMousePosition)
@@ -494,7 +510,7 @@ namespace ColorWanted.viewer
             }
 
             var img = new Bitmap(pictureBox.Image);
-            var rect = ImageUtil.GetNearestArea(img, x, y, menuCenterLine.Checked, menuBorder.Checked);
+            var rect = util.GetNearestArea(img, x, y, menuCenterLine.Checked, menuBorder.Checked);
             pictureBox.Image = img;
 
             UpdateTip(rect.X, rect.Y, rect.Width, rect.Height);
@@ -548,8 +564,8 @@ namespace ColorWanted.viewer
             if (Clipboard.ContainsImage())
             {
                 var img = Clipboard.GetImage();
-                ImageCache.SetImage(img as Bitmap);
-                Text = string.Format("图片查看器 - 来自剪贴板 ({0}x{1})", ImageCache.Width, ImageCache.Height);
+                cache.SetImage(img as Bitmap);
+                Text = string.Format("图片查看器 - 来自剪贴板 ({0}x{1})", cache.Width, cache.Height);
                 LoadImage(img);
                 return;
             }
@@ -568,7 +584,7 @@ namespace ColorWanted.viewer
 
         private void ImageViewer_Load(object sender, EventArgs e)
         {
-            btnBgColor.BackColor = BackColor = Settings.Viewer.BackColor;
+            btnBgColor.BackColor = pnContainer.BackColor = Settings.Viewer.BackColor;
 
             menuCenterLine.Checked = Settings.Viewer.DrawCenterLine;
             menuBorder.Checked = Settings.Viewer.DrawBorder;
@@ -586,7 +602,7 @@ namespace ColorWanted.viewer
         private void rangeBar_Scroll(object sender, EventArgs e)
         {
             lbRange.Text = rangeBar.Value.ToString();
-            ImageUtil.Range = rangeBar.Value;
+            util.Range = rangeBar.Value;
         }
 
         private void menuDelete_Click(object sender, EventArgs e)
@@ -594,7 +610,7 @@ namespace ColorWanted.viewer
             pictureBox.Hide();
             pictureBox.Image = null;
             lbTip.Hide();
-            ImageCache.Clear();
+            cache.Clear();
         }
 
         private void menuOpen_Click(object sender, EventArgs e)
@@ -687,7 +703,7 @@ namespace ColorWanted.viewer
             {
                 return;
             }
-            Settings.Viewer.BackColor = btnBgColor.BackColor = BackColor = dialog.Color;
+            Settings.Viewer.BackColor = btnBgColor.BackColor = pnContainer.BackColor = dialog.Color;
         }
 
         private void menuBorder_Click(object sender, EventArgs e)
@@ -698,6 +714,44 @@ namespace ColorWanted.viewer
         private void menuCenterLine_Click(object sender, EventArgs e)
         {
             Settings.Viewer.DrawCenterLine = menuCenterLine.Checked = !menuCenterLine.Checked;
+        }
+
+        private void DrawFullCrossline()
+        {
+            // 从光标处画十字线
+            var pos = PointToClient(MousePosition);
+            pos.Offset(-pictureBox.Location.X, -pictureBox.Location.Y);
+            var x = pos.X;
+            var y = pos.Y;
+            var w = cache.Width;
+            var h = cache.Height;
+            if (originImage == null)
+            {
+                originImage = pictureBox.Image;
+            }
+            else
+            {
+                pictureBox.Image = originImage;
+            }
+            var img = new Bitmap(pictureBox.Image);
+
+            // 画水平虚线
+            for (int i = 0; i < w; i += 10)
+            {
+                for (int j = i; j < i + 5 && j < w; j++)
+                {
+                    img.SetPixel(j, y, cache.GetContrast(j, y));
+                }
+            }
+            // 画垂直虚线
+            for (int i = 0; i < h; i += 10)
+            {
+                for (int j = i; j < i + 5 && j < h; j++)
+                {
+                    img.SetPixel(x, j, cache.GetContrast(x, j));
+                }
+            }
+            pictureBox.Image = img;
         }
     }
 }

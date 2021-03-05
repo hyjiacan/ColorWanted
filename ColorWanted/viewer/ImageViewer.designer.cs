@@ -52,6 +52,7 @@
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
             this.pnContainer = new System.Windows.Forms.Panel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.lbHelp = new System.Windows.Forms.Label();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rangeBar)).BeginInit();
             this.pnBar.SuspendLayout();
@@ -197,6 +198,7 @@
             // pnBar
             // 
             this.pnBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.pnBar.Controls.Add(this.lbHelp);
             this.pnBar.Controls.Add(this.btnBgColor);
             this.pnBar.Controls.Add(this.lkNext);
             this.pnBar.Controls.Add(this.lkPrev);
@@ -281,6 +283,18 @@
             this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
             this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
+            // lbHelp
+            // 
+            this.lbHelp.AutoSize = true;
+            this.lbHelp.Cursor = System.Windows.Forms.Cursors.Help;
+            this.lbHelp.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbHelp.Location = new System.Drawing.Point(373, 9);
+            this.lbHelp.Name = "lbHelp";
+            this.lbHelp.Size = new System.Drawing.Size(16, 16);
+            this.lbHelp.TabIndex = 19;
+            this.lbHelp.Text = "?";
+            this.tooltip.SetToolTip(this.lbHelp, "提示：\r\n1. 按下鼠标左键拖动以框选区域\r\n2. 按下鼠标滚轮拖动以移动图片");
+            // 
             // ImageViewer
             // 
             this.AllowDrop = true;
@@ -338,6 +352,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Panel pnContainer;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.Label lbHelp;
     }
 }
 
