@@ -10,10 +10,10 @@ namespace ColorWanted.screenshot
 {
     internal static class ScreenShot
     {
-        private static ScreenForm screenForm;
-        private static ScreenRecordForm recordForm;
+        private static ScreenShotForm shotForm;
+        private static ScreenCastForm castForm;
         private static SaveFileDialog saveImageDialog;
-        private static SaveFileDialog saveRecordDialog;
+        private static SaveFileDialog saveCastDialog;
 
         /// <summary>
         /// 标记是否正在截图
@@ -22,9 +22,9 @@ namespace ColorWanted.screenshot
 
         public static void Init()
         {
-            screenForm = new ScreenForm();
+            shotForm = new ScreenShotForm();
 
-            screenForm.FormClosing += (sender, e) =>
+            shotForm.FormClosing += (sender, e) =>
             {
                 Busy = false;
                 GC.Collect();
@@ -39,7 +39,7 @@ namespace ColorWanted.screenshot
                 InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
 
-            saveRecordDialog = new SaveFileDialog
+            saveCastDialog = new SaveFileDialog
             {
                 AddExtension = true,
                 DefaultExt = "gif",
@@ -78,7 +78,7 @@ namespace ColorWanted.screenshot
 
         public static void CancelCapture()
         {
-            if (screenForm == null)
+            if (shotForm == null)
             {
                 return;
             }
@@ -87,13 +87,13 @@ namespace ColorWanted.screenshot
                 return;
             }
 
-            screenForm.Close();
+            shotForm.Close();
             Busy = false;
         }
 
         public static void Capture()
         {
-            if (screenForm == null)
+            if (shotForm == null)
             {
                 return;
             }
@@ -112,9 +112,9 @@ namespace ColorWanted.screenshot
                 // 获取当前整个屏幕的截图
                 var image = GetScreen(bounds.X, bounds.Y, bounds.Width, bounds.Height);
 
-                screenForm.Bounds = bounds;
-                screenForm.SetImage(image);
-                screenForm.ShowWindow();
+                shotForm.Bounds = bounds;
+                shotForm.SetImage(image);
+                shotForm.ShowWindow();
             }
             catch (Exception e)
             {
@@ -134,14 +134,14 @@ namespace ColorWanted.screenshot
             return true;
         }
 
-        public static string SaveRecord()
+        public static string SaveCast()
         {
-            saveRecordDialog.FileName = string.Format("录屏-{0:yyyyMMddHHmmss}", DateTime.Now);
-            if (saveRecordDialog.ShowDialog() != DialogResult.OK)
+            saveCastDialog.FileName = string.Format("录屏-{0:yyyyMMddHHmmss}", DateTime.Now);
+            if (saveCastDialog.ShowDialog() != DialogResult.OK)
             {
                 return null;
             }
-            return saveRecordDialog.FileName;
+            return saveCastDialog.FileName;
         }
 
         /// <summary>
@@ -152,20 +152,20 @@ namespace ColorWanted.screenshot
         /// 4. 点击后隐藏工具条，再次按下快捷键停止录制，并显示保存位置选择对话框
         /// 5. 选择保存文件后，合成GIF文件，关闭录制窗口
         /// </summary>
-        public static void Record()
+        public static void Cast()
         {
             if (Busy)
             {
                 // 关闭窗口，此时会停止录制
-                recordForm?.Close();
+                castForm?.Close();
                 return;
             }
             Busy = true;
             try
             {
                 ToggleColorWindows(false);
-                recordForm = new ScreenRecordForm();
-                recordForm.FormClosing += (sender, e) =>
+                castForm = new ScreenCastForm();
+                castForm.FormClosing += (sender, e) =>
                 {
                     ToggleColorWindows(true);
                 };
@@ -174,37 +174,37 @@ namespace ColorWanted.screenshot
                 // 光标所在屏幕
 
                 var bounds = Util.GetScreenBounds();
-                recordForm.Left = bounds.X + bounds.Width / 2 - recordForm.Width / 2;
-                recordForm.Top = bounds.Y + bounds.Height / 2 - recordForm.Height / 2;
+                castForm.Left = bounds.X + bounds.Width / 2 - castForm.Width / 2;
+                castForm.Top = bounds.Y + bounds.Height / 2 - castForm.Height / 2;
 
-                recordForm.FormClosed += RecordForm_FormClosed;
-                recordForm.ShowDialog();
+                castForm.FormClosed += CastForm_FormClosed;
+                castForm.ShowDialog();
             }
             finally
             {
                 Busy = false;
-                if (recordForm != null)
+                if (castForm != null)
                 {
-                    recordForm.Close();
-                    recordForm.Dispose();
+                    castForm.Close();
+                    castForm.Dispose();
                 }
             }
         }
 
-        private static void RecordForm_FormClosed(object sender, FormClosedEventArgs e)
+        private static void CastForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (!Directory.Exists(ScreenRecordOption.CachePath) ||
-                Directory.GetFiles(ScreenRecordOption.CachePath).Length == 0)
+            if (!Directory.Exists(ScreenCastOption.CachePath) ||
+                Directory.GetFiles(ScreenCastOption.CachePath).Length == 0)
             {
                 return;
             }
-            var f = new ScreenRecordSaveForm();
+            var f = new ScreenCastSavingForm();
             f.FormClosed += (s, e1) =>
             {
                 Busy = false;
-                if (Directory.Exists(ScreenRecordOption.CachePath))
+                if (Directory.Exists(ScreenCastOption.CachePath))
                 {
-                    Directory.Delete(ScreenRecordOption.CachePath, true);
+                    Directory.Delete(ScreenCastOption.CachePath, true);
                 }
             };
             f.ShowDialog();

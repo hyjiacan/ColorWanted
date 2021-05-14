@@ -9,7 +9,7 @@ using ColorWanted.util;
 
 namespace ColorWanted.screenshot
 {
-    partial class ScreenForm
+    partial class ScreenShotForm
     {
         private ToolStripButton activeToolShapeType;
         private ToolStripButton activeToolColor;

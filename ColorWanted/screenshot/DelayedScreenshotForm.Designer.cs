@@ -1,7 +1,7 @@
 ﻿
 namespace ColorWanted.screenshot
 {
-    partial class DelayedScreenshotForm
+    partial class DelayedScreenShotForm
     {
         /// <summary>
         /// Required designer variable.
@@ -60,6 +60,11 @@ namespace ColorWanted.screenshot
             this.numSeconds.Size = new System.Drawing.Size(41, 22);
             this.numSeconds.TabIndex = 1;
             this.numSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numSeconds.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // label2
             // 

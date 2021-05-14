@@ -1,6 +1,6 @@
 ﻿namespace ColorWanted.screenshot
 {
-    partial class ScreenForm
+    partial class ScreenShotForm
     {
         /// <summary>
         /// Required designer variable.

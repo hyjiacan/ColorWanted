@@ -1,6 +1,6 @@
 ﻿namespace ColorWanted.screenshot
 {
-    public static class ScreenRecordOption
+    public static class ScreenCastOption
     {
         /// <summary>
         /// 帧速率

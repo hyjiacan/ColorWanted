@@ -314,6 +314,14 @@ namespace ColorWanted.screenshot
             {
                 return;
             }
+            if (size.Width < 0)
+            {
+                return;
+            }
+            if (size.Height < 0)
+            {
+                return;
+            }
 
             SelectionBorder.SetLocation(location);
             SelectionBorder.SetSize(size);

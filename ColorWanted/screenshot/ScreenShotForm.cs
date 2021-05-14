@@ -5,14 +5,14 @@ using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
 {
-    public partial class ScreenForm : Form
+    public partial class ScreenShotForm : Form
     {
         private bool IsActive;
 
         private bool IsMouseDown;
         private Point MouseDownPosition;
 
-        public ScreenForm()
+        public ScreenShotForm()
         {
             InitializeComponent();
             // 全屏

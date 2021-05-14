@@ -142,35 +142,35 @@
     <Compile Include="screenshot\LineStyles.cs" />
     <Compile Include="screenshot\ResizeBorder.cs" />
     <Compile Include="screenshot\ResizePositions.cs" />
-    <Compile Include="screenshot\ScreenRecordForm.cs">
+    <Compile Include="screenshot\ScreenCastForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="screenshot\ScreenRecordForm.Designer.cs">
-      <DependentUpon>ScreenRecordForm.cs</DependentUpon>
+    <Compile Include="screenshot\ScreenCastForm.Designer.cs">
+      <DependentUpon>ScreenCastForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="screenshot\ScreenRecordOption.cs" />
-    <Compile Include="screenshot\ScreenRecordSaveForm.cs">
+    <Compile Include="screenshot\ScreenCastOption.cs" />
+    <Compile Include="screenshot\ScreenCastSavingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="screenshot\ScreenRecordSaveForm.Designer.cs">
-      <DependentUpon>ScreenRecordSaveForm.cs</DependentUpon>
+    <Compile Include="screenshot\ScreenCastSavingForm.Designer.cs">
+      <DependentUpon>ScreenCastSavingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="screenshot\ScreenShot.cs" />
-    <Compile Include="screenshot\ScreenForm.cs">
+    <Compile Include="screenshot\ScreenShotForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="screenshot\ScreenForm.Designer.cs">
-      <DependentUpon>ScreenForm.cs</DependentUpon>
+    <Compile Include="screenshot\ScreenShotForm.Designer.cs">
+      <DependentUpon>ScreenShotForm.cs</DependentUpon>
     </Compile>
     <Compile Include="screenshot\ScreenForm.Editor.cs">
-      <DependentUpon>ScreenForm.cs</DependentUpon>
+      <DependentUpon>ScreenShotForm.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="screenshot\DelayedScreenshotForm.cs">
+    <Compile Include="screenshot\DelayedScreenShotForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="screenshot\DelayedScreenshotForm.Designer.cs">
-      <DependentUpon>DelayedScreenshotForm.cs</DependentUpon>
+    <Compile Include="screenshot\DelayedScreenShotForm.Designer.cs">
+      <DependentUpon>DelayedScreenShotForm.cs</DependentUpon>
     </Compile>
     <Compile Include="setting\SettingForm.cs">
       <SubType>Form</SubType>
@@ -310,17 +310,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="screenshot\ScreenForm.resx">
-      <DependentUpon>ScreenForm.cs</DependentUpon>
+    <EmbeddedResource Include="screenshot\ScreenShotForm.resx">
+      <DependentUpon>ScreenShotForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="screenshot\ScreenRecordForm.resx">
-      <DependentUpon>ScreenRecordForm.cs</DependentUpon>
+    <EmbeddedResource Include="screenshot\ScreenCastForm.resx">
+      <DependentUpon>ScreenCastForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="screenshot\ScreenRecordSaveForm.resx">
-      <DependentUpon>ScreenRecordSaveForm.cs</DependentUpon>
+    <EmbeddedResource Include="screenshot\ScreenCastSavingForm.resx">
+      <DependentUpon>ScreenCastSavingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="screenshot\DelayedScreenshotForm.resx">
-      <DependentUpon>DelayedScreenshotForm.cs</DependentUpon>
+    <EmbeddedResource Include="screenshot\DelayedScreenShotForm.resx">
+      <DependentUpon>DelayedScreenShotForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="setting\SettingForm.resx">
       <DependentUpon>SettingForm.cs</DependentUpon>

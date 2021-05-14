@@ -1,6 +1,6 @@
 ﻿namespace ColorWanted.screenshot
 {
-    partial class ScreenRecordSaveForm
+    partial class ScreenCastSavingForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreenRecordSaveForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreenCastSavingForm));
             this.lbMsg = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -146,7 +146,7 @@
             this.label10.TabIndex = 28;
             this.label10.Text = "0 表示无限循环";
             // 
-            // ScreenRecordSaveForm
+            // ScreenCastSavingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -164,11 +164,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "ScreenRecordSaveForm";
+            this.Name = "ScreenCastSavingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ScreenRecordSaveForm";
+            this.Text = "ScreenCastSavingForm";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.ScreenRecordSaveForm_Load);
+            this.Load += new System.EventHandler(this.ScreenCastSavingForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tbQuality)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRepeatCount)).EndInit();
             this.ResumeLayout(false);

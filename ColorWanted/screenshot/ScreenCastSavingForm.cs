@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
 {
-    public partial class ScreenRecordSaveForm : Form
+    public partial class ScreenCastSavingForm : Form
     {
-        public ScreenRecordSaveForm()
+        public ScreenCastSavingForm()
         {
             InitializeComponent();
         }
@@ -66,7 +66,7 @@ namespace ColorWanted.screenshot
 
         private void MakeGIF(string saveTo, Action<int, int> callback)
         {
-            var files = Directory.GetFiles(ScreenRecordOption.CachePath);
+            var files = Directory.GetFiles(ScreenCastOption.CachePath);
 
             // 保存每个文件流，以方便在后面关闭文件
             var temp = new List<FileStream>(files.Length);
@@ -94,7 +94,7 @@ namespace ColorWanted.screenshot
             }
             var gifStream = new FileStream(saveTo, FileMode.Create);
             var gif = new AnimatedGifCreator(gifStream,
-                1000 / ScreenRecordOption.Fps, (int)numRepeatCount.Value);
+                1000 / ScreenCastOption.Fps, (int)numRepeatCount.Value);
 
             for (int i = 0; i < files.Length; i++)
             {
@@ -116,13 +116,13 @@ namespace ColorWanted.screenshot
             GC.Collect();
         }
 
-        private void ScreenRecordSaveForm_Load(object sender, EventArgs e)
+        private void ScreenCastSavingForm_Load(object sender, EventArgs e)
         {
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            var filename = ScreenShot.SaveRecord();
+            var filename = ScreenShot.SaveCast();
             if (filename == null)
             {
                 return;

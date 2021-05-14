@@ -48,7 +48,7 @@ namespace ColorWanted
             this.trayMenuShowAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuScreenShot = new System.Windows.Forms.ToolStripMenuItem();
-            this.trayMenuScreenRecord = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuScreenCast = new System.Windows.Forms.ToolStripMenuItem();
             this.trayMenuOpenImage = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -186,7 +186,7 @@ namespace ColorWanted
             this.trayMenuShowClipboard,
             this.toolStripSeparator2,
             this.trayMenuScreenShot,
-            this.trayMenuScreenRecord,
+            this.trayMenuScreenCast,
             this.trayMenuOpenImage,
             this.toolStripSeparator4,
             this.trayMenuSettings,
@@ -246,12 +246,12 @@ namespace ColorWanted
             this.trayMenuScreenShot.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
             this.trayMenuScreenShot.Click += new EventHandler(this.trayMenuScreenShot_Click);
             // 
-            // trayMenuScreenRecord
+            // trayMenuScreenCast
             // 
-            resources.ApplyResources(this.trayMenuScreenRecord, "trayMenuScreenRecord");
-            this.trayMenuScreenRecord.Name = "trayMenuScreenRecord";
-            this.trayMenuScreenRecord.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
-            this.trayMenuScreenRecord.Click += new EventHandler(this.trayMenuScreenRecord_Click);
+            resources.ApplyResources(this.trayMenuScreenCast, "trayMenuScreenCast");
+            this.trayMenuScreenCast.Name = "trayMenuScreenCast";
+            this.trayMenuScreenCast.Size = new System.Drawing.Size(Util.ScaleX(148), Util.ScaleY(22));
+            this.trayMenuScreenCast.Click += new EventHandler(this.trayMenuScreenCast_Click);
             // 
             // trayMenuOpenImage
             // 
@@ -366,7 +366,7 @@ namespace ColorWanted
         public System.Windows.Forms.Panel pnExt;
         public System.Windows.Forms.Label lbHsi;
         public System.Windows.Forms.ToolStripMenuItem trayMenuScreenShot;
-        public System.Windows.Forms.ToolStripMenuItem trayMenuScreenRecord;
+        public System.Windows.Forms.ToolStripMenuItem trayMenuScreenCast;
         public System.Windows.Forms.ToolStripMenuItem trayMenuOpenImage;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.ToolStripSeparator toolStripSeparator5;

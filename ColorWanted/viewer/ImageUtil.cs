@@ -1,14 +1,11 @@
-﻿using System;
+﻿using ColorWanted.util;
+using System;
 using System.Drawing;
 
 namespace ColorWanted.viewer
 {
     class ImageUtil
     {
-        /// <summary>
-        /// 色差范围
-        /// </summary>
-        public int Range = 3;
         /// <summary>
         /// 画线的颜色
         /// </summary>
@@ -37,7 +34,7 @@ namespace ColorWanted.viewer
 
             // step1: 取到当前点的颜色
             var color = cache.Get(x, y);
-            fillColor = GetContrastColor(color);
+            fillColor = ColorUtil.GetContrastColor(color);
             // step1: 找到最近的不同颜色
             // 从4个方向，按顺序 上右下左 依次判断
 
@@ -81,7 +78,7 @@ namespace ColorWanted.viewer
                     else
                     {
                         topColor = cache.Get(x, top);
-                        if (IsSimilarColor(topColor, color) || IsSimilarColor(topColor, lastTopColor))
+                        if (ColorUtil.IsSimilarColor(topColor, color) || ColorUtil.IsSimilarColor(topColor, lastTopColor))
                         {
                             lastTopColor = topColor;
                             topColor = Color.Empty;
@@ -109,7 +106,7 @@ namespace ColorWanted.viewer
                     {
                         rightColor = cache.Get(right, y);
 
-                        if (IsSimilarColor(rightColor, color) || IsSimilarColor(rightColor, lastRightColor))
+                        if (ColorUtil.IsSimilarColor(rightColor, color) || ColorUtil.IsSimilarColor(rightColor, lastRightColor))
                         {
                             lastRightColor = rightColor;
                             rightColor = Color.Empty;
@@ -136,7 +133,7 @@ namespace ColorWanted.viewer
                     else
                     {
                         bottomColor = cache.Get(x, bottom);
-                        if (IsSimilarColor(bottomColor, color) || IsSimilarColor(bottomColor, lastBottomColor))
+                        if (ColorUtil.IsSimilarColor(bottomColor, color) || ColorUtil.IsSimilarColor(bottomColor, lastBottomColor))
                         {
                             lastBottomColor = bottomColor;
                             bottomColor = Color.Empty;
@@ -163,7 +160,7 @@ namespace ColorWanted.viewer
                     else
                     {
                         leftColor = cache.Get(left, y);
-                        if (IsSimilarColor(leftColor, color) || IsSimilarColor(leftColor, lastLeftColor))
+                        if (ColorUtil.IsSimilarColor(leftColor, color) || ColorUtil.IsSimilarColor(leftColor, lastLeftColor))
                         {
                             lastLeftColor = leftColor;
                             leftColor = Color.Empty;
@@ -400,7 +397,7 @@ namespace ColorWanted.viewer
                 for (int j = 0; j < r; j++)
                 {
                     //var y = diffPoint.Y + j;
-                    if (IsSimilarColor(cache.Get(diffPoint.X, diffPoint.Y), diffColor))
+                    if (ColorUtil.IsSimilarColor(cache.Get(diffPoint.X, diffPoint.Y), diffColor))
                     {
                         return true;
                     }
@@ -408,29 +405,13 @@ namespace ColorWanted.viewer
                 for (int j = 0; j < r; j++)
                 {
                     //var y = diffPoint.Y + j;
-                    if (IsSimilarColor(cache.Get(diffPoint.X, diffPoint.Y), diffColor))
+                    if (ColorUtil.IsSimilarColor(cache.Get(diffPoint.X, diffPoint.Y), diffColor))
                     {
                         return true;
                     }
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// 判断两个颜色是否相同或在指定的色差范围内
-        /// </summary>
-        /// <param name="c1"></param>
-        /// <param name="c2"></param>
-        /// <returns></returns>
-        bool IsSimilarColor(Color c1, Color c2)
-        {
-            return lt(c1.R, c2.R, Range) && lt(c1.G, c2.G, Range) && lt(c1.B, c2.B, Range);
-        }
-
-        bool lt(int a, int b, int lt)
-        {
-            return Math.Abs(a - b) <= lt;
         }
 
         /// <summary>
@@ -449,7 +430,7 @@ namespace ColorWanted.viewer
                 // 向左
                 for (int i = point.X; i >= 0; i--)
                 {
-                    if (IsSimilarColor(color, cache.Get(i, point.Y)))
+                    if (ColorUtil.IsSimilarColor(color, cache.Get(i, point.Y)))
                     {
                         span.FromX = i;
                         break;
@@ -458,7 +439,7 @@ namespace ColorWanted.viewer
                 // 向右
                 for (int i = point.X; i < cache.Width; i++)
                 {
-                    if (IsSimilarColor(color, cache.Get(i, point.Y)))
+                    if (ColorUtil.IsSimilarColor(color, cache.Get(i, point.Y)))
                     {
                         span.ToX = i;
                         break;
@@ -470,7 +451,7 @@ namespace ColorWanted.viewer
             // 向上
             for (int i = point.Y; i >= 0; i--)
             {
-                if (IsSimilarColor(color, cache.Get(point.X, i)))
+                if (ColorUtil.IsSimilarColor(color, cache.Get(point.X, i)))
                 {
                     span.FromY = i;
                     break;
@@ -479,7 +460,7 @@ namespace ColorWanted.viewer
             // 向下
             for (int i = point.Y; i < cache.Height; i++)
             {
-                if (IsSimilarColor(color, cache.Get(point.X, i)))
+                if (ColorUtil.IsSimilarColor(color, cache.Get(point.X, i)))
                 {
                     span.ToY = i;
                     break;
@@ -554,50 +535,6 @@ namespace ColorWanted.viewer
         public int gt200(byte val)
         {
             return val >= 200 ? 1 : 0;
-        }
-
-        /// <summary>
-        /// 获取指定颜色的对比色
-        /// </summary>
-        /// <param name="color"></param>
-        /// <param name="light">使用浅色</param>
-        /// <returns></returns>
-        public Color GetContrastColor(Color color, bool light = false)
-        {
-            if (!isSingle(color))
-            {
-                if (isDark(color) || isSingle(color) || isGray(color))
-                {
-                    return light ? Color.FromArgb(220, 220, 220) : Color.OrangeRed;
-                }
-
-                if (isLight(color))
-                {
-                    return light ? Color.FromArgb(150, 150, 150) : Color.OrangeRed;
-                }
-            }
-
-            var diffr = 255 - color.R;
-            var diffg = 255 - color.G;
-            var diffb = 255 - color.B;
-
-            if (light)
-            {
-                if (diffr < 100)
-                {
-                    diffr += 50;
-                }
-                if (diffg < 100)
-                {
-                    diffg += 50;
-                }
-                if (diffb < 100)
-                {
-                    diffb += 50;
-                }
-            }
-
-            return Color.FromArgb(diffr, diffg, diffb);
         }
     }
 }

@@ -324,7 +324,7 @@
                 "Text": "截图",
                 "ToolTipText": "屏幕截图"
             },
-            "trayMenuScreenRecord": {
+            "trayMenuScreenCast": {
                 "Text": "录屏",
                 "ToolTipText": "录制屏幕GIF"
             },

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace ColorWanted.screenshot
 {
-    public partial class DelayedScreenshotForm : Form
+    public partial class DelayedScreenShotForm : Form
     {
         /// <summary>
         /// 延时截图的计时器
@@ -11,7 +11,7 @@ namespace ColorWanted.screenshot
         private Timer screenshotTimer;
         private Timer visibleWatchTimer;
 
-        public DelayedScreenshotForm()
+        public DelayedScreenShotForm()
         {
             InitializeComponent();
         }

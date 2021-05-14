@@ -92,6 +92,7 @@ namespace ColorWanted.viewer
         }
         public ImageViewer() : this(null)
         {
+            MouseWheel += ImageViewer_MouseWheel;
         }
 
         /// <summary>
@@ -602,7 +603,7 @@ namespace ColorWanted.viewer
         private void rangeBar_Scroll(object sender, EventArgs e)
         {
             lbRange.Text = rangeBar.Value.ToString();
-            util.Range = rangeBar.Value;
+            ColorUtil.Range = rangeBar.Value;
         }
 
         private void menuDelete_Click(object sender, EventArgs e)
@@ -758,7 +759,7 @@ namespace ColorWanted.viewer
             {
                 for (int j = i; j < i + 5 && j < w; j++)
                 {
-                    img.SetPixel(j, y, cache.GetContrast(j, y));
+                    img.SetPixel(j, y, cache.GetContrast(j, y, pnContainer.BackColor));
                 }
             }
             // 画垂直虚线
@@ -766,10 +767,16 @@ namespace ColorWanted.viewer
             {
                 for (int j = i; j < i + 5 && j < h; j++)
                 {
-                    img.SetPixel(x, j, cache.GetContrast(x, j));
+                    img.SetPixel(x, j, cache.GetContrast(x, j, pnContainer.BackColor));
                 }
             }
             pictureBox.Image = img;
+        }
+
+        private void ImageViewer_MouseWheel(object sender, MouseEventArgs e)
+        {
+            // TODO 缩放图片
+            //throw new NotImplementedException();
         }
     }
 }

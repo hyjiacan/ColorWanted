@@ -329,8 +329,8 @@
                 "Text": "Screenshot",
                 "ToolTipText": "Take screenshot"
             },
-            "trayMenuScreenRecord": {
-                "Text": "Screenrecord",
+            "trayMenuScreenCast": {
+                "Text": "Screencast",
                 "ToolTipText": "Record screen as GIF"
             },
             "trayMenuOpenImage": {

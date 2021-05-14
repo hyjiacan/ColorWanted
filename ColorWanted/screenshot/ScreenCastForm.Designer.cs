@@ -1,6 +1,6 @@
 ﻿namespace ColorWanted.screenshot
 {
-    partial class ScreenRecordForm
+    partial class ScreenCastForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreenRecordForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScreenCastForm));
             this.pnTarget = new System.Windows.Forms.Panel();
             this.pnToolOption = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
@@ -137,7 +137,7 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.BtnStart_Click);
             // 
-            // ScreenRecordForm
+            // ScreenCastForm
             // 
             this.AcceptButton = this.btnStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -145,13 +145,13 @@
             this.ClientSize = new System.Drawing.Size(584, 441);
             this.Controls.Add(this.pnTarget);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "ScreenRecordForm";
+            this.Name = "ScreenCastForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "屏幕录制";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(1)))));
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenRecordForm_FormClosing);
-            this.Load += new System.EventHandler(this.ScreenRecordForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScreenCastForm_FormClosing);
+            this.Load += new System.EventHandler(this.ScreenCastForm_Load);
             this.pnTarget.ResumeLayout(false);
             this.pnToolOption.ResumeLayout(false);
             this.pnToolOption.PerformLayout();

@@ -7,7 +7,7 @@ using ColorWanted.util;
 
 namespace ColorWanted.screenshot
 {
-    public partial class ScreenRecordForm : Form
+    public partial class ScreenCastForm : Form
     {
         private Timer timer;
         private NativeMethods.HookProc hookProc;
@@ -15,20 +15,20 @@ namespace ColorWanted.screenshot
         private bool mouseDown;
         private Rectangle customizeWindowBounds;
 
-        public ScreenRecordForm()
+        public ScreenCastForm()
         {
             InitializeComponent();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            var recordArea = new Rectangle(PointToScreen(pnTarget.Location), pnTarget.Size);
+            var castArea = new Rectangle(PointToScreen(pnTarget.Location), pnTarget.Size);
 
-            var img = ScreenShot.GetScreen(recordArea.X, recordArea.Y, recordArea.Width, recordArea.Height);
+            var img = ScreenShot.GetScreen(castArea.X, castArea.Y, castArea.Width, castArea.Height);
 
             var p = PointToClient(MousePosition);
 
-            var imgPath = Path.Combine(ScreenRecordOption.CachePath,
+            var imgPath = Path.Combine(ScreenCastOption.CachePath,
                 string.Format("{0}#{1}#{2}#{3}", DateTime.Now.ToFileTime(), p.X, p.Y, mouseDown ? "1" : "0"));
 
             img.Save(imgPath);
@@ -36,7 +36,7 @@ namespace ColorWanted.screenshot
             GC.Collect();
         }
 
-        private void ScreenRecordForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void ScreenCastForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
@@ -56,14 +56,14 @@ namespace ColorWanted.screenshot
             Hide();
         }
 
-        private void ScreenRecordForm_Load(object sender, EventArgs e)
+        private void ScreenCastForm_Load(object sender, EventArgs e)
         {
             // 创建缓存目录
-            var cachePath = Path.Combine(Glob.AppDataPath, "record-temp", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            var cachePath = Path.Combine(Glob.AppDataPath, "cast-temp", DateTime.Now.ToString("yyyyMMddHHmmss"));
 
             Directory.CreateDirectory(cachePath);
 
-            ScreenRecordOption.CachePath = cachePath;
+            ScreenCastOption.CachePath = cachePath;
 
             hookProc = new NativeMethods.HookProc(MouseHookProc);
             hook = NativeMethods.SetWindowsHookEx(NativeMethods.WH_MOUSE_LL, hookProc, IntPtr.Zero, 0);
@@ -116,7 +116,7 @@ namespace ColorWanted.screenshot
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            ScreenRecordOption.Fps = tbFps.Value;
+            ScreenCastOption.Fps = tbFps.Value;
             timer = new Timer
             {
                 Interval = 1000 / tbFps.Value

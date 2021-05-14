@@ -49,7 +49,7 @@ namespace ColorWanted
         /// </summary>
         private bool settingLoaded;
         private PreviewForm previewForm;
-        private DelayedScreenshotForm delayedScreenshotForm;
+        private DelayedScreenShotForm delayedScreenshotForm;
         private ColorDialog colorPicker;
 
         /// <summary>
@@ -493,8 +493,8 @@ namespace ColorWanted
                     }
                     break;
                 // 录屏
-                case HotKeyType.ScreenRecord:
-                    ScreenShot.Record();
+                case HotKeyType.ScreenCast:
+                    ScreenShot.Cast();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -733,9 +733,9 @@ namespace ColorWanted
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void trayMenuScreenRecord_Click(object sender, EventArgs e)
+        private void trayMenuScreenCast_Click(object sender, EventArgs e)
         {
-            ScreenShot.Record();
+            ScreenShot.Cast();
         }
 
         /// <summary>
@@ -1134,7 +1134,7 @@ namespace ColorWanted
         {
             if (delayedScreenshotForm == null)
             {
-                delayedScreenshotForm = new DelayedScreenshotForm();
+                delayedScreenshotForm = new DelayedScreenShotForm();
             }
             else if (delayedScreenshotForm.Visible)
             {

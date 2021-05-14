@@ -7,6 +7,7 @@ namespace ColorWanted.util
     internal static class ColorUtil
     {
         private readonly static IntPtr displayDC;
+        public static int Range = 0;
 
         static ColorUtil()
         {
@@ -116,6 +117,28 @@ namespace ColorWanted.util
             }
 
             return Color.FromArgb(diffr, diffg, diffb);
+        }
+
+
+        /// <summary>
+        /// 判断两个颜色是否相同或在指定的色差范围内
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <param name="range">允许的差范围</param>
+        /// <returns></returns>
+        public static bool IsSimilarColor(Color c1, Color c2, int range = -1)
+        {
+            if (range == -1)
+            {
+                range = Range;
+            }
+            return lt(c1.R, c2.R, range) && lt(c1.G, c2.G, range) && lt(c1.B, c2.B, range);
+        }
+
+        static bool lt(int a, int b, int lt)
+        {
+            return Math.Abs(a - b) <= lt;
         }
     }
 }

@@ -83,6 +83,6 @@ namespace ColorWanted.hotkey
         [HotKey("屏幕录制",
             Key = Keys.R,
             Modifiers = KeyModifier.Alt)]
-        ScreenRecord
+        ScreenCast
     }
 }

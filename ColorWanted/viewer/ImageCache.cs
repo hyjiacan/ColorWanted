@@ -1,6 +1,7 @@
 ﻿using ColorWanted.util;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace ColorWanted.viewer
 {
@@ -73,23 +74,32 @@ namespace ColorWanted.viewer
 
 
 
-        public Color GetContrast(Point point)
+        public Color GetContrast(Point point, Color? trickColor = null)
         {
-            return GetContrast(point.X, point.Y);
+            return GetContrast(point.X, point.Y, trickColor);
         }
 
-        public Color GetContrast(int x, int y)
+        public Color GetContrast(int x, int y, Color? trickColor = null)
         {
             try
             {
                 var value = cachedContrastColor[x, y];
-                if (value != -1)
+                Color color;
+                if (value == -1)
                 {
-                    return Color.FromArgb(value);
+                    color = ColorUtil.GetContrastColor(Get(x, y));
+                    cachedContrastColor[x, y] = color.ToArgb();
                 }
-
-                var color = ColorUtil.GetContrastColor(Get(x, y));
-                cachedContrastColor[x, y] = color.ToArgb();
+                else
+                {
+                    color = Color.FromArgb(value);
+                }
+                // 如果颜色与指定色相近，那么重新取色
+                if (trickColor != null && ColorUtil.IsSimilarColor(color, trickColor.Value, 15))
+                {
+                    color = ColorUtil.GetContrastColor(trickColor.Value);
+                    cachedContrastColor[x, y] = color.ToArgb();
+                }
                 return color;
             }
             catch (Exception)
